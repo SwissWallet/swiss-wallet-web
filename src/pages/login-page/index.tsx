@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HeaderLoginAndRegister } from "../../components/header-login-and-register";
 import { UsernameModal } from "./username-modal";
 import { UserPasswordModal } from "./userpassword-modal";
+import { FooterLoginAndRegister } from "../../components/footer-login-and-register";
 
 
 export function LoginPage(){
@@ -33,11 +34,10 @@ export function LoginPage(){
                         />
                     )
                 }
+                
             </main>
 
-            <footer className="bg-transparent flex justify-center items-center h-auto w-full">
-                <p className="text-white font-medium">© SwissWallet - 2024</p>
-            </footer>
+            <FooterLoginAndRegister />
             
         </div>
 
