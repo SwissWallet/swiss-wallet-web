@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { HeaderLoginAndRegister } from "../../components/header-login-and-register";
+import { HeaderLoginAndRegister } from "../../components/macro-components/header-login-and-register";
 import { UsernameModal } from "./username-modal";
 import { UserPasswordModal } from "./userpassword-modal";
-import { FooterLoginAndRegister } from "../../components/footer-login-and-register";
+import { FooterLoginAndRegister } from "../../components/macro-components/footer-login-and-register";
 
 
 export function LoginPage(){
