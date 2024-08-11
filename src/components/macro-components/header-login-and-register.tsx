@@ -1,5 +1,5 @@
-import logoSwiss from '../assets/images/logo-swisswallet.png'
-import logoSenai from '../assets/images/logo-senai.png'
+import logoSwiss from '../../assets/images/logo-swisswallet.png'
+import logoSenai from '../../assets/images/logo-senai.png'
 import { CircleHelp } from 'lucide-react'
 
 export function HeaderLoginAndRegister(){
