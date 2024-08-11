@@ -1,4 +1,5 @@
 import { BackButton } from "../../components/micro-components/back-button";
+import { MainButton } from "../../components/micro-components/main-button";
 
 interface UserPasswordModalProps{
     handdleBackUserInput: () => void,
@@ -33,9 +34,9 @@ export function UserPasswordModal({
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <button className="bg-default-red py-2 px-20 rounded-md hover:bg-red-700">
-                            <span className="font-medium text-white text-lg">Acessar</span>
-                        </button>
+                        <MainButton>
+                            Avançar
+                        </MainButton>
                     </div>
                 </form>
     )

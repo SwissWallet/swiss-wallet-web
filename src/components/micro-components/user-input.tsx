@@ -1,4 +1,4 @@
-interface UserInputProps{
+interface UserInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     children: string,
 }
 

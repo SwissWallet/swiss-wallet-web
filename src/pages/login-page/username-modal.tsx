@@ -1,3 +1,4 @@
+import { MainButton } from "../../components/micro-components/main-button"
 import { UserInput } from "../../components/micro-components/user-input"
 
 interface UsernameModalProps{
@@ -16,7 +17,7 @@ export function UsernameModal({
                     <div className="flex flex-col gap-3">
                         <div className="flex justify-center flex-col  gap-1">
                             
-                            <UserInput>
+                            <UserInput placeholder="Insira seu e-mail">
                                 Usuário
                             </UserInput>
                             <div className="flex items-center justify-center">
@@ -30,9 +31,9 @@ export function UsernameModal({
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <button onClick={handdleAdvanceUserInput} className="bg-default-red py-2 px-20 rounded-md hover:bg-red-700">
-                            <span className="font-medium text-white text-lg">Avançar</span>
-                        </button>
+                        <MainButton onClick={handdleAdvanceUserInput} >
+                            Avançar
+                        </MainButton>
                     </div>
                 </form>
     )
