@@ -17,10 +17,10 @@ export function LoginPage(){
     }
 
     return(
-        <div className="h-screen w-full bg-red-gradient">
+        <div className="h-screen w-full bg-red-gradient flex flex-col justify-between">
             <HeaderLoginAndRegister />
 
-            <main className="flex justify-center">
+            <main className="flex justify-center mb-14">
 
                 {
                     filledUserName ? (
@@ -34,6 +34,10 @@ export function LoginPage(){
                     )
                 }
             </main>
+
+            <footer className="bg-transparent flex justify-center items-center h-auto w-full">
+                <p className="text-white font-medium">© SwissWallet - 2024</p>
+            </footer>
             
         </div>
 
