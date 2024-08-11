@@ -1,4 +1,5 @@
-import { ChevronLeft } from "lucide-react";
+import { BackButton } from "../../components/micro-components/back-button";
+import { MainButton } from "../../components/micro-components/main-button";
 
 interface UserPasswordModalProps{
     handdleBackUserInput: () => void,
@@ -10,11 +11,9 @@ export function UserPasswordModal({
     return(
                 <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
-                    <div className=" flex items-center justify-start">
-                        <button onClick={handdleBackUserInput} className="rounded-full bg-default-red hover:bg-red-700 w-8 h-8 flex items-center justify-center">
-                            <ChevronLeft className="size-6 text-white " />
-                        </button>
-                    </div>
+                    <BackButton 
+                        onClick={handdleBackUserInput}
+                    />
 
                     <div className="flex flex-col gap-3">
                         <h3 className="text-3xl font-medium">Digite sua senha</h3>
@@ -35,9 +34,9 @@ export function UserPasswordModal({
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <button className="bg-default-red py-2 px-20 rounded-md hover:bg-red-700">
-                            <span className="font-medium text-white text-lg">Acessar</span>
-                        </button>
+                        <MainButton>
+                            Avançar
+                        </MainButton>
                     </div>
                 </form>
     )
