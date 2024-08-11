@@ -1,4 +1,4 @@
-import { BackButton } from "../../components/back-button";
+import { BackButton } from "../../components/micro-components/back-button";
 
 interface UserPasswordModalProps{
     handdleBackUserInput: () => void,
