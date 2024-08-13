@@ -5,17 +5,18 @@ import { MainButton } from "../../components/micro-components/main-button";
 
 interface RegisterThirdStepProps{
     finishedThirdStep: () => void,
+    backToTheSecondaryStep: () => void,
 }
 
 export function RegisterThirdStep({
     finishedThirdStep,
+    backToTheSecondaryStep,
 }:RegisterThirdStepProps){
     return(
         <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
-                    <Link to={'/'}>
-                        <BackButton />
-                    </Link>
+                    <BackButton onClick={backToTheSecondaryStep} />
+
                     <div className="flex flex-col gap-3">
                         <h1 className="text-4xl font-medium">Cadastre-se</h1>
                         <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>

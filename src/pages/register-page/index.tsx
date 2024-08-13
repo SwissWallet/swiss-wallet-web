@@ -7,11 +7,13 @@ import { RegisterThirdStep } from "./register-third-step-modal";
 
 export function RegisterPage(){
 
+    // Estados para exibição dos passos para o cadastro do usuário
     const [ filledPrimaryStep, setFilledPrimaryStep ] = useState(true)
     const [ filledSecondaryStep, setFilledSecondaryStep ] = useState(false)
     const [ filledThirdStep, setFilledThirdStep ] = useState(false)
     const [ finishRegister, setFinishRegister ] = useState(false)
 
+    // Funções para avançar os passos do cadastro
     function finishedPrimaryStep(){
         setFilledPrimaryStep(false)
         setFilledSecondaryStep(true)
@@ -25,6 +27,17 @@ export function RegisterPage(){
     function finishedThirdStep(){
         setFilledThirdStep(false)
         setFinishRegister(true)
+    }
+
+    // Funções para voltar os passos do cadastro
+    function backToThePrimaryStep(){
+        setFilledSecondaryStep(false)
+        setFilledPrimaryStep(true)
+    }
+
+    function backToTheSecondaryStep(){
+        setFilledThirdStep(false)
+        setFilledSecondaryStep(true)
     }
 
     return(
@@ -47,6 +60,7 @@ export function RegisterPage(){
                     filledSecondaryStep && (
                         <RegisterSecondaryStep 
                             finishedSecondaryStep={finishedSecondaryStep}
+                            backToThePrimaryStep={backToThePrimaryStep}
                         />
                     )
                 }
@@ -56,6 +70,7 @@ export function RegisterPage(){
                     filledThirdStep && (
                         <RegisterThirdStep 
                             finishedThirdStep={finishedThirdStep}
+                            backToTheSecondaryStep={backToTheSecondaryStep}
                         />
                     )
                 }
