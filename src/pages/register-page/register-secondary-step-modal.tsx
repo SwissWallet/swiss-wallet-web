@@ -4,7 +4,13 @@ import { UserInput } from "../../components/micro-components/user-input";
 import { ChevronDown } from "lucide-react";
 import { MainButton } from "../../components/micro-components/main-button";
 
-export function RegisterSecondaryStep(){
+interface RegisterSecondaryStepProps{
+    finishedSecondaryStep: () => void,
+}
+
+export function RegisterSecondaryStep({
+    finishedSecondaryStep,
+}:RegisterSecondaryStepProps){
     return(
                 <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
@@ -43,7 +49,7 @@ export function RegisterSecondaryStep(){
                         <UserInput placeholder="ex: Apto 202, Bloco A" type="text" >Complemento</UserInput>
                     </div>
                     <div className="flex justify-center items-center">
-                        <MainButton>
+                        <MainButton onClick={finishedSecondaryStep} >
                             Avançar
                         </MainButton>
                     </div>

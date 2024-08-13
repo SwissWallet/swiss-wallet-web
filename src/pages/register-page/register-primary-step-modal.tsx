@@ -7,7 +7,9 @@ interface RegisterPrimaryStepPros{
     finishedPrimaryStep: () => void,
 }
 
-export function RegisterPrimaryStep(){
+export function RegisterPrimaryStep({
+    finishedPrimaryStep,
+}:RegisterPrimaryStepPros){
     return(
                 <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
@@ -33,7 +35,7 @@ export function RegisterPrimaryStep(){
                         <UserInput placeholder="ex: 11991827364" type="number" >Telefone</UserInput>
                     </div>
                     <div className="flex justify-center items-center">
-                        <MainButton>
+                        <MainButton onClick={finishedPrimaryStep} >
                             Avançar
                         </MainButton>
                     </div>

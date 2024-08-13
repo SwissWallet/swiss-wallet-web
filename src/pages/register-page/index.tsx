@@ -7,20 +7,24 @@ import { RegisterThirdStep } from "./register-third-step-modal";
 
 export function RegisterPage(){
 
-    const [ filledPrimaryStep, setFilledPrimaryStep ] = useState(false)
+    const [ filledPrimaryStep, setFilledPrimaryStep ] = useState(true)
     const [ filledSecondaryStep, setFilledSecondaryStep ] = useState(false)
     const [ filledThirdStep, setFilledThirdStep ] = useState(false)
+    const [ finishRegister, setFinishRegister ] = useState(false)
 
     function finishedPrimaryStep(){
-        setFilledPrimaryStep(true)
-    }
-
-    function finishedSecondaryStep(){
+        setFilledPrimaryStep(false)
         setFilledSecondaryStep(true)
     }
 
-    function finishedThirdStep(){
+    function finishedSecondaryStep(){
+        setFilledSecondaryStep(false)
         setFilledThirdStep(true)
+    }
+
+    function finishedThirdStep(){
+        setFilledThirdStep(false)
+        setFinishRegister(true)
     }
 
     return(
@@ -31,21 +35,36 @@ export function RegisterPage(){
             <main className="flex justify-center">
 
                 {
-                    !filledPrimaryStep && (
-                        <RegisterPrimaryStep />
-                    )
-
-                }
-
-                {
                     filledPrimaryStep && (
-                        <RegisterSecondaryStep />
+                        <RegisterPrimaryStep 
+                            finishedPrimaryStep={finishedPrimaryStep}
+                        />
                     )
+
                 }
 
                 {
                     filledSecondaryStep && (
-                        <RegisterThirdStep />
+                        <RegisterSecondaryStep 
+                            finishedSecondaryStep={finishedSecondaryStep}
+                        />
+                    )
+                }
+
+
+                {
+                    filledThirdStep && (
+                        <RegisterThirdStep 
+                            finishedThirdStep={finishedThirdStep}
+                        />
+                    )
+                }
+
+                {
+                    finishRegister && (
+                        <div>
+                            <h1>Concluída</h1>
+                        </div>
                     )
                 }
 

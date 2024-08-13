@@ -3,7 +3,13 @@ import { BackButton } from "../../components/micro-components/back-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { MainButton } from "../../components/micro-components/main-button";
 
-export function RegisterThirdStep(){
+interface RegisterThirdStepProps{
+    finishedThirdStep: () => void,
+}
+
+export function RegisterThirdStep({
+    finishedThirdStep,
+}:RegisterThirdStepProps){
     return(
         <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
@@ -36,7 +42,7 @@ export function RegisterThirdStep(){
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <MainButton>
+                        <MainButton onClick={finishedThirdStep} >
                             Cadastrar
                         </MainButton>
                     </div>
