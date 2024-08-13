@@ -4,7 +4,7 @@ import { UserInput } from "../../components/micro-components/user-input";
 import { ChevronDown } from "lucide-react";
 import { MainButton } from "../../components/micro-components/main-button";
 
-export function RegisterSecondaryStepModal(){
+export function RegisterSecondaryStep(){
     return(
                 <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 

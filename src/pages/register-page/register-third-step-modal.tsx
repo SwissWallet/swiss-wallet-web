@@ -3,7 +3,7 @@ import { BackButton } from "../../components/micro-components/back-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { MainButton } from "../../components/micro-components/main-button";
 
-export function RegisterThirdSetpModal(){
+export function RegisterThirdStep(){
     return(
         <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
