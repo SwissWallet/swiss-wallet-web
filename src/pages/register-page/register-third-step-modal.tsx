@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { BackButton } from "../../components/micro-components/back-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { MainButton } from "../../components/micro-components/main-button";

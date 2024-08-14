@@ -4,6 +4,7 @@ import { HeaderLoginAndRegister } from "../../components/macro-components/header
 import { RegisterPrimaryStep } from "./register-primary-step-modal";
 import { RegisterSecondaryStep } from "./register-secondary-step-modal";
 import { RegisterThirdStep } from "./register-third-step-modal";
+import { FinishRegister } from "./finish-register";
 
 export function RegisterPage(){
 
@@ -77,9 +78,7 @@ export function RegisterPage(){
 
                 {
                     finishRegister && (
-                        <div>
-                            <h1>Concluída</h1>
-                        </div>
+                        <FinishRegister />
                     )
                 }
 
