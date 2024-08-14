@@ -8,7 +8,7 @@ import { ForgotPassword } from "./forgot-password-modal";
 export function Login(){
 
     const [ filledUserName, setFilledUserName ] = useState(false);
-    const [ isVisibleForgotPassword, setIsVisibleForgotPassword ] = useState<boolean>(false);
+    const [ isVisibleForgotPassword, setIsVisibleForgotPassword ] = useState(false);
 
     function openForgotPassword(){
         setIsVisibleForgotPassword(true)
@@ -37,7 +37,9 @@ export function Login(){
      
                         isVisibleForgotPassword ? (
 
-                            <ForgotPassword />
+                            <ForgotPassword 
+                                closeForgotPassword={closeForgotPassword}
+                            />
 
                         ) : (
 

@@ -27,7 +27,7 @@ export function UserPasswordModal({
                     </div>
                     <div className="flex flex-col gap-3">
                         <div className="flex justify-center flex-col items-center gap-1">
-                            <input type="email" placeholder="Insira sua senha" 
+                            <input type="password" placeholder="Insira sua senha" 
                                 className="outline-none rounded-md p-2 w-full border-2 border-zinc-300  font-medium placeholder-slate-400
                                     focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic" 
                             />
