@@ -4,11 +4,16 @@ import { MainButton } from "../../components/micro-components/main-button";
 
 interface UserPasswordModalProps{
     handdleBackUserInput: () => void,
+    openForgotPassword: () => void,
 }
 
 export function UserPasswordModal({
-    handdleBackUserInput
+    handdleBackUserInput,
+    openForgotPassword,
 }:UserPasswordModalProps){
+
+
+
     return(
                 <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
@@ -26,12 +31,12 @@ export function UserPasswordModal({
                                 className="outline-none rounded-md p-2 w-full border-2 border-zinc-300  font-medium placeholder-slate-400
                                     focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic" 
                             />
-                            <a>
+                            <button onClick={openForgotPassword}>
                                 <span className="text-sm font-medium text-zinc-500
                                         hover:text-zinc-600 hover:cursor-pointer">
                                     esqueceu sua senha?
                                 </span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
