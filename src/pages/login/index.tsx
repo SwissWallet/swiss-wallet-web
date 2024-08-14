@@ -3,11 +3,20 @@ import { HeaderLoginAndRegister } from "../../components/macro-components/header
 import { UsernameModal } from "./username-modal";
 import { UserPasswordModal } from "./userpassword-modal";
 import { FooterLoginAndRegister } from "../../components/macro-components/footer-login-and-register";
-
+import { ForgotPassword } from "./forgot-password-modal";
 
 export function Login(){
 
-    const [ filledUserName, setFilledUserName ] = useState(false)
+    const [ filledUserName, setFilledUserName ] = useState(false);
+    const [ isVisibleForgotPassword, setIsVisibleForgotPassword ] = useState(false);
+
+    function openForgotPassword(){
+        setIsVisibleForgotPassword(true)
+    }
+    
+    function closeForgotPassword(){
+        setIsVisibleForgotPassword(false)
+    }
 
     function handdleAdvanceUserInput(){
         setFilledUserName(true);
@@ -25,22 +34,35 @@ export function Login(){
 
                 {
                     filledUserName ? (
-                        <UserPasswordModal 
-                            handdleBackUserInput={handdleBackUserInput}
-                        />
+     
+                        isVisibleForgotPassword ? (
+
+                            <ForgotPassword 
+                                closeForgotPassword={closeForgotPassword}
+                            />
+
+                        ) : (
+
+                            <UserPasswordModal 
+                                handdleBackUserInput={handdleBackUserInput}
+                                openForgotPassword={openForgotPassword}
+                            />
+                        )
+        
+
                     ) : (
                         <UsernameModal 
                             handdleAdvanceUserInput={handdleAdvanceUserInput}
                         />
                     )
                 }
+
                 
             </main>
 
             <FooterLoginAndRegister />
             
         </div>
-
 
         
     )
