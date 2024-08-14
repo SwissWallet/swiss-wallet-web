@@ -1,7 +1,11 @@
+import { CardFavoritos } from "../../components/macro-components/card-favoritos"
+import {Navbar} from "../../components/macro-components/navbar"
+
 export function Home(){
     return(
-        <div className="flex justify-center items-center">
-            <h1>Hello world</h1>
+        <div>
+            <Navbar />
+            <CardFavoritos />
         </div>
     )
 }
