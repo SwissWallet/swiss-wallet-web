@@ -6,7 +6,7 @@ import { RegisterSecondaryStep } from "./register-secondary-step-modal";
 import { RegisterThirdStep } from "./register-third-step-modal";
 import { FinishRegister } from "./finish-register";
 
-export function RegisterPage(){
+export function Register(){
 
     // Estados para exibição dos passos para o cadastro do usuário
     const [ filledPrimaryStep, setFilledPrimaryStep ] = useState(true)

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
 
@@ -34,9 +35,11 @@ export function UserPasswordModal({
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <MainButton>
-                            Avançar
-                        </MainButton>
+                        <Link to={'/home'}>
+                            <MainButton>
+                                Avançar
+                            </MainButton>
+                        </Link>
                     </div>
                 </form>
     )

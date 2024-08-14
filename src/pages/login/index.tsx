@@ -5,7 +5,7 @@ import { UserPasswordModal } from "./userpassword-modal";
 import { FooterLoginAndRegister } from "../../components/macro-components/footer-login-and-register";
 
 
-export function LoginPage(){
+export function Login(){
 
     const [ filledUserName, setFilledUserName ] = useState(false)
 
