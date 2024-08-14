@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { MainButton } from "../../components/micro-components/main-button"
 import { UserInput } from "../../components/micro-components/user-input"
 
@@ -21,12 +22,12 @@ export function UsernameModal({
                                 Usuário
                             </UserInput>
                             <div className="flex items-center justify-center">
-                                <a>
+                                <Link to={'/register'}>
                                     <span className="text-sm font-medium text-zinc-500
                                             hover:text-zinc-600 hover:cursor-pointer">
                                         não tenho conta
                                     </span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
