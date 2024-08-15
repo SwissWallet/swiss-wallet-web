@@ -9,7 +9,8 @@ export default {
       colors: {
         'default-gray': 'rgba(156, 156, 156, 0.1)',
         'dark-gray': 'rgba(156, 156, 156, 1)',
-        'default-red': '#D2051B'
+        'default-red': '#D2051B',
+        'white-90': 'rgba(255, 255, 255, 0.9)',
       }
     },
   },

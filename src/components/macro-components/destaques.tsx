@@ -3,7 +3,7 @@ import CamisaBranca from "../../assets/images/camisa-branca.svg"
 
 export function CardDestaques(){
     return(
-        <div className="bg-white p-10 w-[1200px] rounded-xl shadow-lg">
+        <div className="bg-white p-10 w-[1200px] rounded-xl shadow-lg mt-24">
             <h3 className="text-4xl font-extrabold flex justify-between mb-8">Destaques - Loja</h3>
             <div className="inline-block">
                 <img src={CamisaBranca} alt="camiseta branca com logo do senai" />
