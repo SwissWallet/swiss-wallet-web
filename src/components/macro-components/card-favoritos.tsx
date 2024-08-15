@@ -20,6 +20,7 @@ export function CardFavoritos(){
                         <IoIosArrowForward />
                     </div>
             </article>
+            
         </div>
     )
 }
