@@ -5,10 +5,12 @@ import {Footer} from "../../components/macro-components/footer"
 
 export function Home(){
     return(
-        <div>
+        <div className="bg-default-gray">
             <Navbar />
-            <CardFavoritos />
-            <CardDestaques />
+            <main className="flex flex-col mr-20 ml-20">
+                <CardFavoritos />
+                <CardDestaques />
+            </main>
             <Footer />
         </div>
     )
