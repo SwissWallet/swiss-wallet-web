@@ -8,9 +8,15 @@ export function CardDestaques(){
             </div>
             <div className="inline-block">
                 <div className="flex items-center justify-center gap-10">
-                    <SingleProduct />
-                    <SingleProduct />
-                    <SingleProduct />
+                    <SingleProduct 
+                        textOnButton={'ver mais'}
+                    />
+                    <SingleProduct 
+                        textOnButton={'ver mais'}
+                    />
+                    <SingleProduct 
+                        textOnButton={'ver mais'}
+                    />
                 </div>
             </div>
         </div>
