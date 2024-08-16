@@ -2,11 +2,21 @@ import { ChevronRight, Eye, EyeOff, Settings } from "lucide-react"
 import logo from "../../assets/images/logo-swisswallet.png"
 import { useState } from "react"
 import { Link } from "react-router-dom";
+import { DrawerMenu } from "./drawer-menu";
 
 
 export function Navbar(){
 
     const [ isVisibleScore, setIsVisibleScore ] = useState(false);
+    const [ openSettingsModal, setOpenSettingsModal ] = useState(false);    
+
+    function openSettings(){
+        setOpenSettingsModal(true)
+    }
+
+    function closeSettings(){
+        setOpenSettingsModal(false)
+    }
 
     function handdleVisibleScore(){
         setIsVisibleScore(!isVisibleScore)
@@ -20,7 +30,7 @@ export function Navbar(){
                     <Link to={'/store'} className=" hover:text-zinc-400">Swiss Store</Link>
                     <Link to={'/library'} className=" hover:text-zinc-400">Biblioteca</Link>
                     <Link to={'/canteen'} className=" hover:text-zinc-400">Cantina</Link>
-                    <a className=" hover:text-zinc-400"> <Settings className="size-8" /> </a>
+                    <button onClick={openSettings} className=" hover:text-zinc-400"> <Settings className="size-8" /> </button>
                 </nav>
             </div>
             <div className="flex justify-center -mt-7 ">
@@ -51,6 +61,13 @@ export function Navbar(){
                     </div>
                 </div>
             </div>
+
+            {openSettingsModal && (
+                <DrawerMenu 
+                    isOpen={openSettingsModal}
+                    closeSettings={closeSettings}
+                />
+            )}
         </header>
     )
 }
