@@ -1,14 +1,22 @@
 import { CircleHelp } from "lucide-react";
 import { MainButton } from "../../components/micro-components/main-button";
 
-export function BenefitsCard(){
+interface BenefitsCardProps{
+    benefitsName: string,
+    benefitsDescription: string,
+}
+
+export function BenefitsCard({
+    benefitsName,
+    benefitsDescription,
+}:BenefitsCardProps){
     return(
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md gap-6">
-                        <div className="flex flex-col justify-start px-10">
-                            <h1 className="text-2xl font-semibold">Beneficio 1</h1>
+                        <div className="flex flex-col justify-start px-10 gap-3">
+                            <h1 className="text-2xl font-semibold">{benefitsName}</h1>
                             <p className="w-full overflow-hidden italic font-medium ">
-                                Descrição do beneficio
+                                {benefitsDescription}
                             </p>
                         </div>
                         <div className="flex justify-end">
