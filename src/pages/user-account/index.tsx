@@ -16,7 +16,7 @@ export function UserAccount(){
                 </div>
 
                 <section className="ml-20 mr-20">
-                    <div className="flex flex-col bg-white p-5 drop-shadow-2xl shadow-black rounded-md">
+                    <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
                             <UpdateButton/>
                         </div>
@@ -27,7 +27,7 @@ export function UserAccount(){
                     </div>
                 </section>
                 <section className="ml-20 mr-20">
-                    <div className="flex flex-col bg-white p-5 shadow-black shadow-md rounded-md">
+                    <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
                             <UpdateButton/>
                         </div>
@@ -39,7 +39,7 @@ export function UserAccount(){
                     </div>
                 </section>
                 <section className="ml-20 mr-20">
-                    <div className="flex flex-col bg-white p-5 shadow-black shadow-md rounded-md">
+                    <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
                             <UpdateButton/>
                         </div>
