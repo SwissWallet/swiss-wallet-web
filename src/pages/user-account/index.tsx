@@ -1,6 +1,6 @@
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
-import { InfoUser } from "../../components/micro-components/line-info-user";
+import { InfoUser } from "./line-info-user";
 import { UpdateButton } from "../../components/micro-components/update-button";
 
 export function UserAccount(){

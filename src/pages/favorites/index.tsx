@@ -1,32 +1,50 @@
 import { Navbar } from "../../components/macro-components/navbar";
 import { Footer } from "../../components/macro-components/footer";
 import { SingleProduct } from "../../components/micro-components/single-product-card";
+import { Heart } from "lucide-react";
+import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 
 export function Favorites() {
     return (
         <div>
+
             <Navbar />
-            <div className="ml-20 mr-20">
-                <h1 className="text-4xl font-bold">Favoritos</h1>
-                <p className="mb-10">Confira sua lista de favoritos</p>
-            </div>
-            <main className="ml-20 mr-20 flex justify-between">
-                <div className="flex gap-7">
-                    <article className="bg-white p-10 rounded-xl flex justify-between pt-10 pb-10 shadow-2xl ">
-                        <SingleProduct />
-                    </article>
-                    <article className="bg-white p-10 rounded-xl flex justify-between pt-10 pb-10 shadow-2xl ">
-                        <SingleProduct />
-                    </article>
-                    <article className="bg-white p-10 rounded-xl flex justify-between pt-10 pb-10 shadow-2xl ">
-                        <SingleProduct />
-                    </article>
-                    <article className="bg-white p-10 rounded-xl flex justify-between pt-10 pb-10 shadow-2xl ">
-                        <SingleProduct />
-                    </article>
-                </div>
+
+            <main className="ml-20 mr-20 justify-between flex flex-col gap-20 mt-20">
+
+                <HeaderOnPages 
+                    title="Favoritos"
+                    description="Confira sua lista de favoritos"
+                />
+
+                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+
+                    <SingleProduct
+                        textOnButton={<Heart className="fill-white" />}
+                    />
+
+                    <SingleProduct 
+                        textOnButton={<Heart className="fill-white"/>}
+                    />
+                    <SingleProduct 
+                        textOnButton={<Heart className="fill-white" />}
+                    />
+                    <SingleProduct 
+                        textOnButton={<Heart className="fill-white" />}
+                    />
+                    <SingleProduct 
+                        textOnButton={<Heart className="fill-white" />}
+                    />
+                    <SingleProduct 
+                        textOnButton={<Heart className="fill-white" />}
+                    />
+                    
+                </section>
+
             </main>
+
             <Footer />
+
         </div>
     )
 }
