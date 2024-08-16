@@ -1,6 +1,7 @@
 import { ChevronRight, Eye, EyeOff, Settings } from "lucide-react"
 import logo from "../../assets/images/logo-swisswallet.png"
 import { useState } from "react"
+import { Link } from "react-router-dom";
 
 
 export function Navbar(){
@@ -16,9 +17,9 @@ export function Navbar(){
             <div className="bg-red-gradient flex justify-between p-5">
                 <img src={logo} alt="teste" />
                 <nav className="flex justify-between items-center gap-14 px-14 text-2xl font-medium text-white">
-                    <a className=" hover:text-zinc-400">Swiss Store</a>
-                    <a className=" hover:text-zinc-400">Biblioteca</a>
-                    <a className=" hover:text-zinc-400">Cantina</a>
+                    <Link to={'/store'} className=" hover:text-zinc-400">Swiss Store</Link>
+                    <Link to={'/library'} className=" hover:text-zinc-400">Biblioteca</Link>
+                    <Link to={'/canteen'} className=" hover:text-zinc-400">Cantina</Link>
                     <a className=" hover:text-zinc-400"> <Settings className="size-8" /> </a>
                 </nav>
             </div>
@@ -27,10 +28,10 @@ export function Navbar(){
                     
                     <div className="flex justify-between">
                         <h4>Saldo</h4>
-                        <div className="flex">
+                        <Link to={'/extract'} className="flex">
                             <p>ver extrato</p>
                             <ChevronRight />
-                        </div>
+                        </Link>
                     </div>
                     
                     <div className="flex justify-between pt-2">
