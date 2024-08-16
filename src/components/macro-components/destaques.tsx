@@ -1,4 +1,3 @@
-import CamisaBranca from "../../assets/images/camisa-branca.svg"
 import { SingleProduct } from "../micro-components/single-product-card"; 
 
 export function CardDestaques(){
