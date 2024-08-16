@@ -5,7 +5,7 @@ import { UpdateButton } from "../../components/micro-components/update-button";
 
 export function UserAccount(){
     return(
-        <div className="bg-white-90">
+        <div className="bg-default-gray">
             <Navbar />
 
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
