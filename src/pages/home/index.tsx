@@ -4,10 +4,13 @@ import {CardDestaques} from "../../components/macro-components/destaques"
 
 export function Home(){
     return(
-        <div>
+        <div className="bg-default-gray">
             <Navbar />
-            <CardFavoritos />
-            <CardDestaques />
+
+            <main className="flex flex-col mr-20 ml-20">
+                <CardFavoritos />
+                <CardDestaques />
+            </main>
         </div>
     )
 }
