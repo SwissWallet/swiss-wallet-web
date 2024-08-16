@@ -25,7 +25,9 @@ export function Navbar(){
     return(
         <header>
             <div className="bg-red-gradient flex justify-between p-5">
-                <img src={logo} alt="teste" />
+                <Link to={'/home'}>
+                    <img src={logo} alt="teste" />
+                </Link>
                 <nav className="flex justify-between items-center gap-14 px-14 text-2xl font-medium text-white">
                     <Link to={'/store'} className=" hover:text-zinc-400">Swiss Store</Link>
                     <Link to={'/library'} className=" hover:text-zinc-400">Biblioteca</Link>

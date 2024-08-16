@@ -11,6 +11,9 @@ export default {
         'dark-gray': 'rgba(156, 156, 156, 1)',
         'default-red': '#D2051B',
         'white-90': 'rgba(255, 255, 255, 0.9)',
+      },
+      dropShadow: {
+        'custom': '2px 2px 5px rgba(0, 0, 0, 0.9)'
       }
     },
   },
