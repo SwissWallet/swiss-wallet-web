@@ -14,11 +14,11 @@ export function ForgotPassword({
             prosseguindo com os seguintes procedimentos para a recuperação de senha.</p>
 
             <div className="flex justify-center">
-                <div className="flex flex-col justify-center gap-6 w-72 ">
-                    <UserInput>
+                <div className="flex flex-col justify-center gap-6 w-96 ">
+                    <UserInput position="center" >
                         Nova senha
                     </UserInput>
-                    <UserInput>
+                    <UserInput position="center" >
                         Código de validação
                     </UserInput>
                 </div>
