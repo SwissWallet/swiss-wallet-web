@@ -14,10 +14,12 @@ export function Orders(){
 
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
 
-                <SingleOrdersProductCard status={<InProgress/>}/>
-                <SingleOrdersProductCard status={<WithdrawOrder/>}/>
-                <SingleOrdersProductCard status={<CompletedStatus/>}/>
-                <SingleOrdersProductCard status={<UnavailableStatus/>}/>
+                <div className="grid grid-cols-4 gap-20">
+                    <SingleOrdersProductCard status={<InProgress/>}/>
+                    <SingleOrdersProductCard status={<WithdrawOrder/>}/>
+                    <SingleOrdersProductCard status={<CompletedStatus/>}/>
+                    <SingleOrdersProductCard status={<UnavailableStatus/>}/>
+                </div>
 
             </main>
 

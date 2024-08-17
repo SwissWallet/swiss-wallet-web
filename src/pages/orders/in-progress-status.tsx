@@ -1,6 +1,6 @@
 export function InProgress(){
     return(
-        <div className="flex justify-center flex-col gap-3">
+        <div className="flex justify-center flex-col gap-3 h-full">
 
             <h1 className="text-zinc-400 italic text-center">Em andamento</h1>
 
