@@ -3,6 +3,7 @@ import { Navbar } from "../../components/macro-components/navbar";
 import { CompletedStatus } from "./completed-status";
 import { InProgress } from "./in-progress-status";
 import { SingleOrdersProductCard } from "./single-orders-product-card";
+import { UnavailableStatus } from "./unavailable-status";
 import { WithdrawOrder } from "./withdraw-order-status";
 
 export function Orders(){
@@ -16,6 +17,7 @@ export function Orders(){
                 <SingleOrdersProductCard status={<InProgress/>}/>
                 <SingleOrdersProductCard status={<WithdrawOrder/>}/>
                 <SingleOrdersProductCard status={<CompletedStatus/>}/>
+                <SingleOrdersProductCard status={<UnavailableStatus/>}/>
 
             </main>
 
