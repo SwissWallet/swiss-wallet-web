@@ -119,6 +119,7 @@ export function Register(){
                         <RegisterSecondaryStep 
                             finishedSecondaryStep={finishedSecondaryStep}
                             backToThePrimaryStep={backToThePrimaryStep}
+                            handdleChange={handdleChange}
                         />
                     )
                 }

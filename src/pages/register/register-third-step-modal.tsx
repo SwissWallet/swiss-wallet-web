@@ -12,9 +12,12 @@ export function RegisterThirdStep({
     backToTheSecondaryStep,
 }:RegisterThirdStepProps){
     return(
-        <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
+        <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
-                    <BackButton onClick={backToTheSecondaryStep} />
+        <BackButton onClick={backToTheSecondaryStep} />
+
+        <form className="flex gap-8 flex-col">
+
 
                     <div className="flex flex-col gap-3">
                         <h1 className="text-4xl font-medium">Cadastre-se</h1>
@@ -48,5 +51,6 @@ export function RegisterThirdStep({
                     </div>
 
                 </form>
+            </div>
     )
 }
