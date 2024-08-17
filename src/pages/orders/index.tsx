@@ -2,6 +2,7 @@ import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
 import { InProgress } from "./in-progress-status";
 import { SingleOrdersProductCard } from "./single-orders-product-card";
+import { WithdrawOrder } from "./withdraw-order-status";
 
 export function Orders(){
     return(
@@ -12,6 +13,7 @@ export function Orders(){
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
 
                 <SingleOrdersProductCard status={<InProgress/>}/>
+                <SingleOrdersProductCard status={<WithdrawOrder/>}/>
 
             </main>
 
