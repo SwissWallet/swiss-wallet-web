@@ -5,6 +5,8 @@ import { RegisterPrimaryStep } from "./register-primary-step-modal";
 import { RegisterSecondaryStep } from "./register-secondary-step-modal";
 import { RegisterThirdStep } from "./register-third-step-modal";
 import { FinishRegister } from "./finish-register";
+import { useDispatch } from "react-redux";
+import { newUser } from "../../features/get-user-input-slice";
 
 export function Register(){
 
@@ -40,6 +42,58 @@ export function Register(){
         setFilledThirdStep(false)
         setFilledSecondaryStep(true)
     }
+
+
+
+    //redux
+
+    const dispatch = useDispatch();
+
+    const [userData, setUserData] = useState({
+        name: '',
+        dateBorn: '',
+        email: '',
+        cpf: '',
+        phone: '',
+        password: '',
+        adressUser: {
+            cep: '',
+            city: '',
+            uf: '',
+            neighborhood: '',
+            street: '',
+            complement: '',
+        },
+    });
+
+    const handdleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        if(name in userData.adressUser){
+            setUserData(
+                prevState => ({
+                    ...prevState,
+                    adressUser: {
+                        ...prevState.adressUser,
+                        [name]: value
+                    }
+                })
+            )
+        } else{
+            setUserData(
+                prevState => ({
+                    ...prevState,
+                    [name]: value
+                })
+            )
+        }
+
+    };
+
+    const handdleSubmit = () => {
+        dispatch(newUser(userData))
+    }
+
 
     return(
         <div className="bg-red-gradient h-auto w-full flex gap-28 flex-col">
