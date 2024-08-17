@@ -5,10 +5,12 @@ import { UserInput } from "../../components/micro-components/user-input";
 
 interface RegisterPrimaryStepPros{
     finishedPrimaryStep: () => void,
+    handdleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 export function RegisterPrimaryStep({
     finishedPrimaryStep,
+    handdleChange,
 }:RegisterPrimaryStepPros){
     return(
                 <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
@@ -28,11 +30,11 @@ export function RegisterPrimaryStep({
                         <div className="bg-dark-gray h-10 w-10 rounded-full"></div>
                     </div>
                     <div className="flex flex-col gap-6">
-                        <UserInput placeholder="ex: José da Silva" type="text">Nome completo</UserInput>
-                        <UserInput type="date">Data de nascimento</UserInput>
-                        <UserInput placeholder="ex: jose.silva@senaisp" type="email">E-mail</UserInput>
-                        <UserInput placeholder="ex: 12345678910" type="number" >CPF</UserInput>
-                        <UserInput placeholder="ex: 11991827364" type="number" >Telefone</UserInput>
+                        <UserInput placeholder="ex: José da Silva" type="text" name="name" onChange={handdleChange}>Nome completo</UserInput>
+                        <UserInput type="date" name="dateBorn" onChange={handdleChange}>Data de nascimento</UserInput>
+                        <UserInput placeholder="ex: jose.silva@senaisp" type="email" name="email" onChange={handdleChange}>E-mail</UserInput>
+                        <UserInput placeholder="ex: 12345678910" type="number" name="cpf" onChange={handdleChange} >CPF</UserInput>
+                        <UserInput placeholder="ex: 11991827364" type="number" name="phone" onChange={handdleChange}>Telefone</UserInput>
                     </div>
                     <div className="flex justify-center items-center">
                         <MainButton onClick={finishedPrimaryStep} >

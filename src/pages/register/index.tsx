@@ -68,6 +68,7 @@ export function Register(){
 
     const handdleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+        console.log(userData)
 
         if(name in userData.adressUser){
             setUserData(
@@ -88,6 +89,7 @@ export function Register(){
             )
         }
 
+       
     };
 
     const handdleSubmit = () => {
@@ -106,6 +108,7 @@ export function Register(){
                     filledPrimaryStep && (
                         <RegisterPrimaryStep 
                             finishedPrimaryStep={finishedPrimaryStep}
+                            handdleChange={handdleChange}
                         />
                     )
 
