@@ -1,7 +1,10 @@
-import { BackButton } from "../../components/micro-components/back-button";
-import { UserInput } from "../../components/micro-components/user-input";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
+import { UserInput } from "../../components/micro-components/user-input";
+
+import axios from "axios";
 
 interface RegisterSecondaryStepProps{
     finishedSecondaryStep: () => void,
@@ -12,6 +15,34 @@ export function RegisterSecondaryStep({
     finishedSecondaryStep,
     backToThePrimaryStep,
 }:RegisterSecondaryStepProps){
+
+    const [ cep, setCep ] = useState('')
+
+    const handdleChangeCep = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+
+        if(value.length <= 8){
+            setCep(value)
+        }
+
+    }
+
+    useEffect(() => {
+        if(cep.length === 8){
+            axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(
+                response => {
+                    if(response.data){
+                        console.log(response.data)
+                    }
+                }
+            )
+        }
+    }, [cep])
+
+
+
+
     return(
                 <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
@@ -30,7 +61,7 @@ export function RegisterSecondaryStep({
                         <div className="bg-dark-gray h-10 w-10 rounded-full"></div>
                     </div>
                     <div className="flex flex-col gap-6">
-                        <UserInput placeholder="ex: 11560130" type="number">CEP</UserInput>
+                        <UserInput placeholder="ex: 11560130" type="number" name="cep" onChange={handdleChangeCep}>CEP</UserInput>
                         
                         <div className="flex items-center gap-5 ">
                             <UserInput placeholder="ex: São Paulo" type="text">Cidade</UserInput>
