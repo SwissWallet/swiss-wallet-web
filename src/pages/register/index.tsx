@@ -5,9 +5,7 @@ import { RegisterPrimaryStep } from "./register-primary-step-modal";
 import { RegisterSecondaryStep } from "./register-secondary-step-modal";
 import { RegisterThirdStep } from "./register-third-step-modal";
 import { FinishRegister } from "./finish-register";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../features/get-user-input-slice";
-import { AppDispatch } from "../../store";
+import { useFormDataUserRegister } from "../../util/form-data-user-register";
 
 export function Register(){
 
@@ -30,6 +28,7 @@ export function Register(){
 
     function finishedThirdStep(){
         setFilledThirdStep(false)
+        console.log(formData)
         setFinishRegister(true)
     }
 
@@ -44,21 +43,9 @@ export function Register(){
         setFilledSecondaryStep(true)
     }
 
+    const formData = useFormDataUserRegister()
 
-
-    //redux
-
-    const dispatch = useDispatch<AppDispatch>();
-
-    const handdleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-
-        dispatch(setUser({
-            [name]: value
-        }))
-
-       
-    };
+    
 
     return(
         <div className="bg-red-gradient h-auto w-full flex gap-28 flex-col">
@@ -71,7 +58,6 @@ export function Register(){
                     filledPrimaryStep && (
                         <RegisterPrimaryStep 
                             finishedPrimaryStep={finishedPrimaryStep}
-                            handdleChange={handdleChange}
                         />
                     )
 
@@ -92,7 +78,6 @@ export function Register(){
                         <RegisterThirdStep 
                             finishedThirdStep={finishedThirdStep}
                             backToTheSecondaryStep={backToTheSecondaryStep}
-                            handdleChange={handdleChange}
                         />
                     )
                 }

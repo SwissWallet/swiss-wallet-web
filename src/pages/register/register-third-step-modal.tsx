@@ -8,7 +8,6 @@ import { setConfirmPassword, setNewPassword } from "../../features/validation-pa
 interface RegisterThirdStepProps{
     finishedThirdStep: () => void,
     backToTheSecondaryStep: () => void,
-    handdleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 export function RegisterThirdStep({

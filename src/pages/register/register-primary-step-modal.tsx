@@ -2,21 +2,34 @@ import { Link } from "react-router-dom";
 import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../features/get-user-input-slice";
+import { AppDispatch } from "../../store";
 
 interface RegisterPrimaryStepPros{
     finishedPrimaryStep: () => void,
-    handdleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 export function RegisterPrimaryStep({
     finishedPrimaryStep,
-    handdleChange,
 }:RegisterPrimaryStepPros){
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         finishedPrimaryStep();
     }
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handdleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        dispatch(setUser({
+            [name]: value
+        }))
+
+       
+    };
 
     return(
 
