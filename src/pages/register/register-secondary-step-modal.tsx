@@ -5,15 +5,9 @@ import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
 
 import axios from "axios";
-
-interface adressUserState{
-    cep: string,
-    city: string,
-    uf: string,
-    neighborhood: string,
-    street: string,
-    complement: string,
-}
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { setAddress } from "../../features/get-user-address-slice";
 
 interface RegisterSecondaryStepProps{
     finishedSecondaryStep: () => void,
@@ -27,54 +21,45 @@ export function RegisterSecondaryStep({
     handdleChange,
 }:RegisterSecondaryStepProps){
 
-    const [ cep, setCep ] = useState('')
-    const [ adress, setAdress ] = useState<adressUserState>({
-        cep: '',
-        city: '',
-        uf: '',
-        neighborhood: '',
-        street: '',
-        complement: '',
-    })
+    const dispatch = useDispatch<AppDispatch>();
+    const { cep, city, uf, neighborhood, street, complement } = useSelector(
+        (state: RootState) => state.address
+    );
 
-    const handdleChangeCep = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const [localCep, setLocalCep] = useState(cep);
+    const [localComplement, setLocalComplement] = useState(complement);
+
+    const handleChangeCep = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-
-        if(value.length <= 8){
-            setCep(value)
+        if (value.length <= 8) {
+            setLocalCep(value);
+            dispatch(setAddress({ cep: value }));
         }
+    }
 
-        handdleChange(e)
-
+    const handleChangeComplement = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setLocalComplement(value);
+        dispatch(setAddress({ complement: value }));
     }
 
     useEffect(() => {
-        if(cep.length === 8){
-            axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-            .then(
-                response => {
-                    if(response.data){
-                        setAdress(
-                            prevAdress => {
-                                return {
-                                    ...prevAdress, 
-                                    cep: response.data.cep,
-                                    city: response.data.localidade,
-                                    neighborhood: response.data.bairro,
-                                    uf: response.data.uf,
-                                    street: response.data.logradouro
-                                }
-                            }
-                        )
-                        
-                        
-                        
+        if (localCep.length === 8) {
+            axios.get(`https://viacep.com.br/ws/${localCep}/json/`)
+                .then(response => {
+                    if (response.data) {
+                        dispatch(setAddress({
+                            cep: response.data.cep,
+                            city: response.data.localidade,
+                            neighborhood: response.data.bairro,
+                            uf: response.data.uf,
+                            street: response.data.logradouro,
+                        }));
                     }
-
-                }
-            )
+                });
         }
-    }, [cep])
+    }, [localCep, dispatch]);
+    
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -99,15 +84,15 @@ export function RegisterSecondaryStep({
                         <div className="bg-dark-gray h-10 w-10 rounded-full"></div>
                     </div>
                     <div className="flex flex-col gap-6">
-                        <UserInput placeholder="ex: 11560130" type="number" name="cep" onChange={handdleChangeCep}>CEP</UserInput>
+                        <UserInput placeholder="ex: 11560130" type="number" name="cep" onChange={handleChangeCep}>CEP</UserInput>
                         
                         <div className="flex items-center gap-5 ">
-                            <UserInput placeholder="ex: São Paulo" readOnly type="text" value={adress?.city} onChange={handdleChange}>Cidade</UserInput>
+                            <UserInput placeholder="ex: São Paulo" readOnly type="text" value={city} onChange={handdleChange}>Cidade</UserInput>
                             <div className='flex flex-col gap-3'>
                                 <h2 className='font-medium text-base'>UF</h2>
                                 <div className="flex items-center justify-between border-2 border-zinc-300 w-28 h-11 rounded-md py-4 px-5 focus:outline-red-600 focus:border-white"> 
                                     <input className='focus:outline-none'
-                                        value={adress?.uf}
+                                        value={uf}
                                         readOnly
                                         type="text"   
                                         />
@@ -116,9 +101,9 @@ export function RegisterSecondaryStep({
                             </div>
                         </div>
 
-                        <UserInput placeholder="ex: Centro" type="text" name="neighborhood" readOnly value={adress?.neighborhood}>Bairro</UserInput>
-                        <UserInput placeholder="ex: Conselheiro Crispiniano" type="text" name="street"  readOnly value={adress?.street} >Rua</UserInput>
-                        <UserInput placeholder="ex: Apto 202, Bloco A" type="text" name="complement" onChange={handdleChange}>Complemento</UserInput>
+                        <UserInput placeholder="ex: Centro" type="text" name="neighborhood" readOnly value={neighborhood}>Bairro</UserInput>
+                        <UserInput placeholder="ex: Conselheiro Crispiniano" type="text" name="street"  readOnly value={street} >Rua</UserInput>
+                        <UserInput placeholder="ex: Apto 202, Bloco A" type="text" name="complement" value={localComplement} onChange={handleChangeComplement}>Complemento</UserInput>
 
                     </div>
                     <div className="flex justify-center items-center">

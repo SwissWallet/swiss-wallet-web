@@ -7,6 +7,7 @@ import { RegisterThirdStep } from "./register-third-step-modal";
 import { FinishRegister } from "./finish-register";
 import { useDispatch } from "react-redux";
 import { newUser } from "../../features/get-user-input-slice";
+import { AppDispatch } from "../../store";
 
 export function Register(){
 
@@ -47,7 +48,7 @@ export function Register(){
 
     //redux
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const [userData, setUserData] = useState({
         name: '',

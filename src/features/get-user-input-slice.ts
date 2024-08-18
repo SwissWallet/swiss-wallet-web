@@ -1,14 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface adressUserState{
-    cep: string,
-    city: string,
-    uf: string,
-    neighborhood: string,
-    street: string,
-    complement: string,
-}
-
 interface UserInputState{
     name: string,
     dateBorn: string,
@@ -16,7 +7,6 @@ interface UserInputState{
     cpf: string,
     phone: string,
     password: string,
-    adressUser: adressUserState,
 }
 
 const initialState: UserInputState = {
@@ -25,15 +15,7 @@ const initialState: UserInputState = {
     email: '',
     cpf: '',
     phone: '',
-    password: '',
-    adressUser: {
-        cep: '',
-        city: '',
-        uf: '',
-        neighborhood: '',
-        street: '',
-        complement: '',
-    },
+    password: ''
 }
 
 export const slice = createSlice({

@@ -31,16 +31,9 @@ const validationPasswordSlice = createSlice({
                 state.isEqual = state.newPassword === action.payload && action.payload !== '';
             }
         },
-        resetValidationPasswordState(state) {
-            state.newPassword = '';
-            state.confirmPassword = '';
-            state.isEqual = undefined;
-            state.hasStartedTypingInNew = false;
-            state.hasStartedTypingInConfirm = false;
-        }
     },
 
 });
 
-export const { setNewPassword, setConfirmPassword, resetValidationPasswordState } = validationPasswordSlice.actions;
+export const { setNewPassword, setConfirmPassword } = validationPasswordSlice.actions;
 export default validationPasswordSlice.reducer;

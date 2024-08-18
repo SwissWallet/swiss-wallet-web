@@ -2,7 +2,7 @@ import { BackButton } from "../../components/micro-components/back-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { AppDispatch, RootState } from "../../store";
 import { setConfirmPassword, setNewPassword } from "../../features/validation-password-slice";
 
 interface RegisterThirdStepProps{
@@ -14,10 +14,9 @@ interface RegisterThirdStepProps{
 export function RegisterThirdStep({
     finishedThirdStep,
     backToTheSecondaryStep,
-    handdleChange,
 }:RegisterThirdStepProps){
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
     const { isEqual, hasStartedTypingInNew, hasStartedTypingInConfirm } = useSelector(
         (state: RootState) => state.validationPassword
