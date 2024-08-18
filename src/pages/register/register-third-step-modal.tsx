@@ -29,12 +29,17 @@ export function RegisterThirdStep({
         dispatch(setConfirmPassword(e.target.value));
     }
 
+    const handdleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        finishedThirdStep();
+    }
+
     return(
         <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
         <BackButton onClick={backToTheSecondaryStep} />
 
-        <form className="flex gap-8 flex-col">
+        <form onSubmit={handdleSubmit} className="flex gap-8 flex-col">
 
 
                     <div className="flex flex-col gap-3">
@@ -74,7 +79,7 @@ export function RegisterThirdStep({
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <MainButton onClick={finishedThirdStep} >
+                        <MainButton type="submit" >
                             Cadastrar
                         </MainButton>
                     </div>
