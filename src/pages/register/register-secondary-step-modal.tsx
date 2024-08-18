@@ -12,13 +12,11 @@ import { setAddress } from "../../features/get-user-address-slice";
 interface RegisterSecondaryStepProps{
     finishedSecondaryStep: () => void,
     backToThePrimaryStep: () => void,
-    handdleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 export function RegisterSecondaryStep({
     finishedSecondaryStep,
     backToThePrimaryStep,
-    handdleChange,
 }:RegisterSecondaryStepProps){
 
     const dispatch = useDispatch<AppDispatch>();
@@ -87,7 +85,7 @@ export function RegisterSecondaryStep({
                         <UserInput placeholder="ex: 11560130" type="number" name="cep" onChange={handleChangeCep}>CEP</UserInput>
                         
                         <div className="flex items-center gap-5 ">
-                            <UserInput placeholder="ex: São Paulo" readOnly type="text" value={city} onChange={handdleChange}>Cidade</UserInput>
+                            <UserInput placeholder="ex: São Paulo" readOnly type="text" value={city}>Cidade</UserInput>
                             <div className='flex flex-col gap-3'>
                                 <h2 className='font-medium text-base'>UF</h2>
                                 <div className="flex items-center justify-between border-2 border-zinc-300 w-28 h-11 rounded-md py-4 px-5 focus:outline-red-600 focus:border-white"> 
