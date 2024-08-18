@@ -6,7 +6,6 @@ interface UserInputState{
     email: string,
     cpf: string,
     phone: string,
-    password: string,
 }
 
 const initialState: UserInputState = {
@@ -15,21 +14,17 @@ const initialState: UserInputState = {
     email: '',
     cpf: '',
     phone: '',
-    password: ''
 }
 
 export const slice = createSlice({
     name: 'getUserInput',
     initialState,
     reducers: {
-        newUser(state, action: PayloadAction<UserInputState>){
-            return{
-                ...state,
-                ...action.payload,
-            }
+        setUser(state, action: PayloadAction<Partial<UserInputState>>){
+            return{ ...state, ...action.payload }
         }
     }
 })
 
-export const { newUser } = slice.actions;
+export const { setUser } = slice.actions;
 export default slice.reducer;

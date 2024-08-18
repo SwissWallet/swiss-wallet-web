@@ -6,7 +6,7 @@ import { RegisterSecondaryStep } from "./register-secondary-step-modal";
 import { RegisterThirdStep } from "./register-third-step-modal";
 import { FinishRegister } from "./finish-register";
 import { useDispatch } from "react-redux";
-import { newUser } from "../../features/get-user-input-slice";
+import { setUser } from "../../features/get-user-input-slice";
 import { AppDispatch } from "../../store";
 
 export function Register(){
@@ -50,53 +50,15 @@ export function Register(){
 
     const dispatch = useDispatch<AppDispatch>();
 
-    const [userData, setUserData] = useState({
-        name: '',
-        dateBorn: '',
-        email: '',
-        cpf: '',
-        phone: '',
-        password: '',
-        adressUser: {
-            cep: '',
-            city: '',
-            uf: '',
-            neighborhood: '',
-            street: '',
-            complement: '',
-        },
-    });
-
     const handdleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        console.log(userData)
 
-        if(name in userData.adressUser){
-            setUserData(
-                prevState => ({
-                    ...prevState,
-                    adressUser: {
-                        ...prevState.adressUser,
-                        [name]: value
-                    }
-                })
-            )
-        } else{
-            setUserData(
-                prevState => ({
-                    ...prevState,
-                    [name]: value
-                })
-            )
-        }
+        dispatch(setUser({
+            [name]: value
+        }))
 
        
     };
-
-    const handdleSubmit = () => {
-        dispatch(newUser(userData))
-    }
-
 
     return(
         <div className="bg-red-gradient h-auto w-full flex gap-28 flex-col">
@@ -120,7 +82,6 @@ export function Register(){
                         <RegisterSecondaryStep 
                             finishedSecondaryStep={finishedSecondaryStep}
                             backToThePrimaryStep={backToThePrimaryStep}
-                            handdleChange={handdleChange}
                         />
                     )
                 }
