@@ -1,7 +1,9 @@
 import { BackButton } from "../../components/micro-components/back-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { MainButton } from "../../components/micro-components/main-button";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { setConfirmPassword, setNewPassword } from "../../features/validation-password-slice";
 
 interface RegisterThirdStepProps{
     finishedThirdStep: () => void,
@@ -15,27 +17,19 @@ export function RegisterThirdStep({
     handdleChange,
 }:RegisterThirdStepProps){
 
-    const [ newPassword, setNewPassword ] = useState('');
-    const [ confirmPassword, setConfirmPassword ] = useState('');
+    const dispatch = useDispatch()
 
-    const [ isEgual, setIsEgual ] = useState<boolean | undefined>(undefined);
-
-    function handdleNewPasswordChange(e: React.ChangeEvent<HTMLInputElement>){
-        setNewPassword(e.target.value)
+    const { isEqual, hasStartedTypingInNew, hasStartedTypingInConfirm } = useSelector(
+        (state: RootState) => state.validationPassword
+    );
+    
+    function handleNewPasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+        dispatch(setNewPassword(e.target.value));
     }
 
-    function handdleConfirmPasswordChange(e: React.ChangeEvent<HTMLInputElement>){
-        setConfirmPassword(e.target.value)
+    function handleConfirmPasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+        dispatch(setConfirmPassword(e.target.value));
     }
-
-    useEffect(() => {
-        
-        if(newPassword !== '' && confirmPassword !== ''){
-            setIsEgual(newPassword === confirmPassword)
-        }
-
-    }, [ newPassword, confirmPassword ])
-
 
     return(
         <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
@@ -58,18 +52,17 @@ export function RegisterThirdStep({
                     </div>
                     <div className="flex flex-col gap-6">
 
-                        <UserInput onChange={handdleNewPasswordChange}  placeholder="ex: senha1234" type="password">Crie uma senha</UserInput>
+                        <UserInput onChange={handleNewPasswordChange}  placeholder="ex: senha1234" type="password">Crie uma senha</UserInput>
 
-                        <UserInput onChange={handdleConfirmPasswordChange} placeholder="ex: senha1234" type="password">Confirme sua senha</UserInput>
-                        <div className="flex justify-center items-center">
-                            {
-                                isEgual !== undefined &&
-                                    isEgual ? (
-                                        <span className="text-transparent" >senha aprovada</span>
-                                    ) : (
-                                        <span className="text-red-700" >as senhas fornecidas são diferentes*</span>
-                                    )
-                            }
+                        <UserInput onChange={handleConfirmPasswordChange} placeholder="ex: senha1234" type="password">Confirme sua senha</UserInput>
+                        <div className="flex justify-center items-center -mt-4">
+                        {hasStartedTypingInNew && hasStartedTypingInConfirm && isEqual !== undefined && (
+                            isEqual ? (
+                                <span className="text-transparent">senha aprovada</span>
+                            ) : (
+                                <span className="text-red-700">as senhas fornecidas são diferentes*</span>
+                            )
+                        )}
                         </div>
                         <div className="flex justify-evenly gap-5">
                             <div className="flex gap-4 items-center">
