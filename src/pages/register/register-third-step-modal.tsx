@@ -1,16 +1,42 @@
 import { BackButton } from "../../components/micro-components/back-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { MainButton } from "../../components/micro-components/main-button";
+import { useEffect, useState } from "react";
 
 interface RegisterThirdStepProps{
     finishedThirdStep: () => void,
     backToTheSecondaryStep: () => void,
+    handdleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 export function RegisterThirdStep({
     finishedThirdStep,
     backToTheSecondaryStep,
+    handdleChange,
 }:RegisterThirdStepProps){
+
+    const [ newPassword, setNewPassword ] = useState('');
+    const [ confirmPassword, setConfirmPassword ] = useState('');
+
+    const [ isEgual, setIsEgual ] = useState<boolean | undefined>(undefined);
+
+    function handdleNewPasswordChange(e: React.ChangeEvent<HTMLInputElement>){
+        setNewPassword(e.target.value)
+    }
+
+    function handdleConfirmPasswordChange(e: React.ChangeEvent<HTMLInputElement>){
+        setConfirmPassword(e.target.value)
+    }
+
+    useEffect(() => {
+        
+        if(newPassword !== '' && confirmPassword !== ''){
+            setIsEgual(newPassword === confirmPassword)
+        }
+
+    }, [ newPassword, confirmPassword ])
+
+
     return(
         <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
@@ -31,8 +57,20 @@ export function RegisterThirdStep({
                         <div className="bg-default-red h-10 w-10 rounded-full"></div>
                     </div>
                     <div className="flex flex-col gap-6">
-                        <UserInput placeholder="ex: senha1234" type="text">Crie uma senha</UserInput>
-                        <UserInput placeholder="ex: ">Confirme sua senha</UserInput>
+
+                        <UserInput onChange={handdleNewPasswordChange}  placeholder="ex: senha1234" type="password">Crie uma senha</UserInput>
+
+                        <UserInput onChange={handdleConfirmPasswordChange} placeholder="ex: senha1234" type="password">Confirme sua senha</UserInput>
+                        <div className="flex justify-center items-center">
+                            {
+                                isEgual !== undefined &&
+                                    isEgual ? (
+                                        <span className="text-transparent" >senha aprovada</span>
+                                    ) : (
+                                        <span className="text-red-700" >as senhas fornecidas são diferentes*</span>
+                                    )
+                            }
+                        </div>
                         <div className="flex justify-evenly gap-5">
                             <div className="flex gap-4 items-center">
                                 <input type="checkbox" className="size-4 hover:cursor-pointer" />
