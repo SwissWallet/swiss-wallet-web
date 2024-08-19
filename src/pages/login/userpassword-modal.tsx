@@ -12,13 +12,11 @@ export function UserPasswordModal({
     openForgotPassword,
 }:UserPasswordModalProps){
 
-
-
     return(
                 <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
                     <BackButton 
-                        onClick={handdleBackUserInput}
+                        type="button" onClick={handdleBackUserInput}
                     />
 
                     <div className="flex flex-col gap-3">
@@ -31,7 +29,7 @@ export function UserPasswordModal({
                                 className="outline-none rounded-md p-2 w-full border-2 border-zinc-300  font-medium placeholder-slate-400
                                     focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic" 
                             />
-                            <button onClick={openForgotPassword}>
+                            <button type="button" onClick={openForgotPassword}>
                                 <span className="text-sm font-medium text-zinc-500
                                         hover:text-zinc-600 hover:cursor-pointer">
                                     esqueceu sua senha?
