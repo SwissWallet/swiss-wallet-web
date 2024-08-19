@@ -5,6 +5,7 @@ import { RegisterPrimaryStep } from "./register-primary-step-modal";
 import { RegisterSecondaryStep } from "./register-secondary-step-modal";
 import { RegisterThirdStep } from "./register-third-step-modal";
 import { FinishRegister } from "./finish-register";
+import { useFormDataUserRegister } from "../../util/form-data-user-register";
 
 export function Register(){
 
@@ -27,6 +28,7 @@ export function Register(){
 
     function finishedThirdStep(){
         setFilledThirdStep(false)
+        console.log(formData)
         setFinishRegister(true)
     }
 
@@ -40,6 +42,10 @@ export function Register(){
         setFilledThirdStep(false)
         setFilledSecondaryStep(true)
     }
+
+    const formData = useFormDataUserRegister()
+
+    
 
     return(
         <div className="bg-red-gradient h-auto w-full flex gap-28 flex-col">
