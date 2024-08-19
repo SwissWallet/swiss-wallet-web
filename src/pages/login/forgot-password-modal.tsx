@@ -8,8 +8,14 @@ interface ForgotPasswordProps{
 export function ForgotPassword({
     closeForgotPassword,
 }:ForgotPasswordProps){
+
+    const handdleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        closeForgotPassword();
+    }
+
     return(
-        <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
+        <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
             <p className="font-medium text-center text-base italic text-zinc-500">Um e-mail será enviado para <span>usernameusuario@senaisp</span>, 
             prosseguindo com os seguintes procedimentos para a recuperação de senha.</p>
 
@@ -26,11 +32,11 @@ export function ForgotPassword({
 
 
             <div className="flex justify-between items-center">
-                <button className="font-medium text-zinc-500 hover:text-zinc-600 hover:cursor-pointer">
+                <button type="button" className="font-medium text-zinc-500 hover:text-zinc-600 hover:cursor-pointer">
                     Não recebi e-mail
                 </button>
 
-                <MainButton onClick={closeForgotPassword}>
+                <MainButton type="submit">
                      OK
                 </MainButton>
             </div>
