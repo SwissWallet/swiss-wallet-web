@@ -4,6 +4,8 @@ import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { setConfirmPassword, setNewPassword } from "../../features/validation-password-slice";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 interface RegisterThirdStepProps{
     finishedThirdStep: () => void,
@@ -31,7 +33,19 @@ export function RegisterThirdStep({
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        console.log('passei aqui')
         finishedThirdStep();
+    }
+
+    const [ isVisiblePassword, setIsVisiblePassword ] = useState(false);
+    const [ isVisibleConfirmPassword, setIsVisibleConfirmPassword ] = useState(false);
+
+    function handdleVisiblePassword(){
+        setIsVisiblePassword(!isVisiblePassword);
+    }
+    
+    function handdleVisibleConfirmPassword(){
+        setIsVisibleConfirmPassword(!isVisibleConfirmPassword);
     }
 
     return(
@@ -55,15 +69,52 @@ export function RegisterThirdStep({
                     </div>
                     <div className="flex flex-col gap-6">
 
-                        <UserInput onChange={handleNewPasswordChange}  placeholder="ex: senha1234" type="password">Crie uma senha</UserInput>
+                        <div className="flex items-center">
+                            <UserInput 
+                                onChange={handleNewPasswordChange}  
+                                placeholder="ex: senha1234" 
+                                type={ isVisiblePassword ? 'text' : 'password' }
+                                isVisibleSvgIcon={true}
+                                svgIcon={ isVisiblePassword ? (
+                                    <button className="flex items-center" type="button" onClick={handdleVisiblePassword}>
+                                        <Eye />
+                                    </button>
+                                ) : ( 
+                                    <button className="flex items-center"  type="button" onClick={handdleVisiblePassword}>
+                                        <EyeOff />
+                                    </button>
+                                )}
+                                >
+                                    Crie uma senha
+                            </UserInput>
+                        </div>
 
-                        <UserInput onChange={handleConfirmPasswordChange} placeholder="ex: senha1234" type="password">Confirme sua senha</UserInput>
+                        
+
+                        <UserInput 
+                            onChange={handleConfirmPasswordChange} 
+                            placeholder="ex: senha1234" 
+                            type={ isVisibleConfirmPassword ? 'text' : 'password' }
+                            isVisibleSvgIcon={true}
+                            svgIcon={ isVisibleConfirmPassword ? (
+                                <button className="flex items-center" type="button" onClick={handdleVisibleConfirmPassword}>
+                                    <Eye />
+                                </button>
+                            ) : ( 
+                                <button className="flex items-center"  type="button" onClick={handdleVisibleConfirmPassword}>
+                                    <EyeOff />
+                                </button>
+                            )}
+                            >
+                                Confirme sua senha
+                        </UserInput>
+
                         <div className="flex justify-center items-center -mt-4">
                         {hasStartedTypingInNew && hasStartedTypingInConfirm && isEqual !== undefined && (
                             isEqual ? (
                                 <span className="text-transparent">senha aprovada</span>
                             ) : (
-                                <span className="text-red-700">as senhas fornecidas são diferentes*</span>
+                                <span className="text-red-700 font-medium">*as senhas fornecidas são diferentes</span>
                             )
                         )}
                         </div>
