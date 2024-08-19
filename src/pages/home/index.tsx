@@ -7,7 +7,7 @@ export function Home(){
     return(
         <div className="bg-default-gray">
             <Navbar />
-            <main className="flex flex-col mr-20 ml-20">
+            <main className="flex flex-col m-20">
                 <CardFavoritos />
                 <CardDestaques />
             </main>

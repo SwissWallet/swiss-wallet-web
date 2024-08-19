@@ -22,7 +22,6 @@ export function Favorites() {
                     <SingleProduct
                         textOnButton={<Heart className="fill-white" />}
                     />
-
                     <SingleProduct 
                         textOnButton={<Heart className="fill-white"/>}
                     />
