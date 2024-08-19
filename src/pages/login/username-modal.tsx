@@ -9,8 +9,14 @@ interface UsernameModalProps{
 export function UsernameModal({
     handdleAdvanceUserInput,
 }:UsernameModalProps){
+
+    const handdleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        handdleAdvanceUserInput()
+    }
+
     return(
-                <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
+                <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
                     <div className="flex flex-col gap-3">
                         <h1 className="text-4xl font-medium">Login</h1>
                         <p className="font-medium text-sm text-zinc-800 ml-4">Bem-vindo(a) ao portal SwissWallet.</p>
@@ -32,7 +38,7 @@ export function UsernameModal({
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <MainButton onClick={handdleAdvanceUserInput} >
+                        <MainButton type="submit" >
                             Avançar
                         </MainButton>
                     </div>
