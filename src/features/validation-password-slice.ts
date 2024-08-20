@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ValidationPasswordState{
+interface ValidationPasswordState {
     newPassword: string;
     confirmPassword: string;
     isEqual: boolean | undefined;
@@ -20,11 +20,11 @@ const validationPasswordSlice = createSlice({
     name: 'validationPassword',
     initialState,
     reducers: {
-        setNewPassword(state, action: PayloadAction<string>){
+        setNewPassword(state, action: PayloadAction<string>) {
             state.newPassword = action.payload;
             state.hasStartedTypingInNew = true;
         },
-        setConfirmPassword(state, action: PayloadAction<string>){
+        setConfirmPassword(state, action: PayloadAction<string>) {
             state.confirmPassword = action.payload;
             state.hasStartedTypingInConfirm = true;
             if (state.hasStartedTypingInNew) {

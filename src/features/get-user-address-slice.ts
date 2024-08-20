@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
-interface addressUserState{
+interface addressUserState {
     cep: string,
     city: string,
     uf: string,
@@ -23,7 +23,7 @@ const addressSlice = createSlice({
     name: 'address',
     initialState,
     reducers: {
-        setAddress(state, action: PayloadAction<Partial<addressUserState>>){
+        setAddress(state, action: PayloadAction<Partial<addressUserState>>) {
             return { ...state, ...action.payload };
         },
     },
