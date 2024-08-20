@@ -15,7 +15,14 @@ export function ForgotPassword({
 }:ForgotPasswordProps){
 
     const [ isVisibleNewPassword, setIsVisibleNewPassword ] = useState(false);
+    const [ emailSent, setEmailSent ] = useState(false);
     const [ newPassword, setNewPassword ] = useState('')
+    const [ code, setCode ] = useState('')
+    
+
+    const { username } = useSelector(
+        (state: RootState) => state.userLogin
+    );
 
     function handdleVisibleNewPassword(){
         setIsVisibleNewPassword(!isVisibleNewPassword)
@@ -25,6 +32,9 @@ export function ForgotPassword({
         const value = e.target.value
 
         setNewPassword(value)
+        console.log(code)
+        console.log(newPassword)
+        console.log(username)
     }
 
     const handdleSubmit = (e: React.FormEvent) => {
@@ -33,29 +43,29 @@ export function ForgotPassword({
     }
 
     useEffect(() => {
-        const sendEmail = async () => {
+        if (emailSent) return;
 
-            const code = await axios.post(`http://localhost:8080/api/v3/users/recover-password?username=pedro@gmail.com`)
+        
+        const sendEmail = async () => {
+            
+            const { data } = await axios.post(`http://localhost:8080/api/v3/users/recover-password?username=${username}`)
+            setCode(data)
 
             try {
                 await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
-                    to: `${'lucas.alves3318@gmail.com'}`,
+                    to: `${username}`,
                     subject: "Código de validação",
-                    text: `Este é seu código de validação ${code}`
+                    text: `Este é seu código de validação ${data}`
                 });
                 console.log('Email enviado com sucesso!');
+                setEmailSent(true)
             } catch (error) {
                 console.error('Erro ao enviar o email:', error);
             }
         };
     
         sendEmail();
-    }, []);
-
-    const { username } = useSelector(
-        (state: RootState) => state.userLogin
-    );
-
+    }, [emailSent, username]);
     
 
     return(
