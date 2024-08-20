@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { api } from "../../lib/axios";
 
 interface ForgotPasswordProps{
     closeForgotPassword: () => void,
@@ -56,7 +57,7 @@ export function ForgotPassword({
             return console.log("preencha os campos")
         }
 
-        const response = await axios.put(`http://localhost:8080/api/v3/users/recover-password`, {
+        const response = await api.put(`/v3/users/recover-password`, {
             username,
             newPassword,
             verificationCode: code,
@@ -73,7 +74,7 @@ export function ForgotPassword({
         
         const sendEmail = async () => {
             
-            const { data } = await axios.post(`http://localhost:8080/api/v3/users/recover-password?username=${username}`)
+            const { data } = await api.post(`/v3/users/recover-password?username=${username}`)
             setVerificationCode(data)
 
             try {

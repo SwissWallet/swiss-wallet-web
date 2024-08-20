@@ -6,7 +6,7 @@ import { RegisterSecondaryStep } from "./register-secondary-step-modal";
 import { RegisterThirdStep } from "./register-third-step-modal";
 import { FinishRegister } from "./finish-register";
 import { useFormDataUserRegister } from "../../util/form-data-user-register";
-import axios from "axios";
+import { api } from "../../lib/axios";
 
 export function Register(){
 
@@ -47,7 +47,7 @@ export function Register(){
     const formData = useFormDataUserRegister()
 
     async function registerUser(){
-        await axios.post(`http://localhost:8080/api/v3/users`, formData)
+        await api.post(`/v3/users`, formData)
     }
 
     
