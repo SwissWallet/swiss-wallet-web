@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom"
 import { MainButton } from "../../components/micro-components/main-button"
 import { UserInput } from "../../components/micro-components/user-input"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "../../store"
+import { setUserLogin } from "../../features/user-login-slice"
 
 interface UsernameModalProps{
     handdleAdvanceUserInput: () => void,
@@ -10,9 +13,20 @@ export function UsernameModal({
     handdleAdvanceUserInput,
 }:UsernameModalProps){
 
+    const dispatch = useDispatch<AppDispatch>()
+
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         handdleAdvanceUserInput()
+    }
+
+    const { username } = useSelector(
+        (state: RootState) => state.userLogin
+    );
+
+    const handdleChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value
+        dispatch(setUserLogin({username: value}))
     }
 
     return(
@@ -24,7 +38,7 @@ export function UsernameModal({
                     <div className="flex flex-col gap-3">
                         <div className="flex justify-center flex-col  gap-1">
                             
-                            <UserInput placeholder="Insira seu e-mail">
+                            <UserInput placeholder="Insira seu e-mail" onChange={handdleChangeUsername}>
                                 Usuário
                             </UserInput>
                             <div className="flex items-center justify-center">
