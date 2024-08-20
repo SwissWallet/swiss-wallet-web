@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import logo from "../../assets/images/logo-swisswallet.png"
 import { Book, Coffee, Gift, Heart, House, ShoppingBag, ShoppingCart, User, X } from "lucide-react"
 
-interface DrawerMenuProps{
+interface DrawerMenuProps {
     isOpen: boolean,
     closeSettings: () => void;
 }
@@ -10,14 +10,14 @@ interface DrawerMenuProps{
 export function DrawerMenu({
     isOpen,
     closeSettings
-}:DrawerMenuProps){
+}: DrawerMenuProps) {
 
-    return(
-        <div className={`absolute z-50 p-10 bg-red-gradient h-screen w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}` }>
+    return (
+        <div className={`absolute z-50 p-10 bg-red-gradient h-screen w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
             <div className="flex">
-                <img  className="w-60" src={logo} alt="logotipo SwissWallet" />
+                <img className="w-60" src={logo} alt="logotipo SwissWallet" />
                 <button onClick={closeSettings}>
-                    <X className="size-5 text-white font-medium"/>
+                    <X className="size-5 text-white font-medium" />
                 </button>
             </div>
             <div className="bg-white w-full h-[1px]" />
@@ -71,22 +71,22 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
-                        <Link to={'/benefits'}>
-                            <div className="flex justify-center items-center space-x-2 p-3">
-                                <Gift className="text-white size-5 font-bold" />
-                                <span className="text-white font-medium">
-                                    Beneficios
-                                </span>
-                            </div>
-                        </Link>
-                        <Link to={'/orders'}>
-                            <div className="flex justify-center items-center space-x-2 p-3">
-                                <ShoppingCart className="text-white size-5 font-bold" />
-                                <span className="text-white font-medium">
-                                    Pedidos
-                                </span>
-                            </div>
-                        </Link>
+                    <Link to={'/benefits'}>
+                        <div className="flex justify-center items-center space-x-2 p-3">
+                            <Gift className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Beneficios
+                            </span>
+                        </div>
+                    </Link>
+                    <Link to={'/orders'}>
+                        <div className="flex justify-center items-center space-x-2 p-3">
+                            <ShoppingCart className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Pedidos
+                            </span>
+                        </div>
+                    </Link>
                 </nav>
             </div>
 
@@ -95,7 +95,7 @@ export function DrawerMenu({
             <div className="flex mt-5 space-x-5 ">
 
                 <div className="bg-gradient-to-t from-slate-700 to-black flex justify-center items-center rounded-full w-14 h-14 ">
-                    <User className="size-10 text-white"/>
+                    <User className="size-10 text-white" />
                 </div>
 
                 <div className="flex flex-col items-center">

@@ -3,8 +3,8 @@ import { Navbar } from "../../components/macro-components/navbar";
 import { InfoUser } from "./line-info-user";
 import { UpdateButton } from "../../components/micro-components/update-button";
 
-export function UserAccount(){
-    return(
+export function UserAccount() {
+    return (
         <div className="bg-default-gray">
             <Navbar />
 
@@ -18,7 +18,7 @@ export function UserAccount(){
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
-                            <UpdateButton/>
+                            <UpdateButton />
                         </div>
                         <InfoUser label="Nome" value="Usuário" />
                         <InfoUser label="Data de nascimento" value="25/07/2000" />
@@ -29,7 +29,7 @@ export function UserAccount(){
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
-                            <UpdateButton/>
+                            <UpdateButton />
                         </div>
                         <InfoUser label="Cidade" value="São Paulo" />
                         <InfoUser label="Bairro" value="Centro" />
@@ -41,7 +41,7 @@ export function UserAccount(){
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
-                            <UpdateButton/>
+                            <UpdateButton />
                         </div>
                         <InfoUser label="E-mail" value="username@senaisp" />
                         <InfoUser label="Senha" value="******12" />

@@ -4,17 +4,17 @@ import { UserInput } from "../../components/micro-components/user-input";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-interface ForgotPasswordProps{
+interface ForgotPasswordProps {
     closeForgotPassword: () => void,
 }
 
 export function ForgotPassword({
     closeForgotPassword,
-}:ForgotPasswordProps){
+}: ForgotPasswordProps) {
 
-    const [ isVisibleNewPassword, setIsVisibleNewPassword ] = useState(false)
+    const [isVisibleNewPassword, setIsVisibleNewPassword] = useState(false)
 
-    function handdleVisibleNewPassword(){
+    function handdleVisibleNewPassword() {
         setIsVisibleNewPassword(!isVisibleNewPassword)
     }
 
@@ -36,21 +36,21 @@ export function ForgotPassword({
                 console.error('Erro ao enviar o email:', error);
             }
         };
-    
+
         sendEmail();
     }, []);
 
-    return(
+    return (
         <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
             <p className="font-medium text-center text-base italic text-zinc-500">
-                Um e-mail será enviado para <span>usernameusuario@senaisp</span>, 
+                Um e-mail será enviado para <span>usernameusuario@senaisp</span>,
                 prosseguindo com os seguintes procedimentos para a recuperação de senha.</p>
 
             <div className="flex justify-center">
                 <div className="flex flex-col justify-center gap-6 w-96 ">
-                    <UserInput 
-                        position="center" 
-                        type={ isVisibleNewPassword ? 'text' : 'password'}
+                    <UserInput
+                        position="center"
+                        type={isVisibleNewPassword ? 'text' : 'password'}
                         isVisibleSvgIcon={true}
                         svgIcon={
                             isVisibleNewPassword ? (
@@ -79,7 +79,7 @@ export function ForgotPassword({
                 </button>
 
                 <MainButton type="submit">
-                     OK
+                    OK
                 </MainButton>
             </div>
         </form>

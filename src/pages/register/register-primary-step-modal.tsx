@@ -6,13 +6,13 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../features/get-user-input-slice";
 import { AppDispatch } from "../../store";
 
-interface RegisterPrimaryStepPros{
+interface RegisterPrimaryStepPros {
     finishedPrimaryStep: () => void,
 }
 
 export function RegisterPrimaryStep({
     finishedPrimaryStep,
-}:RegisterPrimaryStepPros){
+}: RegisterPrimaryStepPros) {
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,10 +28,10 @@ export function RegisterPrimaryStep({
             [name]: value
         }))
 
-       
+
     };
 
-    return(
+    return (
 
         <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
             <Link to={'/'}>

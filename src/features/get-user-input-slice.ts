@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface UserInputState{
+interface UserInputState {
     name: string,
     dateBorn: string,
     email: string,
@@ -20,8 +20,8 @@ export const slice = createSlice({
     name: 'getUserInput',
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<Partial<UserInputState>>){
-            return{ ...state, ...action.payload }
+        setUser(state, action: PayloadAction<Partial<UserInputState>>) {
+            return { ...state, ...action.payload }
         }
     }
 })

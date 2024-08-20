@@ -12,7 +12,7 @@ export function Favorites() {
 
             <main className="ml-20 mr-20 justify-between flex flex-col gap-20 mt-20">
 
-                <HeaderOnPages 
+                <HeaderOnPages
                     title="Favoritos"
                     description="Confira sua lista de favoritos"
                 />
@@ -22,22 +22,22 @@ export function Favorites() {
                     <SingleProduct
                         textOnButton={<Heart className="fill-white" />}
                     />
-                    <SingleProduct 
-                        textOnButton={<Heart className="fill-white"/>}
-                    />
-                    <SingleProduct 
+                    <SingleProduct
                         textOnButton={<Heart className="fill-white" />}
                     />
-                    <SingleProduct 
+                    <SingleProduct
                         textOnButton={<Heart className="fill-white" />}
                     />
-                    <SingleProduct 
+                    <SingleProduct
                         textOnButton={<Heart className="fill-white" />}
                     />
-                    <SingleProduct 
+                    <SingleProduct
                         textOnButton={<Heart className="fill-white" />}
                     />
-                    
+                    <SingleProduct
+                        textOnButton={<Heart className="fill-white" />}
+                    />
+
                 </section>
 
             </main>

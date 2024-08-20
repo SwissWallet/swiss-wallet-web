@@ -8,51 +8,51 @@ import { FinishRegister } from "./finish-register";
 import { useFormDataUserRegister } from "../../util/form-data-user-register";
 import axios from "axios";
 
-export function Register(){
+export function Register() {
 
     // Estados para exibição dos passos para o cadastro do usuário
-    const [ filledPrimaryStep, setFilledPrimaryStep ] = useState(true)
-    const [ filledSecondaryStep, setFilledSecondaryStep ] = useState(false)
-    const [ filledThirdStep, setFilledThirdStep ] = useState(false)
-    const [ finishRegister, setFinishRegister ] = useState(false)
+    const [filledPrimaryStep, setFilledPrimaryStep] = useState(true)
+    const [filledSecondaryStep, setFilledSecondaryStep] = useState(false)
+    const [filledThirdStep, setFilledThirdStep] = useState(false)
+    const [finishRegister, setFinishRegister] = useState(false)
 
     // Funções para avançar os passos do cadastro
-    function finishedPrimaryStep(){
+    function finishedPrimaryStep() {
         setFilledPrimaryStep(false)
         setFilledSecondaryStep(true)
     }
 
-    function finishedSecondaryStep(){
+    function finishedSecondaryStep() {
         setFilledSecondaryStep(false)
         setFilledThirdStep(true)
     }
 
-    function finishedThirdStep(){
+    function finishedThirdStep() {
         setFilledThirdStep(false)
         console.log(formData)
         setFinishRegister(true)
     }
 
     // Funções para voltar os passos do cadastro
-    function backToThePrimaryStep(){
+    function backToThePrimaryStep() {
         setFilledSecondaryStep(false)
         setFilledPrimaryStep(true)
     }
 
-    function backToTheSecondaryStep(){
+    function backToTheSecondaryStep() {
         setFilledThirdStep(false)
         setFilledSecondaryStep(true)
     }
 
     const formData = useFormDataUserRegister()
 
-    async function registerUser(){
+    async function registerUser() {
         await axios.post(`http://localhost:8080/api/v3/users`, formData)
     }
 
-    
 
-    return(
+
+    return (
         <div className="bg-red-gradient h-auto w-full flex gap-28 flex-col">
 
             <HeaderLoginAndRegister />
@@ -61,7 +61,7 @@ export function Register(){
 
                 {
                     filledPrimaryStep && (
-                        <RegisterPrimaryStep 
+                        <RegisterPrimaryStep
                             finishedPrimaryStep={finishedPrimaryStep}
                         />
                     )
@@ -70,7 +70,7 @@ export function Register(){
 
                 {
                     filledSecondaryStep && (
-                        <RegisterSecondaryStep 
+                        <RegisterSecondaryStep
                             finishedSecondaryStep={finishedSecondaryStep}
                             backToThePrimaryStep={backToThePrimaryStep}
                         />
@@ -80,7 +80,7 @@ export function Register(){
 
                 {
                     filledThirdStep && (
-                        <RegisterThirdStep 
+                        <RegisterThirdStep
                             finishedThirdStep={finishedThirdStep}
                             backToTheSecondaryStep={backToTheSecondaryStep}
                             registerUser={registerUser}
