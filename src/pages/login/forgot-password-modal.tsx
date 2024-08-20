@@ -1,7 +1,8 @@
 import { Eye, EyeOff } from "lucide-react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface ForgotPasswordProps{
     closeForgotPassword: () => void,
@@ -21,6 +22,23 @@ export function ForgotPassword({
         e.preventDefault();
         closeForgotPassword();
     }
+
+    useEffect(() => {
+        const sendEmail = async () => {
+            try {
+                await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
+                    to: "lucas.alves3318@gmail.com",
+                    subject: "Assunto do email",
+                    text: "Envio de texto simples"
+                });
+                console.log('Email enviado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao enviar o email:', error);
+            }
+        };
+    
+        sendEmail();
+    }, []);
 
     return(
         <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
