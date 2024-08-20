@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 import { MainButton } from "../../components/micro-components/main-button"
 import { UserInput } from "../../components/micro-components/user-input"
-import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "../../store"
+import { useDispatch } from "react-redux"
+import { AppDispatch } from "../../store"
 import { setUserLogin } from "../../features/user-login-slice"
 
 interface UsernameModalProps{
@@ -19,10 +19,6 @@ export function UsernameModal({
         e.preventDefault()
         handdleAdvanceUserInput()
     }
-
-    const { username } = useSelector(
-        (state: RootState) => state.userLogin
-    );
 
     const handdleChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
