@@ -6,7 +6,7 @@ export const useFormDataUserRegister = () => {
     const { name, dateBorn, email, cpf, phone } = useSelector(
         (state: RootState) => state.user
     );
-    const { cep, city, uf, neighborhood, street, complement } = useSelector(
+    const { cep, city, uf, street, complement } = useSelector(
         (state: RootState) => state.address
     );
     const { newPassword } = useSelector(
@@ -15,18 +15,17 @@ export const useFormDataUserRegister = () => {
 
     const formData = {
         name,
-        dateBorn,
-        email,
+        birthDate: dateBorn,
+        username: email,
         cpf,
         phone,
         password: newPassword,
         userAdress: {
-            cep,
+            zipCode: cep,
             city,
             uf,
-            neighborhood,
             street,
-            complement,
+            number: complement,
         },
     };
 
