@@ -26,6 +26,7 @@ export function Login(){
         setFilledUserName(false);
     }
 
+
     return(
         <div className="h-screen w-full bg-red-gradient flex flex-col justify-between">
             <HeaderLoginAndRegister />

@@ -10,11 +10,13 @@ import { useState } from "react";
 interface RegisterThirdStepProps{
     finishedThirdStep: () => void,
     backToTheSecondaryStep: () => void,
+    registerUser: () => void,
 }
 
 export function RegisterThirdStep({
     finishedThirdStep,
     backToTheSecondaryStep,
+    registerUser,
 }:RegisterThirdStepProps){
 
     const dispatch = useDispatch<AppDispatch>()
@@ -34,6 +36,7 @@ export function RegisterThirdStep({
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log('passei aqui')
+        registerUser()
         finishedThirdStep();
     }
 
