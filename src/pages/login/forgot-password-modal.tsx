@@ -18,6 +18,7 @@ export function ForgotPassword({
     const [ emailSent, setEmailSent ] = useState(false);
     const [ newPassword, setNewPassword ] = useState('')
     const [ code, setCode ] = useState('')
+    const [ verificationCode, setVerificationCode ] = useState('')
     
 
     const { username } = useSelector(
@@ -32,14 +33,38 @@ export function ForgotPassword({
         const value = e.target.value
 
         setNewPassword(value)
-        console.log(code)
+        console.log(verificationCode)
         console.log(newPassword)
         console.log(username)
     }
 
+    const handleChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+
+        setCode(value)
+    }
+
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
         closeForgotPassword();
+    }
+
+    async function onClickVerification(){
+
+        if( newPassword === '' || code === '' ){
+            return console.log("preencha os campos")
+        }
+
+        const response = await axios.put(`http://localhost:8080/api/v3/users/recover-password`, {
+            username,
+            newPassword,
+            verificationCode: code,
+        });
+
+        if (response.status === 200){
+            console.log("senha alterada com sucesso")
+        }
     }
 
     useEffect(() => {
@@ -49,7 +74,7 @@ export function ForgotPassword({
         const sendEmail = async () => {
             
             const { data } = await axios.post(`http://localhost:8080/api/v3/users/recover-password?username=${username}`)
-            setCode(data)
+            setVerificationCode(data)
 
             try {
                 await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
@@ -96,7 +121,7 @@ export function ForgotPassword({
                     >
                         Nova senha
                     </UserInput>
-                    <UserInput position="center" >
+                    <UserInput onChange={handleChangeCode} position="center" >
                         Código de validação
                     </UserInput>
                 </div>
@@ -108,7 +133,11 @@ export function ForgotPassword({
                     Não recebi e-mail
                 </button>
 
-                <MainButton type="submit">
+                <MainButton onClick={onClickVerification} type="button">
+                    Verificar
+                </MainButton>
+
+                <MainButton width="min" type="submit">
                      OK
                 </MainButton>
             </div>
