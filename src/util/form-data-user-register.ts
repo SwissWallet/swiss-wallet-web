@@ -14,13 +14,15 @@ export const useFormDataUserRegister = () => {
     );
 
     const formData = {
-        name,
-        birthDate: dateBorn,
-        username: email,
-        cpf,
-        phone,
-        password: newPassword,
-        userAdress: {
+        user: {
+            name,
+            birthDate: dateBorn,
+            username: email,
+            cpf,
+            phone,
+            password: newPassword,
+        },
+        address: {
             zipCode: cep,
             city,
             uf,
