@@ -3,6 +3,8 @@ import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 interface ForgotPasswordProps{
     closeForgotPassword: () => void,
@@ -12,10 +14,17 @@ export function ForgotPassword({
     closeForgotPassword,
 }:ForgotPasswordProps){
 
-    const [ isVisibleNewPassword, setIsVisibleNewPassword ] = useState(false)
+    const [ isVisibleNewPassword, setIsVisibleNewPassword ] = useState(false);
+    const [ newPassword, setNewPassword ] = useState('')
 
     function handdleVisibleNewPassword(){
         setIsVisibleNewPassword(!isVisibleNewPassword)
+    }
+
+    const handleChangeNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value
+
+        setNewPassword(value)
     }
 
     const handdleSubmit = (e: React.FormEvent) => {
@@ -25,11 +34,14 @@ export function ForgotPassword({
 
     useEffect(() => {
         const sendEmail = async () => {
+
+            const code = await axios.post(`http://localhost:8080/api/v3/users/recover-password?username=pedro@gmail.com`)
+
             try {
                 await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
-                    to: "lucas.alves3318@gmail.com",
-                    subject: "Assunto do email",
-                    text: "Envio de texto simples"
+                    to: `${'lucas.alves3318@gmail.com'}`,
+                    subject: "Código de validação",
+                    text: `Este é seu código de validação ${code}`
                 });
                 console.log('Email enviado com sucesso!');
             } catch (error) {
@@ -40,10 +52,16 @@ export function ForgotPassword({
         sendEmail();
     }, []);
 
+    const { username } = useSelector(
+        (state: RootState) => state.userLogin
+    );
+
+    
+
     return(
         <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
             <p className="font-medium text-center text-base italic text-zinc-500">
-                Um e-mail será enviado para <span>usernameusuario@senaisp</span>, 
+                Um e-mail será enviado para <span className="text-zinc-700 not-italic font-semibold">{username}</span>, 
                 prosseguindo com os seguintes procedimentos para a recuperação de senha.</p>
 
             <div className="flex justify-center">
@@ -51,6 +69,8 @@ export function ForgotPassword({
                     <UserInput 
                         position="center" 
                         type={ isVisibleNewPassword ? 'text' : 'password'}
+                        value={newPassword}
+                        onChange={handleChangeNewPassword}
                         isVisibleSvgIcon={true}
                         svgIcon={
                             isVisibleNewPassword ? (
