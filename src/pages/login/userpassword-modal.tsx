@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserLogin } from "../../features/user-login-slice";
 import { RootState } from "../../store";
 
-interface UserPasswordModalProps{
+interface UserPasswordModalProps {
     handdleBackUserInput: () => void,
     openForgotPassword: () => void,
 }
@@ -13,7 +13,7 @@ interface UserPasswordModalProps{
 export function UserPasswordModal({
     handdleBackUserInput,
     openForgotPassword,
-}:UserPasswordModalProps){
+}: UserPasswordModalProps) {
 
     const dispatch = useDispatch()
 
@@ -30,9 +30,9 @@ export function UserPasswordModal({
     return(
                 <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
-                    <BackButton 
-                        type="button" onClick={handdleBackUserInput}
-                    />
+            <BackButton
+                type="button" onClick={handdleBackUserInput}
+            />
 
                     <div className="flex flex-col gap-3">
                         <h3 className="text-3xl font-medium">Digite sua senha</h3>
@@ -47,18 +47,18 @@ export function UserPasswordModal({
                             <button type="button" onClick={openForgotPassword}>
                                 <span className="text-sm font-medium text-zinc-500
                                         hover:text-zinc-600 hover:cursor-pointer">
-                                    esqueceu sua senha?
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div className="flex justify-center items-center">
-                        <Link to={'/home'}>
-                            <MainButton>
-                                Avançar
-                            </MainButton>
-                        </Link>
-                    </div>
-                </form>
+                            esqueceu sua senha?
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div className="flex justify-center items-center">
+                <Link to={'/home'}>
+                    <MainButton>
+                        Avançar
+                    </MainButton>
+                </Link>
+            </div>
+        </form>
     )
 }

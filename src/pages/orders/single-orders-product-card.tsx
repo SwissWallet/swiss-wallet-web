@@ -1,14 +1,14 @@
 import { ReactNode } from "react"
 import CamisaBranca from "../../assets/images/camisa-branca.svg"
 
-interface SingleOrdersProductCardProps{
+interface SingleOrdersProductCardProps {
     status: ReactNode,
 }
 
 export function SingleOrdersProductCard({
     status,
-}:SingleOrdersProductCardProps){
-    return(
+}: SingleOrdersProductCardProps) {
+    return (
         <div className="flex items-center flex-col">
             <img src={CamisaBranca} alt="camiseta branca com logo do senai" />
             <article className="bg-black text-white p-4 rounded-lg gap-4 h-[216px] flex flex-col -mt-36">

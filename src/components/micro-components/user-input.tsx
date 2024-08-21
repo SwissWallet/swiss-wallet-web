@@ -3,24 +3,24 @@ import { tv, VariantProps } from "tailwind-variants"
 
 const UserInputChildrenVariants = tv({
     base: 'text-lg font-medium ',
-    
-    variants:{
-        
+
+    variants: {
+
         position: {
             start: 'text-start',
             center: 'text-center',
-        }, 
+        },
     },
-    
+
     defaultVariants: {
         position: 'start',
     }
 })
 
 
-interface UserInputProps 
-        extends React.InputHTMLAttributes<HTMLInputElement>, 
-                VariantProps<typeof UserInputChildrenVariants> {
+interface UserInputProps
+    extends React.InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof UserInputChildrenVariants> {
     children: ReactNode,
     isVisibleSvgIcon?: boolean,
     svgIcon?: ReactNode,
@@ -32,11 +32,11 @@ export function UserInput({
     isVisibleSvgIcon,
     svgIcon,
     ...props
-}:UserInputProps){
+}: UserInputProps) {
 
-    return(
+    return (
         <div className="flex flex-col gap-3 flex-1">
-            <h3 className={UserInputChildrenVariants({position})}>{children}</h3>
+            <h3 className={UserInputChildrenVariants({ position })}>{children}</h3>
 
             <div className="flex justify-end items-center text-zinc-700">
                 {isVisibleSvgIcon && (

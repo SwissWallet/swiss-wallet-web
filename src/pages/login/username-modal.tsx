@@ -5,13 +5,13 @@ import { useDispatch } from "react-redux"
 import { AppDispatch } from "../../store"
 import { setUserLogin } from "../../features/user-login-slice"
 
-interface UsernameModalProps{
+interface UsernameModalProps {
     handdleAdvanceUserInput: () => void,
 }
 
 export function UsernameModal({
     handdleAdvanceUserInput,
-}:UsernameModalProps){
+}: UsernameModalProps) {
 
     const dispatch = useDispatch<AppDispatch>()
 
@@ -41,17 +41,17 @@ export function UsernameModal({
                                 <Link to={'/register'}>
                                     <span className="text-sm font-medium text-zinc-500
                                             hover:text-zinc-600 hover:cursor-pointer">
-                                        não tenho conta
-                                    </span>
-                                </Link>
-                            </div>
-                        </div>
+                                não tenho conta
+                            </span>
+                        </Link>
                     </div>
-                    <div className="flex justify-center items-center">
-                        <MainButton type="submit" >
-                            Avançar
-                        </MainButton>
-                    </div>
-                </form>
+                </div>
+            </div>
+            <div className="flex justify-center items-center">
+                <MainButton type="submit" >
+                    Avançar
+                </MainButton>
+            </div>
+        </form>
     )
 }

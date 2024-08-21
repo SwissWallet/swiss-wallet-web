@@ -1,5 +1,5 @@
 import { SingleProduct } from "../../components/micro-components/single-product-card";
-import { Heart } from "lucide-react";
+import { Heart }         from "lucide-react";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
 import { Footer } from "../../components/macro-components/footer";

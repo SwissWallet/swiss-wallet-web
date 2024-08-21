@@ -7,13 +7,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
 
-interface ForgotPasswordProps{
+interface ForgotPasswordProps {
     closeForgotPassword: () => void,
 }
 
 export function ForgotPassword({
     closeForgotPassword,
-}:ForgotPasswordProps){
+}: ForgotPasswordProps) {
 
     const [ isVisibleNewPassword, setIsVisibleNewPassword ] = useState(false);
     const [ emailSent, setEmailSent ] = useState(false);
@@ -26,7 +26,8 @@ export function ForgotPassword({
         (state: RootState) => state.userLogin
     );
 
-    function handdleVisibleNewPassword(){
+
+    function handdleVisibleNewPassword() {
         setIsVisibleNewPassword(!isVisibleNewPassword)
     }
 
@@ -91,12 +92,12 @@ export function ForgotPassword({
                 console.error('Erro ao enviar o email:', error);
             }
         };
-    
+
         sendEmail();
     }, [emailSent, username]);
     
 
-    return(
+    return (
         <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
             <p className="font-medium text-center text-base italic text-zinc-500">
                 Um e-mail será enviado para <span className="text-zinc-700 not-italic font-semibold">{username}</span>, 
@@ -137,7 +138,7 @@ export function ForgotPassword({
                 </button>
 
                 <MainButton type="submit">
-                     OK
+                    OK
                 </MainButton>
             </div>
         </form>
