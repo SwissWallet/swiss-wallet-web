@@ -20,6 +20,7 @@ export function ForgotPassword({
     const [ newPassword, setNewPassword ] = useState('')
     const [ code, setCode ] = useState('')
     const [ verificationCode, setVerificationCode ] = useState('')
+    const verificationCodeRef = useRef('');
     
 
     const { username } = useSelector(
@@ -80,8 +81,6 @@ export function ForgotPassword({
         })
         
     }
-
-    const verificationCodeRef = useRef('');
 
     useEffect(() => {
         if (emailSent) return;
