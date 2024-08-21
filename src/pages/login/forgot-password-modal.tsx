@@ -48,10 +48,12 @@ export function ForgotPassword({
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
+        Verification();
+
         closeForgotPassword();
     }
 
-    async function onClickVerification(){
+    async function Verification(){
 
         if( newPassword === '' || code === '' ){
             return console.log("preencha os campos")
@@ -64,7 +66,7 @@ export function ForgotPassword({
         });
 
         if (response.status === 200){
-            console.log("senha alterada com sucesso")
+            return console.log("senha alterada com sucesso")
         }
     }
 
@@ -134,11 +136,7 @@ export function ForgotPassword({
                     Não recebi e-mail
                 </button>
 
-                <MainButton onClick={onClickVerification} type="button">
-                    Verificar
-                </MainButton>
-
-                <MainButton width="min" type="submit">
+                <MainButton type="submit">
                      OK
                 </MainButton>
             </div>
