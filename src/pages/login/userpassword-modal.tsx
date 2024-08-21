@@ -46,8 +46,13 @@ export function UserPasswordModal({
         }
     }
 
+    const handdleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        authLogin()
+    }
+
     return(
-            <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
+            <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
             <BackButton
                 type="button" onClick={handdleBackUserInput}
@@ -73,7 +78,7 @@ export function UserPasswordModal({
             </div>
             <div className="flex justify-center items-center">
                 <Link to={'/home'}>
-                    <MainButton type="button" onClick={authLogin}>
+                    <MainButton type="submit" onClick={authLogin}>
                         Avançar
                     </MainButton>
                 </Link>
