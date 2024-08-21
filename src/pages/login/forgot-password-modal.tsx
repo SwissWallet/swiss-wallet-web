@@ -60,15 +60,25 @@ export function ForgotPassword({
             return console.log("preencha os campos")
         }
 
-        const response = await api.put(`/v3/users/recover-password`, {
+        await api.put(`/v3/users/recover-password`, {
             username,
             newPassword,
             verificationCode: code,
-        });
-
-        if (response.status === 200){
-            return console.log("senha alterada com sucesso")
-        }
+        })
+        .then((json) => {
+            if(json.status === 200){
+                return console.log("senha alterada com sucesso")
+            }
+        })
+        .catch((err) => {
+            if(err.response.status === 400){
+                return console.log("código inválido")
+            }
+            if(err.response.status === 404){
+                return console.log("usuário não encontrado")
+            }
+        })
+        
     }
 
     useEffect(() => {
@@ -77,14 +87,26 @@ export function ForgotPassword({
         
         const sendEmail = async () => {
             
-            const { data } = await api.post(`/v3/users/recover-password?username=${username}`)
-            setVerificationCode(data)
+            await api.post(
+                `/v3/users/recover-password?username=${username}`
+            )
+            .then((json) => {
+                if(json.status === 200){
+                    setVerificationCode(json.data)
+                    return console.log('OK')
+                }
+            })
+            .catch((err) => {
+                if(err.response.status === 404){
+                    return console.log('Usuário não encontrado')
+                }
+            })
 
             try {
                 await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
                     to: `${username}`,
                     subject: "Código de validação",
-                    text: `Este é seu código de validação ${data}`
+                    text: `Este é seu código de validação ${verificationCode}`
                 });
                 console.log('Email enviado com sucesso!');
                 setEmailSent(true)
@@ -94,7 +116,7 @@ export function ForgotPassword({
         };
 
         sendEmail();
-    }, [emailSent, username]);
+    }, [emailSent, username, verificationCode]);
     
 
     return (
