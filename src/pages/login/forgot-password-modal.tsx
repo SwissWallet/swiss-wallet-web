@@ -87,8 +87,20 @@ export function ForgotPassword({
         
         const sendEmail = async () => {
             
-            const { data } = await api.post(`/v3/users/recover-password?username=${username}`)
-            setVerificationCode(data)
+            await api.post(
+                `/v3/users/recover-password?username=${username}`
+            )
+            .then((json) => {
+                if(json.status === 200){
+                    setVerificationCode(json.data)
+                    return console.log('OK')
+                }
+            })
+            .catch((err) => {
+                if(err.response.status === 404){
+                    return console.log('Usuário não encontrado')
+                }
+            })
 
             try {
                 await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
