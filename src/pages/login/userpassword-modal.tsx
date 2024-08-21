@@ -32,18 +32,20 @@ export function UserPasswordModal({
         console.log(username)
         console.log(password)
 
-        const response = await api.post('/v3/auth', {
+        await api.post('/v3/auth', {
             username,
             password,
-        });
-
-        if(response.status === 200){
-            return console.log('login válido')
-        }
-
-        if(response.status === 400){
-            return console.log('login inválido')
-        }
+        })
+        .then((json) => {
+            if(json.status === 200){
+                return console.log('OK')
+            }
+        })
+        .catch((err) => {
+            if(err.response.status === 400){
+                return console.log('credenciais inválidas')
+            }
+        })
     }
 
     const handdleSubmit = (e: React.FormEvent) => {
