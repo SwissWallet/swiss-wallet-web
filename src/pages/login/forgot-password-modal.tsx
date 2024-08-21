@@ -106,7 +106,7 @@ export function ForgotPassword({
                 await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
                     to: `${username}`,
                     subject: "Código de validação",
-                    text: `Este é seu código de validação ${data}`
+                    text: `Este é seu código de validação ${verificationCode}`
                 });
                 console.log('Email enviado com sucesso!');
                 setEmailSent(true)
@@ -116,7 +116,7 @@ export function ForgotPassword({
         };
 
         sendEmail();
-    }, [emailSent, username]);
+    }, [emailSent, username, verificationCode]);
     
 
     return (
