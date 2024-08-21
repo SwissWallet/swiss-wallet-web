@@ -47,7 +47,22 @@ export function Register() {
     const formData = useFormDataUserRegister()
 
     async function registerUser(){
-        await api.post(`/v3/users`, formData)
+        await api.post(
+            `/v3/users`, formData
+        )
+        .then((json) => {
+            if(json.status === 201){
+                return console.log("created")
+            }
+        })
+        .catch((err) => {
+            if(err.response.status === 422){
+                return console.log("campo inválido")
+            }
+            if(err.response.status === 409){
+                return console.log("usuário ja cadastrado")
+            }
+        })
     }
 
     return (
