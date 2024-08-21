@@ -1,7 +1,7 @@
 import { Eye, EyeOff } from "lucide-react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -81,42 +81,45 @@ export function ForgotPassword({
         
     }
 
+    const sendEmail = async () => {
+            
+        const response = await api.post(
+            `/v3/users/recover-password?username=${username}`
+        )
+        console.log(respo)
+        .then((json) => {
+            if(json.status === 200){
+                setVerificationCode(json.data)
+                return console.log('OK')
+            }
+        })
+        .catch((err) => {
+            if(err.response.status === 404){
+                return console.log('Usuário não encontrado')
+            }
+        })
+
+        try {
+            await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
+                to: `${username}`,
+                subject: "Código de validação",
+                text: `Este é seu código de validação ${response}`
+            });
+            console.log('Email enviado com sucesso!');
+            setEmailSent(true)
+        } catch (error) {
+            console.error('Erro ao enviar o email:', error);
+        }
+    };
+
     useEffect(() => {
         if (emailSent) return;
 
         
-        const sendEmail = async () => {
-            
-            await api.post(
-                `/v3/users/recover-password?username=${username}`
-            )
-            .then((json) => {
-                if(json.status === 200){
-                    setVerificationCode(json.data)
-                    return console.log('OK')
-                }
-            })
-            .catch((err) => {
-                if(err.response.status === 404){
-                    return console.log('Usuário não encontrado')
-                }
-            })
-
-            try {
-                await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
-                    to: `${username}`,
-                    subject: "Código de validação",
-                    text: `Este é seu código de validação ${verificationCode}`
-                });
-                console.log('Email enviado com sucesso!');
-                setEmailSent(true)
-            } catch (error) {
-                console.error('Erro ao enviar o email:', error);
-            }
-        };
+        
 
         sendEmail();
-    }, [emailSent, username, verificationCode]);
+    }, [emailSent, username]);
     
 
     return (
