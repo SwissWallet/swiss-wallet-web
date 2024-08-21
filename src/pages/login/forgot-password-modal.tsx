@@ -60,15 +60,25 @@ export function ForgotPassword({
             return console.log("preencha os campos")
         }
 
-        const response = await api.put(`/v3/users/recover-password`, {
+        await api.put(`/v3/users/recover-password`, {
             username,
             newPassword,
             verificationCode: code,
-        });
-
-        if (response.status === 200){
-            return console.log("senha alterada com sucesso")
-        }
+        })
+        .then((json) => {
+            if(json.status === 200){
+                return console.log("senha alterada com sucesso")
+            }
+        })
+        .catch((err) => {
+            if(err.response.status === 400){
+                return console.log("código inválido")
+            }
+            if(err.response.status === 404){
+                return console.log("usuário não encontrado")
+            }
+        })
+        
     }
 
     useEffect(() => {
