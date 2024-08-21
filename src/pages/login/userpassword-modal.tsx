@@ -4,6 +4,7 @@ import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserLogin } from "../../features/user-login-slice";
 import { RootState } from "../../store";
+import { api } from "../../lib/axios";
 
 interface UserPasswordModalProps {
     handdleBackUserInput: () => void,
@@ -23,12 +24,30 @@ export function UserPasswordModal({
         dispatch(setUserLogin({password: value}))
     }
 
-    const { username } = useSelector(
+    const { username, password } = useSelector(
         (state: RootState) => state.userLogin
     );
 
+    async function authLogin() {
+        console.log(username)
+        console.log(password)
+
+        const response = await api.post('/v3/auth', {
+            username,
+            password,
+        });
+
+        if(response.status === 200){
+            return console.log('login válido')
+        }
+
+        if(response.status === 400){
+            return console.log('login inválido')
+        }
+    }
+
     return(
-                <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
+            <form className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
 
             <BackButton
                 type="button" onClick={handdleBackUserInput}
@@ -54,7 +73,7 @@ export function UserPasswordModal({
             </div>
             <div className="flex justify-center items-center">
                 <Link to={'/home'}>
-                    <MainButton>
+                    <MainButton type="button" onClick={authLogin}>
                         Avançar
                     </MainButton>
                 </Link>
