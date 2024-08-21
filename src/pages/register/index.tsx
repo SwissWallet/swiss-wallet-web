@@ -48,8 +48,7 @@ export function Register() {
 
     async function registerUser(){
         await api.post(`/v3/users`, formData)
-
-
+    }
 
     return (
         <div className="bg-red-gradient h-auto w-full flex gap-28 flex-col">
@@ -98,4 +97,5 @@ export function Register() {
             <FooterLoginAndRegister />
         </div>
     )
+    
 }
