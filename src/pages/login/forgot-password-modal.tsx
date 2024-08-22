@@ -58,7 +58,7 @@ export function ForgotPassword({
     async function Verification(){
 
         if( newPassword === '' || code === '' ){
-            return console.log("preencha os campos")
+            return window.alert("preencha os campos")
         }
 
         await api.put(`/v3/users/recover-password`, {
@@ -68,15 +68,15 @@ export function ForgotPassword({
         })
         .then((json) => {
             if(json.status === 200){
-                return console.log("senha alterada com sucesso")
+                return window.alert("senha alterada com sucesso")
             }
         })
         .catch((err) => {
             if(err.response.status === 400){
-                return console.log("código inválido")
+                return window.alert("código inválido")
             }
             if(err.response.status === 404){
-                return console.log("usuário não encontrado")
+                return window.alert("usuário não encontrado")
             }
         })
         
@@ -95,7 +95,7 @@ export function ForgotPassword({
                 if(json.status === 200){
                     verificationCodeRef.current = json.data
                     setVerificationCode(json.data)
-                    return console.log('OK')
+                    return window.alert('OK')
                 }
             })
             .catch((err) => {
