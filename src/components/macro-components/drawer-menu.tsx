@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import logo from "../../assets/images/logo-swisswallet.png"
 import { Book, Coffee, Gift, Heart, House, ShoppingBag, ShoppingCart, User, X } from "lucide-react"
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 
 interface DrawerMenuProps {
     isOpen: boolean,
@@ -11,6 +13,11 @@ export function DrawerMenu({
     isOpen,
     closeSettings
 }: DrawerMenuProps) {
+
+
+    const { email, name } = useSelector(
+        (state: RootState) => state.authUser
+    );
 
     return (
         <div className={`absolute z-50 p-10 bg-red-gradient h-screen w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
@@ -100,8 +107,8 @@ export function DrawerMenu({
 
                 <div className="flex flex-col items-center">
                     <div className="flex flex-col justify-center items-center">
-                        <h1 className="text-white font-medium text-xl">NomeUsuario</h1>
-                        <p className="text-zinc-400 font-light">username@senaisp</p>
+                        <h1 className="text-white font-medium text-xl">{name}</h1>
+                        <p className="text-zinc-400 font-light">{email}</p>
 
                     </div>
                     <Link to={'/'}>
