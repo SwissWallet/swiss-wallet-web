@@ -5,29 +5,29 @@ import { UserPasswordModal } from "./userpassword-modal";
 import { FooterLoginAndRegister } from "../../components/macro-components/footer-login-and-register";
 import { ForgotPassword } from "./forgot-password-modal";
 
-export function Login(){
+export function Login() {
 
-    const [ filledUserName, setFilledUserName ] = useState(false);
-    const [ isVisibleForgotPassword, setIsVisibleForgotPassword ] = useState(false);
+    const [filledUserName, setFilledUserName] = useState(false);
+    const [isVisibleForgotPassword, setIsVisibleForgotPassword] = useState(false);
 
-    function openForgotPassword(){
+    function openForgotPassword() {
         setIsVisibleForgotPassword(true)
     }
-    
-    function closeForgotPassword(){
+
+    function closeForgotPassword() {
         setIsVisibleForgotPassword(false)
     }
 
-    function handdleAdvanceUserInput(){
+    function handdleAdvanceUserInput() {
         setFilledUserName(true);
     }
 
-    function handdleBackUserInput(){
+    function handdleBackUserInput() {
         setFilledUserName(false);
     }
 
 
-    return(
+    return (
         <div className="h-screen w-full bg-red-gradient flex flex-col justify-between">
             <HeaderLoginAndRegister />
 
@@ -35,36 +35,36 @@ export function Login(){
 
                 {
                     filledUserName ? (
-     
+
                         isVisibleForgotPassword ? (
 
-                            <ForgotPassword 
+                            <ForgotPassword
                                 closeForgotPassword={closeForgotPassword}
                             />
 
                         ) : (
 
-                            <UserPasswordModal 
+                            <UserPasswordModal
                                 handdleBackUserInput={handdleBackUserInput}
                                 openForgotPassword={openForgotPassword}
                             />
                         )
-        
+
 
                     ) : (
-                        <UsernameModal 
+                        <UsernameModal
                             handdleAdvanceUserInput={handdleAdvanceUserInput}
                         />
                     )
                 }
 
-                
+
             </main>
 
             <FooterLoginAndRegister />
-            
+
         </div>
 
-        
+
     )
 }
