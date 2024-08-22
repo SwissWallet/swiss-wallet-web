@@ -50,4 +50,5 @@ export function UserExtract(){
             <Footer/>
 
         </div>
+    )
 }
