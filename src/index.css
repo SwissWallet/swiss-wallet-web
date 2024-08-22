@@ -3,8 +3,29 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
     min-width: 0;
     font-family: 'Montserrat', 'Inter', sans-serif;
     box-sizing: border-box;
+    scrollbar-color: #E30613;
+
+}
+
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #E30613;
+    border-radius: 108px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #E30613;
+
 }
