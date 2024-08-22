@@ -63,7 +63,7 @@ export function UserPasswordModal({
         })
         .catch((err) => {
             if(err.response.status === 403){
-                return console.log('usuário não tem acesso')
+                return window.alert('usuário não tem acesso')
             }
         })
     }
@@ -78,7 +78,7 @@ export function UserPasswordModal({
         })
         .then((json) => {
             if(json.status === 200){
-                console.log('OK')
+                window.alert('OK')
                 console.log(json.data.token)
                 loadDataUser(json.data.token)
 
@@ -86,7 +86,7 @@ export function UserPasswordModal({
         })
         .catch((err) => {
             if(err.response.status === 400){
-                return console.log('credenciais inválidas')
+                return window.alert('credenciais inválidas')
             }
         })
     }

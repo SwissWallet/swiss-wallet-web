@@ -52,15 +52,15 @@ export function Register() {
         )
         .then((json) => {
             if(json.status === 201){
-                return console.log("created")
+                return window.alert("created")
             }
         })
         .catch((err) => {
             if(err.response.status === 422){
-                return console.log("campo inválido")
+                return window.alert("campo inválido")
             }
             if(err.response.status === 409){
-                return console.log("usuário ja cadastrado")
+                return window.alert("usuário ja cadastrado")
             }
         })
     }
