@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../features/get-user-input-slice";
-import { AppDispatch } from "../../store";
+import { AppDispatch, RootState } from "../../store";
 
 interface RegisterPrimaryStepPros {
     finishedPrimaryStep: () => void,
@@ -16,6 +16,12 @@ export function RegisterPrimaryStep({
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if(!email.endsWith('.com') || !email.includes('@')){
+            console.log('email inválido')
+            return
+        }
+
         finishedPrimaryStep();
     }
 
@@ -30,6 +36,10 @@ export function RegisterPrimaryStep({
 
 
     };
+
+    const { email } = useSelector(
+        (state: RootState) => state.user
+    )
 
     return (
 
