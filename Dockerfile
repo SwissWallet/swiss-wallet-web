@@ -8,4 +8,4 @@ RUN npm i
 
 EXPOSE 5173
 
-CMD['npm','run','deploy']
+CMD["npm","run","deploy"]
