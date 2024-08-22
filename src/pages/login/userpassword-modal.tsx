@@ -3,6 +3,7 @@ import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserLogin } from "../../features/user-login-slice";
+import { setAuthUser } from "../../features/get-auth-user-slice";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
 
@@ -28,6 +29,45 @@ export function UserPasswordModal({
         (state: RootState) => state.userLogin
     );
 
+    const getDataAuthUser = ( email: string, name: string, birthDate: string, phone: string, 
+                                address: { street: string, city: string, number: string }) => {
+        dispatch(setAuthUser({
+            email,
+            name,
+            birthDate,
+            phone,
+            address,
+        }))
+    }
+
+    async function loadDataUser(token: string){
+        await api.get(`/v3/users/current`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then((json) => {
+            if(json.status === 200){
+                getDataAuthUser(
+                    json.data.username,
+                    json.data.name,
+                    json.data.birthDate,
+                    json.data.phone,
+                    {
+                        street: json.data.address.street,
+                        city: json.data.address.city,
+                        number: json.data.address.number,
+                    }
+                )
+            };
+        })
+        .catch((err) => {
+            if(err.response.status === 403){
+                return console.log('usuário não tem acesso')
+            }
+        })
+    }
+
     async function authLogin() {
         console.log(username)
         console.log(password)
@@ -38,7 +78,10 @@ export function UserPasswordModal({
         })
         .then((json) => {
             if(json.status === 200){
-                return console.log('OK')
+                console.log('OK')
+                console.log(json.data.token)
+                loadDataUser(json.data.token)
+
             }
         })
         .catch((err) => {
