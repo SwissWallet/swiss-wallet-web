@@ -35,6 +35,14 @@ export function RegisterThirdStep({
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if(isEqual === false){
+            console.log("não enviado")
+            return
+        }
+
+
+
         registerUser()
         finishedThirdStep();
     }
@@ -75,6 +83,8 @@ export function RegisterThirdStep({
                         <UserInput
                             onChange={handleNewPasswordChange}
                             placeholder="ex: senha1234"
+                            minLength={6}
+                            required
                             type={isVisiblePassword ? 'text' : 'password'}
                             isVisibleSvgIcon={true}
                             svgIcon={isVisiblePassword ? (

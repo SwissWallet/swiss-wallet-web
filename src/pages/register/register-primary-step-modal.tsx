@@ -52,7 +52,9 @@ export function RegisterPrimaryStep({
                 </div>
                 <div className="flex flex-col gap-6">
                     <UserInput placeholder="ex: José da Silva" type="text" name="name" onChange={handdleChange}>Nome completo</UserInput>
-                    <UserInput type="date" name="dateBorn" onChange={handdleChange}>Data de nascimento</UserInput>
+
+                    <UserInput type="text" name="dateBorn" onChange={handdleChange}>Data de nascimento</UserInput>
+
                     <UserInput placeholder="ex: jose.silva@senaisp" type="email" name="email" onChange={handdleChange}>E-mail</UserInput>
                     <UserInput placeholder="ex: 12345678910" type="number" name="cpf" onChange={handdleChange} >CPF</UserInput>
                     <UserInput placeholder="ex: 11991827364" type="number" name="phone" onChange={handdleChange}>Telefone</UserInput>
