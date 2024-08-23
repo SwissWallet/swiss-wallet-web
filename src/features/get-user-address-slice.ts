@@ -26,8 +26,11 @@ const addressSlice = createSlice({
         setAddress(state, action: PayloadAction<Partial<addressUserState>>) {
             return { ...state, ...action.payload };
         },
+        resetAdress(){
+            return initialState;
+        }
     },
 });
 
-export const { setAddress } = addressSlice.actions;
+export const { setAddress, resetAdress } = addressSlice.actions;
 export default addressSlice.reducer

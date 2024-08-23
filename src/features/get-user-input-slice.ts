@@ -22,9 +22,12 @@ export const slice = createSlice({
     reducers: {
         setUser(state, action: PayloadAction<Partial<UserInputState>>) {
             return { ...state, ...action.payload }
+        },
+        resetUser(){
+            return initialState;
         }
     }
 })
 
-export const { setUser } = slice.actions;
+export const { setUser, resetUser } = slice.actions;
 export default slice.reducer;

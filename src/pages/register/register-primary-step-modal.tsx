@@ -17,7 +17,6 @@ export function RegisterPrimaryStep({
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log(email)
         if(!email.endsWith('.com') || !email.includes('@')){    
             return
         }
