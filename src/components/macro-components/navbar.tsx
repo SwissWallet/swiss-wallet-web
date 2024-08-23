@@ -42,7 +42,7 @@ export function Navbar() {
                         <h4>Saldo</h4>
                         <Link to={'/extract'} className="flex hover:scale-110 ease-in-out duration-75">
                             <p>ver extrato</p>
-                            <ChevronRight className="hover:scale-110 ease-in-out duration-75"/>
+                            <ChevronRight className="hover:scale-110 ease-in-out duration-75" />
                         </Link>
                     </div>
 
@@ -53,12 +53,12 @@ export function Navbar() {
                                 className="focus:outline-none w-auto text-xl font-bold bg-transparent"
                                 disabled
                                 value={123456}
-                                type={isVisibleScore ? 'text' : 'password' }
+                                type={isVisibleScore ? 'text' : 'password'}
                             />
 
                         </div>
                         <button onClick={handdleVisibleScore} className="px-3">
-                            {isVisibleScore ? <Eye className="hover:scale-110 ease-in-out duration-75" /> : <EyeOff className="hover:scale-110 ease-in-out duration-75"/>}
+                            {isVisibleScore ? <Eye className="hover:scale-110 ease-in-out duration-75" /> : <EyeOff className="hover:scale-110 ease-in-out duration-75" />}
                         </button>
                     </div>
                 </div>
