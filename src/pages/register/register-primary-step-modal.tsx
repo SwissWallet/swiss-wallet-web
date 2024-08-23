@@ -74,7 +74,14 @@ export function RegisterPrimaryStep({
                     <div className="bg-dark-gray h-10 w-10 rounded-full"></div>
                 </div>
                 <div className="flex flex-col gap-6">
-                    <UserInput placeholder="ex: José da Silva" type="text" name="name" onChange={handdleChange}>Nome completo</UserInput>
+                    <UserInput 
+                        placeholder="ex: José da Silva" 
+                        type="text" 
+                        name="name" 
+                        onChange={handdleChange}
+                        pattern="^[a-zA-ZÀ-ÿ\s]+$" 
+                        title="O nome não deve conter números."
+                    >Nome completo</UserInput>
 
                     <UserInput type="date" name="dateBorn" onChange={handdleChange}>Data de nascimento</UserInput>
 
