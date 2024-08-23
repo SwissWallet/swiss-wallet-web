@@ -38,14 +38,14 @@ export function RegisterPrimaryStep({
         }
 
         if(dateBorn){
-            const [year, month, day] = dateBorn.split('-');
+            const [year] = dateBorn.split('-');
             const yearBornUser = parseInt(year.replace(/-/g, ''));
 
             const yearCurrent = new Date().getFullYear();
 
             const userAge = yearCurrent - yearBornUser
 
-            if(userAge < 14 || yearBornUser > yearCurrent){
+            if(userAge < 14 || userAge > 100 || yearBornUser > yearCurrent){
                 console.log('Data de nascimento inválida')
                 return
             }
