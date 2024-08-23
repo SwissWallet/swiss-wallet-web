@@ -45,7 +45,9 @@ export function RegisterSecondaryStep({
         if (localCep.length === 8) {
             axios.get(`https://viacep.com.br/ws/${localCep}/json/`)
                 .then(response => {
-                    if (response.data) {
+                    if (response.data.erro) {
+                        console.log('cep inválido')
+                    }else{
                         dispatch(setAddress({
                             cep: response.data.cep,
                             city: response.data.localidade,
