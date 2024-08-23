@@ -82,7 +82,13 @@ export function RegisterSecondaryStep({
                     <div className="bg-dark-gray h-10 w-10 rounded-full"></div>
                 </div>
                 <div className="flex flex-col gap-6">
-                    <UserInput placeholder="ex: 11560130" type="number" name="cep" onChange={handleChangeCep}>CEP</UserInput>
+                    <UserInput 
+                        placeholder="ex: 11560130" 
+                        type="number" 
+                        name="cep" 
+                        onChange={handleChangeCep}
+                        
+                    >CEP</UserInput>
 
                     <div className="flex items-center gap-5 ">
                         <UserInput placeholder="ex: São Paulo" readOnly type="text" value={city}>Cidade</UserInput>

@@ -5,6 +5,7 @@ import { UserInput } from "../../components/micro-components/user-input";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../features/get-user-input-slice";
 import { AppDispatch, RootState } from "../../store";
+import dayjs from 'dayjs';
 
 interface RegisterPrimaryStepPros {
     finishedPrimaryStep: () => void,
@@ -34,6 +35,23 @@ export function RegisterPrimaryStep({
 
         if(phone.length !== 11){
             console.log('telefone inválido')
+            return
+        }
+
+        if(dateBorn){
+            console.log(dateBorn)
+            const [year, month, day] = dateBorn.split('-');
+            const formattedDate = `${day}-${month}-${year}`;
+
+            const date = parseInt(formattedDate.replace(/-/g, ''));
+            const number = parseInt(formattedDate.replace(/-/g, '')) - 14;
+
+            if( date < number ){
+                console.log('data de nascimento inválido')
+                return
+            }
+
+            console.log('passou a data')
             return
         }
 
@@ -83,9 +101,22 @@ export function RegisterPrimaryStep({
                         title="O nome não deve conter números."
                     >Nome completo</UserInput>
 
-                    <UserInput type="date" name="dateBorn" onChange={handdleChange}>Data de nascimento</UserInput>
+                    <UserInput 
+                        name="dateBorn" 
+                        onChange={handdleChange}
+                        type="date"
+                    >Data de Nascimento</UserInput>
 
-                    <UserInput placeholder="ex: jose.silva@senaisp" type="email" name="email" onChange={handdleChange}>E-mail</UserInput>
+
+                    <UserInput 
+                        placeholder="ex: jose.silva@senaisp" 
+                        type="email" 
+                        name="email" 
+                        onChange={handdleChange}
+                    >E-mail</UserInput>
+
+
+
                     <UserInput 
                         placeholder="ex: 12345678910" 
                         type="number" 

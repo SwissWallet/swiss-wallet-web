@@ -45,7 +45,7 @@ export function UserInput({
                     </div>
                 )}
                 <input {...props}
-                    className={`w-full outline-none rounded-md p-2  border-2 border-zinc-300  font-medium placeholder-slate-400
+                    className={`w-full outline-none rounded-md p-2 border-2 border-zinc-300  font-medium placeholder-slate-400
                     focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic`}
                 />
             </div>
