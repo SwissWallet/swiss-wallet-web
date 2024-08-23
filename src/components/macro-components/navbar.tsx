@@ -40,9 +40,9 @@ export function Navbar() {
 
                     <div className="flex justify-between">
                         <h4>Saldo</h4>
-                        <Link to={'/extract'} className="flex">
+                        <Link to={'/extract'} className="flex hover:scale-110 ease-in-out duration-75">
                             <p>ver extrato</p>
-                            <ChevronRight />
+                            <ChevronRight className="hover:scale-110 ease-in-out duration-75" />
                         </Link>
                     </div>
 
@@ -58,7 +58,7 @@ export function Navbar() {
 
                         </div>
                         <button onClick={handdleVisibleScore} className="px-3">
-                            {isVisibleScore ? <Eye /> : <EyeOff />}
+                            {isVisibleScore ? <Eye className="hover:scale-110 ease-in-out duration-75" /> : <EyeOff className="hover:scale-110 ease-in-out duration-75" />}
                         </button>
                     </div>
                 </div>
