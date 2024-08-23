@@ -107,7 +107,14 @@ export function RegisterSecondaryStep({
 
                     <UserInput placeholder="ex: Centro" type="text" name="neighborhood" readOnly value={neighborhood}>Bairro</UserInput>
                     <UserInput placeholder="ex: Conselheiro Crispiniano" type="text" name="street" readOnly value={street} >Rua</UserInput>
-                    <UserInput placeholder="ex: 22" type="number" name="complement" value={localComplement} onChange={handleChangeComplement}>Número</UserInput>
+                    <UserInput 
+                        placeholder="ex: 22" 
+                        type="number" 
+                        name="complement" 
+                        value={localComplement} 
+                        onChange={handleChangeComplement}
+                        minLength={1} required
+                    >Número</UserInput>
 
                 </div>
                 <div className="flex justify-center items-center">
