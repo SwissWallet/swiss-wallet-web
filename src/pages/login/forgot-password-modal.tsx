@@ -58,7 +58,7 @@ export function ForgotPassword({
     async function Verification(){
 
         if( newPassword === '' || code === '' ){
-            return window.alert("preencha os campos")
+            return console.log("preencha os campos")
         }
 
         await api.put(`/v3/users/recover-password`, {
@@ -68,15 +68,15 @@ export function ForgotPassword({
         })
         .then((json) => {
             if(json.status === 200){
-                return window.alert("senha alterada com sucesso")
+                return console.log("senha alterada com sucesso")
             }
         })
         .catch((err) => {
             if(err.response.status === 400){
-                return window.alert("código inválido")
+                return console.log("código inválido")
             }
             if(err.response.status === 404){
-                return window.alert("usuário não encontrado")
+                return console.log("usuário não encontrado")
             }
         })
         
@@ -94,13 +94,14 @@ export function ForgotPassword({
             .then((json) => {
                 if(json.status === 200){
                     verificationCodeRef.current = json.data
+                    console.log(json.data)
                     setVerificationCode(json.data)
                     return window.alert('OK')
                 }
             })
             .catch((err) => {
                 if(err.response.status === 404){
-                    return console.log('Usuário não encontrado')
+                    return window.alert('Usuário não encontrado')
                 }
             })
 
@@ -108,7 +109,7 @@ export function ForgotPassword({
                 await axios.post('https://sendmail-api-hggx.onrender.com/send/text', {
                     to: `${username}`,
                     subject: "Código de validação",
-                    text: `Este é seu código de validação ${verificationCodeRef}`
+                    text: `Este é seu código de validação ${verificationCodeRef.current}`
                 });
                 console.log('Email enviado com sucesso!');
                 setEmailSent(true)

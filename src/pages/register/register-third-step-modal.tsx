@@ -33,14 +33,30 @@ export function RegisterThirdStep({
         dispatch(setConfirmPassword(e.target.value));
     }
 
+    
+
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if(isEqual === false){
+            console.log("As senhas não são iguais")
+            return
+        }
+
+        if (!isTermsAccepted || !isNotRobot) {
+            console.log("Por favor, aceite os termos e confirme que você não é um robô.");
+            return
+        }
+
+
         registerUser()
         finishedThirdStep();
     }
 
     const [isVisiblePassword, setIsVisiblePassword] = useState(false);
     const [isVisibleConfirmPassword, setIsVisibleConfirmPassword] = useState(false);
+    const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+    const [isNotRobot, setIsNotRobot] = useState(false);
 
     function handdleVisiblePassword() {
         setIsVisiblePassword(!isVisiblePassword);
@@ -48,6 +64,14 @@ export function RegisterThirdStep({
 
     function handdleVisibleConfirmPassword() {
         setIsVisibleConfirmPassword(!isVisibleConfirmPassword);
+    }
+
+    function handleTermsChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setIsTermsAccepted(e.target.checked);
+    }
+    
+    function handleNotRobotChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setIsNotRobot(e.target.checked);
     }
 
     return (
@@ -75,6 +99,8 @@ export function RegisterThirdStep({
                         <UserInput
                             onChange={handleNewPasswordChange}
                             placeholder="ex: senha1234"
+                            minLength={6}
+                            required
                             type={isVisiblePassword ? 'text' : 'password'}
                             isVisibleSvgIcon={true}
                             svgIcon={isVisiblePassword ? (
@@ -122,11 +148,11 @@ export function RegisterThirdStep({
                     </div>
                     <div className="flex justify-evenly gap-5">
                         <div className="flex gap-4 items-center">
-                            <input type="checkbox" className="size-4 hover:cursor-pointer" />
+                            <input type="checkbox" onChange={handleTermsChange} className="size-4 hover:cursor-pointer" />
                             <span className="text-zinc-600 font-medium">Aceito termos e condições</span>
                         </div>
                         <div className="flex gap-4 items-center">
-                            <input type="checkbox" className="size-4 hover:cursor-pointer" />
+                            <input type="checkbox" onChange={handleNotRobotChange} className="size-4 hover:cursor-pointer" />
                             <span className="text-zinc-600 font-medium">Não sou um robô</span>
                         </div>
                     </div>
