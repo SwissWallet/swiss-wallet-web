@@ -17,8 +17,23 @@ export function RegisterPrimaryStep({
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
+        if(name.includes('1234567890')){
+            console.log('nome inválido')
+            return
+        }
+
         if(!email.endsWith('.com') || !email.includes('@')){
             console.log('email inválido')
+            return
+        }
+
+        if(cpf.length !== 11){
+            console.log('cpf inválido')
+            return
+        }
+
+        if(phone.length !== 11){
+            console.log('telefone inválido')
             return
         }
 
@@ -30,14 +45,12 @@ export function RegisterPrimaryStep({
     const handdleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
-        dispatch(setUser({
-            [name]: value
-        }))
+        dispatch(setUser({[name]: value}))
 
 
     };
 
-    const { email } = useSelector(
+    const { email, cpf, phone, name, dateBorn } = useSelector(
         (state: RootState) => state.user
     )
 
@@ -63,11 +76,23 @@ export function RegisterPrimaryStep({
                 <div className="flex flex-col gap-6">
                     <UserInput placeholder="ex: José da Silva" type="text" name="name" onChange={handdleChange}>Nome completo</UserInput>
 
-                    <UserInput type="text" name="dateBorn" onChange={handdleChange}>Data de nascimento</UserInput>
+                    <UserInput type="date" name="dateBorn" onChange={handdleChange}>Data de nascimento</UserInput>
 
                     <UserInput placeholder="ex: jose.silva@senaisp" type="email" name="email" onChange={handdleChange}>E-mail</UserInput>
-                    <UserInput placeholder="ex: 12345678910" type="number" name="cpf" onChange={handdleChange} >CPF</UserInput>
-                    <UserInput placeholder="ex: 11991827364" type="number" name="phone" onChange={handdleChange}>Telefone</UserInput>
+                    <UserInput 
+                        placeholder="ex: 12345678910" 
+                        type="number" 
+                        name="cpf" 
+                        onChange={handdleChange} 
+                        maxLength={11} minLength={11} required
+                    >CPF </UserInput>
+                    <UserInput 
+                        placeholder="ex: 11991827364" 
+                        type="number" 
+                        name="phone" 
+                        onChange={handdleChange}
+                        maxLength={11} minLength={11} required
+                    >Telefone</UserInput>
                 </div>
                 <div className="flex justify-center items-center">
                     <MainButton type="submit" >
