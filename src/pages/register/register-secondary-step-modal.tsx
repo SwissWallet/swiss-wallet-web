@@ -87,7 +87,7 @@ export function RegisterSecondaryStep({
                         type="number" 
                         name="cep" 
                         onChange={handleChangeCep}
-                        
+                        maxLength={8} minLength={8} required
                     >CEP</UserInput>
 
                     <div className="flex items-center gap-5 ">
@@ -107,7 +107,7 @@ export function RegisterSecondaryStep({
 
                     <UserInput placeholder="ex: Centro" type="text" name="neighborhood" readOnly value={neighborhood}>Bairro</UserInput>
                     <UserInput placeholder="ex: Conselheiro Crispiniano" type="text" name="street" readOnly value={street} >Rua</UserInput>
-                    <UserInput placeholder="ex: Apto 202, Bloco A" type="text" name="complement" value={localComplement} onChange={handleChangeComplement}>Complemento</UserInput>
+                    <UserInput placeholder="ex: 22" type="number" name="complement" value={localComplement} onChange={handleChangeComplement}>Número</UserInput>
 
                 </div>
                 <div className="flex justify-center items-center">

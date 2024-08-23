@@ -17,13 +17,8 @@ export function RegisterPrimaryStep({
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if(name.includes('1234567890')){
-            console.log('nome inválido')
-            return
-        }
-
-        if(!email.endsWith('.com') || !email.includes('@')){
-            console.log('email inválido')
+        console.log(email)
+        if(!email.endsWith('.com') || !email.includes('@')){    
             return
         }
 
@@ -64,7 +59,7 @@ export function RegisterPrimaryStep({
 
     };
 
-    const { email, cpf, phone, name, dateBorn } = useSelector(
+    const { email, cpf, phone, dateBorn } = useSelector(
         (state: RootState) => state.user
     )
 
@@ -120,6 +115,7 @@ export function RegisterPrimaryStep({
                         onChange={handdleChange} 
                         maxLength={11} minLength={11} required
                     >CPF </UserInput>
+
                     <UserInput 
                         placeholder="ex: 11991827364" 
                         type="number" 
