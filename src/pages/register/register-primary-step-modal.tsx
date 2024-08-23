@@ -5,7 +5,6 @@ import { UserInput } from "../../components/micro-components/user-input";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../features/get-user-input-slice";
 import { AppDispatch, RootState } from "../../store";
-import dayjs from 'dayjs';
 
 interface RegisterPrimaryStepPros {
     finishedPrimaryStep: () => void,
@@ -39,20 +38,17 @@ export function RegisterPrimaryStep({
         }
 
         if(dateBorn){
-            console.log(dateBorn)
             const [year, month, day] = dateBorn.split('-');
-            const formattedDate = `${day}-${month}-${year}`;
+            const yearBornUser = parseInt(year.replace(/-/g, ''));
 
-            const date = parseInt(formattedDate.replace(/-/g, ''));
-            const number = parseInt(formattedDate.replace(/-/g, '')) - 14;
+            const yearCurrent = new Date().getFullYear();
 
-            if( date < number ){
-                console.log('data de nascimento inválido')
+            const userAge = yearCurrent - yearBornUser
+
+            if(userAge < 14 || yearBornUser > yearCurrent){
+                console.log('Data de nascimento inválida')
                 return
             }
-
-            console.log('passou a data')
-            return
         }
 
         finishedPrimaryStep();
