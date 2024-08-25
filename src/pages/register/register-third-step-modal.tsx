@@ -19,6 +19,8 @@ export function RegisterThirdStep({
     registerUser,
 }: RegisterThirdStepProps) {
 
+    const [ textAlert, setTextAlert ] = useState('');
+
     const dispatch = useDispatch<AppDispatch>()
 
     const { isEqual, hasStartedTypingInNew, hasStartedTypingInConfirm } = useSelector(
@@ -39,12 +41,12 @@ export function RegisterThirdStep({
         e.preventDefault();
 
         if(isEqual === false){
-            console.log("As senhas não são iguais")
+            setTextAlert("As senhas não são iguais")
             return
         }
 
         if (!isTermsAccepted || !isNotRobot) {
-            console.log("Por favor, aceite os termos e confirme que você não é um robô.");
+            setTextAlert("Por favor, aceite os termos e confirme que você não é um robô.");
             return
         }
 
@@ -157,6 +159,11 @@ export function RegisterThirdStep({
                         </div>
                     </div>
                 </div>
+
+                <div className="flex items-center w-full">
+                    <p className="text-red-700 text-center w-full font-medium text-xl">{textAlert}</p>
+                </div>
+
                 <div className="flex justify-center items-center">
                     <MainButton type="submit" >
                         Cadastrar
