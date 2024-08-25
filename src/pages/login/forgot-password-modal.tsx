@@ -9,10 +9,12 @@ import { api } from "../../lib/axios";
 
 interface ForgotPasswordProps {
     closeForgotPassword: () => void,
+    setTextAlert: (e: string) => void,
 }
 
 export function ForgotPassword({
     closeForgotPassword,
+    setTextAlert,
 }: ForgotPasswordProps) {
 
     const [ isVisibleNewPassword, setIsVisibleNewPassword ] = useState(false);
@@ -49,9 +51,8 @@ export function ForgotPassword({
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         Verification();
-
+        setTextAlert("");
         closeForgotPassword();
     }
 
@@ -96,7 +97,6 @@ export function ForgotPassword({
                     verificationCodeRef.current = json.data
                     console.log(json.data)
                     setVerificationCode(json.data)
-                    return window.alert('OK')
                 }
             })
             .catch((err) => {

@@ -21,7 +21,7 @@ const UserInputChildrenVariants = tv({
 interface UserInputProps
     extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof UserInputChildrenVariants> {
-    children: ReactNode,
+    children?: ReactNode,
     isVisibleSvgIcon?: boolean,
     svgIcon?: ReactNode,
 }

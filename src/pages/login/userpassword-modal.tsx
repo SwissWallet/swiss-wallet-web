@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,18 +7,23 @@ import { setAuthUser } from "../../features/get-auth-user-slice";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
 import { useState } from "react";
+import { UserInput } from "../../components/micro-components/user-input";
 
 interface UserPasswordModalProps {
     handdleBackUserInput: () => void,
     openForgotPassword: () => void,
+    setTextAlert: (e: string) => void,
+    textAlert: string,
 }
 
 export function UserPasswordModal({
     handdleBackUserInput,
     openForgotPassword,
+    setTextAlert,
+    textAlert,
 }: UserPasswordModalProps) {
 
-    const [ textAlert, setTextAlert ] = useState('');
+
     const [ isAuth, setIsAuth ] = useState<boolean | undefined>()
 
     const dispatch = useDispatch();
@@ -101,13 +106,13 @@ export function UserPasswordModal({
     const handdleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if(username === '' || password === ''){
-            setTextAlert("*Os campos devem ser preenchidos")
+        if(password === ''){
+            setTextAlert("*Insira sua senha*")
             return
         }
 
         if(!isAuth){
-            setTextAlert("*Credenciais inválidas")
+            setTextAlert("*Credenciais inválidas*")
             return
         }
 
@@ -126,21 +131,23 @@ export function UserPasswordModal({
                         <p className="font-medium text-sm text-zinc-800 ml-4">{username}</p>
                     </div>
                     <div className="flex flex-col gap-3">
-                        <div className="flex justify-center flex-col items-center gap-1">
-                            <input type="password" onChange={handleChangePassword} placeholder="Insira sua senha" 
-                                className="outline-none rounded-md p-2 w-full border-2 border-zinc-300  font-medium placeholder-slate-400
-                                    focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic" 
+                        
+                    <div className="flex items-center w-full relative h-auto">
+                        <p className="absolute  text-red-700 text-center w-full font-medium text-lg">{textAlert}</p>
+                    </div>
+                            <UserInput
+                                type="password"
+                                onChange={handleChangePassword} 
+                                placeholder="Insira sua senha"
                             />
+                        <div className="flex justify-center flex-col items-center gap-1">
                             <button type="button" onClick={openForgotPassword}>
                                 <span className="text-sm font-medium text-zinc-500
                                         hover:text-zinc-600 hover:cursor-pointer">
-                            esqueceu sua senha?
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div className="flex items-center w-full">
-                <p className="text-red-700 text-center w-full font-light text-lg">{textAlert}</p>
+                                    esqueceu sua senha?
+                                </span>
+                            </button>
+                        </div>
             </div>
             <div className="flex justify-center items-center">   
                 <MainButton type="submit" onClick={authLogin}>
