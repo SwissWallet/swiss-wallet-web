@@ -3,6 +3,7 @@ import { Navbar } from "../../components/macro-components/navbar";
 import { ChangeInfoUser } from "./line-change-info-user";
 import { InfoUser } from "./line-info-user";
 import { UpdateButton } from "../../components/micro-components/update-button";
+import { ChangePassworModal } from "./changepassword-modal";
 import { useState } from "react";
 
 
@@ -11,12 +12,21 @@ export function UserAccount() {
     const [isEditable, setIsEditable] = useState(false);
     const [zipCode, setZipCode] = useState('11590-130');
     const [complement, setComplement] = useState('Apto 202, Bloco B');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleState = () => {
         setIsEditable(!isEditable);
     };
 
     const doNothing = () => {};
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
 
 
     return (
@@ -73,7 +83,7 @@ export function UserAccount() {
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
-                            <UpdateButton onClick={doNothing} />
+                            <UpdateButton onClick={openModal} />
                         </div>
                         <InfoUser label="E-mail" value="username@senaisp" />
                         <InfoUser label="Senha" value="******12" />
@@ -83,6 +93,9 @@ export function UserAccount() {
             </main>
 
             <Footer />
+
+            {isModalOpen && <ChangePassworModal closeChangePasswordModal={closeModal} />}            
+
         </div>
     )
 }
