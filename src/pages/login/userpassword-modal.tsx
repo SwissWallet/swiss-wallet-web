@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,8 @@ export function UserPasswordModal({
     const [ textAlert, setTextAlert ] = useState('');
     const [ isAuth, setIsAuth ] = useState<boolean | undefined>()
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
@@ -73,9 +74,6 @@ export function UserPasswordModal({
     }
 
     async function authLogin() {
-        console.log(username)
-        console.log(password)
-
         try{
 
             const response = await api.post('/v3/auth', {
@@ -84,7 +82,6 @@ export function UserPasswordModal({
             });
 
             if(response.status === 200){
-                console.log(response.data.token)
                 setIsAuth(true)
                 loadDataUser(response.data.token)
             }
@@ -95,8 +92,6 @@ export function UserPasswordModal({
                 const axiosError = err as { response: { status: number, data: { message?: string } } };
                 if(axiosError.response.status === 400){
                     setIsAuth(false)
-                    setTextAlert('*Credenciais inválidas')
-                    console.log('err: 400')
                 }
             }
         }
@@ -105,6 +100,18 @@ export function UserPasswordModal({
 
     const handdleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if(username === '' || password === ''){
+            setTextAlert("*Os campos devem ser preenchidos")
+            return
+        }
+
+        if(!isAuth){
+            setTextAlert("*Credenciais inválidas")
+            return
+        }
+
+        navigate('/home')
     }
 
     return(
@@ -135,12 +142,10 @@ export function UserPasswordModal({
             <div className="flex items-center w-full">
                 <p className="text-red-700 text-center w-full font-light text-lg">{textAlert}</p>
             </div>
-            <div className="flex justify-center items-center">
-                <Link to={isAuth ? '/' : '/home'}>
-                    <MainButton type="submit" onClick={authLogin}>
-                        Avançar
-                    </MainButton>
-                </Link>
+            <div className="flex justify-center items-center">   
+                <MainButton type="submit" onClick={authLogin}>
+                    Avançar
+                </MainButton>
             </div>
         </form>
     )
