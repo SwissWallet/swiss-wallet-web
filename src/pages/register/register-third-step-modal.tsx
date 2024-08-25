@@ -3,7 +3,7 @@ import { UserInput } from "../../components/micro-components/user-input";
 import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
-import { setConfirmPassword, setNewPassword } from "../../features/validation-password-slice";
+import { setConfirmPassword, setNewPassword } from "../../features/register-user-password";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
@@ -19,6 +19,8 @@ export function RegisterThirdStep({
     registerUser,
 }: RegisterThirdStepProps) {
 
+    const [ textAlert, setTextAlert ] = useState('');
+
     const dispatch = useDispatch<AppDispatch>()
 
     const { isEqual, hasStartedTypingInNew, hasStartedTypingInConfirm } = useSelector(
@@ -33,21 +35,20 @@ export function RegisterThirdStep({
         dispatch(setConfirmPassword(e.target.value));
     }
 
-    
+
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         if(isEqual === false){
-            console.log("As senhas não são iguais")
+            setTextAlert("As senhas não são iguais")
             return
         }
 
         if (!isTermsAccepted || !isNotRobot) {
-            console.log("Por favor, aceite os termos e confirme que você não é um robô.");
+            setTextAlert("Por favor, aceite os termos e confirme que você não é um robô.");
             return
         }
-
 
         registerUser()
         finishedThirdStep();
@@ -73,6 +74,7 @@ export function RegisterThirdStep({
     function handleNotRobotChange(e: React.ChangeEvent<HTMLInputElement>) {
         setIsNotRobot(e.target.checked);
     }
+
 
     return (
         <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
@@ -157,6 +159,11 @@ export function RegisterThirdStep({
                         </div>
                     </div>
                 </div>
+
+                <div className="flex items-center w-full">
+                    <p className="text-red-700 text-center w-full font-medium text-xl">{textAlert}</p>
+                </div>
+
                 <div className="flex justify-center items-center">
                     <MainButton type="submit" >
                         Cadastrar

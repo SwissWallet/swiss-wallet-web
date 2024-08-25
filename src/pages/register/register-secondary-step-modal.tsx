@@ -7,7 +7,7 @@ import { UserInput } from "../../components/micro-components/user-input";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
-import { setAddress } from "../../features/get-user-address-slice";
+import { setAddress } from "../../features/register-user-address";
 
 interface RegisterSecondaryStepProps {
     finishedSecondaryStep: () => void,
