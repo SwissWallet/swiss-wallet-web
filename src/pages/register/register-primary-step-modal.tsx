@@ -5,6 +5,7 @@ import { UserInput } from "../../components/micro-components/user-input";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../features/register-data-user";
 import { AppDispatch, RootState } from "../../store";
+import { useState } from "react";
 
 interface RegisterPrimaryStepPros {
     finishedPrimaryStep: () => void,
@@ -14,20 +15,23 @@ export function RegisterPrimaryStep({
     finishedPrimaryStep,
 }: RegisterPrimaryStepPros) {
 
+    const [ textAlert, setTextAlert ] = useState('');
+
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         if(!email.endsWith('.com') || !email.includes('@')){    
+            setTextAlert('E-mail inválido')
             return
         }
 
         if(cpf.length !== 11){
-            console.log('cpf inválido')
+            setTextAlert('CPF inválido')
             return
         }
 
         if(phone.length !== 11){
-            console.log('telefone inválido')
+            setTextAlert('Telefone inválido')
             return
         }
 
@@ -40,7 +44,7 @@ export function RegisterPrimaryStep({
             const userAge = yearCurrent - yearBornUser
 
             if(userAge < 14 || userAge > 100 || yearBornUser > yearCurrent){
-                console.log('Data de nascimento inválida')
+                setTextAlert('Data de nascimento inválida')
                 return
             }
         }
@@ -67,7 +71,7 @@ export function RegisterPrimaryStep({
         <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
             <Link to={'/'}>
                 <BackButton />
-            </Link>
+            </Link> 
             <form onSubmit={handdleSubmit} className="flex gap-8 flex-col">
 
                 <div className="flex flex-col gap-3">
@@ -122,6 +126,10 @@ export function RegisterPrimaryStep({
                         onChange={handdleChange}
                         maxLength={11} minLength={11} required
                     >Telefone</UserInput>
+                </div>
+
+                <div className="flex items-center w-full">
+                    <p className="text-red-700 text-center w-full font-medium text-xl">{textAlert}</p>
                 </div>
                 <div className="flex justify-center items-center">
                     <MainButton type="submit" >

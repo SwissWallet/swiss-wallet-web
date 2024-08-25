@@ -33,7 +33,7 @@ export function RegisterThirdStep({
         dispatch(setConfirmPassword(e.target.value));
     }
 
-    
+
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
