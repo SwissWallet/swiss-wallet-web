@@ -50,7 +50,6 @@ export function RegisterThirdStep({
             return
         }
 
-
         registerUser()
         finishedThirdStep();
     }
@@ -75,6 +74,7 @@ export function RegisterThirdStep({
     function handleNotRobotChange(e: React.ChangeEvent<HTMLInputElement>) {
         setIsNotRobot(e.target.checked);
     }
+
 
     return (
         <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">

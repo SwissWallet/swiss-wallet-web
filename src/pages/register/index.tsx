@@ -46,21 +46,24 @@ export function Register() {
 
     const formData = useFormDataUserRegister()
 
+    const [ textAlertThirdStep, setTextAlertThirdStep ] = useState('');
+
     async function registerUser(){
         await api.post(
             `/v3/users`, formData
         )
         .then((json) => {
             if(json.status === 201){
-                return window.alert("created")
+                return setTextAlertThirdStep("created")
             }
         })
         .catch((err) => {
+            console.log(textAlertThirdStep)
             if(err.response.status === 422){
-                return window.alert("campo inválido")
+                return console.log("Campo inválido")
             }
             if(err.response.status === 409){
-                return window.alert("usuário ja cadastrado")
+                return console.log("Usuário ja cadastrado")
             }
         })
     }
