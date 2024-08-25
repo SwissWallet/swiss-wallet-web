@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../features/register-data-user";
 import { AppDispatch, RootState } from "../../store";
 import { useState } from "react";
+import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 
 interface RegisterPrimaryStepPros {
     finishedPrimaryStep: () => void,
@@ -25,7 +26,7 @@ export function RegisterPrimaryStep({
             return
         }
 
-        if(cpf.length !== 11){
+        if(cpf.length !== 11 || !cpfValidator.isValid(cpf)){
             setTextAlert('CPF inválido')
             return
         }
