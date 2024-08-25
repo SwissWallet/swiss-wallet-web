@@ -6,6 +6,7 @@ import { setUserLogin } from "../../features/user-login-slice";
 import { setAuthUser } from "../../features/get-auth-user-slice";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
+import { useState } from "react";
 
 interface UserPasswordModalProps {
     handdleBackUserInput: () => void,
@@ -16,6 +17,9 @@ export function UserPasswordModal({
     handdleBackUserInput,
     openForgotPassword,
 }: UserPasswordModalProps) {
+
+    const [ textAlert, setTextAlert ] = useState('');
+    const [ isAuth, setIsAuth ] = useState<boolean | undefined>()
 
     const dispatch = useDispatch()
 
@@ -78,22 +82,39 @@ export function UserPasswordModal({
         })
         .then((json) => {
             if(json.status === 200){
-                window.alert('OK')
                 console.log(json.data.token)
+                setIsAuth(true)
                 loadDataUser(json.data.token)
 
             }
         })
         .catch((err) => {
             if(err.response.status === 400){
-                return window.alert('credenciais inválidas')
+                setIsAuth(false)
+                return 
             }
         })
     }
 
-    const handdleSubmit = (e: React.FormEvent) => {
+    const handdleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        authLogin()
+
+        await authLogin();
+
+        if (!isAuth) {
+            setTextAlert('Não autenticado');
+            console.log('Não autenticado')
+            return;
+        }
+
+        // Se não estiver autenticado, tente autenticar
+        
+
+        // Verifica novamente após a autenticação
+        if (isAuth) {
+            console.log('autenticou')// Enviar o formulário ou fazer o que for necessário
+        }
+
     }
 
     return(
@@ -120,6 +141,9 @@ export function UserPasswordModal({
                         </span>
                     </button>
                 </div>
+            </div>
+            <div className="flex items-center w-full">
+                <p className="text-red-700 text-center w-full font-light text-lg">*{textAlert}</p>
             </div>
             <div className="flex justify-center items-center">
                 <Link to={'/home'}>
