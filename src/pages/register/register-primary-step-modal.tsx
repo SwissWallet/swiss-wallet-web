@@ -3,8 +3,9 @@ import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../features/get-user-input-slice";
+// import { setUser } from "../../features/get-user-input-slice";
 import { AppDispatch, RootState } from "../../store";
+import { setNewUser } from "../../features/create-new-user-slice";
 
 interface RegisterPrimaryStepPros {
     finishedPrimaryStep: () => void,
@@ -13,11 +14,19 @@ interface RegisterPrimaryStepPros {
 export function RegisterPrimaryStep({
     finishedPrimaryStep,
 }: RegisterPrimaryStepPros) {
+    
+    const { user } = useSelector(
+        (state: RootState) => state.createNewUser
+    );
+    const { cpf, username, phone, birthDate } = user;
+
+    
+    const dispatch = useDispatch<AppDispatch>();
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if(!email.endsWith('.com') || !email.includes('@')){    
+        if(!username.endsWith('.com') || !username.includes('@')){    
             return
         }
 
@@ -31,8 +40,8 @@ export function RegisterPrimaryStep({
             return
         }
 
-        if(dateBorn){
-            const [year] = dateBorn.split('-');
+        if(birthDate){
+            const [year] = birthDate.split('-');
             const yearBornUser = parseInt(year.replace(/-/g, ''));
 
             const yearCurrent = new Date().getFullYear();
@@ -48,19 +57,12 @@ export function RegisterPrimaryStep({
         finishedPrimaryStep();
     }
 
-    const dispatch = useDispatch<AppDispatch>();
-
     const handdleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
-        dispatch(setUser({[name]: value}))
-
-
+        dispatch(setNewUser({[name]: value}))
     };
 
-    const { email, cpf, phone, dateBorn } = useSelector(
-        (state: RootState) => state.user
-    )
 
     return (
 
@@ -92,7 +94,7 @@ export function RegisterPrimaryStep({
                     >Nome completo</UserInput>
 
                     <UserInput 
-                        name="dateBorn" 
+                        name="birthDate" 
                         onChange={handdleChange}
                         type="date"
                     >Data de Nascimento</UserInput>
@@ -101,7 +103,7 @@ export function RegisterPrimaryStep({
                     <UserInput 
                         placeholder="ex: jose.silva@senaisp" 
                         type="email" 
-                        name="email" 
+                        name="username" 
                         onChange={handdleChange}
                     >E-mail</UserInput>
 
