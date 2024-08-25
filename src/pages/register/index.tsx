@@ -46,19 +46,16 @@ export function Register() {
 
     const formData = useFormDataUserRegister()
 
-    const [ textAlertThirdStep, setTextAlertThirdStep ] = useState('');
-
     async function registerUser(){
         await api.post(
             `/v3/users`, formData
         )
         .then((json) => {
             if(json.status === 201){
-                return setTextAlertThirdStep("created")
+                return console.log("created")
             }
         })
         .catch((err) => {
-            console.log(textAlertThirdStep)
             if(err.response.status === 422){
                 return console.log("Campo inválido")
             }
