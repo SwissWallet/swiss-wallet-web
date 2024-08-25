@@ -3,7 +3,7 @@ import { MainButton } from "../../components/micro-components/main-button"
 import { UserInput } from "../../components/micro-components/user-input"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "../../store"
-import { setUserLogin } from "../../features/user-login-slice"
+import { setUserLogin } from "../../features/login-slice"
 
 interface UsernameModalProps {
     handdleAdvanceUserInput: () => void,

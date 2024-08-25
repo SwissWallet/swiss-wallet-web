@@ -3,7 +3,7 @@ import { UserInput } from "../../components/micro-components/user-input";
 import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
-import { setConfirmPassword, setNewPassword } from "../../features/validation-password-slice";
+import { setConfirmPassword, setNewPassword } from "../../features/register-user-password";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 

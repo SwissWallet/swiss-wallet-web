@@ -3,7 +3,7 @@ import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../features/get-user-input-slice";
+import { setUser } from "../../features/register-data-user";
 import { AppDispatch, RootState } from "../../store";
 
 interface RegisterPrimaryStepPros {
