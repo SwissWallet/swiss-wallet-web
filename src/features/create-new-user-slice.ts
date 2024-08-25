@@ -48,6 +48,9 @@ const createNewUserSlice = createSlice({
         setNewUser(state, action: PayloadAction<Partial<createNewUser>>) {
             return { ...state, ...action.payload };
         },
+        setNewAddress(state, action: PayloadAction<Partial<createNewUser>>){
+            return { ...state, ...action.payload };
+        },
         resetNewUser(){
             return initialState;
         }

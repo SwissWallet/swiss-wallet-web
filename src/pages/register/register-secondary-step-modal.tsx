@@ -7,7 +7,7 @@ import { UserInput } from "../../components/micro-components/user-input";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
-import { setAddress } from "../../features/get-user-address-slice";
+import { setNewUser } from "../../features/create-new-user-slice";
 
 interface RegisterSecondaryStepProps {
     finishedSecondaryStep: () => void,
@@ -19,25 +19,27 @@ export function RegisterSecondaryStep({
     backToThePrimaryStep,
 }: RegisterSecondaryStepProps) {
 
-    const dispatch = useDispatch<AppDispatch>();
-    const { cep, city, uf, neighborhood, street, complement } = useSelector(
-        (state: RootState) => state.address
+    const { address } = useSelector(
+        (state: RootState) => state.createNewUser
     );
+    const { zipCode, city, number, uf, street, neighborhood } = address
+    const dispatch = useDispatch<AppDispatch>();
+    
 
-    const [localCep, setLocalCep] = useState(cep);
-    const [localComplement, setLocalComplement] = useState(complement);
+    const [ localCep, setLocalCep ] = useState(zipCode);
+    const [ localNumber, setlocalNumber ] = useState(number);
 
     const handleChangeCep = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         if (value.length <= 8) {
             setLocalCep(value);
-            dispatch(setAddress({ cep: value }));
+            dispatch(setNewUser({ zipCode: value }));
         }
     }
 
     const handleChangeComplement = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        setLocalComplement(value);
+        setlocalNumber(value);
         dispatch(setAddress({ complement: value }));
     }
 
@@ -113,7 +115,7 @@ export function RegisterSecondaryStep({
                         placeholder="ex: 22" 
                         type="number" 
                         name="complement" 
-                        value={localComplement} 
+                        value={localNumber} 
                         onChange={handleChangeComplement}
                         minLength={1} required
                     >Número</UserInput>
