@@ -158,7 +158,7 @@ export function ForgotPassword({
 
 
             <div className="flex justify-between items-center">
-                <button type="button" className="font-medium text-zinc-500 hover:text-zinc-600 hover:cursor-pointer">
+                <button onClick={() => setEmailSent(!emailSent)} type="button" className="font-medium text-zinc-500 hover:text-zinc-600 hover:cursor-pointer">
                     Não recebi e-mail
                 </button>
 
