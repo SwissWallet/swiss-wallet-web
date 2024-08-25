@@ -5,13 +5,17 @@ import userAddressReducer from '../src/features/get-user-address-slice';
 import userLoginReducer from '../src/features/user-login-slice';
 import authUserReducer from '../src/features/get-auth-user-slice'
 
+import createNewUserReducer from '../src/features/create-new-user-slice'
+
 export const store = configureStore({
     reducer:{
         user: userReducer,
         address: userAddressReducer,
         validationPassword: validationPasswordReducer,
         userLogin: userLoginReducer,
-        authUser: authUserReducer
+        authUser: authUserReducer,
+
+        createNewUser: createNewUserReducer,
     }
 })
 
