@@ -76,45 +76,35 @@ export function UserPasswordModal({
         console.log(username)
         console.log(password)
 
-        await api.post('/v3/auth', {
-            username,
-            password,
-        })
-        .then((json) => {
-            if(json.status === 200){
-                console.log(json.data.token)
-                setIsAuth(true)
-                loadDataUser(json.data.token)
+        try{
 
+            const response = await api.post('/v3/auth', {
+                username,
+                password,
+            });
+
+            if(response.status === 200){
+                console.log(response.data.token)
+                setIsAuth(true)
+                loadDataUser(response.data.token)
             }
-        })
-        .catch((err) => {
-            if(err.response.status === 400){
-                setIsAuth(false)
-                return 
+
+        }catch (err: unknown){
+            if(err && typeof err === 'object' && 'response' in err){
+                console.log('err: unknow')
+                const axiosError = err as { response: { status: number, data: { message?: string } } };
+                if(axiosError.response.status === 400){
+                    setIsAuth(false)
+                    setTextAlert('*Credenciais inválidas')
+                    console.log('err: 400')
+                }
             }
-        })
+        }
+        
     }
 
     const handdleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        await authLogin();
-
-        if (!isAuth) {
-            setTextAlert('Não autenticado');
-            console.log('Não autenticado')
-            return;
-        }
-
-        // Se não estiver autenticado, tente autenticar
-        
-
-        // Verifica novamente após a autenticação
-        if (isAuth) {
-            console.log('autenticou')// Enviar o formulário ou fazer o que for necessário
-        }
-
     }
 
     return(
@@ -143,10 +133,10 @@ export function UserPasswordModal({
                 </div>
             </div>
             <div className="flex items-center w-full">
-                <p className="text-red-700 text-center w-full font-light text-lg">*{textAlert}</p>
+                <p className="text-red-700 text-center w-full font-light text-lg">{textAlert}</p>
             </div>
             <div className="flex justify-center items-center">
-                <Link to={'/home'}>
+                <Link to={isAuth ? '/' : '/home'}>
                     <MainButton type="submit" onClick={authLogin}>
                         Avançar
                     </MainButton>
