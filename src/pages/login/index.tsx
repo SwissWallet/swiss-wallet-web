@@ -50,6 +50,7 @@ export function Login() {
                             <ForgotPassword
                                 closeForgotPassword={closeForgotPassword}
                                 setTextAlert={setTextAlert}
+                                textAlert={textAlert}
                             />
 
                         ) : (

@@ -135,7 +135,9 @@ export function UserPasswordModal({
                     <div className="flex flex-col gap-3">
                         
                     <div className="flex items-center w-full relative h-auto">
-                        <p className="absolute  text-red-700 text-center w-full font-medium text-lg">{textAlert}</p>
+                        <p className="absolute  text-red-700 text-center w-full font-medium text-lg">
+                            {textAlert}
+                        </p>
                     </div>
                             <UserInput
                                 type={isVisiblePassword ? 'text' : 'password'}
