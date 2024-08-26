@@ -8,6 +8,7 @@ import { RootState } from "../../store";
 import { api } from "../../lib/axios";
 import { useState } from "react";
 import { UserInput } from "../../components/micro-components/user-input";
+import { Eye, EyeOff } from "lucide-react";
 
 interface UserPasswordModalProps {
     handdleBackUserInput: () => void,
@@ -25,6 +26,7 @@ export function UserPasswordModal({
 
 
     const [ isAuth, setIsAuth ] = useState<boolean | undefined>()
+    const [ isVisiblePassword, setIsVisiblePassword ] = useState(false)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -136,9 +138,19 @@ export function UserPasswordModal({
                         <p className="absolute  text-red-700 text-center w-full font-medium text-lg">{textAlert}</p>
                     </div>
                             <UserInput
-                                type="password"
+                                type={isVisiblePassword ? 'text' : 'password'}
                                 onChange={handleChangePassword} 
                                 placeholder="Insira sua senha"
+                                isVisibleSvgIcon={true}
+                                svgIcon={isVisiblePassword ? (
+                                    <button className="flex items-center" type="button" onClick={() => setIsVisiblePassword(false)}>
+                                        <Eye />
+                                    </button>
+                                ) : (
+                                    <button className="flex items-center" type="button" onClick={() => setIsVisiblePassword(true)}>
+                                        <EyeOff />
+                                    </button>
+                        )}
                             />
                         <div className="flex justify-center flex-col items-center gap-1">
                             <button type="button" onClick={openForgotPassword}>
