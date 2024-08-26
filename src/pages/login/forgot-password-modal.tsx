@@ -168,6 +168,7 @@ export function ForgotPassword({
                         type={ isVisibleNewPassword ? 'text' : 'password'}
                         value={newPassword}
                         onChange={handleChangeNewPassword}
+                        minLength={6} required
                         isVisibleSvgIcon={true}
                         svgIcon={
                             isVisibleNewPassword ? (
