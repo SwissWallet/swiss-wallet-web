@@ -18,14 +18,15 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
     //estado para capturar possiveis erros
     const [ wasChanged, setWasChanged ] = useState<boolean | undefined>();
 
-    const [ isVisiblePassword, setIsVisiblePassword ] = useState(false);
+    //estados para ocultar ou não a senha
+    const [ isVisibleCurrentPassword, setIsVisibleCurrentPassword ] = useState(false);
+    const [ isVisibleNewPassword, setIsVisibleNewPassword ] = useState(false);
+    const [ isVisibleConfirmPassword, setIsVisibleConfirmPassword ] = useState(false);
+
+    //estados para capturar e armazenar dados do usuário
     const [ currentPassword, setCurrentPassword ] = useState('');
     const [ newPassword, setNewPassword ] = useState('');
     const [ confirmNewPassword, setConfirmNewPassword ] = useState('');
-
-    function handdleVisiblePassword() {
-        setIsVisiblePassword(!isVisiblePassword)
-    }
 
     const handleSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
@@ -105,17 +106,17 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
                         </div>
                         <UserInput 
                             position="center" 
-                            type={ isVisiblePassword ? 'text' : 'password'}
+                            type={ isVisibleCurrentPassword ? 'text' : 'password'}
                             value={currentPassword}
                             onChange={(e) => setCurrentPassword(e.target.value)}
                             isVisibleSvgIcon={true}
                             svgIcon={
-                                isVisiblePassword ? (
-                                <button onClick={handdleVisiblePassword} type="button" className="flex items-center">
+                                isVisibleCurrentPassword ? (
+                                <button onClick={() => setIsVisibleCurrentPassword(false)} type="button" className="flex items-center">
                                     <Eye />
                                 </button>
                              ) : (
-                                <button onClick={handdleVisiblePassword} type="button" className="flex items-center">
+                                <button onClick={() => setIsVisibleCurrentPassword(true)} type="button" className="flex items-center">
                                     <EyeOff />
                                 </button>
                                 )
@@ -126,17 +127,17 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
 
                         <UserInput 
                             position="center" 
-                            type={ isVisiblePassword ? 'text' : 'password'}
+                            type={ isVisibleNewPassword ? 'text' : 'password'}
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             isVisibleSvgIcon={true}
                             svgIcon={
-                                isVisiblePassword ? (
-                                <button onClick={handdleVisiblePassword} type="button" className="flex items-center">
+                                isVisibleNewPassword ? (
+                                <button onClick={() => setIsVisibleNewPassword(false)} type="button" className="flex items-center">
                                     <Eye />
                                 </button>
                              ) : (
-                                <button onClick={handdleVisiblePassword} type="button" className="flex items-center">
+                                <button onClick={() => setIsVisibleNewPassword(true)} type="button" className="flex items-center">
                                     <EyeOff />
                                 </button>
                                 )
@@ -147,17 +148,17 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
 
                         <UserInput 
                             position="center" 
-                            type={ isVisiblePassword ? 'text' : 'password'}
+                            type={ isVisibleConfirmPassword ? 'text' : 'password'}
                             value={confirmNewPassword}
                             onChange={(e) => setConfirmNewPassword(e.target.value)}
                             isVisibleSvgIcon={true}
                             svgIcon={
-                                isVisiblePassword ? (
-                                <button onClick={handdleVisiblePassword} type="button" className="flex items-center">
+                                isVisibleConfirmPassword ? (
+                                <button onClick={() => setIsVisibleConfirmPassword(false)} type="button" className="flex items-center">
                                     <Eye />
                                 </button>
                              ) : (
-                                <button onClick={handdleVisiblePassword} type="button" className="flex items-center">
+                                <button onClick={() => setIsVisibleConfirmPassword(true)} type="button" className="flex items-center">
                                     <EyeOff />
                                 </button>
                                 )
