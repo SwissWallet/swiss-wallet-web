@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { Eye , EyeOff } from "lucide-react";
-
+import { api } from "../../lib/axios";
 
 interface ChangePassworModalProps{
     closeChangePasswordModal: () => void;
@@ -11,9 +11,9 @@ interface ChangePassworModalProps{
 
 export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModalProps){
     const [ isVisiblePassword, setIsVisiblePassword ] = useState(false);
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [ currentPassword, setCurrentPassword ] = useState('');
+    const [ newPassword, setNewPassword ] = useState('');
+    const [ confirmNewPassword, setConfirmNewPassword ] = useState('');
 
     function handdleVisiblePassword() {
         setIsVisiblePassword(!isVisiblePassword)
@@ -34,9 +34,53 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
     const handleSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
 
+        changePasswordCurrent()
+
         closeChangePasswordModal();
     }
 
+    async function changePasswordCurrent() {
+
+        const token = localStorage.getItem("token");
+        console.log(token)
+
+        if(token){
+            try{
+                const response = await api.put(
+                    `/v3/users/password`, 
+                    {
+                        currentPassword,
+                        newPassword,
+                        confirmPassword: confirmNewPassword
+                    },
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        },
+                    }
+                );
+
+                if(response.status === 200){
+                    console.log("senha alterada com sucesso")
+                }
+    
+                
+            }catch(err: unknown){
+                const axiosError = err as { response: { status: number, data: { message?: string } } };
+                if(err && typeof err === 'object' && 'response' in err){
+
+                    if(axiosError.response.status === 400){
+                        console.log('error 400')
+                    }
+                    if(axiosError.response.status === 403){
+                        console.log('error 403')
+                    }
+
+                }
+            }
+        }
+
+    }
 
     return (
         

@@ -89,13 +89,13 @@ export function UserPasswordModal({
             });
 
             if(response.status === 200){
+                localStorage.setItem('token', response.data.token)
                 setIsAuth(true)
                 loadDataUser(response.data.token)
             }
 
         }catch (err: unknown){
             if(err && typeof err === 'object' && 'response' in err){
-                console.log('err: unknow')
                 const axiosError = err as { response: { status: number, data: { message?: string } } };
                 if(axiosError.response.status === 400){
                     setIsAuth(false)
