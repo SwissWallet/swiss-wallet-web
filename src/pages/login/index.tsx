@@ -5,7 +5,7 @@ import { UserPasswordModal } from "./userpassword-modal";
 import { FooterLoginAndRegister } from "../../components/macro-components/footer-login-and-register";
 import { ForgotPassword } from "./forgot-password-modal";
 import { useDispatch } from "react-redux";
-import { resetUserLogin } from "../../features/user-login-slice";
+import { resetUserLogin } from "../../features/login-slice";
 
 export function Login() {
 
