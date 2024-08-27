@@ -3,6 +3,7 @@ import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { Eye , EyeOff } from "lucide-react";
 import { api } from "../../lib/axios";
+import { BackButton } from "../../components/micro-components/back-button";
 
 interface ChangePassworModalProps{
     closeChangePasswordModal: () => void;
@@ -10,6 +11,13 @@ interface ChangePassworModalProps{
 
 
 export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModalProps){
+
+    //estado para exibir possivel erro ao usuário
+    const [ textAlert, setTextAlert ] = useState('')
+    
+    //estado para capturar possiveis erros
+    const [ wasChanged, setWasChanged ] = useState<boolean | undefined>();
+
     const [ isVisiblePassword, setIsVisiblePassword ] = useState(false);
     const [ currentPassword, setCurrentPassword ] = useState('');
     const [ newPassword, setNewPassword ] = useState('');
@@ -19,22 +27,19 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
         setIsVisiblePassword(!isVisiblePassword)
     }
 
-    const handleCurrentPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCurrentPassword(e.target.value);
-    };
-
-    const handleChangeNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setNewPassword(e.target.value);
-    };
-
-    const handleChangeConfirmNewPassword =(e: React.ChangeEvent<HTMLInputElement>) => {
-        setConfirmNewPassword(e.target.value);
-    }
-
     const handleSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
 
-        changePasswordCurrent()
+        if(currentPassword === '' || newPassword === '' || confirmNewPassword === ''){
+            setTextAlert("*Insira uma senha*")
+            return
+        }
+
+        changePasswordCurrent();
+
+        if(!wasChanged){
+            return
+        }
 
         closeChangePasswordModal();
     }
@@ -61,6 +66,7 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
                 );
 
                 if(response.status === 200){
+                    setWasChanged(true)
                     console.log("senha alterada com sucesso")
                 }
     
@@ -69,11 +75,13 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
                 const axiosError = err as { response: { status: number, data: { message?: string } } };
                 if(err && typeof err === 'object' && 'response' in err){
 
+                    setWasChanged(false)
+
                     if(axiosError.response.status === 400){
-                        console.log('error 400')
+                        setTextAlert("*Senha atual inválida*")
                     }
                     if(axiosError.response.status === 403){
-                        console.log('error 403')
+                        setTextAlert("*Usuário sem acesso*")
                     }
 
                 }
@@ -85,15 +93,21 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
     return (
         
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <form onSubmit={handleSubmit} className=" bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
+            <form onSubmit={handleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
+                <div className="flex w-full justify-start">
+                    <BackButton type="button" onClick={closeChangePasswordModal} />
+                </div>
 
-                <div className="flex justify-center">
-                    <div className="flex flex-col justify-center gap-6 w-96 ">
+                <div className="flex justify-center w-auto">
+                    <div className="flex flex-col  gap-6 w-96 ">
+                        <div className="flex items-center w-full relative">
+                            <p className="absolute text-red-700 text-center w-full font-medium text-lg">{textAlert}</p>
+                        </div>
                         <UserInput 
                             position="center" 
                             type={ isVisiblePassword ? 'text' : 'password'}
                             value={currentPassword}
-                            onChange={handleCurrentPassword}
+                            onChange={(e) => setCurrentPassword(e.target.value)}
                             isVisibleSvgIcon={true}
                             svgIcon={
                                 isVisiblePassword ? (
@@ -114,7 +128,7 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
                             position="center" 
                             type={ isVisiblePassword ? 'text' : 'password'}
                             value={newPassword}
-                            onChange={handleChangeNewPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
                             isVisibleSvgIcon={true}
                             svgIcon={
                                 isVisiblePassword ? (
@@ -135,7 +149,7 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
                             position="center" 
                             type={ isVisiblePassword ? 'text' : 'password'}
                             value={confirmNewPassword}
-                            onChange={handleChangeConfirmNewPassword}
+                            onChange={(e) => setConfirmNewPassword(e.target.value)}
                             isVisibleSvgIcon={true}
                             svgIcon={
                                 isVisiblePassword ? (
