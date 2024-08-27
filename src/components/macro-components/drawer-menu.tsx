@@ -3,7 +3,7 @@ import logo from "../../assets/images/logo-swisswallet.png"
 import { Book, Coffee, Gift, Heart, House, ShoppingBag, ShoppingCart, User, X } from "lucide-react"
 import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { resetAuthUser } from "../../features/get-auth-user-slice";
+import { resetAuthUser } from "../../features/auth-user-slice";
 
 interface DrawerMenuProps {
     isOpen: boolean,

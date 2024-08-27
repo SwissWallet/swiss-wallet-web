@@ -7,6 +7,7 @@ import { ChangePassworModal } from "./changepassword-modal";
 import { useState } from "react";
 
 
+
 export function UserAccount() {
 
     const [isEditable, setIsEditable] = useState(false);
@@ -27,6 +28,9 @@ export function UserAccount() {
     const closeModal = () => {
         setIsModalOpen(false);
     }
+
+
+
 
 
     return (
