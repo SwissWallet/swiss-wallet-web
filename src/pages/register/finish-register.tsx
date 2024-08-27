@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch } from "react-redux";
-import { resetUser } from "../../features/get-user-input-slice";
-import { resetAdress } from "../../features/get-user-address-slice";
-import { resetPassword } from "../../features/validation-password-slice";
+import { resetUser } from "../../features/register-data-user";
+import { resetAdress } from "../../features/register-user-address";
+import { resetPassword } from "../../features/register-user-password";
 
 export function FinishRegister() {
 
