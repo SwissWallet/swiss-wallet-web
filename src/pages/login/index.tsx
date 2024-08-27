@@ -4,11 +4,17 @@ import { UsernameModal } from "./username-modal";
 import { UserPasswordModal } from "./userpassword-modal";
 import { FooterLoginAndRegister } from "../../components/macro-components/footer-login-and-register";
 import { ForgotPassword } from "./forgot-password-modal";
+import { useDispatch } from "react-redux";
+import { resetUserLogin } from "../../features/login-slice";
 
 export function Login() {
 
     const [filledUserName, setFilledUserName] = useState(false);
     const [isVisibleForgotPassword, setIsVisibleForgotPassword] = useState(false);
+
+    const [ textAlert, setTextAlert ] = useState('');
+
+    const dispatch = useDispatch();
 
     function openForgotPassword() {
         setIsVisibleForgotPassword(true)
@@ -19,10 +25,13 @@ export function Login() {
     }
 
     function handdleAdvanceUserInput() {
+        setTextAlert("")
         setFilledUserName(true);
     }
 
     function handdleBackUserInput() {
+        setTextAlert("")
+        dispatch(resetUserLogin())
         setFilledUserName(false);
     }
 
@@ -40,6 +49,8 @@ export function Login() {
 
                             <ForgotPassword
                                 closeForgotPassword={closeForgotPassword}
+                                setTextAlert={setTextAlert}
+                                textAlert={textAlert}
                             />
 
                         ) : (
@@ -47,6 +58,8 @@ export function Login() {
                             <UserPasswordModal
                                 handdleBackUserInput={handdleBackUserInput}
                                 openForgotPassword={openForgotPassword}
+                                setTextAlert={setTextAlert}
+                                textAlert={textAlert}
                             />
                         )
 
@@ -54,6 +67,8 @@ export function Login() {
                     ) : (
                         <UsernameModal
                             handdleAdvanceUserInput={handdleAdvanceUserInput}
+                            textAlert={textAlert}
+                            setTextAlert={setTextAlert}
                         />
                     )
                 }

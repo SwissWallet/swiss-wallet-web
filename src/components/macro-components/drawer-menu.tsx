@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import logo from "../../assets/images/logo-swisswallet.png"
 import { Book, Coffee, Gift, Heart, House, ShoppingBag, ShoppingCart, User, X } from "lucide-react"
 import { RootState } from "../../store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetAuthUser } from "../../features/get-auth-user-slice";
 
 interface DrawerMenuProps {
     isOpen: boolean,
@@ -14,10 +15,18 @@ export function DrawerMenu({
     closeSettings
 }: DrawerMenuProps) {
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const { email, name } = useSelector(
         (state: RootState) => state.authUser
     );
+
+    function logoutUser(){
+        dispatch(resetAuthUser())
+        console.log(email, name)
+        navigate('/')
+    }
 
     return (
         <div className={`absolute z-50 p-10 bg-red-gradient h-screen w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
@@ -111,11 +120,11 @@ export function DrawerMenu({
                         <p className="text-zinc-400 font-light">{email}</p>
 
                     </div>
-                    <Link to={'/'}>
+                    <button onClick={logoutUser}>
                         <div className="mt-4">
                             <p className="text-white underline font-medium text-lg">sair</p>
                         </div>
-                    </Link>
+                    </button>
                 </div>
 
             </div>

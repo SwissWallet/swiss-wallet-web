@@ -16,9 +16,12 @@ export const userLoginSlice = createSlice({
     reducers: {
         setUserLogin(state, action: PayloadAction<Partial<userLogin>>){
             return { ...state, ...action.payload }
+        },
+        resetUserLogin(){
+            return initialState;
         }
     }
 });
 
-export const { setUserLogin } = userLoginSlice.actions;
+export const { setUserLogin, resetUserLogin } = userLoginSlice.actions;
 export default userLoginSlice.reducer;

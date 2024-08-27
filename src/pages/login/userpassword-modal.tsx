@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,18 +6,30 @@ import { setUserLogin } from "../../features/login-slice";
 import { setAuthUser } from "../../features/auth-user-slice";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
+import { useState } from "react";
+import { UserInput } from "../../components/micro-components/user-input";
+import { Eye, EyeOff } from "lucide-react";
 
 interface UserPasswordModalProps {
     handdleBackUserInput: () => void,
     openForgotPassword: () => void,
+    setTextAlert: (e: string) => void,
+    textAlert: string,
 }
 
 export function UserPasswordModal({
     handdleBackUserInput,
     openForgotPassword,
+    setTextAlert,
+    textAlert,
 }: UserPasswordModalProps) {
 
-    const dispatch = useDispatch()
+
+    const [ isAuth, setIsAuth ] = useState<boolean | undefined>()
+    const [ isVisiblePassword, setIsVisiblePassword ] = useState(false)
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
@@ -69,31 +81,44 @@ export function UserPasswordModal({
     }
 
     async function authLogin() {
-        console.log(username)
-        console.log(password)
+        try{
 
-        await api.post('/v3/auth', {
-            username,
-            password,
-        })
-        .then((json) => {
-            if(json.status === 200){
-                window.alert('OK')
-                console.log(json.data.token)
-                loadDataUser(json.data.token)
+            const response = await api.post('/v3/auth', {
+                username,
+                password,
+            });
 
+            if(response.status === 200){
+                setIsAuth(true)
+                loadDataUser(response.data.token)
             }
-        })
-        .catch((err) => {
-            if(err.response.status === 400){
-                return window.alert('credenciais inválidas')
+
+        }catch (err: unknown){
+            if(err && typeof err === 'object' && 'response' in err){
+                console.log('err: unknow')
+                const axiosError = err as { response: { status: number, data: { message?: string } } };
+                if(axiosError.response.status === 400){
+                    setIsAuth(false)
+                }
             }
-        })
+        }
+        
     }
 
-    const handdleSubmit = (e: React.FormEvent) => {
+    const handdleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        authLogin()
+
+        if(password === ''){
+            setTextAlert("*Insira sua senha*")
+            return
+        }
+
+        if(!isAuth){
+            setTextAlert("*Credenciais inválidas*")
+            return
+        }
+
+        navigate('/home')
     }
 
     return(
@@ -108,25 +133,40 @@ export function UserPasswordModal({
                         <p className="font-medium text-sm text-zinc-800 ml-4">{username}</p>
                     </div>
                     <div className="flex flex-col gap-3">
-                        <div className="flex justify-center flex-col items-center gap-1">
-                            <input type="password" onChange={handleChangePassword} placeholder="Insira sua senha" 
-                                className="outline-none rounded-md p-2 w-full border-2 border-zinc-300  font-medium placeholder-slate-400
-                                    focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic" 
+                        
+                    <div className="flex items-center w-full relative h-auto">
+                        <p className="absolute  text-red-700 text-center w-full font-medium text-lg">
+                            {textAlert}
+                        </p>
+                    </div>
+                            <UserInput
+                                type={isVisiblePassword ? 'text' : 'password'}
+                                onChange={handleChangePassword} 
+                                placeholder="Insira sua senha"
+                                isVisibleSvgIcon={true}
+                                svgIcon={isVisiblePassword ? (
+                                    <button className="flex items-center" type="button" onClick={() => setIsVisiblePassword(false)}>
+                                        <Eye />
+                                    </button>
+                                ) : (
+                                    <button className="flex items-center" type="button" onClick={() => setIsVisiblePassword(true)}>
+                                        <EyeOff />
+                                    </button>
+                        )}
                             />
+                        <div className="flex justify-center flex-col items-center gap-1">
                             <button type="button" onClick={openForgotPassword}>
                                 <span className="text-sm font-medium text-zinc-500
                                         hover:text-zinc-600 hover:cursor-pointer">
-                            esqueceu sua senha?
-                        </span>
-                    </button>
-                </div>
+                                    esqueceu sua senha?
+                                </span>
+                            </button>
+                        </div>
             </div>
-            <div className="flex justify-center items-center">
-                <Link to={'/home'}>
-                    <MainButton type="submit" onClick={authLogin}>
-                        Avançar
-                    </MainButton>
-                </Link>
+            <div className="flex justify-center items-center">   
+                <MainButton type="submit" onClick={authLogin}>
+                    Avançar
+                </MainButton>
             </div>
         </form>
     )
