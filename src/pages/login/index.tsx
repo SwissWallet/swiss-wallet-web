@@ -4,17 +4,17 @@ import { UsernameModal } from "./username-modal";
 import { UserPasswordModal } from "./userpassword-modal";
 import { FooterLoginAndRegister } from "../../components/macro-components/footer-login-and-register";
 import { ForgotPassword } from "./forgot-password-modal";
-import { useDispatch } from "react-redux";
-import { resetUserLogin } from "../../features/login-slice";
-
 export function Login() {
 
     const [filledUserName, setFilledUserName] = useState(false);
     const [isVisibleForgotPassword, setIsVisibleForgotPassword] = useState(false);
 
+
+    const [ username, setUsername ] = useState('');
+    const [ password, setPassword ] = useState('');
+
     const [ textAlert, setTextAlert ] = useState('');
 
-    const dispatch = useDispatch();
 
     function openForgotPassword() {
         setIsVisibleForgotPassword(true)
@@ -31,7 +31,6 @@ export function Login() {
 
     function handdleBackUserInput() {
         setTextAlert("")
-        dispatch(resetUserLogin())
         setFilledUserName(false);
     }
 
@@ -60,6 +59,9 @@ export function Login() {
                                 openForgotPassword={openForgotPassword}
                                 setTextAlert={setTextAlert}
                                 textAlert={textAlert}
+                                username={username}
+                                setPassword={setPassword}
+                                password={password}
                             />
                         )
 
@@ -67,8 +69,10 @@ export function Login() {
                     ) : (
                         <UsernameModal
                             handdleAdvanceUserInput={handdleAdvanceUserInput}
-                            textAlert={textAlert}
                             setTextAlert={setTextAlert}
+                            setUsername={setUsername}
+                            textAlert={textAlert}
+                            username={username}
                         />
                     )
                 }

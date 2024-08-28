@@ -1,23 +1,22 @@
 import { Link } from "react-router-dom"
 import { MainButton } from "../../components/micro-components/main-button"
 import { UserInput } from "../../components/micro-components/user-input"
-import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "../../store"
-import { setUserLogin } from "../../features/login-slice"
 
 interface UsernameModalProps {
     handdleAdvanceUserInput: () => void,
-    textAlert: string,
     setTextAlert: (e: string) => void,
+    setUsername: (e: string) => void,
+    username: string,
+    textAlert: string,
 }
 
 export function UsernameModal({
     handdleAdvanceUserInput,
     setTextAlert,
+    setUsername,
+    username,
     textAlert,
 }: UsernameModalProps) {
-
-    const dispatch = useDispatch<AppDispatch>()
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -35,15 +34,6 @@ export function UsernameModal({
         handdleAdvanceUserInput()
     }
 
-    const handdleChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value
-        dispatch(setUserLogin({username: value}))
-    }
-
-    const { username } = useSelector(
-        (state: RootState) => state.userLogin
-    );
-
     return(
                 <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
                     <div className="flex flex-col gap-3">
@@ -55,7 +45,7 @@ export function UsernameModal({
                             <p className="absolute  text-red-700 text-center w-full font-medium text-lg">{textAlert}</p>
                         </div>
                         <div className="flex justify-center flex-col  gap-1">
-                            <UserInput placeholder="Insira seu e-mail" onChange={handdleChangeUsername}>
+                            <UserInput placeholder="Insira seu e-mail" onChange={(e) => setUsername(e.target.value)}>
                                 Usuário
                             </UserInput>
                             <div className="flex items-center justify-center">

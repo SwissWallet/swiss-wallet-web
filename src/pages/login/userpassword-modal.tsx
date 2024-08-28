@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserLogin } from "../../features/login-slice";
-import { setAuthUser } from "../../features/auth-user-slice";
-import { RootState } from "../../store";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../features/user-slice";
 import { api } from "../../lib/axios";
 import { useState } from "react";
 import { UserInput } from "../../components/micro-components/user-input";
@@ -12,8 +10,11 @@ import { Eye, EyeOff } from "lucide-react";
 
 interface UserPasswordModalProps {
     handdleBackUserInput: () => void,
-    openForgotPassword: () => void,
     setTextAlert: (e: string) => void,
+    openForgotPassword: () => void,
+    setPassword:(e: string) => void,
+    username: string,
+    password: string,
     textAlert: string,
 }
 
@@ -21,89 +22,62 @@ export function UserPasswordModal({
     handdleBackUserInput,
     openForgotPassword,
     setTextAlert,
+    setPassword,
+    username,
+    password,
     textAlert,
 }: UserPasswordModalProps) {
 
-
-    const [ isAuth, setIsAuth ] = useState<boolean | undefined>()
     const [ isVisiblePassword, setIsVisiblePassword ] = useState(false)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value
+    async function logIn(){
+        const token = localStorage.getItem('token');
 
-        dispatch(setUserLogin({password: value}))
-    }
-
-    const { username, password } = useSelector(
-        (state: RootState) => state.userLogin
-    );
-
-    const getDataAuthUser = ( email: string, name: string, birthDate: string, phone: string, 
-                                address: { street: string, city: string, number: string }) => {
-        dispatch(setAuthUser({
-            email,
-            name,
-            birthDate,
-            phone,
-            address,
-        }))
-    }
-
-    async function loadDataUser(token: string){
         await api.get(`/v3/users/current`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
-        .then((json) => {
-            if(json.status === 200){
-                getDataAuthUser(
-                    json.data.username,
-                    json.data.name,
-                    json.data.birthDate,
-                    json.data.phone,
-                    {
-                        street: json.data.address.street,
-                        city: json.data.address.city,
-                        number: json.data.address.number,
-                    }
-                )
-            };
+        .then(async(json) => {
+            api.defaults.headers['Authorization'] = `Bearer ${token}`;
+            dispatch(setUser(json.data));
+
+            navigate('/home')
         })
-        .catch((err) => {
-            if(err.response.status === 403){
-                return window.alert('usuário não tem acesso')
-            }
+        .catch(async(err) => {
+            await localStorage.clear;
+            console.log(err)
         })
     }
 
     async function authLogin() {
-        try{
-
-            const response = await api.post('/v3/auth', {
-                username,
-                password,
-            });
-
-            if(response.status === 200){
-                localStorage.setItem('token', response.data.token)
-                setIsAuth(true)
-                loadDataUser(response.data.token)
-            }
-
-        }catch (err: unknown){
-            if(err && typeof err === 'object' && 'response' in err){
-                const axiosError = err as { response: { status: number, data: { message?: string } } };
-                if(axiosError.response.status === 400){
-                    setIsAuth(false)
-                }
-            }
-        }
         
-    }
+        await api.post(`/v3/auth`, {
+            username, password
+        })
+        .then(async(json) => {
+            try{
+                await localStorage.setItem('token', json.data.token);
+
+                logIn();
+
+            }catch (error){
+                console.log(error)
+            }
+        })
+        .catch((err) => {
+            console.log(err.response.status);
+            if(err.response.status === 400){
+                setTextAlert("*Credenciais inválidas*");
+            }
+            else if(err.response.status === 422){
+                setTextAlert("*Ocorreu um problema*")
+            }
+        })
+    };
 
     const handdleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -113,12 +87,7 @@ export function UserPasswordModal({
             return
         }
 
-        if(!isAuth){
-            setTextAlert("*Credenciais inválidas*")
-            return
-        }
-
-        navigate('/home')
+        authLogin();
     }
 
     return(
@@ -141,7 +110,7 @@ export function UserPasswordModal({
                     </div>
                             <UserInput
                                 type={isVisiblePassword ? 'text' : 'password'}
-                                onChange={handleChangePassword} 
+                                onChange={(e) => setPassword(e.target.value)} 
                                 placeholder="Insira sua senha"
                                 isVisibleSvgIcon={true}
                                 svgIcon={isVisiblePassword ? (
@@ -164,7 +133,7 @@ export function UserPasswordModal({
                         </div>
             </div>
             <div className="flex justify-center items-center">   
-                <MainButton type="submit" onClick={authLogin}>
+                <MainButton type="submit">
                     Avançar
                 </MainButton>
             </div>
