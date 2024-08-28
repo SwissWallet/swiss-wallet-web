@@ -1,6 +1,5 @@
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
-import { ChangeInfoUser } from "./line-change-info-user";
 import { InfoUser } from "./line-info-user";
 import { UpdateButton } from "../../components/micro-components/update-button";
 import { ChangePassworModal } from "./changepassword-modal";
@@ -15,10 +14,8 @@ import { setUser } from "../../features/user-slice";
 export function UserAccount() {
 
     const [isEditable, setIsEditable] = useState(false);
-    const [zipCode, setZipCode] = useState('11590-130');
-    const [complement, setComplement] = useState('Apto 202, Bloco B');
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    
     const dispatch = useDispatch();
 
     const toggleState = () => {
@@ -30,23 +27,29 @@ export function UserAccount() {
     const openModal = () => {
         setIsModalOpen(true);
     }
-
+    
     const closeModal = () => {
         setIsModalOpen(false);
     }
+    
+    const user = useSelector((state:RootState) => state.authUser.value);
+    const address = user.address
 
-    const user = useSelector((state:RootState) => state.authUser);
-    const address = user.value.address
+    const zipCodeReplace = address.zipCode.replace(/-/g, '');
+
+    const [number, setNumber] = useState(address.number);
+    const [localCep, setLocalCep] = useState(zipCodeReplace);
 
     //capturando dados extras através de cep do usuário
     useEffect(() => {
-        if(zipCode.length === 8){
+        if(localCep.length === 8){
             axios.get(
-                `https://viacep.com.br/ws/${zipCode}/json/`
+                `https://viacep.com.br/ws/${localCep}/json/`
             )
             .then((json) => {
                 const updatedAddress = {
                     ...address,
+                    zipCode: json.data.cep,
                     street: json.data.logradouro,
                     city: json.data.localidade,
                     uf: json.data.uf,
@@ -58,9 +61,20 @@ export function UserAccount() {
                 }))
             })
         }
-    }, [zipCode, user, address, dispatch]);
+    }, [localCep, user, address, dispatch]);
 
-
+    const handdleSetNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const newNumber = Number(value)
+        setNumber(newNumber)
+        dispatch(setUser({
+            ...user,
+            address: {
+                ...address,
+                number: newNumber
+            }
+        }))
+    }
 
     return (
         <div className="bg-default-gray">
@@ -78,10 +92,10 @@ export function UserAccount() {
                         <div className="flex justify-end" >
                             <UpdateButton onClick={doNothing}/>
                         </div>
-                        <InfoUser label="Nome" value={user.value.user.name} />
-                        <InfoUser label="Data de nascimento" value={user.value.user.birthDate} />
-                        <InfoUser label="CPF" value={user.value.user.cpf} />
-                        <InfoUser label="Telefone" value={user.value.user.phone} />
+                        <InfoUser label="Nome" value={user.user.name} />
+                        <InfoUser label="Data de nascimento" value={user.user.birthDate} />
+                        <InfoUser label="CPF" value={user.user.cpf} />
+                        <InfoUser label="Telefone" value={user.user.phone} />
                     </div>
                 </section>
                 
@@ -91,24 +105,25 @@ export function UserAccount() {
                             <UpdateButton onClick={toggleState} />
                         </div>
                         
-                        <InfoUser label="Cidade" value={user.value.address.city}/>
+                        <InfoUser label="Cidade" value={address.city}/>
 
                         {/* <InfoUser label="Bairro" value={user.value.address.} />  //InfoUser referente ao bairro*/}
 
-                        <ChangeInfoUser
-                            label="CEP" 
-                            value={zipCode}
-                            isEditable={isEditable}
-                            onChange={setZipCode}
+                        <input className="text-2xl font-semibold w-full p-2 border border-gray-300 rounded-md" 
+                            type="text"
+                            value={localCep}
+                            disabled={!isEditable}
+                            onChange={(e) => setLocalCep(e.target.value)}
                         />
 
                         <InfoUser label="Rua" value={address.street} />
+                        
 
-                        <ChangeInfoUser
-                            label="Número" 
-                            value={complement}
-                            isEditable={isEditable}
-                            onChange={setComplement}
+                        <input className="text-2xl font-semibold w-full p-2 border border-gray-300 rounded-md" 
+                            type="number"
+                            value={number}
+                            disabled={!isEditable}
+                            onChange={handdleSetNumber}
                         />
 
                     </div>
@@ -118,8 +133,8 @@ export function UserAccount() {
                         <div className="flex justify-end" >
                             <UpdateButton onClick={openModal} />
                         </div>
-                        <InfoUser label="E-mail" value="username@senaisp" />
-                        <InfoUser label="Senha" value="******12" />
+                        <InfoUser label="E-mail" value={user.user.username} />
+                        <InfoUser label="Senha" value="senha" />
                     </div>
                 </section>
 

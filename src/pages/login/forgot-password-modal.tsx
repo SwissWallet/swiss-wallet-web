@@ -1,22 +1,22 @@
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { api } from "../../lib/axios";
-import { RootState } from "../../store";
 
 interface ForgotPasswordProps {
     closeForgotPassword: () => void,
     setTextAlert: (e: string) => void,
     textAlert: string,
+    username: string,
 }
 
 export function ForgotPassword({
     closeForgotPassword,
     setTextAlert,
-    textAlert
+    textAlert,
+    username
 }: ForgotPasswordProps) {
 
     //estado para validação de usuário
@@ -35,11 +35,6 @@ export function ForgotPassword({
     //estados para armazenar código gerado pela api
     const [ verificationCode, setVerificationCode ] = useState('')
     const verificationCodeRef = useRef('');
-    
-
-    const { username } = useSelector(
-        (state: RootState) => state.userLogin
-    );
 
 
     function handdleVisibleNewPassword() {
