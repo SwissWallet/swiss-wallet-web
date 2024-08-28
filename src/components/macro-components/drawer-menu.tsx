@@ -113,8 +113,8 @@ export function DrawerMenu({
 
                 <div className="flex flex-col items-center">
                     <div className="flex flex-col justify-center items-center">
-                        <h1 className="text-white font-medium text-xl">nome</h1>
-                        <p className="text-zinc-400 font-light">email</p>
+                        <h1 className="text-white font-medium text-xl">{user.user.name}</h1>
+                        <p className="text-zinc-400 font-light">{user.user.username}</p>
 
                     </div>
                     <button onClick={logoutUser}>
