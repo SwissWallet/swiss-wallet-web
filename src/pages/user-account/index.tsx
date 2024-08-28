@@ -109,22 +109,41 @@ export function UserAccount() {
 
                         {/* <InfoUser label="Bairro" value={user.value.address.} />  //InfoUser referente ao bairro*/}
 
-                        <input className="text-2xl font-semibold w-full p-2 border border-gray-300 rounded-md" 
-                            type="text"
-                            value={localCep}
-                            disabled={!isEditable}
-                            onChange={(e) => setLocalCep(e.target.value)}
-                        />
+                        <div className="flex flex-col p-5 gap-4 h-auto">
+                            <div className="flex items-center justify-between">
+                                <div className="w-auto">
+                                    <h3 className="flex flex-1 text-nowrap text-xl font-medium w-auto">CEP:</h3>
+                                </div>
+                                <div className=" flex-1 flex justify-center">
+                                    <input className="focus:outline-none text-center text-2xl mr-11 font-semibold w-full p-2 border-none bg-transparent rounded-md" 
+                                        type="text"
+                                        value={localCep}
+                                        disabled={!isEditable}
+                                        onChange={(e) => setLocalCep(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="w-full h-[1px] bg-slate-400 " />
+                        </div>
 
                         <InfoUser label="Rua" value={address.street} />
                         
-
-                        <input className="text-2xl font-semibold w-full p-2 border border-gray-300 rounded-md" 
-                            type="number"
-                            value={number}
-                            disabled={!isEditable}
-                            onChange={handdleSetNumber}
-                        />
+                        <div className="flex flex-col p-5 gap-4">
+                            <div className="flex items-center justify-between">
+                                <div className="w-auto">
+                                    <h3 className="flex flex-1 text-nowrap text-xl font-medium w-auto">Número</h3>
+                                </div>
+                                <div className="flex-1 flex justify-center">
+                                    <input className="focus:outline-none text-center text-2xl font-semibold w-auto mr-20 p-2 border-none bg-transparent rounded-md" 
+                                        type="number"
+                                        value={number}
+                                        disabled={!isEditable}
+                                        onChange={handdleSetNumber}
+                                    />
+                                </div>
+                            </div>
+                            <div className="w-full h-[1px] bg-slate-400 " />
+                        </div>
 
                     </div>
                 </section>
@@ -134,7 +153,7 @@ export function UserAccount() {
                             <UpdateButton onClick={openModal} />
                         </div>
                         <InfoUser label="E-mail" value={user.user.username} />
-                        <InfoUser label="Senha" value="senha" />
+                        <InfoUser label="Senha" value="******" />
                     </div>
                 </section>
 
