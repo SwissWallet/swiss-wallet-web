@@ -8,6 +8,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { setUser } from "../../features/user-slice";
+import { api } from "../../lib/axios";
 
 
 
@@ -15,6 +16,8 @@ export function UserAccount() {
 
     const [isEditable, setIsEditable] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [ typingNumber, setTypingNumber ] = useState(false);
     
     const dispatch = useDispatch();
 
@@ -40,6 +43,27 @@ export function UserAccount() {
     const [number, setNumber] = useState(address.number);
     const [localCep, setLocalCep] = useState(zipCodeReplace);
 
+    async function changeAddress(){
+
+        await api.put(`/v3/users/address`, {
+            zipCode: address.zipCode,
+            street: address.street,
+            city: address.city,
+            number: address.number,
+            uf: address.uf,
+        })
+        .then((json) => {
+            if(json.status === 200){
+                console.log("endereço alterado com sucesso");
+            }
+        })
+        .catch((err) => {
+            if(err.response.status === 403){
+                console.log("endereço inválido");
+            }
+        })
+    }
+
     //capturando dados extras através de cep do usuário
     useEffect(() => {
         if(localCep.length === 8){
@@ -59,6 +83,14 @@ export function UserAccount() {
                     ...user,
                     address: updatedAddress
                 }))
+
+                if(typingNumber){
+                    changeAddress()
+                }
+                else{
+                    console.log("Confira o número do endereço")
+                }
+
             })
         }
     }, [localCep, user, address, dispatch]);
@@ -74,6 +106,8 @@ export function UserAccount() {
                 number: newNumber
             }
         }))
+
+        setTypingNumber(true);
     }
 
     return (
