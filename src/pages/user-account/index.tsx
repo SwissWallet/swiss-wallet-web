@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { setUser } from "../../features/user-slice";
 
 
 
@@ -34,19 +35,30 @@ export function UserAccount() {
         setIsModalOpen(false);
     }
 
+    const user = useSelector((state:RootState) => state.authUser);
+    const address = user.value.address
+
     //capturando dados extras através de cep do usuário
     useEffect(() => {
-        if (zipCode.length === 8) {
-            axios.get(`https://viacep.com.br/ws/${zipCode}/json/`)
-                .then((response) => {
-                    if (response.data.erro) {
-                        console.log('cep inválido')
-                    }else{
-                        dispatch()
-                    }
-                });
+        if(zipCode.length === 8){
+            axios.get(
+                `https://viacep.com.br/ws/${zipCode}/json/`
+            )
+            .then((json) => {
+                const updatedAddress = {
+                    ...address,
+                    street: json.data.logradouro,
+                    city: json.data.localidade,
+                    uf: json.data.uf,
+                };
+
+                dispatch(setUser({
+                    ...user,
+                    address: updatedAddress
+                }))
+            })
         }
-    }, [zipCode]);
+    }, [zipCode, user, address, dispatch]);
 
 
 
@@ -66,10 +78,10 @@ export function UserAccount() {
                         <div className="flex justify-end" >
                             <UpdateButton onClick={doNothing}/>
                         </div>
-                        <InfoUser label="Nome" value="Usuário" />
-                        <InfoUser label="Data de nascimento" value="25/07/2000" />
-                        <InfoUser label="CPF" value="12345678910" />
-                        <InfoUser label="Telefone" value="11946415527" />
+                        <InfoUser label="Nome" value={user.value.user.name} />
+                        <InfoUser label="Data de nascimento" value={user.value.user.birthDate} />
+                        <InfoUser label="CPF" value={user.value.user.cpf} />
+                        <InfoUser label="Telefone" value={user.value.user.phone} />
                     </div>
                 </section>
                 
@@ -79,9 +91,9 @@ export function UserAccount() {
                             <UpdateButton onClick={toggleState} />
                         </div>
                         
-                        <InfoUser label="Cidade" value="São Paulo"/>
+                        <InfoUser label="Cidade" value={user.value.address.city}/>
 
-                        <InfoUser label="Bairro" value="Centro" />
+                        {/* <InfoUser label="Bairro" value={user.value.address.} />  //InfoUser referente ao bairro*/}
 
                         <ChangeInfoUser
                             label="CEP" 
@@ -90,7 +102,7 @@ export function UserAccount() {
                             onChange={setZipCode}
                         />
 
-                        <InfoUser label="Rua" value="Conselheiro Crispianiano" />
+                        <InfoUser label="Rua" value={address.street} />
 
                         <ChangeInfoUser
                             label="Número" 
