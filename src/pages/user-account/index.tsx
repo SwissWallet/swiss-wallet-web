@@ -4,7 +4,10 @@ import { ChangeInfoUser } from "./line-change-info-user";
 import { InfoUser } from "./line-info-user";
 import { UpdateButton } from "../../components/micro-components/update-button";
 import { ChangePassworModal } from "./changepassword-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 
 
@@ -14,6 +17,8 @@ export function UserAccount() {
     const [zipCode, setZipCode] = useState('11590-130');
     const [complement, setComplement] = useState('Apto 202, Bloco B');
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const dispatch = useDispatch();
 
     const toggleState = () => {
         setIsEditable(!isEditable);
@@ -29,7 +34,19 @@ export function UserAccount() {
         setIsModalOpen(false);
     }
 
-
+    //capturando dados extras através de cep do usuário
+    useEffect(() => {
+        if (zipCode.length === 8) {
+            axios.get(`https://viacep.com.br/ws/${zipCode}/json/`)
+                .then((response) => {
+                    if (response.data.erro) {
+                        console.log('cep inválido')
+                    }else{
+                        dispatch()
+                    }
+                });
+        }
+    }, [zipCode]);
 
 
 

@@ -3,7 +3,7 @@ import logo from "../../assets/images/logo-swisswallet.png"
 import { Book, Coffee, Gift, Heart, House, ShoppingBag, ShoppingCart, User, X } from "lucide-react"
 import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { resetAuthUser } from "../../features/auth-user-slice";
+import { setUser } from "../../features/user-slice";
 
 interface DrawerMenuProps {
     isOpen: boolean,
@@ -18,13 +18,10 @@ export function DrawerMenu({
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { email, name } = useSelector(
-        (state: RootState) => state.authUser
-    );
+    const user = useSelector((state: RootState) => state.authUser.value);
 
     function logoutUser(){
-        dispatch(resetAuthUser())
-        console.log(email, name)
+        dispatch(setUser({}))
         navigate('/')
     }
 
@@ -116,8 +113,8 @@ export function DrawerMenu({
 
                 <div className="flex flex-col items-center">
                     <div className="flex flex-col justify-center items-center">
-                        <h1 className="text-white font-medium text-xl">{name}</h1>
-                        <p className="text-zinc-400 font-light">{email}</p>
+                        <h1 className="text-white font-medium text-xl">{user.user.name}</h1>
+                        <p className="text-zinc-400 font-light">{user.user.username}</p>
 
                     </div>
                     <button onClick={logoutUser}>
