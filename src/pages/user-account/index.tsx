@@ -1,42 +1,47 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
-import { InfoUser } from "./line-info-user";
 import { UpdateButton } from "../../components/micro-components/update-button";
-import { ChangePassworModal } from "./changepassword-modal";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
 import { setUser } from "../../features/user-slice";
 import { api } from "../../lib/axios";
-
-
+import { RootState } from "../../store";
+import { ChangePassworModal } from "./changepassword-modal";
+import { InfoUser } from "./line-info-user";
+import { ChangeAddressModal } from "./change-address-modal";
 
 export function UserAccount() {
 
-    const [isEditable, setIsEditable] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [ isModalPasswordOpen, setIsModalPasswordOpen ] = useState(false);
+    const [ isModalAddressOpen, setIsModalAddressOpen ] = useState(false);
 
     const [ typingNumber, setTypingNumber ] = useState(false);
     
     const dispatch = useDispatch();
 
-    const toggleState = () => {
-        setIsEditable(!isEditable);
-    };
-
     const doNothing = () => {};
 
-    const openModal = () => {
-        setIsModalOpen(true);
+    const openChangePasswordModal = () => {
+        setIsModalPasswordOpen(true);
     }
     
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const closeChangePasswordModal = () => {
+        setIsModalPasswordOpen(false);
+    }
+
+    const openChangeAddressModal = () => {
+        setIsModalAddressOpen(true);
+    }
+
+    const closeChangeAddressModal = () => {
+        setIsModalAddressOpen(false);
     }
     
     const user = useSelector((state:RootState) => state.authUser.value);
     const address = user.address
+    console.log(user)
+    console.log(address)
 
     const zipCodeReplace = address.zipCode.replace(/-/g, '');
 
@@ -64,36 +69,42 @@ export function UserAccount() {
         })
     }
 
-    //capturando dados extras através de cep do usuário
-    useEffect(() => {
+    const [ zipCode, setZipCode ] = useState(address.zipCode);
+    const [ street, setStreet ] = useState(address.street);
+    const [ city, setCity ] = useState(address.city);
+    const [ uf, setUf ] = useState(address.uf);
+
+    function getAddress(){
         if(localCep.length === 8){
             axios.get(
                 `https://viacep.com.br/ws/${localCep}/json/`
             )
             .then((json) => {
-                const updatedAddress = {
-                    ...address,
-                    zipCode: json.data.cep,
-                    street: json.data.logradouro,
-                    city: json.data.localidade,
-                    uf: json.data.uf,
-                };
-
-                dispatch(setUser({
-                    ...user,
-                    address: updatedAddress
-                }))
+                setZipCode(json.data.cep);
+                setStreet(json.data.street);
+                setCity(json.data.city);
+                setUf(json.data.uf);
 
                 if(typingNumber){
                     changeAddress()
+                    
                 }
                 else{
                     console.log("Confira o número do endereço")
+                    
                 }
 
+                
+
             })
+            
         }
-    }, [localCep, user, address, dispatch]);
+    }
+
+    //capturando dados extras através de cep do usuário
+    useEffect(() => {
+        getAddress();
+    }, [localCep]);
 
     const handdleSetNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -136,7 +147,7 @@ export function UserAccount() {
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
-                            <UpdateButton onClick={toggleState} />
+                            <UpdateButton onClick={openChangeAddressModal} />
                         </div>
                         
                         <InfoUser label="Cidade" value={address.city}/>
@@ -152,7 +163,6 @@ export function UserAccount() {
                                     <input className="focus:outline-none text-center text-2xl mr-11 font-semibold w-full p-2 border-none bg-transparent rounded-md" 
                                         type="text"
                                         value={localCep}
-                                        disabled={!isEditable}
                                         onChange={(e) => setLocalCep(e.target.value)}
                                     />
                                 </div>
@@ -171,7 +181,6 @@ export function UserAccount() {
                                     <input className="focus:outline-none text-center text-2xl font-semibold w-auto mr-20 p-2 border-none bg-transparent rounded-md" 
                                         type="number"
                                         value={number}
-                                        disabled={!isEditable}
                                         onChange={handdleSetNumber}
                                     />
                                 </div>
@@ -184,7 +193,7 @@ export function UserAccount() {
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
-                            <UpdateButton onClick={openModal} />
+                            <UpdateButton onClick={openChangePasswordModal} />
                         </div>
                         <InfoUser label="E-mail" value={user.user.username} />
                         <InfoUser label="Senha" value="******" />
@@ -195,7 +204,8 @@ export function UserAccount() {
 
             <Footer />
 
-            {isModalOpen && <ChangePassworModal closeChangePasswordModal={closeModal} />}            
+            {isModalPasswordOpen && <ChangePassworModal closeChangePasswordModal={closeChangePasswordModal} />}
+            {isModalAddressOpen && <ChangeAddressModal closeChangeAddressModal={closeChangeAddressModal} />}       
 
         </div>
     )
