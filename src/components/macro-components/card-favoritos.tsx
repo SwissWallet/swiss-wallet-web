@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function CardFavoritos() {
     return (
-        <div className="flex justify-around mt-24 gap-24">
+        <div className="flex flex-wrap justify-around mt-24 gap-24">
             <article className="bg-white text-black p-8 w-[600px] font-bold rounded-xl shadow-lg hover:scale-105 transition-transform duration-150 cursor-pointer">
                 <div className="flex items-center gap-3">
                     <Heart />
