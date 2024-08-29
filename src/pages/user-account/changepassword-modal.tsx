@@ -33,6 +33,11 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
             return
         }
 
+        // if(newPassword === confirmPassword){
+        //     setTextAlert("*A nova senha não foi confirmada*")
+        //     return
+        // }
+
         changePasswordCurrent();
     }
 
@@ -48,21 +53,20 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
         )
         .then((json) => {
             if(json.status === 200){
+                console.log("senha alterada com sucesso");
                 closeChangePasswordModal();
             }
         })
         .catch((err) => {
             if(err.response.status === 400){
-                setTextAlert("*senha inválida*")
+                setTextAlert("*senha inválida*");
             };
             if(err.response.status === 403){
-                setTextAlert("*token inválido*")
+                setTextAlert("*token inválido*");
             };
         })
     };
 
-    
-    console.log(textAlert)
     return (
         
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -105,6 +109,7 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
                             type={ isVisibleNewPassword ? 'text' : 'password'}
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
+                            minLength={6}
                             isVisibleSvgIcon={true}
                             svgIcon={
                                 isVisibleNewPassword ? (
@@ -126,6 +131,7 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
                             type={ isVisibleConfirmPassword ? 'text' : 'password'}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                            minLength={6} required
                             isVisibleSvgIcon={true}
                             svgIcon={
                                 isVisibleConfirmPassword ? (
@@ -150,7 +156,7 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
                 <div className="flex justify-center">
 
                     <MainButton type="submit">
-                        Ok
+                        Alterar
                     </MainButton>
                     
                 </div>
