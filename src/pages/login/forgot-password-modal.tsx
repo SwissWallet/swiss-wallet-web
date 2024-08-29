@@ -16,7 +16,7 @@ export function ForgotPassword({
     closeForgotPassword,
     setTextAlert,
     textAlert,
-    username,
+    username
 }: ForgotPasswordProps) {
 
     //estado para validação de usuário

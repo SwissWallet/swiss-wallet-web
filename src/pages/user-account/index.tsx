@@ -1,54 +1,36 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
-import { ChangeInfoUser } from "./line-change-info-user";
-import { InfoUser } from "./line-info-user";
 import { UpdateButton } from "../../components/micro-components/update-button";
-import { ChangePassworModal } from "./changepassword-modal";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
-
-
+import { ChangePassworModal } from "./changepassword-modal";
+import { InfoUser } from "./line-info-user";
+import { ChangeAddressModal } from "./change-address-modal";
 
 export function UserAccount() {
 
-    const [isEditable, setIsEditable] = useState(false);
-    const [zipCode, setZipCode] = useState('11590-130');
-    const [complement, setComplement] = useState('Apto 202, Bloco B');
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [ isModalPasswordOpen, setIsModalPasswordOpen ] = useState(false);
+    const [ isModalAddressOpen, setIsModalAddressOpen ] = useState(false);
 
-    const dispatch = useDispatch();
-
-    const toggleState = () => {
-        setIsEditable(!isEditable);
-    };
-
-    const doNothing = () => {};
-
-    const openModal = () => {
-        setIsModalOpen(true);
+    const openChangePasswordModal = () => {
+        setIsModalPasswordOpen(true);
+    }
+    
+    const closeChangePasswordModal = () => {
+        setIsModalPasswordOpen(false);
     }
 
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const openChangeAddressModal = () => {
+        setIsModalAddressOpen(true);
     }
 
-    //capturando dados extras através de cep do usuário
-    useEffect(() => {
-        if (zipCode.length === 8) {
-            axios.get(`https://viacep.com.br/ws/${zipCode}/json/`)
-                .then((response) => {
-                    if (response.data.erro) {
-                        console.log('cep inválido')
-                    }else{
-                        dispatch()
-                    }
-                });
-        }
-    }, [zipCode]);
-
-
+    const closeChangeAddressModal = () => {
+        setIsModalAddressOpen(false);
+    }
+    
+    const user = useSelector((state:RootState) => state.authUser.value);
+    const address = user.address;
 
     return (
         <div className="bg-default-gray">
@@ -63,51 +45,35 @@ export function UserAccount() {
 
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
-                        <div className="flex justify-end" >
-                            <UpdateButton onClick={doNothing}/>
-                        </div>
-                        <InfoUser label="Nome" value="Usuário" />
-                        <InfoUser label="Data de nascimento" value="25/07/2000" />
-                        <InfoUser label="CPF" value="12345678910" />
-                        <InfoUser label="Telefone" value="11946415527" />
+                        <InfoUser label="Nome" value={user.user.name} />
+                        <InfoUser label="Data de nascimento" value={user.user.birthDate} />
+                        <InfoUser label="CPF" value={user.user.cpf} />
+                        <InfoUser label="Telefone" value={user.user.phone} />
                     </div>
                 </section>
                 
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
-                            <UpdateButton onClick={toggleState} />
+                            <UpdateButton onClick={openChangeAddressModal} />
                         </div>
                         
-                        <InfoUser label="Cidade" value="São Paulo"/>
-
-                        <InfoUser label="Bairro" value="Centro" />
-
-                        <ChangeInfoUser
-                            label="CEP" 
-                            value={zipCode}
-                            isEditable={isEditable}
-                            onChange={setZipCode}
-                        />
-
-                        <InfoUser label="Rua" value="Conselheiro Crispianiano" />
-
-                        <ChangeInfoUser
-                            label="Número" 
-                            value={complement}
-                            isEditable={isEditable}
-                            onChange={setComplement}
-                        />
+                        <InfoUser label="CEP" value={address.zipCode} />
+                        <InfoUser label="Cidade" value={address.city}/>
+                        <InfoUser label="Rua" value={address.street} />
+                        <InfoUser label="UF" value={address.uf} />
+                        <InfoUser label="Number" value={'' + address.number} />
+                        
 
                     </div>
                 </section>
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
-                            <UpdateButton onClick={openModal} />
+                            <UpdateButton onClick={openChangePasswordModal} />
                         </div>
-                        <InfoUser label="E-mail" value="username@senaisp" />
-                        <InfoUser label="Senha" value="******12" />
+                        <InfoUser label="E-mail" value={user.user.username} />
+                        <InfoUser label="Senha" value="******" />
                     </div>
                 </section>
 
@@ -115,7 +81,8 @@ export function UserAccount() {
 
             <Footer />
 
-            {isModalOpen && <ChangePassworModal closeChangePasswordModal={closeModal} />}            
+            {isModalPasswordOpen && <ChangePassworModal closeChangePasswordModal={closeChangePasswordModal} />}
+            {isModalAddressOpen && <ChangeAddressModal closeChangeAddressModal={closeChangeAddressModal} />}       
 
         </div>
     )

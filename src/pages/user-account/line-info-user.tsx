@@ -1,6 +1,6 @@
 interface InfoUserProps {
     label: string,
-    value: string,
+    value?: string,
 }
 
 export function InfoUser({
