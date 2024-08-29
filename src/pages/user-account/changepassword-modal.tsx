@@ -14,9 +14,6 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
 
     //estado para exibir possivel erro ao usuário
     const [ textAlert, setTextAlert ] = useState('')
-    
-    //estado para capturar possiveis erros
-    const [ wasChanged, setWasChanged ] = useState<boolean | undefined>();
 
     //estados para ocultar ou não a senha
     const [ isVisibleCurrentPassword, setIsVisibleCurrentPassword ] = useState(false);
@@ -26,77 +23,56 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
     //estados para capturar e armazenar dados do usuário
     const [ currentPassword, setCurrentPassword ] = useState('');
     const [ newPassword, setNewPassword ] = useState('');
-    const [ confirmNewPassword, setConfirmNewPassword ] = useState('');
+    const [ confirmPassword, setConfirmPassword ] = useState('');
 
     const handleSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
 
-        if(currentPassword === '' || newPassword === '' || confirmNewPassword === ''){
+        if(currentPassword === '' || newPassword === '' || confirmPassword === ''){
             setTextAlert("*Insira uma senha*")
             return
         }
 
         changePasswordCurrent();
-
-        if(!wasChanged){
-            return
-        }
-
         closeChangePasswordModal();
     }
 
     async function changePasswordCurrent() {
-
-        const token = localStorage.getItem("token");
-        console.log(token)
-
-        if(token){
-            try{
-                const response = await api.put(
-                    `/v3/users/password`, 
-                    {
-                        currentPassword,
-                        newPassword,
-                        confirmPassword: confirmNewPassword
-                    },
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        },
-                    }
-                );
-
-                if(response.status === 200){
-                    setWasChanged(true)
-                    console.log("senha alterada com sucesso")
-                }
-    
-                
-            }catch(err: unknown){
-                const axiosError = err as { response: { status: number, data: { message?: string } } };
-                if(err && typeof err === 'object' && 'response' in err){
-
-                    setWasChanged(false)
-
-                    if(axiosError.response.status === 400){
-                        setTextAlert("*Senha atual inválida*")
-                    }
-                    if(axiosError.response.status === 403){
-                        setTextAlert("*Usuário sem acesso*")
-                    }
-
-                }
+            
+        await api.put(
+            `/v3/users/password`, 
+            {
+                currentPassword,
+                newPassword,
+                confirmPassword,
+            },
+        )
+        .then((json) => {
+            if(json.status === 200){
+                console.log("senha alterada com sucesso")
             }
-        }
+        })
+        .catch((err) => {
+            if(err.response.status === 400){
+                setTextAlert("*senha inválida*")
+            };
+            if(err.response.status === 403){
+                setTextAlert("*token inválido*")
+            };
+        })
+    };
 
-    }
+    
 
     return (
         
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <form onSubmit={handleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
-                <div className="flex w-full justify-start">
-                    <BackButton type="button" onClick={closeChangePasswordModal} />
+                <BackButton type="button" onClick={closeChangePasswordModal} />
+
+                <div className="flex flex-col gap-3">
+                    <h1 className="text-4xl font-medium">Altere sua senha</h1>
+                    <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>
                 </div>
 
                 <div className="flex justify-center w-auto">
@@ -149,8 +125,8 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
                         <UserInput 
                             position="center" 
                             type={ isVisibleConfirmPassword ? 'text' : 'password'}
-                            value={confirmNewPassword}
-                            onChange={(e) => setConfirmNewPassword(e.target.value)}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             isVisibleSvgIcon={true}
                             svgIcon={
                                 isVisibleConfirmPassword ? (
