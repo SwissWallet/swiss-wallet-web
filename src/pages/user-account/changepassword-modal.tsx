@@ -13,7 +13,7 @@ interface ChangePassworModalProps{
 export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModalProps){
 
     //estado para exibir possivel erro ao usuário
-    const [ textAlert, setTextAlert ] = useState('')
+    const [ textAlert, setTextAlert ] = useState("");
 
     //estados para ocultar ou não a senha
     const [ isVisibleCurrentPassword, setIsVisibleCurrentPassword ] = useState(false);
@@ -21,9 +21,9 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
     const [ isVisibleConfirmPassword, setIsVisibleConfirmPassword ] = useState(false);
 
     //estados para capturar e armazenar dados do usuário
-    const [ currentPassword, setCurrentPassword ] = useState('');
-    const [ newPassword, setNewPassword ] = useState('');
-    const [ confirmPassword, setConfirmPassword ] = useState('');
+    const [ currentPassword, setCurrentPassword ] = useState("");
+    const [ newPassword, setNewPassword ] = useState("");
+    const [ confirmPassword, setConfirmPassword ] = useState("");
 
     const handleSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
@@ -34,7 +34,6 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
         }
 
         changePasswordCurrent();
-        closeChangePasswordModal();
     }
 
     async function changePasswordCurrent() {
@@ -49,7 +48,7 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
         )
         .then((json) => {
             if(json.status === 200){
-                console.log("senha alterada com sucesso")
+                closeChangePasswordModal();
             }
         })
         .catch((err) => {
@@ -63,7 +62,7 @@ export function ChangePassworModal({closeChangePasswordModal}:ChangePassworModal
     };
 
     
-
+    console.log(textAlert)
     return (
         
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
