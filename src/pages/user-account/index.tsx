@@ -7,6 +7,7 @@ import { RootState } from "../../store";
 import { ChangePassworModal } from "./changepassword-modal";
 import { InfoUser } from "./line-info-user";
 import { ChangeAddressModal } from "./change-address-modal";
+import { api } from "../../lib/axios";
 
 export function UserAccount() {
 
@@ -26,6 +27,7 @@ export function UserAccount() {
     }
 
     const closeChangeAddressModal = () => {
+
         setIsModalAddressOpen(false);
     }
     
