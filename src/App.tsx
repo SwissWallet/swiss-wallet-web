@@ -14,7 +14,6 @@ import { Register } from './pages/register';
 import { Store } from './pages/store';
 import { UserAccount } from './pages/user-account';
 import { UserExtract } from './pages/user-extract';
-import CardPointPage from './pages/card-points';
 
 const router = createBrowserRouter([
   {path: '/', element: <Login />},
@@ -28,8 +27,6 @@ const router = createBrowserRouter([
   {path: '/store', element: <Store />},
   {path: '/account', element: <UserAccount />},
   {path: '/extract', element: <UserExtract />},
-  {path: '/add-point', element: <CardPointPage />},
-
 ])
 
 function App() {
