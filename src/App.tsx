@@ -14,11 +14,11 @@ import { Register } from './pages/register';
 import { Store } from './pages/store';
 import { UserAccount } from './pages/user-account';
 import { UserExtract } from './pages/user-extract';
+import { useSelector } from 'react-redux';
+import { RootState } from './store';
 
-const router = createBrowserRouter([
-  {path: '/', element: <Login />},
-  {path: '/register', element: <Register />},
-  {path: '/home', element: <Home />},
+const routerApp = createBrowserRouter([
+  {path: '/home', element: <Home /> },
   {path: '/benefits', element: <Benefits />},
   {path: '/canteen', element: <Canteen />},
   {path: '/favorites', element: <Favorites />},
@@ -29,9 +29,17 @@ const router = createBrowserRouter([
   {path: '/extract', element: <UserExtract />},
 ])
 
+const routerLogin = createBrowserRouter([
+  {path: '/', element: <Login />},
+  {path: '/register', element: <Register />},
+])
+
+
 function App() {
+  const logado = useSelector((state:RootState) => state.login.value)
+  console.log(logado);
   return (
-    <RouterProvider router={router} />
+    <RouterProvider router={logado ? routerLogin : routerApp} />
   )
 }
 

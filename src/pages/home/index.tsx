@@ -4,6 +4,7 @@ import { CardDestaques } from "../../components/macro-components/destaques"
 import { Footer }        from "../../components/macro-components/footer"
 
 export function Home() {
+    console.log("entrei")
     return (
         <div className="bg-default-gray">
             <Navbar />

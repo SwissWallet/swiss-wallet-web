@@ -7,7 +7,7 @@ import { api } from "../../lib/axios";
 import { useState } from "react";
 import { UserInput } from "../../components/micro-components/user-input";
 import { Eye, EyeOff } from "lucide-react";
-
+import { setLogin } from "../../features/login-slice";
 interface UserPasswordModalProps {
     handdleBackUserInput: () => void,
     setTextAlert: (e: string) => void,
@@ -44,8 +44,9 @@ export function UserPasswordModal({
         .then(async(json) => {
             api.defaults.headers['Authorization'] = `Bearer ${token}`;
             dispatch(setUser(json.data));
+            dispatch(setLogin(true));
 
-            navigate('/home')
+            navigate(`/home`);
         })
         .catch(async(err) => {
             await localStorage.clear;
