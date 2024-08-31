@@ -2,9 +2,10 @@ import { BackButton } from "../../components/micro-components/back-button";
 import { UserInput } from "../../components/micro-components/user-input";
 import { MainButton } from "../../components/micro-components/main-button";
 import { RootState } from "../../store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { api } from "../../lib/axios";
+import { setUser } from "../../features/user-slice";
 
 interface ChangeAddressModalProps{
     closeChangeAddressModal: () => void,
@@ -13,13 +14,14 @@ interface ChangeAddressModalProps{
 export function ChangeAddressModal({
     closeChangeAddressModal,
 }:ChangeAddressModalProps){
-    const address = useSelector((state:RootState) => state.authUser.value.address);
-    
-    const [ zipCode, setZipCode ] = useState(address.zipCode);
-    const [ street, setStreet ] = useState(address.street);
-    const [ city, setCity ] = useState(address.city);
-    const [ uf, setUf ] = useState(address.uf);
-    const [ number, setNumber ] = useState(address.number)
+    const dispatch = useDispatch();
+    const user = useSelector((state:RootState) => state.authUser.value);
+
+    const [ zipCode, setZipCode ] = useState(user.address.zipCode);
+    const [ street, setStreet ] = useState(user.address.street);
+    const [ city, setCity ] = useState(user.address.city);
+    const [ uf, setUf ] = useState(user.address.uf);
+    const [ number, setNumber ] = useState(user.address.number)
 
     async function changeAddress() {
         await api.put(`/v3/users/address`, {
@@ -28,12 +30,20 @@ export function ChangeAddressModal({
         .then((json) => {
             if(json.status === 200){
                 console.log("endereço alterado com sucesso")
+                reload();
             }
         })
         .catch((err) => {
             if(err.response.status === 403){
                 console.log("endereço inválido")
             }
+        })
+    }
+
+    async function reload() {
+        await api.get('/v3/users/current')
+        .then ((json) => {
+            dispatch(setUser(json.data))
         })
     }
 

@@ -1,9 +1,10 @@
-import { Link, useNavigate } from "react-router-dom"
-import logo from "../../assets/images/logo-swisswallet.png"
-import { Book, Coffee, Gift, Heart, House, ShoppingBag, ShoppingCart, User, X } from "lucide-react"
-import { RootState } from "../../store";
+import { Book, Coffee, Gift, Heart, House, ShoppingBag, ShoppingCart, User, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import logo from "../../assets/images/logo-swisswallet.png";
+import { setLogin } from "../../features/login-slice";
 import { setUser } from "../../features/user-slice";
+import { RootState } from "../../store";
 
 interface DrawerMenuProps {
     isOpen: boolean,
@@ -15,14 +16,13 @@ export function DrawerMenu({
     closeSettings
 }: DrawerMenuProps) {
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
     function logoutUser(){
         dispatch(setUser({}))
-        navigate('/')
+        dispatch(setLogin(false))
     }
 
     return (

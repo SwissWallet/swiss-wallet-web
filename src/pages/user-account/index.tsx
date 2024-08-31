@@ -4,9 +4,9 @@ import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
 import { UpdateButton } from "../../components/micro-components/update-button";
 import { RootState } from "../../store";
+import { ChangeAddressModal } from "./change-address-modal";
 import { ChangePassworModal } from "./changepassword-modal";
 import { InfoUser } from "./line-info-user";
-import { ChangeAddressModal } from "./change-address-modal";
 
 export function UserAccount() {
 
@@ -26,6 +26,7 @@ export function UserAccount() {
     }
 
     const closeChangeAddressModal = () => {
+
         setIsModalAddressOpen(false);
     }
     
