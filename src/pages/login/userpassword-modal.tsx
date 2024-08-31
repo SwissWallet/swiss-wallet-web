@@ -46,7 +46,7 @@ export function UserPasswordModal({
             dispatch(setUser(json.data));
             dispatch(setLogin(true));
 
-            navigate(`/home`);
+            navigate('/home')
         })
         .catch(async(err) => {
             await localStorage.clear;
