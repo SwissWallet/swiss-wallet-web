@@ -40,17 +40,19 @@ export function Navbar() {
 
 
 
-                <nav className="flex justify-between items-center gap-14 px-14 text-2xl font-medium text-white">
-                    <Link to={'/store'} className=" hover:text-zinc-400">Swiss Store</Link>
-                    <Link to={'/library'} className=" hover:text-zinc-400">Biblioteca</Link>
-                    <Link to={'/canteen'} className=" hover:text-zinc-400">Cantina</Link>
-                    <button onClick={openSettings} className=" hover:text-zinc-400"> <Settings className="size-8" /> </button>
+                <nav className={`px-14 text-2xl font-medium text-white hidden lg:block`}>
+                    <div className="flex justify-between items-center gap-14 h-full">
+                        <Link to={'/store'} className=" hover:text-zinc-400">Swiss Store</Link>
+                        <Link to={'/library'} className=" hover:text-zinc-400">Biblioteca</Link>
+                        <Link to={'/canteen'} className=" hover:text-zinc-400">Cantina</Link>
+                        <button onClick={openSettings} className=" hover:text-zinc-400"> <Settings className="size-8" /> </button>
+                    </div>
                 </nav>
 
-                <div className="block md:hidden">
-                    <button onClick={() => setIsOpenMenu(!isOpenMenu)}>
-                        <Menu className={`${isOpenMenu ? "hidden" : "block" }`} />
-                        <X className={`${isOpenMenu ? "block" : "hidden"}`} />
+                <div className="block lg:hidden text-white hover:text-zinc-400 px-14">
+                    <button className="h-full" onClick={() => setIsOpenMenu(!isOpenMenu)}>
+                        <Menu className={` size-10 ${isOpenMenu ? "hidden" : "block"}`} />
+                        <X className={` size-10 ${isOpenMenu ? "block" : "hidden"}`} />
                     </button>
                 </div>
 
