@@ -56,6 +56,7 @@ export function Navbar() {
                     </button>
                 </div>
 
+                {isOpenMenu && (<DrawerMenu isOpen={isOpenMenu} closeSettings={() => setIsOpenMenu(false)}/>)}
                 
             </div>
 
