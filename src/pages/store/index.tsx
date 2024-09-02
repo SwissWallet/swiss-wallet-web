@@ -5,6 +5,7 @@ import { SingleProduct } from "../../components/micro-components/single-product-
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 
 export function Store() {
+
     return (
         <div>
             <Navbar />
