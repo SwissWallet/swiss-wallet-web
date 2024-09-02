@@ -76,6 +76,14 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
+                    <Link to={'/card-point'}>
+                        <div className="flex justify-center items-center space-x-2 p-3">
+                            <User className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Depósito
+                            </span>
+                        </div>
+                    </Link>
                     <Link to={'/favorites'}>
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <Heart className="text-white size-5 font-bold" />
