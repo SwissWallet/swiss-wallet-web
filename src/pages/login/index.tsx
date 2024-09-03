@@ -1,19 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HeaderLoginAndRegister } from "../../components/macro-components/header-login-and-register";
 import { UsernameModal } from "./username-modal";
 import { UserPasswordModal } from "./userpassword-modal";
 import { FooterLoginAndRegister } from "../../components/macro-components/footer-login-and-register";
 import { ForgotPassword } from "./forgot-password-modal";
-import { useDispatch, useSelector } from "react-redux";
-import { setLogin } from "../../features/login-slice";
-import { setUser } from "../../features/user-slice";
-import { api } from "../../lib/axios";
-import { useNavigate } from "react-router";
 export function Login() {
-
-    const logged = useSelector((state:any) => state.login.value);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const [filledUserName, setFilledUserName] = useState(false);
     const [isVisibleForgotPassword, setIsVisibleForgotPassword] = useState(false);
@@ -42,33 +33,6 @@ export function Login() {
         setTextAlert("")
         setFilledUserName(false);
     }
-
-    async function loadStorage() {
-        const token = localStorage.getItem('token');
-        
-        if (token) {
-            await api.get(`/v3/users/current`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            .then((json) => {
-                dispatch(setUser(json.data));
-                dispatch(setLogin(true));
-                navigate('/home');
-                
-            })
-            .catch((err) => {
-                dispatch(setLogin(false));
-                console.log(err);
-            });
-        }
-    }
-    
-    useEffect(() => {
-        loadStorage();
-    }, []);
-
 
     return (
         <div className="h-screen w-full bg-red-gradient flex flex-col justify-between">

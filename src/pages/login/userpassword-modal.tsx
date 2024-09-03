@@ -4,7 +4,7 @@ import { MainButton } from "../../components/micro-components/main-button";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../features/user-slice";
 import { api } from "../../lib/axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserInput } from "../../components/micro-components/user-input";
 import { Eye, EyeOff } from "lucide-react";
 import { setLogin } from "../../features/login-slice";
@@ -53,6 +53,35 @@ export function UserPasswordModal({
             console.log(err)
         })
     }
+
+    
+    async function loadStorage() {
+        const token = localStorage.getItem('token');
+        
+        if (token) {
+            await api.get(`/v3/users/current`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then((json) => {
+                dispatch(setUser(json.data));
+                dispatch(setLogin(true));
+                navigate('/home');
+                
+            })
+            .catch((err) => {
+                dispatch(setLogin(false));
+                console.log(err);
+            });
+        }
+    }
+    
+    useEffect(() => {
+        loadStorage();
+    }, []);
+
+
 
     async function authLogin() {
         
