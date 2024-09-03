@@ -1,5 +1,5 @@
-import { SingleProduct } from "../../components/micro-components/single-product-card";
-import { Heart }         from "lucide-react";
+// import { SingleProduct } from "../../components/micro-components/single-product-card";
+// import { Heart }         from "lucide-react";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
 import { Footer } from "../../components/macro-components/footer";
@@ -17,7 +17,7 @@ export function Library() {
 
                 <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
 
-                    <SingleProduct
+                    {/* <SingleProduct
                         textOnButton={<Heart className="fill-white" />}
                     />
                     <SingleProduct
@@ -34,7 +34,7 @@ export function Library() {
                     />
                     <SingleProduct
                         textOnButton={<Heart className="fill-white" />}
-                    />
+                    /> */}
 
                 </section>
             </main>

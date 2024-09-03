@@ -1,18 +1,151 @@
-import { CardFavoritos } from "../../components/macro-components/card-favoritos"
-import { Navbar }        from "../../components/macro-components/navbar"
-import { CardDestaques } from "../../components/macro-components/destaques"
-import { Footer }        from "../../components/macro-components/footer"
+import { useEffect, useState } from "react";
+import { CardFavoritos } from "../../components/macro-components/card-favoritos";
+import { Footer } from "../../components/macro-components/footer";
+import { Navbar } from "../../components/macro-components/navbar";
+import { api } from "../../lib/axios";
+import { SingleProduct } from "../../components/micro-components/single-product-card";
+
+interface productInterface{
+    id: string,
+    name: string,
+    value: number,
+    description: string,
+    image: string,
+    category: string,
+}
 
 export function Home() {
-    console.log("entrei");
+
+    const product = {
+        id: "",
+        name: "",
+        value: "",
+        description: "",
+        image: "data:image/jpeg;base64,",
+        category: "",
+    }
+
+    const [ productListStore, setProductListStore ] = useState([product])
+    const [ productListCanteen, setProductListCanteen ] = useState([product])
+    const [ productListLibrary, setProductListLibrary ] = useState([product])
+
+    useEffect(() => {
+
+        async function getProductsStore(){
+            await api.get(`/v3/products/category?category=STORE`)
+            .then((json) => {
+                const data = json.data;
+                setProductListStore(data.map((item: productInterface) => ({
+                    id: item.id,
+                    name: item.name,
+                    value: item.value,
+                    description: item.description,
+                    image: `data:image/jpeg;base64,${item.image}`,
+                    category: item.category,
+                })))
+            }
+        )}
+        async function getProductsCanteen(){
+            await api.get(`/v3/products/category?category=CANTEEN`)
+            .then((json) => {
+                const data = json.data;
+                setProductListCanteen(data.map((item: productInterface) => ({
+                    id: item.id,
+                    name: item.name,
+                    value: item.value,
+                    description: item.description,
+                    image: `data:image/jpeg;base64,${item.image}`,
+                    category: item.category,
+                })))
+            }
+        )}
+        async function getProductsLibrary(){
+            await api.get(`/v3/products/category?category=LIBRARY`)
+            .then((json) => {
+                const data = json.data;
+                setProductListLibrary(data.map((item: productInterface) => ({
+                    id: item.id,
+                    name: item.name,
+                    value: item.value,
+                    description: item.description,
+                    image: `data:image/jpeg;base64,${item.image}`,
+                    category: item.category,
+                })))
+            }
+        )}
+
+        getProductsStore();
+        getProductsLibrary();
+        getProductsCanteen()
+    }, [])
+
     return (
         <div className="bg-default-gray">
             <Navbar />
             <main className="flex flex-col ml-20 mr-20 mb-20">
                 <CardFavoritos />
-                <CardDestaques />
-                <CardDestaques />
-                <CardDestaques />
+
+            <div className="bg-white p-10 w-[full] rounded-xl shadow-lg mt-24  ">
+                <div className="flex items-center">
+                    <h3 className="text-4xl font-bold flex justify-between mb-8">Destaques - Loja</h3>
+                </div>
+                <div className="flex">
+                    <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
+                    {productListStore.map((product) => (
+                            <div key={product.id}>
+                                <SingleProduct
+                                    title={product.name}
+                                    description={product.description}
+                                    value={Number(product.value)}
+                                    image={product.image}
+                                    textOnButton={'ver mais'}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <div className="bg-white p-10 w-[full] rounded-xl shadow-lg mt-24  ">
+                <div className="flex items-center">
+                    <h3 className="text-4xl font-bold flex justify-between mb-8">Destaques - Canteen</h3>
+                </div>
+                <div className="flex">
+                    <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
+                    {productListCanteen.map((product) => (
+                            <div key={product.id}>
+                                <SingleProduct
+                                    title={product.name}
+                                    description={product.description}
+                                    value={Number(product.value)}
+                                    image={product.image}
+                                    textOnButton={'ver mais'}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <div className="bg-white p-10 w-[full] rounded-xl shadow-lg mt-24  ">
+                <div className="flex items-center">
+                    <h3 className="text-4xl font-bold flex justify-between mb-8">Destaques - Biblioteca</h3>
+                </div>
+                <div className="flex">
+                    <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
+                    {productListLibrary.map((product) => (
+                            <div key={product.id}>
+                                <SingleProduct
+                                    title={product.name}
+                                    description={product.description}
+                                    value={Number(product.value)}
+                                    image={product.image}
+                                    textOnButton={'ver mais'}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
             </main>
             <Footer />
         </div>
