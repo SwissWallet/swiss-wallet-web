@@ -20,7 +20,7 @@ export function DrawerMenu({
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
-    function logoutUser(){
+    function logoutUser() {
         dispatch(setUser({}))
         dispatch(setLogin(false))
     }
