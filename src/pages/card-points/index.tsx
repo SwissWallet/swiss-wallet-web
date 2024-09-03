@@ -1,7 +1,7 @@
 import CardPoint from "../../components/macro-components/card-points"
 import { Navbar } from "../../components/macro-components/navbar"
 import { Footer } from "../../components/macro-components/footer"
-import AddProduct from "../../components/macro-components/addproduct"
+import AddNewProduct from "../../components/macro-components/addproduct"
 
 
 export default function CardPointPage() {
@@ -10,7 +10,7 @@ export default function CardPointPage() {
             <Navbar />
             <CardPoint />
             <Footer />
-            <AddProduct />
+            <AddNewProduct />
         </>
     )
 }
