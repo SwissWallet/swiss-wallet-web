@@ -25,15 +25,45 @@ export function Home() {
         category: "",
     }
 
-    const [ productList, setProductList ] = useState([product])
+    const [ productListStore, setProductListStore ] = useState([product])
+    const [ productListCanteen, setProductListCanteen ] = useState([product])
+    const [ productListLibrary, setProductListLibrary ] = useState([product])
 
     useEffect(() => {
 
-        async function getProductsHome(){
+        async function getProductsStore(){
+            await api.get(`/v3/products/category?category=STORE`)
+            .then((json) => {
+                const data = json.data;
+                setProductListStore(data.map((item: productInterface) => ({
+                    id: item.id,
+                    name: item.name,
+                    value: item.value,
+                    description: item.description,
+                    image: `data:image/jpeg;base64,${item.image}`,
+                    category: item.category,
+                })))
+            }
+        )}
+        async function getProductsCanteen(){
             await api.get(`/v3/products/category?category=CANTEEN`)
             .then((json) => {
                 const data = json.data;
-                setProductList(data.map((item: productInterface) => ({
+                setProductListCanteen(data.map((item: productInterface) => ({
+                    id: item.id,
+                    name: item.name,
+                    value: item.value,
+                    description: item.description,
+                    image: `data:image/jpeg;base64,${item.image}`,
+                    category: item.category,
+                })))
+            }
+        )}
+        async function getProductsLibrary(){
+            await api.get(`/v3/products/category?category=LIBRARY`)
+            .then((json) => {
+                const data = json.data;
+                setProductListLibrary(data.map((item: productInterface) => ({
                     id: item.id,
                     name: item.name,
                     value: item.value,
@@ -44,7 +74,9 @@ export function Home() {
             }
         )}
 
-        getProductsHome();
+        getProductsStore();
+        getProductsLibrary();
+        getProductsCanteen()
     }, [])
 
     return (
@@ -53,24 +85,64 @@ export function Home() {
             <main className="flex flex-col ml-20 mr-20 mb-20">
                 <CardFavoritos />
 
-
-            <div className="flex items-center">
-                <h3 className="text-4xl font-bold flex justify-between mb-8">Destaques - Loja</h3>
+            <div className="bg-white p-10 w-[full] rounded-xl shadow-lg mt-24  ">
+                <div className="flex items-center">
+                    <h3 className="text-4xl font-bold flex justify-between mb-8">Destaques - Loja</h3>
+                </div>
+                <div className="flex">
+                    <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
+                    {productListStore.map((product) => (
+                            <div key={product.id}>
+                                <SingleProduct
+                                    title={product.name}
+                                    description={product.description}
+                                    value={Number(product.value)}
+                                    image={product.image}
+                                    textOnButton={'ver mais'}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
-            <div className="flex">
-                <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
-                    {productList.map((product) => (
-                        <div key={product.id}>
-                            <SingleProduct
-                                title={product.name}
-                                description={product.description}
-                                value={Number(product.value)}
-                                image={product.image}
-                                textOnButton={'ver mais'}
-                            />
-                        </div>
-                    ))}
-                    
+            <div className="bg-white p-10 w-[full] rounded-xl shadow-lg mt-24  ">
+                <div className="flex items-center">
+                    <h3 className="text-4xl font-bold flex justify-between mb-8">Destaques - Canteen</h3>
+                </div>
+                <div className="flex">
+                    <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
+                    {productListCanteen.map((product) => (
+                            <div key={product.id}>
+                                <SingleProduct
+                                    title={product.name}
+                                    description={product.description}
+                                    value={Number(product.value)}
+                                    image={product.image}
+                                    textOnButton={'ver mais'}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <div className="bg-white p-10 w-[full] rounded-xl shadow-lg mt-24  ">
+                <div className="flex items-center">
+                    <h3 className="text-4xl font-bold flex justify-between mb-8">Destaques - Biblioteca</h3>
+                </div>
+                <div className="flex">
+                    <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
+                    {productListLibrary.map((product) => (
+                            <div key={product.id}>
+                                <SingleProduct
+                                    title={product.name}
+                                    description={product.description}
+                                    value={Number(product.value)}
+                                    image={product.image}
+                                    textOnButton={'ver mais'}
+                                />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
 

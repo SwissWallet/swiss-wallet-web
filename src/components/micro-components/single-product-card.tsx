@@ -18,7 +18,7 @@ export function SingleProduct({
 }: SingleProductProps) {
     return (
         <div className="flex items-center flex-col bg-white rounded-xl shadow-xl p-6">
-            <img src={image} alt="camiseta branca com logo do senai" />
+            <img className="w-[309px] h-[407px]" src={image} alt="camiseta branca com logo do senai" />
             <article className="bg-black text-white p-4 rounded-lg gap-4 flex flex-col -mt-36">
                 <div className="flex flex-col gap-1">
                     <h4 className="text-xl font-semibold">{title}</h4>
