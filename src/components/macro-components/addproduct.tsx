@@ -1,5 +1,9 @@
-import backIcon from '../../assets/images/backicon.svg'
-import Cloud from '../../assets/images/cloud.svg'
+import backIcon   from '../../assets/images/backicon.svg'
+import Cloud      from '../../assets/images/cloud.svg'
+import { Navbar } from './navbar'
+import maisIcon   from '../../assets/images/maispreto.svg'
+import Camisa     from '../../assets/images/camisa-branca.svg'
+import Coca       from '../../assets/images/coquinha-gelada.svg'
 
 
 export default function AddNewProduct() {

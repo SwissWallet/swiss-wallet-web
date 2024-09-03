@@ -1,5 +1,3 @@
-import { SingleProduct } from "../micro-components/single-product-card";
-
 export function CardDestaques() {
     return (
         <div className="bg-white p-10 w-[full] rounded-xl shadow-lg mt-24  ">
@@ -8,15 +6,7 @@ export function CardDestaques() {
             </div>
             <div className="flex">
                 <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
-                    <SingleProduct
-                        textOnButton={'ver mais'}
-                    />
-                    <SingleProduct
-                        textOnButton={'ver mais'}
-                    />
-                    <SingleProduct
-                        textOnButton={'ver mais'}
-                    />
+                    
                 </div>
             </div>
         </div>
