@@ -23,6 +23,7 @@ export function DrawerMenu({
     function logoutUser() {
         dispatch(setUser({}))
         dispatch(setLogin(false))
+        localStorage.clear();
     }
 
     return (
