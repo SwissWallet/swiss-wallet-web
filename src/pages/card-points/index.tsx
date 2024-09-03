@@ -10,7 +10,6 @@ export default function CardPointPage() {
             <Navbar />
             <CardPoint />
             <Footer />
-            <AddNewProduct />
         </>
     )
 }
