@@ -49,7 +49,7 @@ export function UserPasswordModal({
             navigate('/home')
         })
         .catch(async(err) => {
-            await localStorage.clear;
+            await localStorage.clear();
             console.log(err)
         })
     }
