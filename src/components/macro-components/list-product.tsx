@@ -3,7 +3,7 @@ import maisIcon from '../../assets/images/maispreto.svg'
 import Camisa from '../../assets/images/camisa-branca.svg'
 import Coca from '../../assets/images/coquinha-gelada.svg'
 
-export default function AddProduct(){
+export default function ListProduct(){
     return(
         <>
             <Navbar />
