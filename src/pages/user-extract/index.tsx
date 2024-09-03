@@ -4,9 +4,16 @@ import { ChevronDown, ChevronUp } from "lucide-react"
 import { InfoDateExtract } from "./info-date-extract"
 import { Footer } from "../../components/macro-components/footer"
 import { Navbar } from "../../components/macro-components/navbar"
-
+import { api } from "../../lib/axios"
+import { useState } from "react"
 
 export function UserExtract(){
+
+    const [products, setProducts] = useState([]);
+    const response = api.get("/v3/extracts/current").then((json) => {
+        setProducts(json.data);console.log(products)
+    }).catch(error => console.log(error))
+
     return (
         <div className="bg-default-gray"> 
 
