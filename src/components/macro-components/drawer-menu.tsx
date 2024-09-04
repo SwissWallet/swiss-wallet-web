@@ -5,6 +5,8 @@ import logo from "../../assets/images/logo-swisswallet.png";
 import { setLogin } from "../../features/login-slice";
 import { setUser } from "../../features/user-slice";
 import { RootState } from "../../store";
+import { useState } from "react";
+import { DepositModal } from "./deposit-modal";
 
 interface DrawerMenuProps {
     isOpen: boolean,
@@ -15,6 +17,16 @@ export function DrawerMenu({
     isOpen,
     closeSettings
 }: DrawerMenuProps) {
+
+    const [ isOpenDepositModal, setIsOpenDepositModal ] = useState(false);
+
+    function openDepositModal(){
+        setIsOpenDepositModal(true);
+    }
+
+    function closeDepositModal(){
+        setIsOpenDepositModal(false);
+    }
 
     const dispatch = useDispatch();
 
@@ -27,7 +39,7 @@ export function DrawerMenu({
     }
 
     return (
-        <div className={`absolute z-50 p-10 bg-red-gradient h-screen w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
+        <div className={`absolute z-50 p-10 bg-red-gradient h-auto w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
             <div className="flex">
                 <img className="w-60" src={logo} alt="logotipo SwissWallet" />
                 <button onClick={closeSettings}>
@@ -109,6 +121,14 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
+                    <button onClick={openDepositModal}>
+                        <div className="flex justify-center items-center space-x-2 p-3">
+                            <ShoppingCart className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Deposito Modal
+                            </span>
+                        </div>
+                    </button>
                 </nav>
             </div>
 
@@ -134,6 +154,8 @@ export function DrawerMenu({
                 </div>
 
             </div>
+
+            {isOpenDepositModal && <DepositModal />}
 
         </div>
     )
