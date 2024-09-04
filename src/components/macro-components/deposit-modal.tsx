@@ -16,7 +16,18 @@ export function DepositModal({
 
 
     async function registerDeposit(){
-        await api.get(`/v3/accounts/register-deposit?username=${username}&value=${deposit}`)
+
+        const token = localStorage.getItem('token');
+
+        console.log("app" + username)
+        console.log("app" + deposit)
+        await api.post(`/v3/accounts/register-deposit?username=${username}&value=${deposit}`,{
+            headers: {
+                'Authorization' : `Bearer ${token}`
+            }
+        }
+        )
+
         .then((json) => {
             console.log(json + "gravado")
         })
@@ -40,6 +51,9 @@ export function DepositModal({
             console.log("insira um depósito");
             return
         };
+
+        console.log(username)
+        console.log(deposit)
 
 
         registerDeposit();
