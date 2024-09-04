@@ -1,11 +1,18 @@
-import { InfoExtract } from "./line-info-extract"
-import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages"
-import { ChevronDown, ChevronUp } from "lucide-react"
-import { InfoDateExtract } from "./info-date-extract"
-import { Footer } from "../../components/macro-components/footer"
-import { Navbar } from "../../components/macro-components/navbar"
+import { InfoExtract } from "./line-info-extract";
+import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { Footer } from "../../components/macro-components/footer";
+import { Navbar } from "../../components/macro-components/navbar";
 import { api } from "../../lib/axios"
 import { useEffect, useState } from "react"
+
+interface extractContent {
+    id: string,
+    description: string,
+    value: string,
+    type: string,
+    date: string
+}
 
 export function UserExtract(){
 
@@ -15,7 +22,7 @@ export function UserExtract(){
         value: "",
         type: "",
         date: "",
-    }
+    };
 
     const [extractList, setExtractList] = useState([extract]);
    
@@ -24,9 +31,11 @@ export function UserExtract(){
             await api.get(`/v3/extracts/current`)
             .then((json) => {
                 const data = json.data;
-                setExtractList(data.map((item) => ({
+                setExtractList(data.map((item: extractContent) => ({
                     id: item.id,
+                    description: item.description,
                     value: item.value,
+                    type: item.type,
                     date: item.date
                 })))
             })
@@ -34,6 +43,9 @@ export function UserExtract(){
 
         getExtracts()
     }, [])
+
+
+    console.log(extractList)
 
     return (
         <div className="bg-default-gray"> 
@@ -48,11 +60,12 @@ export function UserExtract(){
 
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
 
-                        <div className="pb-4 pl-2"> <InfoDateExtract date="18/Ago/2024"/></div>
                         {extractList.map((extract) => (
                             <div key={extract.id}>
                                 <InfoExtract  
-                                icon={<ChevronUp className="size-8 text-green-500"/>}  
+                                icon={extract.type === "DEPOSIT" ? 
+                                    <ChevronUp className="size-8 text-green-500"/> :
+                                    <ChevronDown className="size-8 text-red-600" />}  
                                 value={extract.value} 
                                 time={extract.date}/>
                             </div>
