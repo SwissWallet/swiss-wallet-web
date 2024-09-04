@@ -155,7 +155,7 @@ export function DrawerMenu({
 
             </div>
 
-            {isOpenDepositModal && <DepositModal />}
+            {isOpenDepositModal && <DepositModal closeDepositModal={closeDepositModal} />}
 
         </div>
     )
