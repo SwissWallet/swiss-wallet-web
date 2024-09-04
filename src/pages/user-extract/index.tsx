@@ -11,8 +11,6 @@ interface extractContent {
     description: string,
     value: string,
     type: string,
-    date: string
-}
 
 export function UserExtract(){
 
@@ -31,11 +29,15 @@ export function UserExtract(){
             await api.get(`/v3/extracts/current`)
             .then((json) => {
                 const data = json.data;
+
                 setExtractList(data.map((item: extractContent) => ({
                     id: item.id,
                     description: item.description,
                     value: item.value,
                     type: item.type,
+                setExtractList(data.map((item: extractInterface) => ({
+                    id: item.id,
+                    value: item.value,
                     date: item.date
                 })))
             })
@@ -69,11 +71,9 @@ export function UserExtract(){
                                 time={extract.date}/>
                             </div>
                         ))}
-
                     </div>
 
                 </section>
-
             </main> 
 
             <Footer/>
