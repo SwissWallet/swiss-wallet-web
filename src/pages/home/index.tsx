@@ -90,7 +90,7 @@ export function Home() {
                     <h3 className="text-4xl font-bold flex justify-between mb-8">Destaques - Loja</h3>
                 </div>
                 <div className="flex">
-                    <div className="flex flex-col lg:flex-row gap-10 justify-center w-[1300px]">
+                    <div className="flex flex-wrap lg:flex-row gap-10 justify-center w-[1300px]">
                     {productListStore.map((product) => (
                             <div key={product.id}>
                                 <SingleProduct

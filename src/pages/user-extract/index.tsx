@@ -11,6 +11,7 @@ interface extractContent {
     description: string,
     value: string,
     type: string,
+    date: string
 }
 
 export function UserExtract(){
@@ -36,6 +37,7 @@ export function UserExtract(){
                     description: item.description,
                     value: item.value,
                     type: item.type,
+                    date: item.date
                 })))
             })
         }
@@ -65,7 +67,7 @@ export function UserExtract(){
                                     <ChevronUp className="size-8 text-green-500"/> :
                                     <ChevronDown className="size-8 text-red-600" />}  
                                 value={extract.value} 
-                                time={extract.date}/>
+                                date={extract.date}/>
                             </div>
                         ))}
                     </div>
