@@ -121,6 +121,22 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
+                    <Link to={'/list-product'}>
+                        <div className="flex justify-center items-center space-x-2 p-3">
+                            <ShoppingCart className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Lista de Produtos
+                            </span>
+                        </div>
+                    </Link>
+                    <Link to={'/add-product'}>
+                        <div className="flex justify-center items-center space-x-2 p-3">
+                            <ShoppingCart className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Adicionar novo produto
+                            </span>
+                        </div>
+                    </Link>
                     <button onClick={openDepositModal}>
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <ShoppingCart className="text-white size-5 font-bold" />
