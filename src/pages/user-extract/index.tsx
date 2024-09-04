@@ -11,6 +11,7 @@ interface extractContent {
     description: string,
     value: string,
     type: string,
+}
 
 export function UserExtract(){
 
@@ -35,10 +36,6 @@ export function UserExtract(){
                     description: item.description,
                     value: item.value,
                     type: item.type,
-                setExtractList(data.map((item: extractInterface) => ({
-                    id: item.id,
-                    value: item.value,
-                    date: item.date
                 })))
             })
         }
