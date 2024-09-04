@@ -6,7 +6,6 @@ import Coca from '../../assets/images/coquinha-gelada.svg'
 export default function ListProduct(){
     return(
         <>
-            <Navbar />
             <header className="flex justify-between p-12 items-center">
                 <div>
                     <h1 className="font-bold text-5xl" >Lista de Produtos</h1>
