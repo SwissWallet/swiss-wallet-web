@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo-swisswallet.png";
 import { DrawerMenu } from "./drawer-menu";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 
 export function Navbar() {
@@ -23,6 +25,7 @@ export function Navbar() {
         setIsVisibleScore(!isVisibleScore)
     }
 
+    const { value } = useSelector((state: RootState) => state.authUser.value.account);
 
     return (
         <header>
@@ -85,7 +88,7 @@ export function Navbar() {
                             <input
                                 className="focus:outline-none w-auto text-xl font-bold bg-transparent"
                                 disabled
-                                value={123456}
+                                value={value}
                                 type={isVisibleScore ? 'text' : 'password'}
                             />
 
