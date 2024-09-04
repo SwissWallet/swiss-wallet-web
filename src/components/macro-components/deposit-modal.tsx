@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BackButton } from "../micro-components/back-button";
 import { MainButton } from "../micro-components/main-button";
 import { UserInput } from "../micro-components/user-input";
-
+import { api } from "../../lib/axios";
 interface DepositModalProps{
     closeDepositModal: () => void,
 }
@@ -13,6 +13,20 @@ export function DepositModal({
 
     const [ username, setUsername ] = useState("");
     const [ deposit, setDeposit ] = useState("");
+
+
+    async function registerDeposit(){
+        await api.get(`/v3/accounts/register-deposit?username=${username}&value=${deposit}`)
+        .then((json) => {
+            console.log(json + "gravado")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+
+
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,6 +41,8 @@ export function DepositModal({
             return
         };
 
+
+        registerDeposit();
         closeDepositModal();
     }
 
