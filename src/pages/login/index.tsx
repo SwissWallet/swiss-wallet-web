@@ -13,16 +13,14 @@ export function Login() {
 
     const [filledUserName, setFilledUserName] = useState(false);
     const [isVisibleForgotPassword, setIsVisibleForgotPassword] = useState(false);
-
-
+    
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ textAlert, setTextAlert ] = useState('');
-
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-        
     async function loadStorage() {
         const token = localStorage.getItem('token');
         
@@ -36,7 +34,7 @@ export function Login() {
                 api.defaults.headers['Authorization'] = `Bearer ${token}`;
                 dispatch(setUser(json.data));
                 dispatch(setLogin(true));
-                navigate('/home');
+                navigate(`/home`);
                 
             })
             .catch((err) => {

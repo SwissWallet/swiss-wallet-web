@@ -1,5 +1,5 @@
 interface InfoExtractProps{
-    icon: JSX.Element,
+    icon?: JSX.Element,
     value: string,
     time: string,
 }
