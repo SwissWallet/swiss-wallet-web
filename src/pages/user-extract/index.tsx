@@ -44,8 +44,7 @@ export function UserExtract(){
         getExtracts()
     }, [])
 
-
-    console.log(extractList)
+    const extractOrder = extractList.reverse();
 
     return (
         <div className="bg-default-gray"> 
@@ -60,7 +59,7 @@ export function UserExtract(){
 
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
 
-                        {extractList.map((extract) => (
+                        {extractOrder.map((extract) => (
                             <div key={extract.id}>
                                 <InfoExtract  
                                 icon={extract.type === "DEPOSIT" ? 
