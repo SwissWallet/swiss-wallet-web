@@ -118,11 +118,11 @@ export function DrawerMenu({
                     </button>   
                     <Link to={'/orders'}>
                     </Link>
-                    <Link to={'/list-product'}>
+                    <Link className={`${isClient ? "hidden" : "block"}`} to={'/list-product'}>
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <ShoppingBasket className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
-                                Lista de Produtos
+                                Produtos
                             </span>
                         </div>
                     </Link>             
