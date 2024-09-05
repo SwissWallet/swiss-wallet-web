@@ -11,7 +11,6 @@ import { UserExtract } from '../pages/user-extract';
 import { Login } from '../pages/login';
 import { Register } from '../pages/register';
 import { PrivateRoute } from './private-route';
-import CardPointPage from '../pages/card-points';
 import AddProduct from '../pages/list-product';
 import AddNewProduct from '../components/macro-components/addproduct';
 
@@ -78,12 +77,6 @@ export const router = createBrowserRouter([
     path: '/extract', 
     element: (
       <PrivateRoute element={<UserExtract />} />
-    ),
-  },
-  {
-    path: '/card-point', 
-    element: (
-      <PrivateRoute element={<CardPointPage />} />
     ),
   },
   {
