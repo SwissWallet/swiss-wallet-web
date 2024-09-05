@@ -1,4 +1,4 @@
-import { Book, Coffee, Gift, Heart, House, ShoppingBag, ShoppingCart, User, X } from "lucide-react";
+import { Book, Coffee, Gift, Heart, House, Landmark, ShoppingBag, ShoppingCart, User, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo-swisswallet.png";
@@ -108,6 +108,14 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
+                    <button className={`${isClient ? "hidden" : "block"}`} onClick={openDepositModal}>
+                        <div className="flex justify-center items-center space-x-2 p-3">
+                            <Landmark className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Deposito 
+                            </span>
+                        </div>
+                    </button>   
                     <Link to={'/orders'}>
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <ShoppingCart className="text-white size-5 font-bold" />
@@ -115,15 +123,7 @@ export function DrawerMenu({
                                 Pedidos
                             </span>
                         </div>
-                    </Link>
-                    <button className={`${isClient ? "hidden" : "block"}`} onClick={openDepositModal}>
-                        <div className="flex justify-center items-center space-x-2 p-3">
-                            <ShoppingCart className="text-white size-5 font-bold" />
-                            <span className="text-white font-medium">
-                                Deposito Modal
-                            </span>
-                        </div>
-                    </button>                   
+                    </Link>                
                 </nav>
             </div>
 
