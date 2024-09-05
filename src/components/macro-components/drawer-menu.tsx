@@ -33,10 +33,13 @@ export function DrawerMenu({
     const user = useSelector((state: RootState) => state.authUser.value);
 
     function logoutUser() {
+        localStorage.clear();
         dispatch(setUser({}))
         dispatch(setLogin(false))
-        localStorage.clear();
     }
+
+    const role = user.user.role;
+    const isClient = role === "ROLE_CLIENT"
 
     return (
         <div className={`absolute z-50 p-10 bg-red-gradient h-auto w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
@@ -121,14 +124,14 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
-                    <button onClick={openDepositModal}>
+                    <button className={`${isClient ? "hidden" : "block"}`} onClick={openDepositModal}>
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <ShoppingCart className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
                                 Deposito Modal
                             </span>
                         </div>
-                    </button>
+                    </button>                   
                 </nav>
             </div>
 
