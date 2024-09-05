@@ -1,4 +1,4 @@
-import { Book, Coffee, Gift, Heart, House, Landmark, ShoppingBag, ShoppingBasket, User, X } from "lucide-react";
+import { Book, Coffee, Gift, Heart, House, Landmark, ShoppingBag, ShoppingBasket, ShoppingCart, User, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo-swisswallet.png";
@@ -116,7 +116,13 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </button>   
-                    <Link to={'/orders'}>
+                    <Link className={`${isClient ? "block" : "hidden"}`} to={'/orders'}>
+                        <div className="flex justify-center items-center space-x-2 p-3">
+                            <ShoppingCart className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Pedidos
+                            </span>
+                        </div>
                     </Link>
                     <Link className={`${isClient ? "hidden" : "block"}`} to={'/list-product'}>
                         <div className="flex justify-center items-center space-x-2 p-3">
