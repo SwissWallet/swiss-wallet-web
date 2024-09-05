@@ -42,7 +42,7 @@ export function DrawerMenu({
     const isClient = role === "ROLE_CLIENT"
 
     return (
-        <div className={`absolute z-50 p-10 bg-red-gradient h-auto w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
+        <div className={`fixed z-50 p-10 bg-red-gradient h-auto w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
             <div className="flex">
                 <img className="w-60" src={logo} alt="logotipo SwissWallet" />
                 <button onClick={closeSettings}>
