@@ -12,9 +12,7 @@ import { Login } from '../pages/login';
 import { Register } from '../pages/register';
 import { PrivateRoute } from './private-route';
 import AddProduct from '../pages/list-product';
-import AddNewProduct from '../components/macro-components/addproduct';
-
-
+import AddProductPage from '../pages/app-product';
 
 export const router = createBrowserRouter([
   {
@@ -38,55 +36,61 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: '/canteen', 
+    path: '/canteen',
     element: (
       <PrivateRoute element={<Canteen />} />
     ),
   },
   {
-    path: '/favorites', 
+    path: '/favorites',
     element: (
       <PrivateRoute element={<Favorites />} />
     ),
   },
   {
-    path: '/library', 
+    path: '/library',
     element: (
       <PrivateRoute element={<Library />} />
     ),
   },
   {
-    path: '/orders', 
+    path: '/orders',
     element: (
       <PrivateRoute element={<Orders />} />
     ),
   },
   {
-    path: '/store', 
+    path: '/store',
     element: (
       <PrivateRoute element={<Store />} />
     ),
   },
   {
-    path: '/account', 
+    path: '/account',
     element: (
       <PrivateRoute element={<UserAccount />} />
     ),
   },
   {
-    path: '/extract', 
+    path: '/extract',
     element: (
       <PrivateRoute element={<UserExtract />} />
     ),
   },
   {
-    path: '/add-product', 
+    path: '/card-point',
     element: (
-      <PrivateRoute element={<AddNewProduct />} />
+      <PrivateRoute element={<CardPointPage />} />
     ),
   },
   {
-    path: '/list-product', 
+    path: '/add-product',
+    element: (
+      <PrivateRoute element={<AddProductPage />} />
+    ),
+  },
+  {
+    path: '/list-product',
     element: (
       <PrivateRoute element={<AddProduct />} />
     ),
