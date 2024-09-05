@@ -51,7 +51,7 @@ export function DrawerMenu({
             </div>
             <div className="bg-white w-full h-[1px]" />
             <div className="w-full flex justify-center mt-5 mb-5">
-                <nav>
+                <nav className="flex flex-col items-center justify-center">
                     <Link to={'/home'}>
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <House className="text-white size-5 font-bold" />
@@ -133,15 +133,7 @@ export function DrawerMenu({
                                 Adicionar novo produto
                             </span>
                         </div>
-                    </Link>
-                    <button onClick={openDepositModal}>
-                        <div className="flex justify-center items-center space-x-2 p-3">
-                            <ShoppingCart className="text-white size-5 font-bold" />
-                            <span className="text-white font-medium">
-                                Pedidos
-                            </span>
-                        </div>
-                    </button>                
+                    </Link>              
                 </nav>
             </div>
 
