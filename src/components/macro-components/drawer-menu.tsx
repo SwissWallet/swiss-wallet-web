@@ -141,7 +141,7 @@ export function DrawerMenu({
                                 Pedidos
                             </span>
                         </div>
-                    </Link>                
+                    </button>                
                 </nav>
             </div>
 

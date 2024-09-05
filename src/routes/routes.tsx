@@ -78,12 +78,6 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: '/card-point',
-    element: (
-      <PrivateRoute element={<CardPointPage />} />
-    ),
-  },
-  {
     path: '/add-product',
     element: (
       <PrivateRoute element={<AddProductPage />} />
