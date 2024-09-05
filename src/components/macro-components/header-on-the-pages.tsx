@@ -11,7 +11,7 @@ interface HeaderOnPagesProps {
 export function HeaderOnPages({
     title,
     description,
-    // element,
+    element,
     notFilterAndOrder,
 }: HeaderOnPagesProps) {
     return (
@@ -20,19 +20,20 @@ export function HeaderOnPages({
                 <h1 className="text-4xl font-bold">{title}</h1>
                 <p className="italic font-medium">{description}</p>
             </div>
-            <div className={`flex gap-10 ${notFilterAndOrder ? "hidden" : "block"}`}>
-                <button>
+            <div className={`flex gap-10`}>
+                <button className={`${notFilterAndOrder ? "hidden" : "block"}`}>
                     <div className="flex gap-2 text-zinc-500 hover:text-zinc-700">
                         <Filter />
                         <p className="font-medium">Filtrar</p>
                     </div>
                 </button>
-                <button>
+                <button className={`${notFilterAndOrder ? "hidden" : "block"}`}>
                     <div className="flex gap-2 text-zinc-500 hover:text-zinc-700">
                         <ArrowDownNarrowWide />
                         <p className="font-medium">Ordenar</p>
                     </div>
                 </button>
+                {element}
             </div>
         </div>
     )
