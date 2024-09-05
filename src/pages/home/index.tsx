@@ -91,7 +91,7 @@ export function Home() {
                 </div>
                 <div className="flex">
                     <div className="flex flex-wrap lg:flex-row gap-10 justify-center w-[1300px]">
-                    {productListStore.map((product) => (
+                    {productListStore.slice(0, 3).map((product) => (
                             <div key={product.id}>
                                 <SingleProduct
                                     title={product.name}
@@ -111,7 +111,7 @@ export function Home() {
                 </div>
                 <div className="flex">
                     <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
-                    {productListCanteen.map((product) => (
+                    {productListCanteen.slice(0, 3).map((product) => (
                             <div key={product.id}>
                                 <SingleProduct
                                     title={product.name}
@@ -131,7 +131,7 @@ export function Home() {
                 </div>
                 <div className="flex">
                     <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
-                    {productListLibrary.map((product) => (
+                    {productListLibrary.slice(0, 3).map((product) => (
                             <div key={product.id}>
                                 <SingleProduct
                                     title={product.name}
