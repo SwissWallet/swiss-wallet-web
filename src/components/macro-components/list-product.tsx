@@ -17,28 +17,28 @@ export default function ListProduct() {
                     <h4>Categoria</h4>
                     <h4>Remover</h4>
                 </div>
-                <div className="flex justify-between p-12 items-center gap-8 text-2xl font-bold mx-4">
+                <div className="flex justify-between p-5 items-center gap-8 text-2xl font-bold mx-4 cursor-pointer hover:bg-[#f8f8f8] ease-in-out duration-75">
                     <img src={Camisa} alt="" className="w-20" />
                     <p className="font-medium ">Camisa Peruana Preta</p>
                     <p className="font-medium ">R$ 25,00</p>
                     <p className="font-medium ">Roupa</p>
                     <p className="font-medium text-red-600 ">Excluir</p>
                 </div>
-                <div className="flex justify-between p-12 items-center gap-8 text-2xl font-bold mx-4">
+                <div className="flex justify-between p-5 items-center gap-8 text-2xl font-bold mx-4 cursor-pointer hover:bg-[#f8f8f8] ease-in-out duration-75">
                     <img src={Coca} alt="" className="w-20" />
                     <p className="font-medium ">Camisa Peruana Preta</p>
                     <p className="font-medium ">R$ 25,00</p>
                     <p className="font-medium ">Roupa</p>
                     <p className="font-medium text-red-600 ">Excluir</p>
                 </div>
-                <div className="flex justify-between p-12 items-center gap-8 text-2xl font-bold mx-4">
+                <div className="flex justify-between p-5 items-center gap-8 text-2xl font-bold mx-4 cursor-pointer hover:bg-[#f8f8f8] ease-in-out duration-75">
                     <img src={Camisa} alt="" className="w-20" />
                     <p className="font-medium ">Camisa Peruana Preta</p>
                     <p className="font-medium ">R$ 25,00</p>
                     <p className="font-medium ">Roupa</p>
                     <p className="font-medium text-red-600 ">Excluir</p>
                 </div>
-                <div className="flex justify-between p-12 items-center gap-8 text-2xl font-bold mx-4">
+                <div className="flex justify-between p-5 items-center gap-8 text-2xl font-bold mx-4 cursor-pointer hover:bg-[#f8f8f8] ease-in-out duration-75">
                     <img src={Coca} alt="" className="w-20" />
                     <p className="font-medium ">Camisa Peruana Preta</p>
                     <p className="font-medium ">R$ 25,00</p>
