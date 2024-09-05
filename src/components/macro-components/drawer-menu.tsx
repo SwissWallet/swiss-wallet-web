@@ -1,4 +1,4 @@
-import { Book, Coffee, Gift, Heart, House, Landmark, ShoppingBag, ShoppingCart, User, X } from "lucide-react";
+import { Book, Coffee, Gift, Heart, House, Landmark, ShoppingBag, ShoppingBasket, ShoppingCart, User, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo-swisswallet.png";
@@ -51,7 +51,7 @@ export function DrawerMenu({
             </div>
             <div className="bg-white w-full h-[1px]" />
             <div className="w-full flex justify-center mt-5 mb-5">
-                <nav>
+                <nav className="flex flex-col items-center justify-center">
                     <Link to={'/home'}>
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <House className="text-white size-5 font-bold" />
@@ -116,32 +116,22 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </button>   
-                    <Link to={'/orders'}>
-                    </Link>
-                    <Link to={'/list-product'}>
-                        <div className="flex justify-center items-center space-x-2 p-3">
-                            <ShoppingCart className="text-white size-5 font-bold" />
-                            <span className="text-white font-medium">
-                                Lista de Produtos
-                            </span>
-                        </div>
-                    </Link>
-                    <Link to={'/add-product'}>
-                        <div className="flex justify-center items-center space-x-2 p-3">
-                            <ShoppingCart className="text-white size-5 font-bold" />
-                            <span className="text-white font-medium">
-                                Adicionar novo produto
-                            </span>
-                        </div>
-                    </Link>
-                    <button onClick={openDepositModal}>
+                    <Link className={`${isClient ? "block" : "hidden"}`} to={'/orders'}>
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <ShoppingCart className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
                                 Pedidos
                             </span>
                         </div>
-                    </button>                
+                    </Link>
+                    <Link className={`${isClient ? "hidden" : "block"}`} to={'/list-product'}>
+                        <div className="flex justify-center items-center space-x-2 p-3">
+                            <ShoppingBasket className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Produtos
+                            </span>
+                        </div>
+                    </Link>             
                 </nav>
             </div>
 

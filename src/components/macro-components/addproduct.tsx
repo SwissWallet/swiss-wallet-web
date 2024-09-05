@@ -1,12 +1,16 @@
-import backIcon   from '../../assets/images/backicon.svg'
 import Cloud      from '../../assets/images/cloud.svg'
+import { MainButton } from '../micro-components/main-button'
 import { UserInput } from '../micro-components/user-input'
 import { HeaderOnPages } from './header-on-the-pages'
     
-export default function AddNewProduct() {
+export function AddNewProduct() {
     return (
         <div className='m-12'>
-            <HeaderOnPages title='Adicionar Produto' description='Adicione produtos no catálogo do site'/>
+            <HeaderOnPages 
+                title='Adicionar Produto' 
+                description='Adicione produtos no catálogo do site'
+                notFilterAndOrder={true}
+            />
             
             <main className='flex items-center justify-around mt-20'>
                 <div className=' flex flex-col gap-20 bg-white shadow-xl p-16 w-2/4 h-[440px] items-center text-center rounded-xl'>
@@ -20,10 +24,8 @@ export default function AddNewProduct() {
                     <UserInput>Descrição</UserInput>
                 </div>
             </main>
-            <section className='flex justify-between mt-10'>
-                <button className="p-6 px-24 text-white font-bold rounded-3xl bg-red-700">Carregar Imagem</button>
-                <button className="p-6 px-24 text-white font-bold rounded-3xl bg-red-700">Editar produto</button>
-                <button className="p-6 px-24 text-white font-bold rounded-3xl bg-red-700">Salvar produto</button>
+            <section className='flex justify-end mt-10'>
+                <MainButton>Salvar produto</MainButton>
             </section>
         </div>
     )
