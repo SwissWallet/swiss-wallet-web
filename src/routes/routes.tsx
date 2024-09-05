@@ -11,7 +11,6 @@ import { UserExtract } from '../pages/user-extract';
 import { Login } from '../pages/login';
 import { Register } from '../pages/register';
 import { PrivateRoute } from './private-route';
-import CardPointPage from '../pages/card-points';
 import AddProduct from '../pages/list-product';
 import AddProductPage from '../pages/app-product';
 

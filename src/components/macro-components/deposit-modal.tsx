@@ -14,47 +14,30 @@ export function DepositModal({
     const [ username, setUsername ] = useState("");
     const [ deposit, setDeposit ] = useState("");
 
+    const [ textAlert, setTextAlert ] = useState("");
 
     async function registerDeposit(){
-
         const token = localStorage.getItem('token');
 
-        console.log("app" + username)
-        console.log("app" + deposit)
         await api.post(`/v3/accounts/register-deposit?username=${username}&value=${deposit}`,{
             headers: {
                 'Authorization' : `Bearer ${token}`
             }
-        }
-        )
-
-        .then((json) => {
-            console.log(json + "gravado")
-        })
-        .catch((err) => {
-            console.log(err)
         })
     }
-
-
-
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         if(!username.endsWith(".com") || !username.includes("@")){
-            console.log("email inválido");
+            setTextAlert("email inválido");
             return
         };
 
         if(deposit === ""){
-            console.log("insira um depósito");
+            setTextAlert("insira um depósito");
             return
         };
-
-        console.log(username)
-        console.log(deposit)
-
 
         registerDeposit();
         closeDepositModal();
@@ -67,6 +50,11 @@ export function DepositModal({
                 <div className="flex flex-col gap-3">
                     <h1 className="text-4xl font-medium">Deposite</h1>
                     <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>
+                </div>
+                <div className="flex items-center w-full relative h-auto">
+                    <p className="absolute  text-red-700 text-center w-full font-medium text-lg">
+                        {textAlert}
+                    </p>
                 </div>
                 <UserInput 
                     position="center"

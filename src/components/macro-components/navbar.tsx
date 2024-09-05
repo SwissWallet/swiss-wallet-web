@@ -25,6 +25,11 @@ export function Navbar() {
         setIsVisibleScore(!isVisibleScore)
     }
 
+    const user = useSelector((state: RootState) => state.authUser.value);
+    const role = user.user.role
+
+    const isClient = role === "ROLE_CLIENT";
+
     const { value } = useSelector((state: RootState) => state.authUser.value.account);
 
     return (
@@ -71,7 +76,7 @@ export function Navbar() {
 
 
 
-            <div className="flex justify-center -mt-7 ">
+            <div className={`flex justify-center -mt-7 ${isClient ? "block" : "hidden"}`}>
                 <div className="bg-white text-black p-10 w-[600px] font-bold rounded-xl shadow-xl">
 
                     <div className="flex justify-between">

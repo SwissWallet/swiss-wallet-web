@@ -1,4 +1,4 @@
-import { Book, Coffee, Gift, Heart, House, ShoppingBag, ShoppingCart, User, X } from "lucide-react";
+import { Book, Coffee, Gift, Heart, House, Landmark, ShoppingBag, ShoppingCart, User, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo-swisswallet.png";
@@ -33,13 +33,16 @@ export function DrawerMenu({
     const user = useSelector((state: RootState) => state.authUser.value);
 
     function logoutUser() {
+        localStorage.clear();
         dispatch(setUser({}))
         dispatch(setLogin(false))
-        localStorage.clear();
     }
 
+    const role = user.user.role;
+    const isClient = role === "ROLE_CLIENT"
+
     return (
-        <div className={`absolute z-50 p-10 bg-red-gradient h-auto w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
+        <div className={`fixed z-50 p-10 bg-red-gradient h-auto w-auto top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
             <div className="flex">
                 <img className="w-60" src={logo} alt="logotipo SwissWallet" />
                 <button onClick={closeSettings}>
@@ -89,15 +92,7 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
-                    <Link to={'/card-point'}>
-                        <div className="flex justify-center items-center space-x-2 p-3">
-                            <User className="text-white size-5 font-bold" />
-                            <span className="text-white font-medium">
-                                Depósito
-                            </span>
-                        </div>
-                    </Link>
-                    <Link to={'/favorites'}>
+                    <Link className={`${isClient ? "block" : "hidden"}`} to={'/favorites'}>
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <Heart className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
@@ -113,13 +108,15 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
-                    <Link to={'/orders'}>
+                    <button className={`${isClient ? "hidden" : "block"}`} onClick={openDepositModal}>
                         <div className="flex justify-center items-center space-x-2 p-3">
-                            <ShoppingCart className="text-white size-5 font-bold" />
+                            <Landmark className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
-                                Pedidos
+                                Deposito 
                             </span>
                         </div>
+                    </button>   
+                    <Link to={'/orders'}>
                     </Link>
                     <Link to={'/list-product'}>
                         <div className="flex justify-center items-center space-x-2 p-3">
@@ -141,10 +138,10 @@ export function DrawerMenu({
                         <div className="flex justify-center items-center space-x-2 p-3">
                             <ShoppingCart className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
-                                Deposito Modal
+                                Pedidos
                             </span>
                         </div>
-                    </button>
+                    </Link>                
                 </nav>
             </div>
 
