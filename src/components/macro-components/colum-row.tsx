@@ -25,8 +25,6 @@ export default function RowTable({
             <p className="font-medium ">{title}</p>
             <p className="font-medium ">{value}</p>
             <MainButton width="min" onClick={() => openCardProduct(id)} >Selecionar</MainButton>
-
-
         </div>
     )
 }

@@ -35,7 +35,7 @@ export function CardProduct({
                     <article className="flex flex-col w-1/2 justify-between p-5">
                         <div className="flex flex-col gap-1">
                             <div className="flex justify-end">
-                                <button className="flex justify-end" onClick={closeCardProduct}><X className="size-6 text-white"/></button>
+                                <button className="flex justify-end" onClick={closeCardProduct}><X className="size-6 hover:text-zinc-300 text-white"/></button>
                             </div>
                             <h1 className="text-white font-bold text-4xl">{title}</h1>
                             <h3 className="text-zinc-300 mt-2">{description}</h3>
