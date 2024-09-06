@@ -1,7 +1,6 @@
 import { Book, Coffee, Gift, Heart, House, Landmark, ShoppingBag, ShoppingBasket, ShoppingCart, User, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo-swisswallet.png";
 import { setLogin } from "../../features/login-slice";
 import { setUser } from "../../features/user-slice";
 import { RootState } from "../../store";
