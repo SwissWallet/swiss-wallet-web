@@ -4,6 +4,7 @@ import RowTable from './colum-row';
 import { HeaderOnPages } from "./header-on-the-pages";
 import { useEffect, useState } from 'react';
 import { api } from '../../lib/axios';
+import { CardProduct } from './card-product';
 
 interface productInterface{
     id: string,
@@ -32,6 +33,15 @@ export default function ListProduct() {
         category: "",
     }
     const [ productList, setProductList ] = useState([product]);
+    const [ openCardId, setOpenCardId ] = useState<string | null>(null);
+
+    function openCardProduct(id: string){
+        setOpenCardId(id);
+        console.log(id)
+    };
+    function closeCardProduct(){
+        setOpenCardId(null);
+    }
     
     useEffect(() => {
         async function getProducts(){
@@ -74,7 +84,18 @@ export default function ListProduct() {
                                     title={product.name}
                                     value={product.value}
                                     image={product.image}
+                                    id={product.id}
+                                    openCardProduct={(id) => openCardProduct(id)}
                                 />
+                                    {openCardId === product.id && (
+                                        <CardProduct
+                                            closeCardProduct={closeCardProduct}
+                                            description={product.description}
+                                            image={product.image}
+                                            title={product.name}
+                                            value={Number(product.value)}
+                                         />
+                                    )}
                             </div>
                         ))}
             </main>

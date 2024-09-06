@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 interface CardProductProps{
-    closeCardProduct: () => void,
     title: string,
     description: string,
     image: string,
     value: number,
+    closeCardProduct: () => void
 }
 
 
