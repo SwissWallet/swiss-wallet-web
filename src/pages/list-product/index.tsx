@@ -6,7 +6,7 @@ export default function AddProduct(){
     return(
         <>
             <Navbar />
-            <ListProduct />
+                <ListProduct />
             <Footer />
         </>
     )

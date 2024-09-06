@@ -1,17 +1,65 @@
 import { useNavigate } from 'react-router';
-import Camisa from '../../assets/images/camisa-branca.svg'
-import Coca from '../../assets/images/coquinha-gelada.svg'
 import { MainButton } from '../micro-components/main-button';
 import RowTable from './colum-row';
 import { HeaderOnPages } from "./header-on-the-pages";
+import { useEffect, useState } from 'react';
+import { api } from '../../lib/axios';
+import { CardProduct } from './card-product';
+
+interface productInterface{
+    id: string,
+    name: string,
+    value: number,
+    description: string,
+    image: string,
+    category: string,
+}
 
 export default function ListProduct() {
 
     const navigate = useNavigate();
 
+    
     function click(){
         navigate('/add-product')
     }
+    
+    const product = {
+        id: "",
+        name: "",
+        value: "",
+        description: "",
+        image: "data:image/jpeg;base64,",
+        category: "",
+    }
+    const [ productList, setProductList ] = useState([product]);
+    const [ openCardId, setOpenCardId ] = useState<string | null>(null);
+
+    function openCardProduct(id: string){
+        setOpenCardId(id);
+        console.log(id)
+    };
+    function closeCardProduct(){
+        setOpenCardId(null);
+    }
+    
+    useEffect(() => {
+        async function getProducts(){
+            await api.get(`/v3/products`)
+            .then((json) => {
+                const data = json.data;
+                setProductList(data.map((item: productInterface) => ({
+                    id: item.id,
+                    name: item.name,
+                    value: item.value,
+                    description: item.description,
+                    image: `data:image/jpeg;base64,${item.image}`,
+                    category: item.category
+                })))
+            })
+        }
+        getProducts();
+    }, [])
 
     return (
         <>
@@ -28,13 +76,29 @@ export default function ListProduct() {
                     <h4>Imagem</h4>
                     <h4 className="w-1/4">Titulo</h4>
                     <h4 className="">Valor</h4>
-                    <h4>Categoria</h4>
-                    <h4>Remover</h4>
+                    <h4 className="">Selecione</h4>
                 </div>
-                <RowTable image={Camisa} title='Camisa Peruana Branca' category='Roupa' value='R$ 25,00' />
-                <RowTable image={Coca}   title='Camisa Peruana Branca' category='Roupa' value='R$ 25,00' />
-                <RowTable image={Camisa} title='Camisa Peruana Branca' category='Roupa' value='R$ 25,00' />
-                <RowTable image={Coca}   title='Camisa Peruana Branca' category='Roupa' value='R$ 25,00' />
+                    {productList.map((product) => (
+                            <div key={product.id}>
+                                <RowTable
+                                    title={product.name}
+                                    value={product.value}
+                                    image={product.image}
+                                    id={product.id}
+                                    openCardProduct={(id) => openCardProduct(id)}
+                                />
+                                    {openCardId === product.id && (
+                                        <CardProduct
+                                            closeCardProduct={closeCardProduct}
+                                            description={product.description}
+                                            image={product.image}
+                                            title={product.name}
+                                            value={Number(product.value)}
+                                            category={product.category}
+                                         />
+                                    )}
+                            </div>
+                        ))}
             </main>
         </>
     )
