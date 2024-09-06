@@ -1,3 +1,5 @@
+import { MainButton } from "../micro-components/main-button";
+
 interface RowTableProps {
     image: string,
     title: string,
@@ -16,8 +18,7 @@ export default function RowTable({
             <img src={image} alt="" className="w-20" />
             <p className="font-medium ">{title}</p>
             <p className="font-medium ">{value}</p>
-            <p className="font-medium ">{category}</p>
-            <p className="font-medium text-red-600 ">Excluir</p>
+            <MainButton width="min" >Selecionar</MainButton>
         </div>
     )
 }
