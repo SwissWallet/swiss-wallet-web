@@ -4,12 +4,10 @@ interface RowTableProps {
     image: string,
     title: string,
     value: string,
-    category: string,
 }
 
 export default function RowTable({
     title,
-    category,
     image,
     value
 }: RowTableProps) {

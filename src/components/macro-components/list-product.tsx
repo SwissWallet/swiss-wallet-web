@@ -1,11 +1,18 @@
 import { useNavigate } from 'react-router';
-import Camisa from '../../assets/images/camisa-branca.svg'
-import Coca from '../../assets/images/coquinha-gelada.svg'
 import { MainButton } from '../micro-components/main-button';
 import RowTable from './colum-row';
 import { HeaderOnPages } from "./header-on-the-pages";
 import { useEffect, useState } from 'react';
 import { api } from '../../lib/axios';
+
+interface productInterface{
+    id: string,
+    name: string,
+    value: number,
+    description: string,
+    image: string,
+    category: string,
+}
 
 export default function ListProduct() {
 
@@ -21,15 +28,24 @@ export default function ListProduct() {
         name: "",
         value: "",
         description: "",
-        image: "data:image/jpeg;base64,"
+        image: "data:image/jpeg;base64,",
+        category: "",
     }
-    const [ productListStore, setProductListStore ] = useState([product]);
+    const [ productList, setProductList ] = useState([product]);
     
     useEffect(() => {
         async function getProducts(){
             await api.get(`/v3/products`)
             .then((json) => {
-                const data = json.data
+                const data = json.data;
+                setProductList(data.map((item: productInterface) => ({
+                    id: item.id,
+                    name: item.name,
+                    value: item.value,
+                    description: item.description,
+                    image: `data:image/jpeg;base64,${item.image}`,
+                    category: item.category
+                })))
             })
         }
         getProducts();
@@ -52,10 +68,15 @@ export default function ListProduct() {
                     <h4 className="">Valor</h4>
                     <h4 className="">Selecione</h4>
                 </div>
-                <RowTable image={Camisa} title='Camisa Peruana Branca' category='Roupa' value='R$ 25,00' />
-                <RowTable image={Coca}   title='Camisa Peruana Branca' category='Roupa' value='R$ 25,00' />
-                <RowTable image={Camisa} title='Camisa Peruana Branca' category='Roupa' value='R$ 25,00' />
-                <RowTable image={Coca}   title='Camisa Peruana Branca' category='Roupa' value='R$ 25,00' />
+                    {productList.map((product) => (
+                            <div key={product.id}>
+                                <RowTable
+                                    title={product.name}
+                                    value={product.value}
+                                    image={product.image}
+                                />
+                            </div>
+                        ))}
             </main>
         </>
     )
