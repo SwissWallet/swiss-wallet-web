@@ -7,11 +7,14 @@ import { RootState } from "../../store";
 import { ChangeAddressModal } from "./change-address-modal";
 import { ChangePassworModal } from "./changepassword-modal";
 import { InfoUser } from "./line-info-user";
+import { MainButton } from "../../components/micro-components/main-button";
+import { DeleteAccountModal } from "./delete-account-modal";
 
 export function UserAccount() {
 
     const [ isModalPasswordOpen, setIsModalPasswordOpen ] = useState(false);
     const [ isModalAddressOpen, setIsModalAddressOpen ] = useState(false);
+    const [ isModalDeleteAccountOpen, setIsModalDeleteAccountOpen ] = useState(false);
 
     const openChangePasswordModal = () => {
         setIsModalPasswordOpen(true);
@@ -26,8 +29,15 @@ export function UserAccount() {
     }
 
     const closeChangeAddressModal = () => {
-
         setIsModalAddressOpen(false);
+    }
+
+    const openDeleteAccountModal = () => {
+        setIsModalDeleteAccountOpen(true);
+    }
+
+    const closeDeleteAccountModal = () => {
+        setIsModalDeleteAccountOpen(false);
     }
     
     const user = useSelector((state:RootState) => state.authUser.value);
@@ -78,12 +88,17 @@ export function UserAccount() {
                     </div>
                 </section>
 
+                <section className="w-full flex justify-center">
+                    <MainButton onClick={openDeleteAccountModal}>Excluir Conta</MainButton>
+                </section>
+
             </main>
 
             <Footer />
 
             {isModalPasswordOpen && <ChangePassworModal closeChangePasswordModal={closeChangePasswordModal} />}
-            {isModalAddressOpen && <ChangeAddressModal closeChangeAddressModal={closeChangeAddressModal} />}       
+            {isModalAddressOpen && <ChangeAddressModal closeChangeAddressModal={closeChangeAddressModal} />}
+            {isModalDeleteAccountOpen && <DeleteAccountModal closeDeleteAccountModal={closeDeleteAccountModal}/>}
 
         </div>
     )
