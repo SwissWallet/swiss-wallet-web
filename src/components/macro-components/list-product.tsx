@@ -94,6 +94,7 @@ export default function ListProduct() {
                                             image={product.image}
                                             title={product.name}
                                             value={Number(product.value)}
+                                            category={product.category}
                                          />
                                     )}
                             </div>
