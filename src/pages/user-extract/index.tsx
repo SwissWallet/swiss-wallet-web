@@ -28,7 +28,13 @@ export function UserExtract(){
    
     useEffect(() => {
         async function getExtracts(){
-            await api.get(`/v3/extracts/current`)
+            const token = localStorage.getItem('token');
+
+            await api.get(`/v3/extracts/current`, {
+                headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
+            })
             .then((json) => {
                 const data = json.data;
 

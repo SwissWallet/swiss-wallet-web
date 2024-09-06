@@ -32,7 +32,13 @@ export function Home() {
     useEffect(() => {
 
         async function getProductsStore(){
-            await api.get(`/v3/products/category?category=STORE`)
+            const token = localStorage.getItem('token');
+
+            await api.get(`/v3/products/category?category=STORE`, {
+                headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
+            })
             .then((json) => {
                 const data = json.data;
                 setProductListStore(data.map((item: productInterface) => ({
@@ -46,7 +52,13 @@ export function Home() {
             }
         )}
         async function getProductsCanteen(){
-            await api.get(`/v3/products/category?category=CANTEEN`)
+            const token = localStorage.getItem('token');
+
+            await api.get(`/v3/products/category?category=CANTEEN`, {
+                headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
+            })
             .then((json) => {
                 const data = json.data;
                 setProductListCanteen(data.map((item: productInterface) => ({
@@ -60,7 +72,13 @@ export function Home() {
             }
         )}
         async function getProductsLibrary(){
-            await api.get(`/v3/products/category?category=LIBRARY`)
+            const token = localStorage.getItem('token');
+
+            await api.get(`/v3/products/category?category=LIBRARY`, {
+                headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
+            })
             .then((json) => {
                 const data = json.data;
                 setProductListLibrary(data.map((item: productInterface) => ({

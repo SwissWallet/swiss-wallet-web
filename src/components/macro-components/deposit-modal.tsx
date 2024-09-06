@@ -18,6 +18,7 @@ export function DepositModal({
 
     async function registerDeposit(){
         const token = localStorage.getItem('token');
+        // http://localhost:8080/api/v3/accounts/register-deposit?username=joao@email.com&value=300
 
         await api.post(`/v3/accounts/register-deposit?username=${username}&value=${deposit}`,{
             headers: {
