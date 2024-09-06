@@ -59,7 +59,13 @@ export default function ListProduct() {
             })
         }
         getProducts();
-    }, [])
+    }, []);
+
+    async function deleteProduct(id){
+        const response = await api.delete(`/v3/products?id=${id}`)
+        console.log(response.status)
+       
+    }
 
     return (
         <>
@@ -95,7 +101,8 @@ export default function ListProduct() {
                                             title={product.name}
                                             value={Number(product.value)}
                                             category={product.category}
-                                         />
+                                            deleteProduct={() => deleteProduct(product.id)}
+                                        />
                                     )}
                             </div>
                         ))}
