@@ -21,7 +21,19 @@ export function DeleteAccountModal({
     const [ textAlert, setTextAlert ] = useState("");
 
     async function deleteAccount(){
-        await api.delete(`/v3/users`)
+        const token = localStorage.getItem('token')
+
+        await api.delete(`/v3/users`, {
+            headers: {
+                'Authorization' : `Bearer ${token}`
+            }
+        })
+        .then((json) => {
+            console.log(json.status)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
     const handdleSubmit = (e: React.FormEvent) => {
