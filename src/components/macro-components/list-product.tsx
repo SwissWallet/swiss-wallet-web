@@ -37,7 +37,6 @@ export default function ListProduct() {
 
     function openCardProduct(id: string){
         setOpenCardId(id);
-        console.log(id)
     };
     function closeCardProduct(){
         setOpenCardId(null);
@@ -59,7 +58,14 @@ export default function ListProduct() {
             })
         }
         getProducts();
-    }, [])
+    }, []);
+    
+    async function deleteProduct(id: string, onSuccess: () => void){
+        await api.delete(`/v3/products?id=${id}`)
+        .then(() => {
+            onSuccess();
+        }) 
+    };
 
     return (
         <>
@@ -89,13 +95,14 @@ export default function ListProduct() {
                                 />
                                     {openCardId === product.id && (
                                         <CardProduct
-                                            closeCardProduct={closeCardProduct}
                                             description={product.description}
                                             image={product.image}
                                             title={product.name}
                                             value={Number(product.value)}
                                             category={product.category}
-                                         />
+                                            closeCardProduct={closeCardProduct}
+                                            deleteProduct={() => deleteProduct(product.id, closeCardProduct)}
+                                        />
                                     )}
                             </div>
                         ))}

@@ -9,12 +9,14 @@ interface CardProductProps{
     image: string,
     value: number,
     category: string,
+    deleteProduct?: () => void,
     closeCardProduct: () => void
 }
 
 
 export function CardProduct({
     closeCardProduct,
+    deleteProduct,
     description,
     image,
     title,
@@ -50,7 +52,7 @@ export function CardProduct({
                         ) : (
                             <div className="space-y-2">
                                 <MainButton>Alterar</MainButton>
-                                <MainButton>Excluir</MainButton>
+                                <MainButton onClick={deleteProduct} >Excluir</MainButton>
                             </div>
                         )}
                     </article>
