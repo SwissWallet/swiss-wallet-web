@@ -21,7 +21,8 @@ export function ChangeAddressModal({
     const [ street, setStreet ] = useState(user.address.street);
     const [ city, setCity ] = useState(user.address.city);
     const [ uf, setUf ] = useState(user.address.uf);
-    const [ number, setNumber ] = useState(user.address.number)
+    const [ number, setNumber ] = useState(user.address.number);
+    const [ textAlert, setTextAlert ] = useState("");
 
     async function changeAddress() {
         await api.put(`/v3/users/address`, {
@@ -51,7 +52,7 @@ export function ChangeAddressModal({
         e.preventDefault();
 
         if(zipCode === "" || street === "" || city === "" || number === null || uf === ""){
-            console.log("preencha todos os campos")
+            setTextAlert("preencha todos os campos")
             return
         }
 
@@ -68,6 +69,9 @@ export function ChangeAddressModal({
                 <div className="flex flex-col gap-3">
                     <h1 className="text-4xl font-medium">Altere seu endereço</h1>
                     <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>
+                </div>
+                <div className="flex items-center w-full">
+                    <p className="text-red-700 text-center w-full font-medium text-xl">{textAlert}</p>
                 </div>
                 <div className="flex flex-col gap-6">
                     <UserInput 
