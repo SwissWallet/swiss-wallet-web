@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { BackButton } from "../../components/micro-components/back-button";
 import { UserInput } from "../../components/micro-components/user-input";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
 import { MainButton } from "../../components/micro-components/main-button";
+import { setUser } from "../../features/user-slice";
+import { setLogin } from "../../features/login-slice";
 
 interface DeleteAccountModalProps{
     closeDeleteAccountModal: () => void,
@@ -16,6 +18,8 @@ export function DeleteAccountModal({
 
     const user = useSelector((state: RootState) => state.authUser.value);
     const username = user.user.username;
+
+    const dispatch = useDispatch();
 
     const [ usernameEnter, setUsernameEnter ] = useState("");
     const [ textAlert, setTextAlert ] = useState("");
@@ -51,6 +55,13 @@ export function DeleteAccountModal({
 
         deleteAccount();
         closeDeleteAccountModal();
+        logoutUser();
+    }
+
+    function logoutUser() {
+        localStorage.clear();
+        dispatch(setUser({}))
+        dispatch(setLogin(false))
     }
 
     return(
