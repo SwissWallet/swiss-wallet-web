@@ -64,6 +64,8 @@ export function Store() {
                                     description={product.description}
                                     value={Number(product.value)}
                                     image={product.image}
+                                    category={product.category}
+                                    id={product.id}
                                     textOnButton={'ver mais'}
                                 />
                             </div>
