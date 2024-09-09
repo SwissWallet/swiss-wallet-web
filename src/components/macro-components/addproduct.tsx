@@ -2,8 +2,9 @@ import { UploadCloudIcon, X } from 'lucide-react'
 import { MainButton } from '../micro-components/main-button'
 import { UserInput } from '../micro-components/user-input'
 import { HeaderOnPages } from './header-on-the-pages'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { DropzoneState, useDropzone } from 'react-dropzone'
+import { api } from '../../lib/axios'
 
 interface InputImageProps{
     dropzone: DropzoneState;
@@ -17,7 +18,7 @@ interface HasImageProps {
 export function AddNewProduct() {
 
     const [ file, setFile ] = useState<File | null>(null);
-    const [ title, setTitle ] = useState("");
+    const [ name, setName ] = useState("");
     const [ value, setValue ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ category, setCategory ] = useState("");
@@ -33,20 +34,45 @@ export function AddNewProduct() {
     const dropzone = useDropzone({
         onDrop,
         accept: {
-            "image/jpeg": [".jpg", ".jpeg"],
+            "image/jpeg": [".jpg", ".jpeg", ".png"],
         }
     });
 
-    useEffect(() => {
-        console.log(file);
-    }, [file])
+    
 
-    const info = () => {
+    async function newProduct() {
+
+        if(!file){
+            return
+        };
+
+        const productData = {
+            name,
+            value,
+            description,
+            category
+        };
+
         console.log(file)
-        console.log(title)
-        console.log(value)
-        console.log(description)
-        console.log(category)
+
+        const productDatas = new FormData();
+        productDatas.append("createDto", JSON.stringify(productData));
+        productDatas.append("image", file);
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        };
+
+
+        await api.post('v3/products', productDatas, config)
+        .then(() => {
+            console.log("sucessfull")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     };
 
 
@@ -63,15 +89,15 @@ export function AddNewProduct() {
                 {!file ? (<InputImage dropzone={dropzone} />) : (<HasImage file={file} removeFile={removeFile}/>)}
                 
 
-                <div className='flex flex-col gap-5 w-2/4 justify-between p-12'>
-                    <UserInput type='text' placeholder='Ex: Camiseta Branca' onChange={(e) => setTitle(e.target.value)} >Titulo</UserInput>
+                <form className='flex flex-col gap-5 w-2/4 justify-between p-12'>
+                    <UserInput type='text' placeholder='Ex: Camiseta Branca' onChange={(e) => setName(e.target.value)} >Titulo</UserInput>
                     <UserInput type='number' placeholder='Ex: 40,00' onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
                     <UserInput type='text' placeholder='Ex: STORE' onChange={(e) => setCategory(e.target.value)} >Categoria</UserInput>
                     <UserInput type='text' placeholder='Camiseta Branca Básica' onChange={(e) => setDescription(e.target.value)} >Descrição</UserInput>
-                </div>
+                </form>
             </main>
             <section className='flex justify-center mt-10'>
-                <MainButton onClick={info}>Salvar Produto</MainButton>
+                <MainButton onClick={newProduct}>Salvar Produto</MainButton>
             </section>
         </div>
     )
