@@ -66,6 +66,8 @@ export function Library() {
                                     value={Number(product.value)}
                                     image={product.image}
                                     textOnButton={'ver mais'}
+                                    category={product.category}
+                                    id={product.id}
                                 />
                             </div>
                         ))}

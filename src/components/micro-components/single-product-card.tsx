@@ -8,6 +8,8 @@ interface SingleProductProps {
     description: string,
     image: string,
     value: number,
+    id: string,
+    category: string,
 }
 
 export function SingleProduct({
@@ -16,6 +18,8 @@ export function SingleProduct({
     description,
     image,
     value,
+    id,
+    category
 }: SingleProductProps) {
 
     const [ openCard, setOpenCard ] = useState(false);
@@ -54,7 +58,8 @@ export function SingleProduct({
                     title={title}
                     value={value}    
                     description={description}
-                
+                    id={id}
+                    category={category}
                 />
             )}
         </>

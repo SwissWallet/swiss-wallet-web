@@ -2,30 +2,37 @@ import { X } from "lucide-react";
 import { MainButton } from "../micro-components/main-button";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-
+import { api } from "../../lib/axios";
 interface CardProductProps{
     title: string,
     description: string,
     image: string,
     value: number,
     category: string,
-    deleteProduct?: () => void,
+    id: string,
     closeCardProduct: () => void
 }
 
 
 export function CardProduct({
     closeCardProduct,
-    deleteProduct,
     description,
     image,
     title,
     value,
+    id,
 }:CardProductProps){
     const user = useSelector((state: RootState) => state.authUser.value)
     const role = user.user.role;
 
-    const isCLient = role === "ROLE_CLIENT"
+    const isCLient = role === "ROLE_CLIENT";
+
+    async function deleteProduct(){
+        await api.delete(`/v3/products?id=${id}`)
+        .then(() => {
+            closeCardProduct();
+        })
+    };
 
     return(
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
