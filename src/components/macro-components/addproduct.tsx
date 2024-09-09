@@ -23,6 +23,8 @@ export function AddNewProduct() {
     const [ description, setDescription ] = useState("");
     const [ category, setCategory ] = useState("");
 
+    const [ textAlert, setTextAlert ] = useState("");
+
     const onDrop = useCallback((files: File[]) => {
         setFile(files[0]);
     }, []);
@@ -43,8 +45,14 @@ export function AddNewProduct() {
     async function newProduct() {
 
         if(!file){
+            setTextAlert("Por favor, insira uma imagem");
             return
         };
+
+        if(name === "" || value === "" || description === "" || category === ""){
+            setTextAlert("Todos os campos devem ser preenchidos");
+            return
+        }
 
         const productData = {
             name,
@@ -52,8 +60,6 @@ export function AddNewProduct() {
             description,
             category
         };
-
-        console.log(file)
 
         const productDatas = new FormData();
         productDatas.append("createDto", JSON.stringify(productData));
@@ -65,13 +71,14 @@ export function AddNewProduct() {
             }
         };
 
-
         await api.post('v3/products', productDatas, config)
         .then(() => {
-            console.log("sucessfull")
-        })
-        .catch((err) => {
-            console.log(err)
+            setTextAlert("Produto cadastrado!");
+            setName("");
+            setValue("");
+            setDescription("");
+            setCategory("");
+            setFile(null);
         })
     };
 
@@ -84,16 +91,23 @@ export function AddNewProduct() {
                 notFilterAndOrder={true}
             />
             
+            <div className="flex items-center w-full">
+                <p className="text-red-700 text-center w-full font-medium text-xl">{textAlert}</p>
+            </div>
+
+
             <main className='flex items-center justify-around mt-20'>
                 
+
+
                 {!file ? (<InputImage dropzone={dropzone} />) : (<HasImage file={file} removeFile={removeFile}/>)}
                 
 
                 <form className='flex flex-col gap-5 w-2/4 justify-between p-12'>
-                    <UserInput type='text' placeholder='Ex: Camiseta Branca' onChange={(e) => setName(e.target.value)} >Titulo</UserInput>
-                    <UserInput type='number' placeholder='Ex: 40,00' onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
-                    <UserInput type='text' placeholder='Ex: STORE' onChange={(e) => setCategory(e.target.value)} >Categoria</UserInput>
-                    <UserInput type='text' placeholder='Camiseta Branca Básica' onChange={(e) => setDescription(e.target.value)} >Descrição</UserInput>
+                    <UserInput type='text' placeholder='Ex: Camiseta Branca' value={name} onChange={(e) => setName(e.target.value)} >Titulo</UserInput>
+                    <UserInput type='number' placeholder='Ex: 40,00' value={value} onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
+                    <UserInput type='text' placeholder='Ex: STORE' value={category} onChange={(e) => setCategory(e.target.value)} >Categoria</UserInput>
+                    <UserInput type='text' placeholder='Camiseta Branca Básica' value={description} onChange={(e) => setDescription(e.target.value)} >Descrição</UserInput>
                 </form>
             </main>
             <section className='flex justify-center mt-10'>
