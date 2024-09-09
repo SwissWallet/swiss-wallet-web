@@ -2,7 +2,7 @@ import { UploadCloudIcon, X } from 'lucide-react'
 import { MainButton } from '../micro-components/main-button'
 import { UserInput } from '../micro-components/user-input'
 import { HeaderOnPages } from './header-on-the-pages'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { DropzoneState, useDropzone } from 'react-dropzone'
 
 interface InputImageProps{
@@ -17,6 +17,10 @@ interface HasImageProps {
 export function AddNewProduct() {
 
     const [ file, setFile ] = useState<File | null>(null);
+    const [ title, setTitle ] = useState("");
+    const [ value, setValue ] = useState("");
+    const [ description, setDescription ] = useState("");
+    const [ category, setCategory ] = useState("");
 
     const onDrop = useCallback((files: File[]) => {
         setFile(files[0]);
@@ -33,6 +37,19 @@ export function AddNewProduct() {
         }
     });
 
+    useEffect(() => {
+        console.log(file);
+    }, [file])
+
+    const info = () => {
+        console.log(file)
+        console.log(title)
+        console.log(value)
+        console.log(description)
+        console.log(category)
+    };
+
+
     return (
         <div className='m-12'>
             <HeaderOnPages 
@@ -47,14 +64,14 @@ export function AddNewProduct() {
                 
 
                 <div className='flex flex-col gap-5 w-2/4 justify-between p-12'>
-                    <UserInput>Titulo</UserInput>
-                    <UserInput type='number'>Valor</UserInput>
-                    <UserInput>Categoria</UserInput>
-                    <UserInput>Descrição</UserInput>
+                    <UserInput type='text' placeholder='Ex: Camiseta Branca' onChange={(e) => setTitle(e.target.value)} >Titulo</UserInput>
+                    <UserInput type='number' placeholder='Ex: 40,00' onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
+                    <UserInput type='text' placeholder='Ex: STORE' onChange={(e) => setCategory(e.target.value)} >Categoria</UserInput>
+                    <UserInput type='text' placeholder='Camiseta Branca Básica' onChange={(e) => setDescription(e.target.value)} >Descrição</UserInput>
                 </div>
             </main>
             <section className='flex justify-center mt-10'>
-                <MainButton>Salvar Produto</MainButton>
+                <MainButton onClick={info}>Salvar Produto</MainButton>
             </section>
         </div>
     )
