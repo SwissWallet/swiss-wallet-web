@@ -13,10 +13,10 @@ export function AddNewProduct() {
             />
             
             <main className='flex items-center justify-around mt-20'>
-                <div className=' flex flex-col gap-20 hover:bg-zinc-100 bg-white shadow-xl p-16 w-2/4 h-[440px] items-center text-center rounded-xl'>
+                <button className=' flex flex-col gap-20 hover:bg-zinc-100 bg-white shadow-xl p-16 w-2/4 h-[440px] items-center text-center rounded-xl'>
                     <p className='text-2xl'>Adicione a foto do produto</p>
                     <img src={Cloud}  className='w-20'/>
-                </div>
+                </button>
                 <div className='flex flex-col gap-5 w-2/4 justify-between p-12'>
                     <UserInput>Titulo</UserInput>
                     <UserInput type='number'>Valor</UserInput>
