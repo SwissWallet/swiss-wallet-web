@@ -11,6 +11,7 @@ interface InputImageProps{
 
 interface HasImageProps {
     file: File | null;
+    removeFile: () => void;
 }
     
 export function AddNewProduct() {
@@ -20,6 +21,10 @@ export function AddNewProduct() {
     const onDrop = useCallback((files: File[]) => {
         setFile(files[0]);
     }, []);
+
+    const removeFile = () => {
+        setFile(null);
+    }
 
     const dropzone = useDropzone({
         onDrop,
@@ -38,7 +43,7 @@ export function AddNewProduct() {
             
             <main className='flex items-center justify-around mt-20'>
                 
-                {!file ? (<InputImage dropzone={dropzone} />) : (<HasImage file={file}/>)}
+                {!file ? (<InputImage dropzone={dropzone} />) : (<HasImage file={file} removeFile={removeFile}/>)}
                 
 
                 <div className='flex flex-col gap-5 w-2/4 justify-between p-12'>
@@ -59,21 +64,21 @@ const InputImage = ({dropzone}: InputImageProps) => {
     return(
         <div 
         {...dropzone.getRootProps()}
-        className='text-zinc-500 hover:cursor-pointer flex flex-col gap-20 hover:bg-zinc-100 bg-white shadow-xl p-16 w-2/4 h-[440px] items-center text-center rounded-xl'>
-            <label className='text-2xl'>Adicione a foto do produto</label>
-            <UploadCloudIcon className='size-20'/>
+        className='hover:cursor-pointer flex flex-col gap-20 hover:bg-zinc-100 bg-white shadow-xl p-16 w-2/4 h-[440px] items-center text-center rounded-xl'>
+            <label className={`text-2xl ${dropzone.isDragActive ? "text-red-700" : "text-gray-500"} `}>Adicione a foto do produto</label>
+            <UploadCloudIcon className={`size-20 ${dropzone.isDragActive ? "text-red-700" : "text-gray-500"}`}/>
             <input {...dropzone.getInputProps()} className="hidden"/>
         </div>
     )
 };
 
-const HasImage = ({file}: HasImageProps) => {
+const HasImage = ({file, removeFile}: HasImageProps) => {
 
     const previewUrl = file ? URL.createObjectURL(file) : '';
 
     return(
         <div className='text-zinc-500  flex flex-col hover:bg-zinc-100 bg-white shadow-xl p-5 gap-1 w-2/4 h-[440px] rounded-xl'>
-            <button className='w-full h-auto flex justify-end'><X className='size-5' /></button>
+            <button onClick={removeFile} className='w-full h-auto flex justify-end'><X className='size-5' /></button>
             {previewUrl && (
                 <img
                     src={previewUrl}
