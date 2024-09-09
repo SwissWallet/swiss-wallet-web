@@ -30,10 +30,7 @@ export function CardProduct({
     async function deleteProduct(){
         await api.delete(`/v3/products?id=${id}`)
         .then(() => {
-            console.log("sucessfull");
-        })
-        .catch((err) => {
-            console.log(err);
+            closeCardProduct();
         })
     };
 
