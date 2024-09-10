@@ -60,12 +60,7 @@ export default function ListProduct() {
         getProducts();
     }, []);
     
-    async function deleteProduct(id: string, onSuccess: () => void){
-        await api.delete(`/v3/products?id=${id}`)
-        .then(() => {
-            onSuccess();
-        }) 
-    };
+ 
 
     return (
         <>
@@ -99,9 +94,9 @@ export default function ListProduct() {
                                             image={product.image}
                                             title={product.name}
                                             value={Number(product.value)}
+                                            id={product.id}
                                             category={product.category}
                                             closeCardProduct={closeCardProduct}
-                                            deleteProduct={() => deleteProduct(product.id, closeCardProduct)}
                                         />
                                     )}
                             </div>

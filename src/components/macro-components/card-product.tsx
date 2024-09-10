@@ -4,28 +4,30 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
 interface CardProductProps{
+    id: string,
     title: string,
     description: string,
     image: string,
     value: number,
     category: string,
-    id: string,
     closeCardProduct: () => void
 }
 
 
 export function CardProduct({
     closeCardProduct,
+    id,
+    title,
     description,
     image,
-    title,
-    value,
-    id,
+    value
 }:CardProductProps){
     const user = useSelector((state: RootState) => state.authUser.value)
     const role = user.user.role;
 
     const isCLient = role === "ROLE_CLIENT";
+
+    console.log(id)
 
     async function deleteProduct(){
         await api.delete(`/v3/products?id=${id}`)
