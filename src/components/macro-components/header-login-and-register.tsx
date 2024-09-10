@@ -14,6 +14,5 @@ export function HeaderLoginAndRegister() {
                 </button>
             </div>
         </header>
-
     )
 }
