@@ -15,17 +15,7 @@ interface productInterface{
     category: string,
 }
 export function Favorites() {
-              
-    const product = {
-        id: "",
-        name: "",
-        value: "",
-        description: "",
-        image: "data:image/jpeg;base64,",
-        category: "",
-    }
-
-    const [ productListFavorite, setProductListFavorite ] = useState([product])
+    const [ productListFavorite, setProductListFavorite ] = useState<productInterface[]>([]);
 
     useEffect(() => {
 
@@ -64,7 +54,7 @@ export function Favorites() {
 
                 <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
 
-                {productListFavorite.map((product) => (
+                {productListFavorite.lenght > 0 && productListFavorite.map((product) => (
                             <div key={product.id}>
                                 <SingleProduct
                                     title={product.name}
