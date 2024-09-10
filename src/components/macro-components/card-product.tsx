@@ -26,8 +26,6 @@ export function CardProduct({
 
     const isCLient = role === "ROLE_CLIENT";
 
-    console.log(id)
-
     async function favoriteProduct(){
         await api.post(`/v3/favorites?idProduct=${id}`)
         .then(() => {
@@ -39,6 +37,9 @@ export function CardProduct({
         await api.delete(`/v3/products?id=${id}`)
             .then(() => {
                 closeCardProduct();
+            })
+            .catch(() => {
+                console.log("error")
             })
     };
 
