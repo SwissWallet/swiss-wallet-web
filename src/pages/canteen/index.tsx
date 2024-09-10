@@ -45,7 +45,7 @@ export function Canteen() {
         }
 
         getProductsCanteen();
-    }, [])
+    }, []);
 
     return (
         <div>
