@@ -19,7 +19,8 @@ export function CardProduct({
     title,
     description,
     image,
-    value
+    value,
+    category
 }: CardProductProps) {
     const user = useSelector((state: RootState) => state.authUser.value)
     const role = user.user.role;
@@ -77,7 +78,7 @@ export function CardProduct({
                         </div>
                         {isCLient ? (
                             <div className={`space-y-2 flex flex-col justify-center`}>
-                                <MainButton width="min" onClick={orderProduct}>Pedir</MainButton>
+                                {category != 'STORE' ? '' : <MainButton width="min" onClick={orderProduct}>Pedir</MainButton>}
                                 <MainButton width="min" onClick={favoriteProduct}>Favoritar</MainButton>
                             </div>
                         ) : (
