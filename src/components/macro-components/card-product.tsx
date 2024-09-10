@@ -29,6 +29,13 @@ export function CardProduct({
 
     console.log(id)
 
+    async function favoriteProduct(){
+        await api.post(`/v3/favorites?idProduct=${id}`)
+        .then(() => {
+            closeCardProduct();
+        })
+    };
+
     async function deleteProduct(){
         await api.delete(`/v3/products?id=${id}`)
         .then(() => {
@@ -56,7 +63,7 @@ export function CardProduct({
                         </div>
                         {isCLient ? (
                             <div className={`flex justify-center`}>
-                                <MainButton width="min">Favoritar</MainButton>
+                                <MainButton width="min" onClick={favoriteProduct}>Favoritar</MainButton>
                             </div>
                         ) : (
                             <div className="space-y-2">
