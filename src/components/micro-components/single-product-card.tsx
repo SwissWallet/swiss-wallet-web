@@ -22,13 +22,13 @@ export function SingleProduct({
     category
 }: SingleProductProps) {
 
-    const [ openCard, setOpenCard ] = useState(false);
+    const [openCard, setOpenCard] = useState(false);
 
-    function openCardProduct(){
+    function openCardProduct() {
         setOpenCard(true);
     }
 
-    function closeCardProduct(){
+    function closeCardProduct() {
         setOpenCard(false);
     }
 
@@ -52,11 +52,11 @@ export function SingleProduct({
             </div>
 
             {openCard && (
-                <CardProduct 
+                <CardProduct
                     closeCardProduct={closeCardProduct}
                     image={image}
                     title={title}
-                    value={value}    
+                    value={value}
                     description={description}
                     id={id}
                     category={category}

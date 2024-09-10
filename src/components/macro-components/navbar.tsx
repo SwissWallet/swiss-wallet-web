@@ -11,7 +11,7 @@ export function Navbar() {
 
     const [isVisibleScore, setIsVisibleScore] = useState(false);
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
-    const [ isOpenMenu, setIsOpenMenu ] = useState(false);
+    const [isOpenMenu, setIsOpenMenu] = useState(false);
 
     function openSettings() {
         setOpenSettingsModal(true)
@@ -34,19 +34,10 @@ export function Navbar() {
 
     return (
         <header>
-
-
-
-
-
             <div className="bg-red-gradient flex justify-between p-5">
                 <Link to={'/home'}>
                     <img src={logo} alt="teste" />
                 </Link>
-
-
-
-
 
                 <nav className={`px-14 text-2xl font-medium text-white hidden lg:block`}>
                     <div className="flex justify-between items-center gap-14 h-full">
@@ -64,17 +55,9 @@ export function Navbar() {
                     </button>
                 </div>
 
-                {isOpenMenu && (<DrawerMenu isOpen={isOpenMenu} closeSettings={() => setIsOpenMenu(false)}/>)}
-                
+                {isOpenMenu && (<DrawerMenu isOpen={isOpenMenu} closeSettings={() => setIsOpenMenu(false)} />)}
+
             </div>
-
-
-
-
-
-
-
-
 
             <div className={`flex justify-center -mt-7 ${isClient ? "block" : "hidden"}`}>
                 <div className="bg-white text-black p-10 w-[600px] font-bold rounded-xl shadow-xl">
