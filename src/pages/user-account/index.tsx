@@ -12,14 +12,14 @@ import { DeleteAccountModal } from "./delete-account-modal";
 
 export function UserAccount() {
 
-    const [ isModalPasswordOpen, setIsModalPasswordOpen ] = useState(false);
-    const [ isModalAddressOpen, setIsModalAddressOpen ] = useState(false);
-    const [ isModalDeleteAccountOpen, setIsModalDeleteAccountOpen ] = useState(false);
+    const [isModalPasswordOpen, setIsModalPasswordOpen] = useState(false);
+    const [isModalAddressOpen, setIsModalAddressOpen] = useState(false);
+    const [isModalDeleteAccountOpen, setIsModalDeleteAccountOpen] = useState(false);
 
     const openChangePasswordModal = () => {
         setIsModalPasswordOpen(true);
     }
-    
+
     const closeChangePasswordModal = () => {
         setIsModalPasswordOpen(false);
     }
@@ -39,14 +39,13 @@ export function UserAccount() {
     const closeDeleteAccountModal = () => {
         setIsModalDeleteAccountOpen(false);
     }
-    
-    const user = useSelector((state:RootState) => state.authUser.value);
+
+    const user = useSelector((state: RootState) => state.authUser.value);
     const address = user.address;
 
     return (
         <div className="bg-default-gray">
             <Navbar />
-
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
 
                 <div className="flex flex-col justify-start">
@@ -62,20 +61,18 @@ export function UserAccount() {
                         <InfoUser label="Telefone" value={user.user.phone} />
                     </div>
                 </section>
-                
+
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end" >
                             <UpdateButton onClick={openChangeAddressModal} />
                         </div>
-                        
+
                         <InfoUser label="CEP" value={address.zipCode} />
-                        <InfoUser label="Cidade" value={address.city}/>
+                        <InfoUser label="Cidade" value={address.city} />
                         <InfoUser label="Rua" value={address.street} />
                         <InfoUser label="UF" value={address.uf} />
                         <InfoUser label="Number" value={'' + address.number} />
-                        
-
                     </div>
                 </section>
                 <section className="ml-20 mr-20">
@@ -98,7 +95,7 @@ export function UserAccount() {
 
             {isModalPasswordOpen && <ChangePassworModal closeChangePasswordModal={closeChangePasswordModal} />}
             {isModalAddressOpen && <ChangeAddressModal closeChangeAddressModal={closeChangeAddressModal} />}
-            {isModalDeleteAccountOpen && <DeleteAccountModal closeDeleteAccountModal={closeDeleteAccountModal}/>}
+            {isModalDeleteAccountOpen && <DeleteAccountModal closeDeleteAccountModal={closeDeleteAccountModal} />}
 
         </div>
     )

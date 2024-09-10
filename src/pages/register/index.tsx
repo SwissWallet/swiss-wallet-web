@@ -46,30 +46,28 @@ export function Register() {
 
     const formData = useFormDataUserRegister()
 
-    async function registerUser(){
+    async function registerUser() {
         await api.post(
             `/v3/users`, formData
         )
-        .then((json) => {
-            if(json.status === 201){
-                return console.log("created")
-            }
-        })
-        .catch((err) => {
-            if(err.response.status === 422){
-                return console.log("Campo inválido")
-            }
-            if(err.response.status === 409){
-                return console.log("Usuário ja cadastrado")
-            }
-        })
+            .then((json) => {
+                if (json.status === 201) {
+                    return console.log("created")
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 422) {
+                    return console.log("Campo inválido")
+                }
+                if (err.response.status === 409) {
+                    return console.log("Usuário ja cadastrado")
+                }
+            })
     }
 
     return (
         <div className="bg-red-gradient h-auto w-full flex gap-28 flex-col">
-
             <HeaderLoginAndRegister />
-
             <main className="flex justify-center">
 
                 {
@@ -90,7 +88,6 @@ export function Register() {
                     )
                 }
 
-
                 {
                     filledThirdStep && (
                         <RegisterThirdStep
@@ -106,11 +103,9 @@ export function Register() {
                         <FinishRegister />
                     )
                 }
-
             </main>
-
             <FooterLoginAndRegister />
         </div>
     )
-    
+
 }

@@ -19,7 +19,7 @@ export function RegisterThirdStep({
     registerUser,
 }: RegisterThirdStepProps) {
 
-    const [ textAlert, setTextAlert ] = useState('');
+    const [textAlert, setTextAlert] = useState('');
 
     const dispatch = useDispatch<AppDispatch>()
 
@@ -35,12 +35,10 @@ export function RegisterThirdStep({
         dispatch(setConfirmPassword(e.target.value));
     }
 
-
-
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if(isEqual === false){
+        if (isEqual === false) {
             setTextAlert("As senhas não são iguais")
             return
         }
@@ -70,11 +68,10 @@ export function RegisterThirdStep({
     function handleTermsChange(e: React.ChangeEvent<HTMLInputElement>) {
         setIsTermsAccepted(e.target.checked);
     }
-    
+
     function handleNotRobotChange(e: React.ChangeEvent<HTMLInputElement>) {
         setIsNotRobot(e.target.checked);
     }
-
 
     return (
         <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
@@ -82,8 +79,6 @@ export function RegisterThirdStep({
             <BackButton onClick={backToTheSecondaryStep} />
 
             <form onSubmit={handdleSubmit} className="flex gap-8 flex-col">
-
-
                 <div className="flex flex-col gap-3">
                     <h1 className="text-4xl font-medium">Cadastre-se</h1>
                     <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>
@@ -96,7 +91,6 @@ export function RegisterThirdStep({
                     <div className="bg-default-red h-10 w-10 rounded-full"></div>
                 </div>
                 <div className="flex flex-col gap-6">
-
                     <div className="flex items-center">
                         <UserInput
                             onChange={handleNewPasswordChange}
@@ -118,9 +112,6 @@ export function RegisterThirdStep({
                             Crie uma senha
                         </UserInput>
                     </div>
-
-
-
                     <UserInput
                         onChange={handleConfirmPasswordChange}
                         placeholder="ex: senha1234"
@@ -169,7 +160,6 @@ export function RegisterThirdStep({
                         Cadastrar
                     </MainButton>
                 </div>
-
             </form>
         </div>
     )

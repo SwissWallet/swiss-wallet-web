@@ -47,7 +47,7 @@ export function RegisterSecondaryStep({
                 .then(response => {
                     if (response.data.erro) {
                         console.log('cep inválido')
-                    }else{
+                    } else {
                         dispatch(setAddress({
                             cep: response.data.cep,
                             city: response.data.localidade,
@@ -84,10 +84,10 @@ export function RegisterSecondaryStep({
                     <div className="bg-dark-gray h-10 w-10 rounded-full"></div>
                 </div>
                 <div className="flex flex-col gap-6">
-                    <UserInput 
-                        placeholder="ex: 11560130" 
-                        type="number" 
-                        name="cep" 
+                    <UserInput
+                        placeholder="ex: 11560130"
+                        type="number"
+                        name="cep"
                         onChange={handleChangeCep}
                         maxLength={8} minLength={8} required
                     >CEP</UserInput>
@@ -109,11 +109,11 @@ export function RegisterSecondaryStep({
 
                     <UserInput placeholder="ex: Centro" type="text" name="neighborhood" readOnly value={neighborhood}>Bairro</UserInput>
                     <UserInput placeholder="ex: Conselheiro Crispiniano" type="text" name="street" readOnly value={street} >Rua</UserInput>
-                    <UserInput 
-                        placeholder="ex: 22" 
-                        type="number" 
-                        name="complement" 
-                        value={localComplement} 
+                    <UserInput
+                        placeholder="ex: 22"
+                        type="number"
+                        name="complement"
+                        value={localComplement}
                         onChange={handleChangeComplement}
                         minLength={1} required
                     >Número</UserInput>
