@@ -33,6 +33,20 @@ export function CardProduct({
         })
     };
 
+    async function orderProduct(){
+        const token = localStorage.getItem("token");
+
+        await api.post(`/v3/orders?idProduct=${id}`,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(() => {
+            console.log("save");
+            closeCardProduct();
+        })
+    };
+
     async function deleteProduct(){
         await api.delete(`/v3/products?id=${id}`)
             .then(() => {
@@ -62,7 +76,8 @@ export function CardProduct({
                             <h1 className="text-3xl font-extrabold">{value}  <span className="text-xl font-semibold">   pontos</span></h1>
                         </div>
                         {isCLient ? (
-                            <div className={`flex justify-center`}>
+                            <div className={`space-y-2 flex flex-col justify-center`}>
+                                <MainButton width="min" onClick={orderProduct}>Pedir</MainButton>
                                 <MainButton width="min" onClick={favoriteProduct}>Favoritar</MainButton>
                             </div>
                         ) : (
