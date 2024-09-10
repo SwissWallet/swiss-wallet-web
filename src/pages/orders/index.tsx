@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
@@ -6,6 +6,9 @@ import { api } from "../../lib/axios";
 import { SingleProduct } from "../../components/micro-components/single-product-card";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
+import { SingleOrdersProductCard } from "./single-orders-product-card";
+import { InProgress } from "./in-progress-status";
 
 interface productInterface {
     id: string,
@@ -77,6 +80,11 @@ export function Orders() {
             <Navbar />
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
 
+                <HeaderOnPages
+                    title="Pedidos"
+                    description="Confira todos pedidos"
+                />
+
                 {isClient ? (
                     <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
                             {orderProductList.map((product) => (
@@ -96,20 +104,19 @@ export function Orders() {
                 ) : (
                     <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
                             {orderProductList.map((product) => (
-                                <div className="flex flex-col justify-center text-center">
-                                    <span>{product.username}</span>
                                     <div key={product.id}>
-                                        <SingleProduct
+                                        <SingleOrdersProductCard
+                                            status={<InProgress />}
+                                            username={product.username}
                                             title={product.name}
                                             description={product.description}
                                             value={Number(product.value)}
                                             image={product.image}
-                                            textOnButton={"ver mais"}
                                             category={product.category}
                                             id={product.id}
                                         />
                                     </div>
-                                </div>
+                                
                             ))}
                     </div>
                 )}
