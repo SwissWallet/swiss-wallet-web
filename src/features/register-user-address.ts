@@ -26,7 +26,7 @@ const addressSlice = createSlice({
         setAddress(state, action: PayloadAction<Partial<addressUserState>>) {
             return { ...state, ...action.payload };
         },
-        resetAdress(){
+        resetAdress() {
             return initialState;
         }
     },

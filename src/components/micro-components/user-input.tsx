@@ -17,7 +17,6 @@ const UserInputChildrenVariants = tv({
     }
 })
 
-
 interface UserInputProps
     extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof UserInputChildrenVariants> {

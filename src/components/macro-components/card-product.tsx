@@ -3,7 +3,7 @@ import { MainButton } from "../micro-components/main-button";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
-interface CardProductProps{
+interface CardProductProps {
     id: string,
     title: string,
     description: string,
@@ -13,7 +13,6 @@ interface CardProductProps{
     closeCardProduct: () => void
 }
 
-
 export function CardProduct({
     closeCardProduct,
     id,
@@ -21,7 +20,7 @@ export function CardProduct({
     description,
     image,
     value
-}:CardProductProps){
+}: CardProductProps) {
     const user = useSelector((state: RootState) => state.authUser.value)
     const role = user.user.role;
 
@@ -29,14 +28,14 @@ export function CardProduct({
 
     console.log(id)
 
-    async function deleteProduct(){
+    async function deleteProduct() {
         await api.delete(`/v3/products?id=${id}`)
-        .then(() => {
-            closeCardProduct();
-        })
+            .then(() => {
+                closeCardProduct();
+            })
     };
 
-    return(
+    return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-red-gradient rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
                 <div className="flex">
@@ -46,7 +45,7 @@ export function CardProduct({
                     <article className="flex flex-col w-1/2 justify-between p-5">
                         <div className="flex flex-col gap-1">
                             <div className="flex justify-end">
-                                <button className="flex justify-end" onClick={closeCardProduct}><X className="size-6 hover:text-zinc-300 text-white"/></button>
+                                <button className="flex justify-end" onClick={closeCardProduct}><X className="size-6 hover:text-zinc-300 text-white" /></button>
                             </div>
                             <h1 className="text-white font-bold text-4xl">{title}</h1>
                             <h3 className="text-zinc-300 mt-2">{description}</h3>

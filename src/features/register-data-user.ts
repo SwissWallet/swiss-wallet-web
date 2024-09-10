@@ -23,7 +23,7 @@ export const slice = createSlice({
         setUser(state, action: PayloadAction<Partial<UserInputState>>) {
             return { ...state, ...action.payload }
         },
-        resetUser(){
+        resetUser() {
             return initialState;
         }
     }
