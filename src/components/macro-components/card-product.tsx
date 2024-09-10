@@ -42,7 +42,6 @@ export function CardProduct({
             }
         })
         .then(() => {
-            console.log("save");
             closeCardProduct();
         })
     };
