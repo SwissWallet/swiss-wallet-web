@@ -39,7 +39,6 @@ export function Favorites() {
             })
             .then((json) => {
                 const data = json.data;
-                console.log(data)
                 setProductListFavorite(data.map((item: productInterface) => ({
                     id: item.product.id,
                     name: item.product.name,
@@ -51,7 +50,6 @@ export function Favorites() {
             }
         )}
         getProductsFavorites()
-        console.log("Passei")
         }, []);
 
     return (
@@ -74,7 +72,7 @@ export function Favorites() {
                                     description={product.description}
                                     value={Number(product.value)}
                                     image={product.image}
-                                    textOnButton={'ver mais'}
+                                    textOnButton={'Desfavoritar'}
                                     category={product.category}
                                     id={product.id}
                                 />

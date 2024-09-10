@@ -1,3 +1,4 @@
+import { api } from "../../lib/axios";
 import { CardProduct } from "../macro-components/card-product";
 import { MainButton } from "../micro-components/main-button"
 import { ReactNode, useState } from "react"
@@ -32,6 +33,15 @@ export function SingleProduct({
         setOpenCard(false);
     }
 
+    async function deleteFavorite(){
+        await api.delete(`/v3/favorites?idProduct=${id}`)
+        .then(()=>
+            console.log("Funfou")
+        ).catch(error =>
+            console.log("Deu ruim")
+        )
+    }
+
     return (
         <>
             <div className="flex items-center flex-col bg-white rounded-xl shadow-xl p-6">
@@ -44,9 +54,16 @@ export function SingleProduct({
                     <div className="flex justify-between gap-10 w-full">
                         <h4 className="font-extrabold text-4xl mt-">{value}<span className="text-sm ml-1">pontos</span></h4>
 
-                        <MainButton onClick={openCardProduct} width="min" >
+                    {textOnButton === "Desfavoritar" ?
+                    <MainButton onClick={deleteFavorite} width="min" >
+                    {textOnButton}
+                    </MainButton>
+                    :
+                    <MainButton onClick={openCardProduct} width="min" >
                             {textOnButton}
                         </MainButton>
+                    }
+                        
                     </div>
                 </article>
             </div>
