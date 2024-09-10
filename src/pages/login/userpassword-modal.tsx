@@ -60,7 +60,7 @@ export function UserPasswordModal({
         })
             .then(async (json) => {
                 try {
-                    await localStorage.setItem('token', json.data.token);
+                    localStorage.setItem('token', json.data.token);
 
                     logIn();
 

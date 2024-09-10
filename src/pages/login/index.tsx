@@ -11,6 +11,8 @@ import { setLogin } from "../../features/login-slice";
 import { setUser } from "../../features/user-slice";
 export function Login() {
 
+    const routeCurrent = localStorage.getItem('routeCurrent');
+
     const [filledUserName, setFilledUserName] = useState(false);
     const [isVisibleForgotPassword, setIsVisibleForgotPassword] = useState(false);
 
@@ -34,7 +36,7 @@ export function Login() {
                     api.defaults.headers['Authorization'] = `Bearer ${token}`;
                     dispatch(setUser(json.data));
                     dispatch(setLogin(true));
-                    navigate(`/home`);
+                    navigate(`${routeCurrent}`);
 
                 })
                 .catch((err) => {
