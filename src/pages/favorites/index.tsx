@@ -5,8 +5,6 @@ import { HeaderOnPages } from "../../components/macro-components/header-on-the-p
 import { SingleProduct } from "../../components/micro-components/single-product-card";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
-import { MainButton } from "../../components/micro-components/main-button";
-import { Heart } from "lucide-react";
 
 interface productInterface{
     id: string,
@@ -73,11 +71,7 @@ export function Favorites() {
                                     description={product.description}
                                     value={Number(product.value)}
                                     image={product.image}
-                                    textOnButton={
-                                        
-                                            <Heart className={`fill-white`} />
-                                        
-                                    }
+                                    textOnButton={"Desfavoritar"}
                                     category={product.category}
                                     id={product.id}
                                 />

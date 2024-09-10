@@ -36,11 +36,11 @@ export function SingleProduct({
     async function deleteFavorite(){
         await api.delete(`/v3/favorites?idProduct=${id}`)
         .then(()=>
-            console.log("Funfou")
-        ).catch(error =>
-            console.log("Deu ruim")
+            console.log("removido com sucesso")
+        ).catch((error) =>
+            console.log("Deu ruim" + error)
         )
-    }
+    };
 
     return (
         <>
@@ -54,15 +54,18 @@ export function SingleProduct({
                     <div className="flex justify-between gap-10 w-full">
                         <h4 className="font-extrabold text-4xl mt-">{value}<span className="text-sm ml-1">pontos</span></h4>
 
-                    {textOnButton === "Desfavoritar" ?
-                    <MainButton onClick={deleteFavorite} width="min" >
-                    {textOnButton}
-                    </MainButton>
-                    :
-                    <MainButton onClick={openCardProduct} width="min" >
-                            {textOnButton}
-                        </MainButton>
-                    }
+                        {textOnButton === "Desfavoritar" ? (
+                            <MainButton onClick={deleteFavorite} width="min" >
+                                {textOnButton}
+                            </MainButton>
+                        ): (
+                            <MainButton onClick={openCardProduct} width="min" >
+                                {textOnButton}
+                            </MainButton>
+                        )
+
+                        }
+                    
                         
                     </div>
                 </article>
