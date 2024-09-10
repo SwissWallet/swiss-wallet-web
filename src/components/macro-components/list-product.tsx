@@ -33,7 +33,7 @@ export default function ListProduct() {
         category: "",
     }
     const [ productList, setProductList ] = useState([product]);
-    const [ openCardId, setOpenCardId ] = useState<string | null>(null);
+    const [ openCardId, setOpenCardId ]   = useState<string | null>(null);
 
     function openCardProduct(id: string){
         setOpenCardId(id);
@@ -60,12 +60,7 @@ export default function ListProduct() {
         getProducts();
     }, []);
     
-    async function deleteProduct(id: string, onSuccess: () => void){
-        await api.delete(`/v3/products?id=${id}`)
-        .then(() => {
-            onSuccess();
-        }) 
-    };
+ 
 
     return (
         <>
@@ -79,10 +74,10 @@ export default function ListProduct() {
             <main className="bg-white shadow-lg m-12 flex flex-col justify-between rounded-3xl">
                 {/* titulo */}
                 <div className="flex justify-between p-12 items-center gap-8 text-2xl font-bold">
-                    <h4>Imagem</h4>
-                    <h4 className="w-1/4">Titulo</h4>
-                    <h4 className="">Valor</h4>
-                    <h4 className="">Selecione</h4>
+                    <h4 className='w-1/12'>Imagem</h4>
+                    <h4 className="w-2/6">Titulo</h4>
+                    <h4 className="w-24">Valor</h4>
+                    <h4 className="w-36">Selecione</h4>
                 </div>
                     {productList.map((product) => (
                             <div key={product.id}>
@@ -99,9 +94,9 @@ export default function ListProduct() {
                                             image={product.image}
                                             title={product.name}
                                             value={Number(product.value)}
+                                            id={product.id}
                                             category={product.category}
                                             closeCardProduct={closeCardProduct}
-                                            deleteProduct={() => deleteProduct(product.id, closeCardProduct)}
                                         />
                                     )}
                             </div>

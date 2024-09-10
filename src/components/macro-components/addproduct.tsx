@@ -43,7 +43,7 @@ export function AddNewProduct() {
     
 
     async function newProduct() {
-
+        const token = localStorage.getItem('token');
         if(!file){
             setTextAlert("Por favor, insira uma imagem");
             return
@@ -67,7 +67,8 @@ export function AddNewProduct() {
 
         const config = {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization' : `Bearer ${token}`
             }
         };
 
