@@ -71,14 +71,13 @@ export function Favorites() {
                                     description={product.description}
                                     value={Number(product.value)}
                                     image={product.image}
-                                    textOnButton={'Desfavoritar'}
+                                    textOnButton={"Desfavoritar"}
                                     category={product.category}
                                     id={product.id}
                                 />
                             </div>
                         ))}
                 </section>
-                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20"></section>
 
             </main>
             <Footer />
