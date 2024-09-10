@@ -54,7 +54,7 @@ export function Orders() {
                                     description={product.description}
                                     value={Number(product.value)}
                                     image={product.image}
-                                    textOnButton={'Ver mais'}
+                                    textOnButton={"Remover"}
                                     category={product.category}
                                     id={product.id}
                                 />
