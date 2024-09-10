@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface initialStateRoutes{
+interface initialStateRoutes {
     value: boolean
 }
 

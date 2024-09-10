@@ -13,43 +13,40 @@ export function Login() {
 
     const [filledUserName, setFilledUserName] = useState(false);
     const [isVisibleForgotPassword, setIsVisibleForgotPassword] = useState(false);
-    
-    const [ username, setUsername ] = useState('');
-    const [ password, setPassword ] = useState('');
-    const [ textAlert, setTextAlert ] = useState('');
-    
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [textAlert, setTextAlert] = useState('');
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     async function loadStorage() {
         const token = localStorage.getItem('token');
-        
+
         if (token) {
             await api.get(`/v3/users/current`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            .then((json) => {
-                api.defaults.headers['Authorization'] = `Bearer ${token}`;
-                dispatch(setUser(json.data));
-                dispatch(setLogin(true));
-                navigate(`/home`);
-                
-            })
-            .catch((err) => {
-                dispatch(setLogin(false));
-                console.log(err);
-            });
+                .then((json) => {
+                    api.defaults.headers['Authorization'] = `Bearer ${token}`;
+                    dispatch(setUser(json.data));
+                    dispatch(setLogin(true));
+                    navigate(`/home`);
+
+                })
+                .catch((err) => {
+                    dispatch(setLogin(false));
+                    console.log(err);
+                });
         }
     }
-    
+
     useEffect(() => {
         loadStorage();
     }, []);
-
-
-
 
     function openForgotPassword() {
         setIsVisibleForgotPassword(true)
@@ -68,27 +65,20 @@ export function Login() {
         setTextAlert("")
         setFilledUserName(false);
     }
-
     return (
         <div className="h-screen w-full bg-red-gradient flex flex-col justify-between">
             <HeaderLoginAndRegister />
-
             <main className="flex justify-center mb-14">
-
                 {
                     filledUserName ? (
-
                         isVisibleForgotPassword ? (
-
                             <ForgotPassword
                                 closeForgotPassword={closeForgotPassword}
                                 setTextAlert={setTextAlert}
                                 textAlert={textAlert}
                                 username={username}
                             />
-
                         ) : (
-
                             <UserPasswordModal
                                 handdleBackUserInput={handdleBackUserInput}
                                 openForgotPassword={openForgotPassword}
@@ -99,8 +89,6 @@ export function Login() {
                                 password={password}
                             />
                         )
-
-
                     ) : (
                         <UsernameModal
                             handdleAdvanceUserInput={handdleAdvanceUserInput}
@@ -111,14 +99,8 @@ export function Login() {
                         />
                     )
                 }
-
-
             </main>
-
             <FooterLoginAndRegister />
-
         </div>
-
-
     )
 }

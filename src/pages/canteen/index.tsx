@@ -5,7 +5,7 @@ import { HeaderOnPages } from "../../components/macro-components/header-on-the-p
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
 
-interface productInterface{
+interface productInterface {
     id: string,
     name: string,
     value: number,
@@ -25,23 +25,24 @@ export function Canteen() {
         category: "",
     }
 
-    const [ productListCanteen, setProductListCanteen ] = useState([product]);
+    const [productListCanteen, setProductListCanteen] = useState([product]);
 
     useEffect(() => {
-        async function getProductsCanteen(){
+        async function getProductsCanteen() {
             await api.get(`/v3/products/category?category=CANTEEN`)
-            .then((json) => {
-                const data = json.data;
-                setProductListCanteen(data.map((item: productInterface) => ({
-                    id: item.id,
-                    name: item.name,
-                    value: item.value,
-                    description: item.description,
-                    image: `data:image/jpeg;base64,${item.image}`,
-                    category: item.category,
-                })))
-            }
-        )}
+                .then((json) => {
+                    const data = json.data;
+                    setProductListCanteen(data.map((item: productInterface) => ({
+                        id: item.id,
+                        name: item.name,
+                        value: item.value,
+                        description: item.description,
+                        image: `data:image/jpeg;base64,${item.image}`,
+                        category: item.category,
+                    })))
+                }
+                )
+        }
 
         getProductsCanteen();
     }, [])
@@ -59,18 +60,18 @@ export function Canteen() {
                 <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
 
                     {productListCanteen.map((product) => (
-                            <div key={product.id}>
-                                <SingleProduct
-                                    title={product.name}
-                                    description={product.description}
-                                    value={Number(product.value)}
-                                    image={product.image}
-                                    textOnButton={'ver mais'}
-                                    category={product.category}
-                                    id={product.id}
-                                />
-                            </div>
-                        ))}
+                        <div key={product.id}>
+                            <SingleProduct
+                                title={product.name}
+                                description={product.description}
+                                value={Number(product.value)}
+                                image={product.image}
+                                textOnButton={'ver mais'}
+                                category={product.category}
+                                id={product.id}
+                            />
+                        </div>
+                    ))}
 
                 </section>
             </main>

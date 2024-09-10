@@ -133,20 +133,15 @@ export function DrawerMenu({
                     </Link>
                 </nav>
             </div>
-
             <div className="bg-white w-full h-[1px]" />
-
             <div className="flex items-center mt-5 flex-col justify-center gap-5">
-
                 <div className="bg-gradient-to-t from-slate-700 to-black flex justify-center items-center rounded-full w-14 h-14 ">
                     <User className="size-10 text-white" />
                 </div>
-
                 <div className="flex flex-col justify-centeritems-center">
                     <div className="flex flex-col justify-center items-center">
                         <h1 className="text-white font-medium text-base">{user.user.name}</h1>
                         <p className="text-zinc-400 font-light">{user.user.username}</p>
-
                     </div>
                     <button onClick={logoutUser}>
                         <div>
@@ -154,11 +149,8 @@ export function DrawerMenu({
                         </div>
                     </button>
                 </div>
-
             </div>
-
             {isOpenDepositModal && <DepositModal closeDepositModal={closeDepositModal} />}
-
         </div>
     )
 }

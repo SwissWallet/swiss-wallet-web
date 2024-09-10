@@ -7,51 +7,51 @@ import { useState } from "react";
 import { api } from "../../lib/axios";
 import { setUser } from "../../features/user-slice";
 
-interface ChangeAddressModalProps{
+interface ChangeAddressModalProps {
     closeChangeAddressModal: () => void,
 }
 
 export function ChangeAddressModal({
     closeChangeAddressModal,
-}:ChangeAddressModalProps){
+}: ChangeAddressModalProps) {
     const dispatch = useDispatch();
-    const user = useSelector((state:RootState) => state.authUser.value);
+    const user = useSelector((state: RootState) => state.authUser.value);
 
-    const [ zipCode, setZipCode ] = useState(user.address.zipCode);
-    const [ street, setStreet ] = useState(user.address.street);
-    const [ city, setCity ] = useState(user.address.city);
-    const [ uf, setUf ] = useState(user.address.uf);
-    const [ number, setNumber ] = useState(user.address.number);
-    const [ textAlert, setTextAlert ] = useState("");
+    const [zipCode, setZipCode] = useState(user.address.zipCode);
+    const [street, setStreet] = useState(user.address.street);
+    const [city, setCity] = useState(user.address.city);
+    const [uf, setUf] = useState(user.address.uf);
+    const [number, setNumber] = useState(user.address.number);
+    const [textAlert, setTextAlert] = useState("");
 
     async function changeAddress() {
         await api.put(`/v3/users/address`, {
             zipCode, street, city, number, uf
         })
-        .then((json) => {
-            if(json.status === 200){
-                console.log("endereço alterado com sucesso")
-                reload();
-            }
-        })
-        .catch((err) => {
-            if(err.response.status === 403){
-                console.log("endereço inválido")
-            }
-        })
+            .then((json) => {
+                if (json.status === 200) {
+                    console.log("endereço alterado com sucesso")
+                    reload();
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 403) {
+                    console.log("endereço inválido")
+                }
+            })
     }
 
     async function reload() {
         await api.get('/v3/users/current')
-        .then ((json) => {
-            dispatch(setUser(json.data))
-        })
+            .then((json) => {
+                dispatch(setUser(json.data))
+            })
     }
 
     const handdleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if(zipCode === "" || street === "" || city === "" || number === null || uf === ""){
+        if (zipCode === "" || street === "" || city === "" || number === null || uf === "") {
             setTextAlert("preencha todos os campos")
             return
         }
@@ -59,7 +59,6 @@ export function ChangeAddressModal({
         changeAddress();
         closeChangeAddressModal();
     }
-
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -74,8 +73,8 @@ export function ChangeAddressModal({
                     <p className="text-red-700 text-center w-full font-medium text-xl">{textAlert}</p>
                 </div>
                 <div className="flex flex-col gap-6">
-                    <UserInput 
-                        placeholder="ex: 11560130" 
+                    <UserInput
+                        placeholder="ex: 11560130"
                         value={zipCode}
                         type="text"
                         maxLength={8} minLength={8} required
@@ -83,36 +82,36 @@ export function ChangeAddressModal({
                     >CEP</UserInput>
 
                     <div className="flex items-center gap-5 ">
-                        <UserInput 
-                            placeholder="ex: São Paulo" 
-                            type="text" 
+                        <UserInput
+                            placeholder="ex: São Paulo"
+                            type="text"
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                         >Cidade</UserInput>
 
                         <div className='flex flex-col gap-3'>
                             <h2 className='font-medium text-base'>UF</h2>
-                                <input 
-                                    type="text"
-                                    placeholder="ex: SP"
-                                    value={uf}
-                                    minLength={2} maxLength={2} required
-                                    onChange={(e) => setUf(e.target.value)}
-                                    className='outline-none rounded-md p-2 border-2 border-zinc-300  font-medium placeholder-slate-400
+                            <input
+                                type="text"
+                                placeholder="ex: SP"
+                                value={uf}
+                                minLength={2} maxLength={2} required
+                                onChange={(e) => setUf(e.target.value)}
+                                className='outline-none rounded-md p-2 border-2 border-zinc-300  font-medium placeholder-slate-400
                                                 focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic'
-                                />
+                            />
                         </div>
                     </div>
 
-                    <UserInput 
-                        placeholder="ex: Conselheiro Crispiniano" 
-                        value={street} 
+                    <UserInput
+                        placeholder="ex: Conselheiro Crispiniano"
+                        value={street}
                         type="text"
                         onChange={(e) => setStreet(e.target.value)}
                     >Rua</UserInput>
 
-                    <UserInput 
-                        placeholder="ex: 22" 
+                    <UserInput
+                        placeholder="ex: 22"
                         type="number"
                         value={number}
                         minLength={1} required
@@ -125,7 +124,6 @@ export function ChangeAddressModal({
                         Alterar
                     </MainButton>
                 </div>
-
             </form>
         </div>
     )

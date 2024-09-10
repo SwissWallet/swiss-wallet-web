@@ -17,7 +17,7 @@ export default function CardPoint() {
                 {/* barra de busca */}
                 <div className="flex items-center justify-between p-5 bg-white rounded-full shadow-lg">
                     <p className="font-bold text-gray-400">buscar por email / cpf</p>
-                    <IoSearchOutline className="w-6"/>                    
+                    <IoSearchOutline className="w-6" />
                 </div>
                 <p className="text-4xl font-bold mt-14 text-white pb-2">Pontos</p>
                 <div className="flex gap-10 text-white">

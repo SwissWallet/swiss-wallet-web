@@ -55,13 +55,12 @@ export function Favorites() {
     return (
         <div>
             <Navbar />
-
             <main className="ml-20 mr-20 justify-between flex flex-col gap-20 mt-20">
-
                 <HeaderOnPages
                     title="Favoritos"
                     description="Confira sua lista de favoritos"
                 />
+
 
                 <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
 
@@ -79,11 +78,10 @@ export function Favorites() {
                             </div>
                         ))}
                 </section>
+                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20"></section>
 
             </main>
-
             <Footer />
-
         </div>
     )
 }

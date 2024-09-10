@@ -11,7 +11,6 @@ export function WithdrawOrder() {
                 <div className="bg-blue-800 h-[2px] w-12"></div>
                 <div className="bg-dark-gray rounded-full h-8 w-8"></div>
             </div>
-
         </div>
     )
 }

@@ -9,9 +9,7 @@ import { WithdrawOrder } from "./withdraw-order-status";
 export function Orders() {
     return (
         <div className="bg-default-gray ">
-
             <Navbar />
-
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
 
                 <div className="grid grid-cols-4 gap-20">
@@ -20,11 +18,8 @@ export function Orders() {
                     <SingleOrdersProductCard status={<CompletedStatus />} />
                     <SingleOrdersProductCard status={<UnavailableStatus />} />
                 </div>
-
             </main>
-
             <Footer />
-
         </div>
     )
 }

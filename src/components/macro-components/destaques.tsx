@@ -5,9 +5,7 @@ export function CardDestaques() {
                 <h3 className="text-4xl font-bold flex justify-between mb-8">Destaques - Loja</h3>
             </div>
             <div className="flex">
-                <div className="flex flex-wrap gap-10 justify-center w-[1300px]">
-                    
-                </div>
+                <div className="flex flex-wrap gap-10 justify-center w-[1300px]"></div>
             </div>
         </div>
     )

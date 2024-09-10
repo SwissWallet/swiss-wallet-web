@@ -5,7 +5,7 @@ import { HeaderOnPages } from "../../components/macro-components/header-on-the-p
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
 
-interface productInterface{
+interface productInterface {
     id: string,
     name: string,
     value: number,
@@ -13,7 +13,6 @@ interface productInterface{
     image: string,
     category: string,
 }
-
 
 export function Store() {
 
@@ -26,24 +25,24 @@ export function Store() {
         category: "",
     }
 
-    const [ productListStore, setProductListStore ] = useState([product])
+    const [productListStore, setProductListStore] = useState([product])
 
     useEffect(() => {
-        async function getProductsStore(){
+        async function getProductsStore() {
             await api.get(`/v3/products/category?category=STORE`)
-            .then((json) => {
-                const data = json.data;
-                setProductListStore(data.map((item: productInterface) => ({
-                    id: item.id,
-                    name: item.name,
-                    value: item.value,
-                    description: item.description,
-                    image: `data:image/jpeg;base64,${item.image}`,
-                    category: item.category,
-                })))
-            }
-        )}
-
+                .then((json) => {
+                    const data = json.data;
+                    setProductListStore(data.map((item: productInterface) => ({
+                        id: item.id,
+                        name: item.name,
+                        value: item.value,
+                        description: item.description,
+                        image: `data:image/jpeg;base64,${item.image}`,
+                        category: item.category,
+                    })))
+                }
+                )
+        }
         getProductsStore()
     }, [])
 
@@ -56,21 +55,19 @@ export function Store() {
                     description="Confira nossas melhores opções de camisetas"
                 />
                 <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
-
-                        {productListStore.map((product) => (
-                            <div key={product.id}>
-                                <SingleProduct
-                                    title={product.name}
-                                    description={product.description}
-                                    value={Number(product.value)}
-                                    image={product.image}
-                                    category={product.category}
-                                    id={product.id}
-                                    textOnButton={'ver mais'}
-                                />
-                            </div>
-                        ))}
-                    
+                    {productListStore.map((product) => (
+                        <div key={product.id}>
+                            <SingleProduct
+                                title={product.name}
+                                description={product.description}
+                                value={Number(product.value)}
+                                image={product.image}
+                                category={product.category}
+                                id={product.id}
+                                textOnButton={'ver mais'}
+                            />
+                        </div>
+                    ))}
                 </section>
             </main>
             <Footer />
