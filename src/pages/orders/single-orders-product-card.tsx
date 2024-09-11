@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { MainButton } from "../../components/micro-components/main-button";
+import { OrderCardProduct } from "./order-card-product";
 
 interface SingleOrdersProductCardProps {
     status: ReactNode,
@@ -9,7 +10,8 @@ interface SingleOrdersProductCardProps {
     value: number,
     id: string,
     category: string,
-    username: string | undefined
+    username: string | undefined,
+    setOpenOrderCard: (e: boolean) => void;
 }
 
 export function SingleOrdersProductCard({
@@ -18,7 +20,13 @@ export function SingleOrdersProductCard({
     image,
     title,
     username,
+    setOpenOrderCard
 }: SingleOrdersProductCardProps) {
+
+    
+
+
+
     return (
         <div className="flex items-center flex-col box-border gap-3">
             <span className="font-medium text-lg">de: {username}</span>
@@ -29,8 +37,10 @@ export function SingleOrdersProductCard({
                     <p className="text-sm font-extralight">{description}</p>
                 </div>
                 {status}
-            <MainButton width="min">Selecionar</MainButton>
+            <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
             </article>
+
+        
         </div>
     )
 }
