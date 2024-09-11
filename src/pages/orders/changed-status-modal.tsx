@@ -15,8 +15,6 @@ export function ChangedStatusModal({
     setSelectedStatus,
 }: ChangedStatusModalProps){
 
-
-
     return(
         <div className="fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50">
             <div className="w-auto h-auto p-5 bg-white rounded-lg gap-10 flex flex-col ">

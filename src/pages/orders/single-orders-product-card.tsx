@@ -32,8 +32,6 @@ export function SingleOrdersProductCard({
 
     const [ openOrderCard, setOpenOrderCard ] = useState(false);
 
-    console.log(selectedStatus)
-
     return (
         <div className="flex items-center flex-col box-border gap-3">
             <span className="font-medium text-lg">de: {username}</span>
