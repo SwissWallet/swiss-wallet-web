@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
@@ -9,7 +9,6 @@ import { RootState } from "../../store";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { SingleOrdersProductCard } from "./single-orders-product-card";
 import { InProgress } from "./in-progress-status";
-import { OrderCardProduct } from "./order-card-product";
 
 interface productInterface {
     id: string,
@@ -25,7 +24,6 @@ export function Orders() {
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
-    const [ openOrderCard, setOpenOrderCard ] = useState(false);
     const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
 
     const role = user.user.role;
@@ -116,18 +114,9 @@ export function Orders() {
                                             image={product.image}
                                             category={product.category}
                                             id={product.id}
-                                            setOpenOrderCard={setOpenOrderCard}
                                         />
 
-                                        {openOrderCard && (
-                                            <OrderCardProduct  
-                                            status={<InProgress />}
-                                            title={product.name}
-                                            value={Number(product.value)}
-                                            image={product.image}
-                                            setOpenOrderCard={setOpenOrderCard}
-                                            />
-                                        )}
+                                        
                                     </div>                                
                             ))}
                     </div>

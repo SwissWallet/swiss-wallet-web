@@ -1,5 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { MainButton } from "../../components/micro-components/main-button";
+import { OrderCardProduct } from "./order-card-product";
+import { InProgress } from "./in-progress-status";
 
 interface SingleOrdersProductCardProps {
     status: ReactNode,
@@ -10,7 +12,6 @@ interface SingleOrdersProductCardProps {
     id: string,
     category: string,
     username: string | undefined,
-    setOpenOrderCard: (e: boolean) => void;
 }
 
 export function SingleOrdersProductCard({
@@ -19,12 +20,14 @@ export function SingleOrdersProductCard({
     image,
     title,
     username,
-    setOpenOrderCard
+    value
 }: SingleOrdersProductCardProps) {
 
     
+    const [ selectedStatus, setSelectedStatus ] = useState<string>("");
+    const [ openOrderCard, setOpenOrderCard ] = useState(false);
 
-
+    console.log(selectedStatus)
 
     return (
         <div className="flex items-center flex-col box-border gap-3">
@@ -38,7 +41,16 @@ export function SingleOrdersProductCard({
                 {status}
             <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
             </article>
-
+            {openOrderCard && (
+                                            <OrderCardProduct  
+                                            status={<InProgress />}
+                                            title={title}
+                                            value={value}
+                                            image={image}
+                                            setOpenOrderCard={setOpenOrderCard}
+                                            setSelectedStatus={setSelectedStatus}
+                                            />
+                                        )}
         
         </div>
     )

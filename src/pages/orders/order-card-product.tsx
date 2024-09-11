@@ -9,12 +9,14 @@ interface OrderCardProductProps{
     value: number,
     category?: string,
     status: ReactNode,
-    setOpenOrderCard: (e: boolean) => void
+    setOpenOrderCard: (e: boolean) => void,
+    setSelectedStatus: (e: string) => void,
 }
 
 export function OrderCardProduct({
     image,
     setOpenOrderCard,
+    setSelectedStatus,
     status,
     title,
     value
@@ -44,7 +46,7 @@ export function OrderCardProduct({
                     </article>
                 </div>
             </div>
-            {openStatusModal && (<ChangedStatusModal setOpenStatusModal={setOpenStatusModal}/>)}
+            {openStatusModal && (<ChangedStatusModal setSelectedStatus={setSelectedStatus} setOpenStatusModal={setOpenStatusModal}/>)}
         </div>
     )
 };
