@@ -1,6 +1,5 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { MainButton } from "../../components/micro-components/main-button";
-import { OrderCardProduct } from "./order-card-product";
 
 interface SingleOrdersProductCardProps {
     status: ReactNode,
