@@ -1,3 +1,4 @@
+import { StatusKey } from ".";
 import { BackButton } from "../../components/micro-components/back-button";
 import { CompletedStatus } from "./completed-status";
 import { ProgressStatus } from "./progress-status";
@@ -6,7 +7,7 @@ import { WithDrawStatus } from "./withdraw-status";
 
 interface ChangedStatusModalProps{
     setOpenStatusModal: (e: boolean) => void;
-    setSelectedStatus: (e: string) => void;
+    setSelectedStatus: (e: StatusKey) => void;
 };
 
 export function ChangedStatusModal({

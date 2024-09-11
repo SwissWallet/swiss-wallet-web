@@ -1,10 +1,9 @@
 import { ReactNode, useState } from "react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { OrderCardProduct } from "./order-card-product";
-import { InProgress } from "./in-progress-status";
+import { StatusKey } from ".";
 
 interface SingleOrdersProductCardProps {
-    status: ReactNode,
     title: string,
     description: string,
     image: string,
@@ -12,19 +11,25 @@ interface SingleOrdersProductCardProps {
     id: string,
     category: string,
     username: string | undefined,
-}
+    selectedStatus: StatusKey,
+    setSelectedStatus: (e: StatusKey) => void,
+    statusBars: Record<StatusKey, JSX.Element>,
+    status?: ReactNode,
+};
+
 
 export function SingleOrdersProductCard({
-    status,
     description,
     image,
     title,
     username,
-    value
+    value,
+    selectedStatus,
+    setSelectedStatus,
+    statusBars,
+    status
 }: SingleOrdersProductCardProps) {
 
-    
-    const [ selectedStatus, setSelectedStatus ] = useState<string>("");
     const [ openOrderCard, setOpenOrderCard ] = useState(false);
 
     console.log(selectedStatus)
@@ -42,15 +47,15 @@ export function SingleOrdersProductCard({
             <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
             </article>
             {openOrderCard && (
-                                            <OrderCardProduct  
-                                            status={<InProgress />}
-                                            title={title}
-                                            value={value}
-                                            image={image}
-                                            setOpenOrderCard={setOpenOrderCard}
-                                            setSelectedStatus={setSelectedStatus}
-                                            />
-                                        )}
+                <OrderCardProduct  
+                    status={statusBars[selectedStatus]}
+                    title={title}
+                    value={value}
+                    image={image}
+                    setOpenOrderCard={setOpenOrderCard}
+                    setSelectedStatus={setSelectedStatus}
+                />
+            )}
         
         </div>
     )

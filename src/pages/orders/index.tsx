@@ -1,4 +1,4 @@
-// @ts-nocheck
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
@@ -9,6 +9,9 @@ import { RootState } from "../../store";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { SingleOrdersProductCard } from "./single-orders-product-card";
 import { InProgress } from "./in-progress-status";
+import { WithdrawOrder } from "./withdraw-order-status";
+import { UnavailableStatus } from "./unavailable-status";
+import { CompletedStatus } from "./completed-status";
 
 interface productInterface {
     id: string,
@@ -18,13 +21,24 @@ interface productInterface {
     image: string,
     category: string,
     username?: string,
-}
+};
+
+export type StatusKey = 'progress' | 'withdraw' | 'unavailable' | 'completed';
 
 export function Orders() {
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
     const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
+    const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('progress');
+
+    
+    const statusBars: Record<StatusKey, JSX.Element> = {
+        progress: <InProgress />,
+        withdraw: <WithdrawOrder />,
+        unavailable: <UnavailableStatus />,
+        completed: <CompletedStatus />,
+    };
 
     const role = user.user.role;
     const isClient = role === "ROLE_CLIENT";
@@ -106,7 +120,6 @@ export function Orders() {
                             {orderProductList.map((product) => (
                                     <div key={product.id}>
                                         <SingleOrdersProductCard
-                                            status={<InProgress />}
                                             username={product.username}
                                             title={product.name}
                                             description={product.description}
@@ -114,6 +127,10 @@ export function Orders() {
                                             image={product.image}
                                             category={product.category}
                                             id={product.id}
+                                            statusBars={statusBars}
+                                            status={statusBars[selectedStatus]}
+                                            selectedStatus={selectedStatus}
+                                            setSelectedStatus={setSelectedStatus}
                                         />
 
                                         
