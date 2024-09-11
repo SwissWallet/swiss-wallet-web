@@ -3,7 +3,7 @@ import { BackButton } from "../../components/micro-components/back-button";
 import { CompletedStatus } from "./completed-status";
 import { ProgressStatus } from "./progress-status";
 import { UnavailableStatus } from "./unavailable-status";
-import { WithDrawStatus } from "./withdraw-status";
+import { WithdrawStatus } from "./withdraw-status";
 
 interface ChangedStatusModalProps{
     setOpenStatusModal: (e: boolean) => void;
@@ -31,7 +31,7 @@ export function ChangedStatusModal({
                     </button>
                     <button onClick={() => setSelectedStatus("withdraw")} className="w-full">
                         <div className="items-start flex hover:border-slate-400 border-dashed border-slate-500 px-5 py-2 hover:bg-slate-200">
-                            <WithDrawStatus/>
+                            <WithdrawStatus/>
                         </div>
                     </button>
                     <button onClick={() => setSelectedStatus("completed")} className="w-full">

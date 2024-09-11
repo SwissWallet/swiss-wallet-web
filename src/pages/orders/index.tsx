@@ -8,10 +8,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { SingleOrdersProductCard } from "./single-orders-product-card";
-import { InProgress } from "./in-progress-status";
-import { WithdrawOrder } from "./withdraw-order-status";
 import { UnavailableStatus } from "./unavailable-status";
 import { CompletedStatus } from "./completed-status";
+import { WithdrawStatus } from "./withdraw-status";
+import { ProgressStatus } from "./progress-status";
 
 interface productInterface {
     id: string,
@@ -34,8 +34,8 @@ export function Orders() {
 
     
     const statusBars: Record<StatusKey, JSX.Element> = {
-        progress: <InProgress />,
-        withdraw: <WithdrawOrder />,
+        progress: <ProgressStatus />,
+        withdraw: <WithdrawStatus />,
         unavailable: <UnavailableStatus />,
         completed: <CompletedStatus />,
     };
@@ -132,8 +132,6 @@ export function Orders() {
                                             selectedStatus={selectedStatus}
                                             setSelectedStatus={setSelectedStatus}
                                         />
-
-                                        
                                     </div>                                
                             ))}
                     </div>
