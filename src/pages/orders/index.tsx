@@ -24,6 +24,10 @@ interface productInterface {
     status: StatusKey,
 };
 
+interface itemI{
+    id: number
+}
+
 export type StatusKey = 'ANALYSIS' | 'SEPARATED' | 'UNAVAILABLE' | 'COMPLETED';
 
 export function Orders() {
@@ -31,16 +35,31 @@ export function Orders() {
     const user = useSelector((state: RootState) => state.authUser.value);
 
     const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
+    const [ order, setOrder ] = useState([]);
     const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('ANALYSIS');
 
     function changedStatusProduct(productId: string, statusAlt: StatusKey) {
+        const product = orderProductList.find((product) => product.id === productId);
+        if (!product) return;
+
+        const orderId = product.orderId;
+
         setOrderProductList((prevList) => 
             prevList.map((product) => 
                 product.id === productId ? { ...product, status: statusAlt } : product
             )
         );
+        console.log("orderId: " + orderId);
         console.log("id: " + productId);
         console.log("status: " + statusAlt);
+
+        api.put(`/v3/orders/change-status?idOrder=${orderId}&status=${statusAlt}`)
+        .then(() => {
+            console.log("sucessfull")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     };
 
     
@@ -59,6 +78,9 @@ export function Orders() {
         .then((json) => {
             const data = json.data;
             console.log(data)
+            setOrder(data.map((item: itemI) => ({
+                id: item.id
+            })));
             setOrderProductList(data.map((item: productInterface) => ({
                     id: item.product.id,
                     name: item.product.name,
@@ -67,7 +89,7 @@ export function Orders() {
                     image: `data:image/jpeg;base64,${item.product.image}`,
                     category: item.product.category,
                     status: item.status
-            })))
+            })));
         })
         .catch(() => {
             console.log("error")
@@ -80,6 +102,7 @@ export function Orders() {
             const data = json.data;
             console.log(data)
             setOrderProductList(data.map((item: productInterface) => ({
+                orderId: item.id,
                 id: item.product.id,
                 name: item.product.name,
                 value: item.product.value,
@@ -90,9 +113,6 @@ export function Orders() {
                 status: item.status
             })))
         })
-
-        console.log("lista atual \n");
-        console.log(orderProductList);
     };
 
     useEffect(() => {  
@@ -104,12 +124,6 @@ export function Orders() {
         }
 
     }, [])
-
-    useEffect(() => {
-        console.log(selectedStatus)
-    },[selectedStatus])
-
-
 
     return (
         <div className="bg-default-gray ">
@@ -150,7 +164,7 @@ export function Orders() {
                                             category={product.category}
                                             id={product.id}
                                             statusBars={statusBars}
-                                            status={statusBars[selectedStatus]}
+                                            status={statusBars[product.status]}
                                             selectedStatus={selectedStatus}
                                             setSelectedStatus={setSelectedStatus}
                                             changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
