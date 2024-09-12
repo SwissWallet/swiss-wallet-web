@@ -13,6 +13,7 @@ import { Register } from '../pages/register';
 import { PrivateRoute } from './private-route';
 import AddProduct from '../pages/list-product';
 import AddProductPage from '../pages/app-product';
+import BuyPage from '../pages/buy-product';
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +88,12 @@ export const router = createBrowserRouter([
     path: '/list-product',
     element: (
       <PrivateRoute element={<AddProduct />} />
+    ),
+  },
+  {
+    path: '/buy-product',
+    element: (
+      <PrivateRoute element={<BuyPage />} />
     ),
   },
 ]);
