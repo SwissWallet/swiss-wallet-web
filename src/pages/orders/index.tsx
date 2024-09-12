@@ -35,7 +35,6 @@ export function Orders() {
     const user = useSelector((state: RootState) => state.authUser.value);
 
     const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
-    const [ order, setOrder ] = useState([]);
     const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('ANALYSIS');
 
     function changedStatusProduct(productId: string, statusAlt: StatusKey) {
@@ -156,6 +155,7 @@ export function Orders() {
                             {orderProductList.map((product) => (
                                     <div key={product.id}>
                                         <SingleOrdersProductCard
+                                            productStatus={product.status}
                                             username={product.username}
                                             title={product.name}
                                             description={product.description}

@@ -11,10 +11,12 @@ interface OrderCardProductProps{
     id: string
     value: number,
     category?: string,
-    status: ReactNode,
+    status?: ReactNode,
     setOpenOrderCard: (e: boolean) => void,
     setSelectedStatus: (e: StatusKey) => void,
     changedStatusProduct: (id: string , statusAlt: StatusKey) => void,
+    statusBars: Record<StatusKey, JSX.Element>,
+    productStatus: StatusKey,
 }
 
 export function OrderCardProduct({
@@ -22,7 +24,8 @@ export function OrderCardProduct({
     setOpenOrderCard,
     setSelectedStatus,
     id,
-    status,
+    statusBars,
+    productStatus,
     title,
     value,
     changedStatusProduct
@@ -48,7 +51,7 @@ export function OrderCardProduct({
                         <div className="flex justify-center">
                             <h1 className="text-3xl font-extrabold">{value} <span className="text-xl font-semibold">   pontos</span></h1>
                         </div>
-                        {status}
+                        {statusBars[productStatus]}
                     <MainButton onClick={() => setOpenStatusModal(true)}>Status</MainButton>
                     </article>
                 </div>

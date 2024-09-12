@@ -14,6 +14,7 @@ interface SingleOrdersProductCardProps {
     selectedStatus: StatusKey,
     setSelectedStatus: (e: StatusKey) => void,
     statusBars: Record<StatusKey, JSX.Element>,
+    productStatus: StatusKey,
     status?: ReactNode,
     changedStatusProduct: (id: string, statusAlt: StatusKey) => void,
 };
@@ -28,7 +29,7 @@ export function SingleOrdersProductCard({
     selectedStatus,
     setSelectedStatus,
     statusBars,
-    status,
+    productStatus,
     changedStatusProduct,
     id,
 }: SingleOrdersProductCardProps) {
@@ -44,7 +45,7 @@ export function SingleOrdersProductCard({
                     <h4 className="text-xl font-semibold">{title}</h4>
                     <p className="text-sm font-extralight">{description}</p>
                 </div>
-                {status}
+                {statusBars[productStatus]}
             <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
             </article>
             {openOrderCard && (
@@ -53,6 +54,8 @@ export function SingleOrdersProductCard({
                     title={title}
                     value={value}
                     image={image}
+                    statusBars={statusBars}
+                    productStatus={productStatus}
                     setOpenOrderCard={setOpenOrderCard}
                     setSelectedStatus={setSelectedStatus}
                     id={id}
