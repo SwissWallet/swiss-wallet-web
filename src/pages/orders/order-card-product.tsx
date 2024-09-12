@@ -8,20 +8,26 @@ import { BackButton } from "../../components/micro-components/back-button";
 interface OrderCardProductProps{
     title: string,
     image: string,
+    id: string
     value: number,
     category?: string,
     status: ReactNode,
     setOpenOrderCard: (e: boolean) => void,
     setSelectedStatus: (e: StatusKey) => void,
+    selectStatus: StatusKey,
+    changedStatusProduct: (id , statusAlt) => void,
 }
 
 export function OrderCardProduct({
     image,
     setOpenOrderCard,
     setSelectedStatus,
+    selectStatus,
+    id,
     status,
     title,
-    value
+    value,
+    changedStatusProduct
 }: OrderCardProductProps){
 
     const [ openStatusModal, setOpenStatusModal ] = useState(false);
@@ -49,7 +55,14 @@ export function OrderCardProduct({
                     </article>
                 </div>
             </div>
-            {openStatusModal && (<ChangedStatusModal setSelectedStatus={setSelectedStatus} setOpenStatusModal={setOpenStatusModal}/>)}
+            {openStatusModal && (
+                <ChangedStatusModal 
+                    id={id}
+                    setSelectedStatus={setSelectedStatus} 
+                    setOpenStatusModal={setOpenStatusModal}
+                    changedStatusProduct={(id , selectedStatus) => changedStatusProduct(id, selectedStatus)}
+                />
+            )}
         </div>
     )
 };

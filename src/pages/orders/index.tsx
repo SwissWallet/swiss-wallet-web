@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
@@ -21,23 +21,34 @@ interface productInterface {
     image: string,
     category: string,
     username?: string,
+    status: StatusKey,
 };
 
-export type StatusKey = 'progress' | 'withdraw' | 'unavailable' | 'completed';
+export type StatusKey = 'ANALYSIS' | 'SEPARATED' | 'UNAVAILABLE' | 'COMPLETED';
 
 export function Orders() {
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
     const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
-    const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('progress');
+    const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('ANALYSIS');
+
+    function changedStatusProduct(productId: string, statusAlt: StatusKey) {
+        setOrderProductList((prevList) => 
+            prevList.map((product) => 
+                product.id === productId ? { ...product, status: statusAlt } : product
+            )
+        );
+        console.log("id: " + productId);
+        console.log("status: " + statusAlt);
+    };
 
     
     const statusBars: Record<StatusKey, JSX.Element> = {
-        progress: <ProgressStatus />,
-        withdraw: <WithdrawStatus />,
-        unavailable: <UnavailableStatus />,
-        completed: <CompletedStatus />,
+        ANALYSIS: <ProgressStatus />,
+        SEPARATED: <WithdrawStatus />,
+        UNAVAILABLE: <UnavailableStatus />,
+        COMPLETED: <CompletedStatus />,
     };
 
     const role = user.user.role;
@@ -55,6 +66,7 @@ export function Orders() {
                     description: item.product.description,
                     image: `data:image/jpeg;base64,${item.product.image}`,
                     category: item.product.category,
+                    status: item.status
             })))
         })
         .catch(() => {
@@ -74,9 +86,13 @@ export function Orders() {
                 description: item.product.description,
                 image: `data:image/jpeg;base64,${item.product.image}`,
                 category: item.product.category,
-                username: item.user.name
+                username: item.user.name,
+                status: item.status
             })))
         })
+
+        console.log("lista atual \n");
+        console.log(orderProductList);
     };
 
     useEffect(() => {  
@@ -88,6 +104,12 @@ export function Orders() {
         }
 
     }, [])
+
+    useEffect(() => {
+        console.log(selectedStatus)
+    },[selectedStatus])
+
+
 
     return (
         <div className="bg-default-gray ">
@@ -131,6 +153,7 @@ export function Orders() {
                                             status={statusBars[selectedStatus]}
                                             selectedStatus={selectedStatus}
                                             setSelectedStatus={setSelectedStatus}
+                                            changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
                                         />
                                     </div>                                
                             ))}

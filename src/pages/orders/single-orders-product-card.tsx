@@ -15,6 +15,7 @@ interface SingleOrdersProductCardProps {
     setSelectedStatus: (e: StatusKey) => void,
     statusBars: Record<StatusKey, JSX.Element>,
     status?: ReactNode,
+    changedStatusProduct: (id , statusAlt) => void,
 };
 
 
@@ -27,7 +28,9 @@ export function SingleOrdersProductCard({
     selectedStatus,
     setSelectedStatus,
     statusBars,
-    status
+    status,
+    changedStatusProduct,
+    id,
 }: SingleOrdersProductCardProps) {
 
     const [ openOrderCard, setOpenOrderCard ] = useState(false);
@@ -52,6 +55,9 @@ export function SingleOrdersProductCard({
                     image={image}
                     setOpenOrderCard={setOpenOrderCard}
                     setSelectedStatus={setSelectedStatus}
+                    id={id}
+                    selectedStatus={selectedStatus}
+                    changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
                 />
             )}
         
