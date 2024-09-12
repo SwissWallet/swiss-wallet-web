@@ -14,15 +14,13 @@ interface OrderCardProductProps{
     status: ReactNode,
     setOpenOrderCard: (e: boolean) => void,
     setSelectedStatus: (e: StatusKey) => void,
-    selectStatus: StatusKey,
-    changedStatusProduct: (id , statusAlt) => void,
+    changedStatusProduct: (id: string , statusAlt: StatusKey) => void,
 }
 
 export function OrderCardProduct({
     image,
     setOpenOrderCard,
     setSelectedStatus,
-    selectStatus,
     id,
     status,
     title,
