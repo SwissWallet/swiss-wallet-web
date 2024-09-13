@@ -42,9 +42,6 @@ export function Orders() {
                 product.id === productId ? { ...product, status: statusAlt } : product
             )
         );
-        console.log("orderId: " + orderId);
-        console.log("id: " + productId);
-        console.log("status: " + statusAlt);
 
         api.put(`/v3/orders/change-status?idOrder=${orderId}&status=${statusAlt}`)
         .then(() => {

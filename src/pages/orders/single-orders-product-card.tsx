@@ -2,6 +2,8 @@ import { ReactNode, useState } from "react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { OrderCardProduct } from "./order-card-product";
 import { StatusKey } from ".";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 interface SingleOrdersProductCardProps {
     title: string,
@@ -36,9 +38,14 @@ export function SingleOrdersProductCard({
 
     const [ openOrderCard, setOpenOrderCard ] = useState(false);
 
+    const user = useSelector((state: RootState) => state.authUser.value);
+
+    const role = user.user.role;
+    const isClient = role === "ROLE_CLIENT";
+
     return (
         <div className="flex items-center flex-col box-border gap-3">
-            <span className="font-medium text-lg">de: {username}</span>
+            <span className={`font-medium text-lg ${isClient ? "hidden" : "block"}`}>de: {username}</span>
             <img src={image} alt="camiseta branca com logo do senai" />
             <article className="bg-black text-white px-4 py-8 rounded-lg gap-4 h-[216px] flex flex-col -mt-36">
                 <div className="flex flex-col gap-1">
@@ -46,7 +53,9 @@ export function SingleOrdersProductCard({
                     <p className="text-sm font-extralight">{description}</p>
                 </div>
                 {statusBars[productStatus]}
-            <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                <div className={`${isClient ? "hidden" : "block"}`}>
+                    <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                </div>
             </article>
             {openOrderCard && (
                 <OrderCardProduct  
