@@ -16,7 +16,8 @@ interface ChangedStatusModalProps{
 export function ChangedStatusModal({
     id,
     setOpenStatusModal,
-    changedStatusProduct
+    changedStatusProduct,
+    setOpenOrderCard,
 }: ChangedStatusModalProps){
 
     return(
@@ -31,6 +32,7 @@ export function ChangedStatusModal({
                     <button onClick={() => {
                             changedStatusProduct(id, "ANALYSIS");
                             setOpenStatusModal(false);
+                            setOpenOrderCard(false);
                         }} className="w-full">
                         <div className="items-start flex px-5 py-2 hover:bg-slate-100">
                             <ProgressStatus/>
@@ -39,6 +41,7 @@ export function ChangedStatusModal({
                     <button onClick={() => {
                             changedStatusProduct(id, "SEPARATED");
                             setOpenStatusModal(false);
+                            setOpenOrderCard(false);
                         }} className="w-full">
                         <div className="items-start flex hover:border-slate-400 border-dashed border-slate-500 px-5 py-2 hover:bg-slate-200">
                             <WithdrawStatus/>
@@ -47,6 +50,7 @@ export function ChangedStatusModal({
                     <button onClick={() => {
                             changedStatusProduct(id, "COMPLETED");
                             setOpenStatusModal(false);
+                            setOpenOrderCard(false);
                         }} className="w-full">
                         <div className="items-start flex hover:border-slate-400 border-dashed border-slate-500 px-5 py-2 hover:bg-slate-200">
                             <CompletedStatus/>
@@ -54,7 +58,8 @@ export function ChangedStatusModal({
                     </button>
                     <button onClick={() => {
                             changedStatusProduct(id, "UNAVAILABLE");
-                            setOpenStatusModal(false);    
+                            setOpenStatusModal(false);
+                            setOpenOrderCard(false);  
                         }} className="w-full">
                         <div className="items-start flex hover:border-slate-400 border-dashed border-slate-500 px-5 py-2 hover:bg-slate-200">
                             <UnavailableStatus/>
