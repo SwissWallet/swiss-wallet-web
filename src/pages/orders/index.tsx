@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
 import { api } from "../../lib/axios";
-import { SingleProduct } from "../../components/micro-components/single-product-card";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
@@ -23,11 +22,6 @@ interface productInterface {
     username?: string,
     status: StatusKey,
 };
-
-interface itemI{
-    id: number
-}
-
 export type StatusKey = 'ANALYSIS' | 'SEPARATED' | 'UNAVAILABLE' | 'COMPLETED';
 
 export function Orders() {
@@ -48,9 +42,6 @@ export function Orders() {
                 product.id === productId ? { ...product, status: statusAlt } : product
             )
         );
-        console.log("orderId: " + orderId);
-        console.log("id: " + productId);
-        console.log("status: " + statusAlt);
 
         api.put(`/v3/orders/change-status?idOrder=${orderId}&status=${statusAlt}`)
         .then(() => {
@@ -76,10 +67,7 @@ export function Orders() {
         await api.get(`/v3/orders/current`)
         .then((json) => {
             const data = json.data;
-            console.log(data)
-            setOrder(data.map((item: itemI) => ({
-                id: item.id
-            })));
+            console.log(data);
             setOrderProductList(data.map((item: productInterface) => ({
                     id: item.product.id,
                     name: item.product.name,
@@ -138,14 +126,19 @@ export function Orders() {
                     <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
                             {orderProductList.map((product) => (
                                 <div key={product.id}>
-                                    <SingleProduct
+                                    <SingleOrdersProductCard
+                                        productStatus={product.status}
                                         title={product.name}
                                         description={product.description}
                                         value={Number(product.value)}
                                         image={product.image}
-                                        textOnButton={"Remover"}
                                         category={product.category}
                                         id={product.id}
+                                        statusBars={statusBars}
+                                        status={statusBars[product.status]}
+                                        selectedStatus={selectedStatus}
+                                        setSelectedStatus={setSelectedStatus}
+                                        changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
                                     />
                                 </div>
                             ))}
