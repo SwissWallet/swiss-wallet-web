@@ -120,6 +120,7 @@ export function Orders() {
                 <HeaderOnPages
                     title="Pedidos"
                     description="Confira todos pedidos"
+                    notFilterAndOrder={true}
                 />
 
                 {isClient ? (
