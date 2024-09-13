@@ -1,23 +1,68 @@
-import { ReactNode } from "react"
-import CamisaBranca from "../../assets/images/camisa-branca.svg"
+import { ReactNode, useState } from "react";
+import { MainButton } from "../../components/micro-components/main-button";
+import { OrderCardProduct } from "./order-card-product";
+import { StatusKey } from ".";
 
 interface SingleOrdersProductCardProps {
-    status: ReactNode,
-}
+    title: string,
+    description: string,
+    image: string,
+    value: number,
+    id: string,
+    category: string,
+    username: string | undefined,
+    selectedStatus: StatusKey,
+    setSelectedStatus: (e: StatusKey) => void,
+    statusBars: Record<StatusKey, JSX.Element>,
+    productStatus: StatusKey,
+    status?: ReactNode,
+    changedStatusProduct: (id: string, statusAlt: StatusKey) => void,
+};
+
 
 export function SingleOrdersProductCard({
-    status,
+    description,
+    image,
+    title,
+    username,
+    value,
+    selectedStatus,
+    setSelectedStatus,
+    statusBars,
+    productStatus,
+    changedStatusProduct,
+    id,
 }: SingleOrdersProductCardProps) {
+
+    const [ openOrderCard, setOpenOrderCard ] = useState(false);
+
     return (
-        <div className="flex items-center flex-col">
-            <img src={CamisaBranca} alt="camiseta branca com logo do senai" />
-            <article className="bg-black text-white p-4 rounded-lg gap-4 h-[216px] flex flex-col -mt-36">
+        <div className="flex items-center flex-col box-border gap-3">
+            <span className="font-medium text-lg">de: {username}</span>
+            <img src={image} alt="camiseta branca com logo do senai" />
+            <article className="bg-black text-white px-4 py-8 rounded-lg gap-4 h-[216px] flex flex-col -mt-36">
                 <div className="flex flex-col gap-1">
-                    <h4 className="text-xl font-semibold">Camiseta Destaque</h4>
-                    <p className="text-sm font-extralight">Descrição da camiseta destaque</p>
+                    <h4 className="text-xl font-semibold">{title}</h4>
+                    <p className="text-sm font-extralight">{description}</p>
                 </div>
-                {status}
+                {statusBars[productStatus]}
+            <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
             </article>
+            {openOrderCard && (
+                <OrderCardProduct  
+                    status={statusBars[selectedStatus]}
+                    title={title}
+                    value={value}
+                    image={image}
+                    statusBars={statusBars}
+                    productStatus={productStatus}
+                    setOpenOrderCard={setOpenOrderCard}
+                    setSelectedStatus={setSelectedStatus}
+                    id={id}
+                    changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
+                />
+            )}
+        
         </div>
     )
 }

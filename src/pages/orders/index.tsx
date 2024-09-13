@@ -4,6 +4,14 @@ import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
 import { api } from "../../lib/axios";
 import { SingleProduct } from "../../components/micro-components/single-product-card";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
+import { SingleOrdersProductCard } from "./single-orders-product-card";
+import { UnavailableStatus } from "./unavailable-status";
+import { CompletedStatus } from "./completed-status";
+import { WithdrawStatus } from "./withdraw-status";
+import { ProgressStatus } from "./progress-status";
 
 interface productInterface {
     id: string,
@@ -12,17 +20,66 @@ interface productInterface {
     description: string,
     image: string,
     category: string,
+    username?: string,
+    status: StatusKey,
+};
+
+interface itemI{
+    id: number
 }
+
+export type StatusKey = 'ANALYSIS' | 'SEPARATED' | 'UNAVAILABLE' | 'COMPLETED';
 
 export function Orders() {
 
-    const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
+    const user = useSelector((state: RootState) => state.authUser.value);
 
-    async function getProductOrder(){
+    const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
+    const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('ANALYSIS');
+
+    function changedStatusProduct(productId: string, statusAlt: StatusKey) {
+        const product = orderProductList.find((product) => product.id === productId);
+        if (!product) return;
+
+        const orderId = product.orderId;
+
+        setOrderProductList((prevList) => 
+            prevList.map((product) => 
+                product.id === productId ? { ...product, status: statusAlt } : product
+            )
+        );
+        console.log("orderId: " + orderId);
+        console.log("id: " + productId);
+        console.log("status: " + statusAlt);
+
+        api.put(`/v3/orders/change-status?idOrder=${orderId}&status=${statusAlt}`)
+        .then(() => {
+            console.log("sucessfull")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    };
+
+    
+    const statusBars: Record<StatusKey, JSX.Element> = {
+        ANALYSIS: <ProgressStatus />,
+        SEPARATED: <WithdrawStatus />,
+        UNAVAILABLE: <UnavailableStatus />,
+        COMPLETED: <CompletedStatus />,
+    };
+
+    const role = user.user.role;
+    const isClient = role === "ROLE_CLIENT";
+
+    async function getProductOrderUser(){
         await api.get(`/v3/orders/current`)
         .then((json) => {
             const data = json.data;
             console.log(data)
+            setOrder(data.map((item: itemI) => ({
+                id: item.id
+            })));
             setOrderProductList(data.map((item: productInterface) => ({
                     id: item.product.id,
                     name: item.product.name,
@@ -30,15 +87,41 @@ export function Orders() {
                     description: item.product.description,
                     image: `data:image/jpeg;base64,${item.product.image}`,
                     category: item.product.category,
-            })))
+                    status: item.status
+            })));
         })
         .catch(() => {
             console.log("error")
         })
     };
 
-    useEffect(() => {
-        getProductOrder();
+    async function getProductOrderAdmin(){
+        await api.get(`/v3/orders`)
+        .then((json) => {
+            const data = json.data;
+            console.log(data)
+            setOrderProductList(data.map((item: productInterface) => ({
+                orderId: item.id,
+                id: item.product.id,
+                name: item.product.name,
+                value: item.product.value,
+                description: item.product.description,
+                image: `data:image/jpeg;base64,${item.product.image}`,
+                category: item.product.category,
+                username: item.user.name,
+                status: item.status
+            })))
+        })
+    };
+
+    useEffect(() => {  
+        
+        if(isClient){
+            getProductOrderUser();
+        } else {
+            getProductOrderAdmin();
+        }
+
     }, [])
 
     return (
@@ -46,21 +129,51 @@ export function Orders() {
             <Navbar />
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
 
-                <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
-                        {orderProductList.map((product) => (
-                            <div key={product.id}>
-                                <SingleProduct
-                                    title={product.name}
-                                    description={product.description}
-                                    value={Number(product.value)}
-                                    image={product.image}
-                                    textOnButton={"Remover"}
-                                    category={product.category}
-                                    id={product.id}
-                                />
-                            </div>
-                        ))}
-                </div>
+                <HeaderOnPages
+                    title="Pedidos"
+                    description="Confira todos pedidos"
+                />
+
+                {isClient ? (
+                    <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                            {orderProductList.map((product) => (
+                                <div key={product.id}>
+                                    <SingleProduct
+                                        title={product.name}
+                                        description={product.description}
+                                        value={Number(product.value)}
+                                        image={product.image}
+                                        textOnButton={"Remover"}
+                                        category={product.category}
+                                        id={product.id}
+                                    />
+                                </div>
+                            ))}
+                    </div>
+                ) : (
+                    <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                            {orderProductList.map((product) => (
+                                    <div key={product.id}>
+                                        <SingleOrdersProductCard
+                                            productStatus={product.status}
+                                            username={product.username}
+                                            title={product.name}
+                                            description={product.description}
+                                            value={Number(product.value)}
+                                            image={product.image}
+                                            category={product.category}
+                                            id={product.id}
+                                            statusBars={statusBars}
+                                            status={statusBars[product.status]}
+                                            selectedStatus={selectedStatus}
+                                            setSelectedStatus={setSelectedStatus}
+                                            changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
+                                        />
+                                    </div>                                
+                            ))}
+                    </div>
+                )}
+
             </main>
             <Footer />
         </div>
