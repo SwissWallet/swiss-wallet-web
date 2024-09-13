@@ -1,4 +1,3 @@
-import { X } from "lucide-react";
 import { ReactNode, useState } from "react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { ChangedStatusModal } from "./changed-status-modal";
