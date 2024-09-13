@@ -6,9 +6,10 @@ import { UnavailableStatus } from "./unavailable-status";
 import { WithdrawStatus } from "./withdraw-status";
 
 interface ChangedStatusModalProps{
+    id: string,
+    setOpenOrderCard: (e: boolean) => void;
     setOpenStatusModal: (e: boolean) => void;
     setSelectedStatus?: (e: StatusKey) => void;
-    id: string,
     changedStatusProduct: (id: string, statusAlt: StatusKey) => void,
 };
 
@@ -27,22 +28,34 @@ export function ChangedStatusModal({
                     
                 <div className="flex flex-col items-center justify-center gap-8">
 
-                    <button onClick={() => changedStatusProduct(id, "ANALYSIS")} className="w-full">
+                    <button onClick={() => {
+                            changedStatusProduct(id, "ANALYSIS");
+                            setOpenStatusModal(false);
+                        }} className="w-full">
                         <div className="items-start flex px-5 py-2 hover:bg-slate-100">
                             <ProgressStatus/>
                         </div>
                     </button>
-                    <button onClick={() => changedStatusProduct(id, "SEPARATED")} className="w-full">
+                    <button onClick={() => {
+                            changedStatusProduct(id, "SEPARATED");
+                            setOpenStatusModal(false);
+                        }} className="w-full">
                         <div className="items-start flex hover:border-slate-400 border-dashed border-slate-500 px-5 py-2 hover:bg-slate-200">
                             <WithdrawStatus/>
                         </div>
                     </button>
-                    <button onClick={() => changedStatusProduct(id, "COMPLETED")} className="w-full">
+                    <button onClick={() => {
+                            changedStatusProduct(id, "COMPLETED");
+                            setOpenStatusModal(false);
+                        }} className="w-full">
                         <div className="items-start flex hover:border-slate-400 border-dashed border-slate-500 px-5 py-2 hover:bg-slate-200">
                             <CompletedStatus/>
                         </div>
                     </button>
-                    <button onClick={() => changedStatusProduct(id, "UNAVAILABLE")} className="w-full">
+                    <button onClick={() => {
+                            changedStatusProduct(id, "UNAVAILABLE");
+                            setOpenStatusModal(false);    
+                        }} className="w-full">
                         <div className="items-start flex hover:border-slate-400 border-dashed border-slate-500 px-5 py-2 hover:bg-slate-200">
                             <UnavailableStatus/>
                         </div>

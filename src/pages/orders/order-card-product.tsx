@@ -42,12 +42,7 @@ export function OrderCardProduct({
                         <img className="w-[309px] h-[407px]" src={image} alt="produto" />
                     </div>
                     <article className="flex flex-col w-1/2 justify-between p-5">
-                        <div className="flex flex-col gap-1">
-                            <div className="flex justify-end">
-                                <button className="flex justify-end" onClick={() => setOpenOrderCard(false)}><X className="size-6 hover:text-zinc-300 text-white" /></button>
-                            </div>
-                            <h1 className="font-bold text-4xl">{title}</h1>
-                        </div>
+                        <h1 className="font-bold text-4xl">{title}</h1>
                         <div className="flex justify-center">
                             <h1 className="text-3xl font-extrabold">{value} <span className="text-xl font-semibold">   pontos</span></h1>
                         </div>
@@ -61,6 +56,7 @@ export function OrderCardProduct({
                     id={id}
                     setSelectedStatus={setSelectedStatus} 
                     setOpenStatusModal={setOpenStatusModal}
+                    setOpenOrderCard={setOpenOrderCard}
                     changedStatusProduct={(id , selectedStatus) => changedStatusProduct(id, selectedStatus)}
                 />
             )}
