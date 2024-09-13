@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
@@ -32,10 +32,15 @@ export function Orders() {
     const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('ANALYSIS');
     const [ filterByStatus, setFilterByStatus ] = useState("");
 
-    const handdleSelect = (event) => {
-        setFilterByStatus(event.target.value);
-        console.log("status selecionado" + filterByStatus)
+    async function filterProductByStatus(){
+        await api.get(`/v3/orders/status?status=${filterByStatus}`)
+        .then(() => {console.log("sucessfull")})
+        .catch((err) => {console.log(err)})
     };
+
+    useEffect(() => {
+        filterProductByStatus();
+    }, [filterByStatus]);
 
     function changedStatusProduct(productId: string, statusAlt: StatusKey) {
         const product = orderProductList.find((product) => product.id === productId);
@@ -73,7 +78,6 @@ export function Orders() {
         await api.get(`/v3/orders/current`)
         .then((json) => {
             const data = json.data;
-            console.log(data);
             setOrderProductList(data.map((item: productInterface) => ({
                     id: item.product.id,
                     name: item.product.name,
@@ -93,8 +97,7 @@ export function Orders() {
         await api.get(`/v3/orders`)
         .then((json) => {
             const data = json.data;
-            console.log(data)
-            setOrderProductList(data.map((item: productInterface) => ({
+            const products = (data.map((item: productInterface) => ({
                 orderId: item.id,
                 id: item.product.id,
                 name: item.product.name,
@@ -105,6 +108,7 @@ export function Orders() {
                 username: item.user.name,
                 status: item.status
             })))
+            setOrderProductList(products);
         })
     };
 
@@ -116,7 +120,7 @@ export function Orders() {
             getProductOrderAdmin();
         }
 
-    }, [])
+    }, [isClient])
 
     return (
         <div className="bg-default-gray ">
@@ -130,7 +134,7 @@ export function Orders() {
                         notFilterAndOrder={true}
                     />
 
-                    <select className={`bg-transparent focus:outline-none ${isClient ? "hidden" : "block"}`} onChange={handdleSelect} >
+                    <select className={`bg-transparent focus:outline-none ${isClient ? "hidden" : "block"}`} value={filterByStatus} onChange={(e) => setFilterByStatus(e.target.value)} >
                         <option value="">Selecione</option>
                         <option value="ANALYSIS">Análise</option>
                         <option value="SEPARATED">Retirar</option>

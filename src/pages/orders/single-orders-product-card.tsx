@@ -12,7 +12,7 @@ interface SingleOrdersProductCardProps {
     value: number,
     id: string,
     category: string,
-    username: string | undefined,
+    username?: string | undefined,
     selectedStatus: StatusKey,
     setSelectedStatus: (e: StatusKey) => void,
     statusBars: Record<StatusKey, JSX.Element>,
