@@ -41,7 +41,7 @@ export function OrderCardProduct({
                         <img className="w-[309px] h-[407px]" src={image} alt="produto" />
                     </div>
                     <article className="flex flex-col w-1/2 justify-between p-5">
-                        <h1 className="font-bold text-4xl">{title}</h1>
+                        <h1 className="font-bold text-4xl text-center">{title}</h1>
                         <div className="flex justify-center">
                             <h1 className="text-3xl font-extrabold">{value} <span className="text-xl font-semibold">   pontos</span></h1>
                         </div>

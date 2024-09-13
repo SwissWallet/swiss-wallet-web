@@ -30,6 +30,12 @@ export function Orders() {
 
     const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
     const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('ANALYSIS');
+    const [ filterByStatus, setFilterByStatus ] = useState("");
+
+    const handdleSelect = (event) => {
+        setFilterByStatus(event.target.value);
+        console.log("status selecionado" + filterByStatus)
+    };
 
     function changedStatusProduct(productId: string, statusAlt: StatusKey) {
         const product = orderProductList.find((product) => product.id === productId);
@@ -116,12 +122,22 @@ export function Orders() {
         <div className="bg-default-gray ">
             <Navbar />
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
+                
+                <div className="flex justify-between">
+                    <HeaderOnPages
+                        title="Pedidos"
+                        description="Confira todos pedidos"
+                        notFilterAndOrder={true}
+                    />
 
-                <HeaderOnPages
-                    title="Pedidos"
-                    description="Confira todos pedidos"
-                    notFilterAndOrder={true}
-                />
+                    <select className={`bg-transparent focus:outline-none ${isClient ? "hidden" : "block"}`} onChange={handdleSelect} >
+                        <option value="">Selecione</option>
+                        <option value="ANALYSIS">Análise</option>
+                        <option value="SEPARATED">Retirar</option>
+                        <option value="COMPLETED">Completo</option>
+                        <option value="UNAVAILABLE">Indisponível</option>
+                    </select>
+                </div>
 
                 {isClient ? (
                     <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
