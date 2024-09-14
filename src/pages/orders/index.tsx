@@ -7,10 +7,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { SingleOrdersProductCard } from "./single-orders-product-card";
-import { UnavailableStatus } from "./unavailable-status";
-import { CompletedStatus } from "./completed-status";
-import { WithdrawStatus } from "./withdraw-status";
-import { ProgressStatus } from "./progress-status";
+import { UnavailableStatus } from "./status-components/unavailable-status";
+import { CompletedStatus } from "./status-components/completed-status";
+import { WithdrawStatus } from "./status-components/withdraw-status";
+import { ProgressStatus } from "./status-components/progress-status";
 
 interface productInterface {
     id: string,
