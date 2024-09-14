@@ -1,9 +1,9 @@
 import { StatusKey } from ".";
 import { BackButton } from "../../components/micro-components/back-button";
-import { CompletedStatus } from "./completed-status";
-import { ProgressStatus } from "./progress-status";
-import { UnavailableStatus } from "./unavailable-status";
-import { WithdrawStatus } from "./withdraw-status";
+import { CompletedStatus } from "./status-components/completed-status";
+import { ProgressStatus } from "./status-components/progress-status";
+import { UnavailableStatus } from "./status-components/unavailable-status";
+import { WithdrawStatus } from "./status-components/withdraw-status";
 
 interface ChangedStatusModalProps{
     id: string,

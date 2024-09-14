@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { OrderCardProduct } from "./order-card-product";
 import { StatusKey } from ".";
@@ -12,12 +12,11 @@ interface SingleOrdersProductCardProps {
     value: number,
     id: string,
     category: string,
-    username: string | undefined,
+    username?: string | undefined,
     selectedStatus: StatusKey,
     setSelectedStatus: (e: StatusKey) => void,
     statusBars: Record<StatusKey, JSX.Element>,
     productStatus: StatusKey,
-    status?: ReactNode,
     changedStatusProduct: (id: string, statusAlt: StatusKey) => void,
 };
 
@@ -44,19 +43,22 @@ export function SingleOrdersProductCard({
     const isClient = role === "ROLE_CLIENT";
 
     return (
-        <div className="flex items-center flex-col box-border gap-3">
+        <div className="flex items-center flex-col box-border gap-10">
             <span className={`font-medium text-lg ${isClient ? "hidden" : "block"}`}>de: {username}</span>
-            <img src={image} alt="camiseta branca com logo do senai" />
-            <article className="bg-black text-white px-4 py-8 rounded-lg gap-4 h-[216px] flex flex-col -mt-36">
-                <div className="flex flex-col gap-1">
-                    <h4 className="text-xl font-semibold">{title}</h4>
-                    <p className="text-sm font-extralight">{description}</p>
+            <img src={image} className="w-[309px] h-[407px]" alt="camiseta branca com logo do senai" />
+            <article className="bg-black text-white p-4 rounded-lg gap-4 flex flex-col md:w-[320px] -mt-36 px-10">
+                <div className="flex flex-col gap-1 text-center ">
+                    <h4 className="text-xl font-semibold whitespace-nowrap text-ellipsis overflow-hidden">{title}</h4>
+                    <p className="text-sm font-extralight whitespace-nowrap overflow-hidden text-ellipsis">{description}</p>
                 </div>
                 {statusBars[productStatus]}
-                <div className={`${isClient ? "hidden" : "block"}`}>
+                <div className={`flex justify-center ${isClient ? "hidden" : "block"}`}>
                     <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
                 </div>
             </article>
+
+
+
             {openOrderCard && (
                 <OrderCardProduct  
                     status={statusBars[selectedStatus]}

@@ -7,10 +7,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { SingleOrdersProductCard } from "./single-orders-product-card";
-import { UnavailableStatus } from "./unavailable-status";
-import { CompletedStatus } from "./completed-status";
-import { WithdrawStatus } from "./withdraw-status";
-import { ProgressStatus } from "./progress-status";
+import { UnavailableStatus } from "./status-components/unavailable-status";
+import { CompletedStatus } from "./status-components/completed-status";
+import { WithdrawStatus } from "./status-components/withdraw-status";
+import { ProgressStatus } from "./status-components/progress-status";
 
 interface productInterface {
     id: string,
@@ -30,6 +30,17 @@ export function Orders() {
 
     const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
     const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('ANALYSIS');
+    const [ filterByStatus, setFilterByStatus ] = useState("");
+
+    async function filterProductByStatus(){
+        await api.get(`/v3/orders/status?status=${filterByStatus}`)
+        .then(() => {console.log("sucessfull")})
+        .catch((err) => {console.log(err)})
+    };
+
+    useEffect(() => {
+        filterProductByStatus();
+    }, [filterByStatus]);
 
     function changedStatusProduct(productId: string, statusAlt: StatusKey) {
         const product = orderProductList.find((product) => product.id === productId);
@@ -67,7 +78,6 @@ export function Orders() {
         await api.get(`/v3/orders/current`)
         .then((json) => {
             const data = json.data;
-            console.log(data);
             setOrderProductList(data.map((item: productInterface) => ({
                     id: item.product.id,
                     name: item.product.name,
@@ -87,8 +97,7 @@ export function Orders() {
         await api.get(`/v3/orders`)
         .then((json) => {
             const data = json.data;
-            console.log(data)
-            setOrderProductList(data.map((item: productInterface) => ({
+            const products = (data.map((item: productInterface) => ({
                 orderId: item.id,
                 id: item.product.id,
                 name: item.product.name,
@@ -99,9 +108,11 @@ export function Orders() {
                 username: item.user.name,
                 status: item.status
             })))
+            setOrderProductList(products);
         })
     };
 
+    
     useEffect(() => {  
         
         if(isClient){
@@ -109,18 +120,33 @@ export function Orders() {
         } else {
             getProductOrderAdmin();
         }
+        
+    }, [isClient])
 
-    }, [])
+    orderProductList.forEach((item) => {
+        console.log(item.status);
+    });
 
     return (
         <div className="bg-default-gray ">
             <Navbar />
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
+                
+                <div className="flex justify-between">
+                    <HeaderOnPages
+                        title="Pedidos"
+                        description="Confira todos pedidos"
+                        notFilterAndOrder={true}
+                    />
 
-                <HeaderOnPages
-                    title="Pedidos"
-                    description="Confira todos pedidos"
-                />
+                    <select className={`bg-transparent focus:outline-none ${isClient ? "hidden" : "block"}`} value={filterByStatus} onChange={(e) => setFilterByStatus(e.target.value)} >
+                        <option value="">Todos</option>
+                        <option value="ANALYSIS">Análise</option>
+                        <option value="SEPARATED">Retirar</option>
+                        <option value="COMPLETED">Completo</option>
+                        <option value="UNAVAILABLE">Indisponível</option>
+                    </select>
+                </div>
 
                 {isClient ? (
                     <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
@@ -134,8 +160,7 @@ export function Orders() {
                                         image={product.image}
                                         category={product.category}
                                         id={product.id}
-                                        statusBars={statusBars}
-                                        status={statusBars[product.status]}
+                                        statusBars={statusBars} 
                                         selectedStatus={selectedStatus}
                                         setSelectedStatus={setSelectedStatus}
                                         changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
@@ -144,31 +169,95 @@ export function Orders() {
                             ))}
                     </div>
                 ) : (
-                    <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
-                            {orderProductList.map((product) => (
-                                    <div key={product.id}>
-                                        <SingleOrdersProductCard
-                                            productStatus={product.status}
-                                            username={product.username}
-                                            title={product.name}
-                                            description={product.description}
-                                            value={Number(product.value)}
-                                            image={product.image}
-                                            category={product.category}
-                                            id={product.id}
-                                            statusBars={statusBars}
-                                            status={statusBars[product.status]}
-                                            selectedStatus={selectedStatus}
-                                            setSelectedStatus={setSelectedStatus}
-                                            changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
-                                        />
-                                    </div>                                
-                            ))}
-                    </div>
+                    <ProductsOrder
+                        changedStatusProduct={changedStatusProduct}
+                        orderProductList={orderProductList}
+                        selectedStatus={selectedStatus}
+                        setSelectedStatus={setSelectedStatus}
+                        statusBars={statusBars}
+                        filterByStatus={filterByStatus}
+                    />
                 )}
 
             </main>
             <Footer />
         </div>
     )
+};
+
+interface ProductsOrderProps{
+    orderProductList: productInterface[];
+    statusBars: Record<StatusKey, JSX.Element>;
+    selectedStatus: StatusKey;
+    setSelectedStatus: (e: StatusKey) => void;
+    changedStatusProduct: (id: string, statusAlt: StatusKey) => void;
+    filterByStatus: string
 }
+
+const ProductsOrder = ({
+    orderProductList,
+    selectedStatus,
+    statusBars,
+    setSelectedStatus,
+    changedStatusProduct,
+    filterByStatus
+}: ProductsOrderProps) => {
+
+
+    const filter = filterByStatus !== "";
+
+
+    return(
+        <>
+        {
+            filter ? (
+                <div className="grid grid-cols-3 grid-rows-1 gap-20 mb-20">
+            {orderProductList
+                .filter((product: productInterface) => product.status === filterByStatus)
+                .map((product: productInterface) => (
+                    <div key={product.id}>
+                    <SingleOrdersProductCard
+                        productStatus={product.status}
+                        username={product.username}
+                        title={product.name}
+                        description={product.description}
+                        value={Number(product.value)}
+                        image={product.image}
+                        category={product.category}
+                        id={product.id}
+                        statusBars={statusBars}
+                        selectedStatus={selectedStatus}
+                        setSelectedStatus={setSelectedStatus}
+                        changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
+                    />
+                </div>   
+                ))}
+        </div>
+            ) : (
+                <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+            {orderProductList.map((product: productInterface) => (
+                <div key={product.id}>
+                    <SingleOrdersProductCard
+                        productStatus={product.status}
+                        username={product.username}
+                        title={product.name}
+                        description={product.description}
+                        value={Number(product.value)}
+                        image={product.image}
+                        category={product.category}
+                        id={product.id}
+                        statusBars={statusBars}
+                        selectedStatus={selectedStatus}
+                        setSelectedStatus={setSelectedStatus}
+                        changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
+                    />
+                </div>                                
+            ))}
+        </div>
+            )
+        }
+        
+        
+        </>
+    )
+};
