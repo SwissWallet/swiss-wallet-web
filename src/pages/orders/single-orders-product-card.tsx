@@ -45,9 +45,9 @@ export function SingleOrdersProductCard({
     return (
         <div className="flex items-center flex-col box-border gap-10">
             <span className={`font-medium text-lg ${isClient ? "hidden" : "block"}`}>de: {username}</span>
-            <img src={image} alt="camiseta branca com logo do senai" />
-            <article className="bg-black text-white px-4 py-8 rounded-lg gap-4 h-[216px] flex flex-col -mt-36">
-                <div className="flex flex-col gap-1">
+            <img src={image} className="w-[309px] h-[407px]" alt="camiseta branca com logo do senai" />
+            <article className="bg-black text-white p-4 rounded-lg gap-4 flex flex-col -mt-36 w-auto px-10">
+                <div className="flex flex-col gap-1 text-center text-ellipsis overflow-hidden">
                     <h4 className="text-xl font-semibold">{title}</h4>
                     <p className="text-sm font-extralight">{description}</p>
                 </div>
@@ -56,6 +56,9 @@ export function SingleOrdersProductCard({
                     <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
                 </div>
             </article>
+
+
+
             {openOrderCard && (
                 <OrderCardProduct  
                     status={statusBars[selectedStatus]}
