@@ -155,8 +155,7 @@ export function Orders() {
                                         image={product.image}
                                         category={product.category}
                                         id={product.id}
-                                        statusBars={statusBars}
-                                        status={statusBars[product.status]}
+                                        statusBars={statusBars} 
                                         selectedStatus={selectedStatus}
                                         setSelectedStatus={setSelectedStatus}
                                         changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
@@ -165,31 +164,56 @@ export function Orders() {
                             ))}
                     </div>
                 ) : (
-                    <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
-                            {orderProductList.map((product) => (
-                                    <div key={product.id}>
-                                        <SingleOrdersProductCard
-                                            productStatus={product.status}
-                                            username={product.username}
-                                            title={product.name}
-                                            description={product.description}
-                                            value={Number(product.value)}
-                                            image={product.image}
-                                            category={product.category}
-                                            id={product.id}
-                                            statusBars={statusBars}
-                                            status={statusBars[product.status]}
-                                            selectedStatus={selectedStatus}
-                                            setSelectedStatus={setSelectedStatus}
-                                            changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
-                                        />
-                                    </div>                                
-                            ))}
-                    </div>
+                    <AllProductsOrder
+                        changedStatusProduct={changedStatusProduct}
+                        orderProductList={orderProductList}
+                        selectedStatus={selectedStatus}
+                        setSelectedStatus={setSelectedStatus}
+                        statusBars={statusBars}
+                    />
                 )}
 
             </main>
             <Footer />
         </div>
     )
+};
+
+interface AllProductsOrderProps{
+    orderProductList: productInterface[];
+    statusBars: Record<StatusKey, JSX.Element>;
+    selectedStatus: StatusKey;
+    setSelectedStatus: (e: StatusKey) => void;
+    changedStatusProduct: (id: string, statusAlt: StatusKey) => void;
 }
+
+const AllProductsOrder = ({
+    orderProductList,
+    selectedStatus,
+    statusBars,
+    setSelectedStatus,
+    changedStatusProduct,
+}: AllProductsOrderProps) => {
+    return(
+        <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+        {orderProductList.map((product: productInterface) => (
+            <div key={product.id}>
+                <SingleOrdersProductCard
+                    productStatus={product.status}
+                    username={product.username}
+                    title={product.name}
+                    description={product.description}
+                    value={Number(product.value)}
+                    image={product.image}
+                    category={product.category}
+                    id={product.id}
+                    statusBars={statusBars}
+                    selectedStatus={selectedStatus}
+                    setSelectedStatus={setSelectedStatus}
+                    changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
+                />
+            </div>                                
+        ))}
+    </div>
+    )
+};

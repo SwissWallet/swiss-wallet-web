@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { OrderCardProduct } from "./order-card-product";
 import { StatusKey } from ".";
@@ -17,7 +17,6 @@ interface SingleOrdersProductCardProps {
     setSelectedStatus: (e: StatusKey) => void,
     statusBars: Record<StatusKey, JSX.Element>,
     productStatus: StatusKey,
-    status?: ReactNode,
     changedStatusProduct: (id: string, statusAlt: StatusKey) => void,
 };
 
