@@ -83,8 +83,9 @@ export function OrderCardProduct({
 
             {openCancelOrderModal && (
                 <ConfirmCancelModal
-                    orderId={orderId}
                     title={title}
+                    orderId={orderId}
+                    setOpenOrderCard={setOpenOrderCard}
                     setOpenCancelOrderModal={setOpenCancelOrderModal}
                 />
             )}
@@ -96,22 +97,26 @@ export function OrderCardProduct({
 interface ConfirmCancelModalProps{
     title: string;
     orderId: string | undefined,
+    setOpenOrderCard: (e: boolean) => void;
     setOpenCancelOrderModal: (e: boolean) => void;
 }
 
 const ConfirmCancelModal = ({
     title,
     orderId,
+    setOpenOrderCard,
     setOpenCancelOrderModal,
 }: ConfirmCancelModalProps) => {
 
     async function deleteOrder(){
         await api.delete(`/v3/orders?idOrder=${orderId}`)
         .then(() => {
-            console.log("removido com sucesso")
+            console.log("removido com sucesso");
+            setOpenCancelOrderModal(false);
+            setOpenOrderCard(false);
         })
         .catch((error) => {
-            console.log("Deu ruim aqui " + error)
+            console.log("Deu ruim aqui " + error);
         })
     }
 
@@ -124,7 +129,7 @@ const ConfirmCancelModal = ({
                     <p className="font-medium text-sm text-zinc-600 ml-4">Confirme o cancelamento do pedido</p>
                 </div>
                 <div className="flex flex-col gap-3">
-                    <h1 className="text-center text-xl font-medium">Você tem certeza que deseja cancalerar o pedido</h1>
+                    <h1 className="text-center text-xl font-medium">Você tem certeza que deseja cancalar este pedido</h1>
                     <h1 className="text-center">{title} ?</h1>
 
                     <div className="flex justify-between px-20 mt-5">
