@@ -32,15 +32,15 @@ export function Orders() {
     const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('ANALYSIS');
     const [ filterByStatus, setFilterByStatus ] = useState("");
 
-    async function filterProductByStatus(){
-        await api.get(`/v3/orders/status?status=${filterByStatus}`)
-        .then(() => {console.log("sucessfull")})
-        .catch((err) => {console.log(err)})
-    };
+    // async function filterProductByStatus(){
+    //     await api.get(`/v3/orders/status?status=${filterByStatus}`)
+    //     .then(() => {console.log("sucessfull")})
+    //     .catch((err) => {console.log(err)})
+    // };
 
-    useEffect(() => {
-        filterProductByStatus();
-    }, [filterByStatus]);
+    // useEffect(() => {
+    //     filterProductByStatus();
+    // }, [filterByStatus]);
 
     function changedStatusProduct(productId: string, statusAlt: StatusKey) {
         const product = orderProductList.find((product) => product.id === productId);
@@ -203,9 +203,9 @@ const ProductsOrder = ({
     filterByStatus
 }: ProductsOrderProps) => {
 
-
     const filter = filterByStatus !== "";
 
+    console.log(orderProductList)
 
     return(
         <>

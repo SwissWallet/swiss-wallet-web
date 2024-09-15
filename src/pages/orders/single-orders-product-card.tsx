@@ -52,8 +52,12 @@ export function SingleOrdersProductCard({
                     <p className="text-sm font-extralight whitespace-nowrap overflow-hidden text-ellipsis">{description}</p>
                 </div>
                 {statusBars[productStatus]}
-                <div className={`flex justify-center ${isClient ? "hidden" : "block"}`}>
-                    <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                <div className={`flex justify-center`}>
+                    {isClient ? (
+                        <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                    ) : (
+                        <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                    )}
                 </div>
             </article>
 
