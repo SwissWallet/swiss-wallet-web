@@ -42,15 +42,7 @@ export function SingleProduct({
         )
     };
 
-    async function deleteOrder(){
-        await api.delete(`/v3/orders?idOrder=${id}`)
-        .then(() => {
-            console.log("removido com sucesso")
-        })
-        .catch((error) => {
-            console.log("Deu ruim aqui " + error)
-        })
-    }
+    
 
     return (
         <>
@@ -68,10 +60,6 @@ export function SingleProduct({
                             
                             (
                                 <MainButton onClick={deleteFavorite} width="min" >
-                                    {textOnButton}
-                                </MainButton>
-                            ) : textOnButton === "Remover" ? (
-                                <MainButton onClick={deleteOrder} width="min" >
                                     {textOnButton}
                                 </MainButton>
                             ) : (

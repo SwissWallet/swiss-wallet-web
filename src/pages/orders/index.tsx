@@ -13,6 +13,7 @@ import { WithdrawStatus } from "./status-components/withdraw-status";
 import { ProgressStatus } from "./status-components/progress-status";
 
 interface productInterface {
+    orderId: string
     id: string,
     name: string,
     value: number,
@@ -79,6 +80,7 @@ export function Orders() {
         .then((json) => {
             const data = json.data;
             setOrderProductList(data.map((item: productInterface) => ({
+                    orderId: item.id,
                     id: item.product.id,
                     name: item.product.name,
                     value: item.product.value,
@@ -153,6 +155,7 @@ export function Orders() {
                             {orderProductList.map((product) => (
                                 <div key={product.id}>
                                     <SingleOrdersProductCard
+                                        orderId={product.orderId}
                                         productStatus={product.status}
                                         title={product.name}
                                         description={product.description}

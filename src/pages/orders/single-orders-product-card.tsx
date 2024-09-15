@@ -11,6 +11,7 @@ interface SingleOrdersProductCardProps {
     image: string,
     value: number,
     id: string,
+    orderId?: string,
     category: string,
     username?: string | undefined,
     selectedStatus: StatusKey,
@@ -33,6 +34,7 @@ export function SingleOrdersProductCard({
     productStatus,
     changedStatusProduct,
     id,
+    orderId
 }: SingleOrdersProductCardProps) {
 
     const [ openOrderCard, setOpenOrderCard ] = useState(false);
@@ -41,7 +43,7 @@ export function SingleOrdersProductCard({
 
     const role = user.user.role;
     const isClient = role === "ROLE_CLIENT";
-
+    
     return (
         <div className="flex items-center flex-col box-border gap-10">
             <span className={`font-medium text-lg ${isClient ? "hidden" : "block"}`}>de: {username}</span>
@@ -74,6 +76,7 @@ export function SingleOrdersProductCard({
                     setOpenOrderCard={setOpenOrderCard}
                     setSelectedStatus={setSelectedStatus}
                     id={id}
+                    orderId={orderId}
                     changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
                 />
             )}
