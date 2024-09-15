@@ -11,6 +11,7 @@ interface SingleOrdersProductCardProps {
     image: string,
     value: number,
     id: string,
+    orderId?: string,
     category: string,
     username?: string | undefined,
     selectedStatus: StatusKey,
@@ -33,6 +34,7 @@ export function SingleOrdersProductCard({
     productStatus,
     changedStatusProduct,
     id,
+    orderId
 }: SingleOrdersProductCardProps) {
 
     const [ openOrderCard, setOpenOrderCard ] = useState(false);
@@ -41,7 +43,7 @@ export function SingleOrdersProductCard({
 
     const role = user.user.role;
     const isClient = role === "ROLE_CLIENT";
-
+    
     return (
         <div className="flex items-center flex-col box-border gap-10">
             <span className={`font-medium text-lg ${isClient ? "hidden" : "block"}`}>de: {username}</span>
@@ -52,8 +54,12 @@ export function SingleOrdersProductCard({
                     <p className="text-sm font-extralight whitespace-nowrap overflow-hidden text-ellipsis">{description}</p>
                 </div>
                 {statusBars[productStatus]}
-                <div className={`flex justify-center ${isClient ? "hidden" : "block"}`}>
-                    <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                <div className={`flex justify-center`}>
+                    {isClient ? (
+                        <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                    ) : (
+                        <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                    )}
                 </div>
             </article>
 
@@ -70,6 +76,7 @@ export function SingleOrdersProductCard({
                     setOpenOrderCard={setOpenOrderCard}
                     setSelectedStatus={setSelectedStatus}
                     id={id}
+                    orderId={orderId}
                     changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
                 />
             )}

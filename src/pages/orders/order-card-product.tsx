@@ -3,11 +3,14 @@ import { MainButton } from "../../components/micro-components/main-button";
 import { ChangedStatusModal } from "./changed-status-modal";
 import { StatusKey } from ".";
 import { BackButton } from "../../components/micro-components/back-button";
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
+import { api } from "../../lib/axios";
 
 interface OrderCardProductProps{
     title: string,
     image: string,
-    id: string
+    id: string;
     value: number,
     category?: string,
     status?: ReactNode,
@@ -16,6 +19,7 @@ interface OrderCardProductProps{
     changedStatusProduct: (id: string , statusAlt: StatusKey) => void,
     statusBars: Record<StatusKey, JSX.Element>,
     productStatus: StatusKey,
+    orderId: string | undefined;
 }
 
 export function OrderCardProduct({
@@ -27,13 +31,17 @@ export function OrderCardProduct({
     productStatus,
     title,
     value,
-    category,
-    changedStatusProduct
+    changedStatusProduct,
+    orderId,
 }: OrderCardProductProps){
 
     const [ openStatusModal, setOpenStatusModal ] = useState(false);
+    const [ openCancelOrderModal, setOpenCancelOrderModal ] = useState(false);
 
-    console.log(category)
+    const user = useSelector((state: RootState) => state.authUser.value);
+
+    const role = user.user.role;
+    const isClient = role === "ROLE_CLIENT";
 
     return(
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -51,8 +59,14 @@ export function OrderCardProduct({
                         </div>
                     </div>
                         {statusBars[productStatus]}
-                    
-                        <MainButton onClick={() => setOpenStatusModal(true)}>Status</MainButton>
+
+                        {isClient ? (
+                            <MainButton width="min" onClick={() => setOpenCancelOrderModal(true)} >Cancelar</MainButton>
+                        ) : (
+
+                            <MainButton width="min" onClick={() => setOpenStatusModal(true)}>Status</MainButton>
+                        )}
+
                     
                     </article>
                 </div>
@@ -66,6 +80,69 @@ export function OrderCardProduct({
                     changedStatusProduct={(id , selectedStatus) => changedStatusProduct(id, selectedStatus)}
                 />
             )}
+
+            {openCancelOrderModal && (
+                <ConfirmCancelModal
+                    title={title}
+                    orderId={orderId}
+                    setOpenOrderCard={setOpenOrderCard}
+                    setOpenCancelOrderModal={setOpenCancelOrderModal}
+                />
+            )}
+            
+        </div>
+    )
+};
+
+interface ConfirmCancelModalProps{
+    title: string;
+    orderId: string | undefined,
+    setOpenOrderCard: (e: boolean) => void;
+    setOpenCancelOrderModal: (e: boolean) => void;
+}
+
+const ConfirmCancelModal = ({
+    title,
+    orderId,
+    setOpenOrderCard,
+    setOpenCancelOrderModal,
+}: ConfirmCancelModalProps) => {
+
+    async function deleteOrder(){
+        await api.delete(`/v3/orders?idOrder=${orderId}`)
+        .then(() => {
+            console.log("removido com sucesso");
+            setOpenCancelOrderModal(false);
+            setOpenOrderCard(false);
+        })
+        .catch((error) => {
+            console.log("Deu ruim aqui " + error);
+        })
+    }
+
+    return(
+        <div className="fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50">
+            <div className="w-auto h-auto p-5 bg-white rounded-lg gap-10 flex flex-col">
+                <div className="flex flex-col gap-3">
+                <BackButton onClick={() => setOpenCancelOrderModal(false)} />
+                    <h1 className="text-2xl font-medium">Cancelar pedido</h1>
+                    <p className="font-medium text-sm text-zinc-600 ml-4">Confirme o cancelamento do pedido</p>
+                </div>
+                <div className="flex flex-col gap-3">
+                    <h1 className="text-center text-xl font-medium">Você tem certeza que deseja cancalar este pedido</h1>
+                    <h1 className="text-center">{title} ?</h1>
+
+                    <div className="flex justify-between px-20 mt-5">
+                        <button
+                            className="font-medium text-zinc-500 hover:text-zinc-600 hover:bg-zinc-200 rounded-md px-5"
+                            type="button"
+                            onClick={() => setOpenCancelOrderModal(false)}
+                        >Voltar
+                        </button>
+                        <MainButton onClick={deleteOrder} width="min">Cancelar</MainButton>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 };
