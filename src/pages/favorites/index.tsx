@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { Navbar } from "../../components/macro-components/navbar";
 import { Footer } from "../../components/macro-components/footer";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
@@ -40,10 +40,10 @@ export function Favorites() {
             }
         )}
         getProductsFavorites()
-        }, []);
+    }, []);
 
     return (
-        <div>
+        <>
             <Navbar />
             <main className="ml-20 mr-20 justify-between flex flex-col gap-20 mt-20">
                 <HeaderOnPages
@@ -54,23 +54,31 @@ export function Favorites() {
 
                 <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
 
-                {productListFavorite.lenght > 0 && productListFavorite.map((product) => (
-                            <div key={product.id}>
-                                <SingleProduct
-                                    title={product.name}
-                                    description={product.description}
-                                    value={Number(product.value)}
-                                    image={product.image}
-                                    textOnButton={"Desfavoritar"}
-                                    category={product.category}
-                                    id={product.id}
-                                />
-                            </div>
-                        ))}
+                { productListFavorite.length > 0 ? (
+
+                    productListFavorite.map((product) => (
+                                <div key={product.id}>
+                                    <SingleProduct
+                                        title={product.name}
+                                        description={product.description}
+                                        value={Number(product.value)}
+                                        image={product.image}
+                                        textOnButton={"Remover"}
+                                        category={product.category}
+                                        id={product.id}
+                                    />
+                                </div>
+                    ))
+                ) : (
+                    <div></div>
+                )
+                
+                }
+                
                 </section>
 
             </main>
             <Footer />
-        </div>
+        </>
     )
 }
