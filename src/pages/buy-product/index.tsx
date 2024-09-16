@@ -2,6 +2,7 @@ import { HeaderOnPages } from "../../components/macro-components/header-on-the-p
 import { Navbar } from "../../components/macro-components/navbar";
 import camisa from "../../assets/images/camisa-branca.svg"
 import { MainButton } from "../../components/micro-components/main-button";
+import { Footer } from "../../components/macro-components/footer";
 
 export default function BuyPage() {
     return (
@@ -36,6 +37,8 @@ export default function BuyPage() {
                     <li>camisa GG</li>
                 </ul>
             </section>
+            <Footer />
         </div>
+
     )
 }
