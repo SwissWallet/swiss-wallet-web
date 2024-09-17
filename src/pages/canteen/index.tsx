@@ -17,16 +17,7 @@ interface productInterface {
 
 export function Canteen() {
 
-    const product = {
-        id: "",
-        name: "",
-        value: "",
-        description: "",
-        image: "data:image/jpeg;base64,",
-        category: "",
-    }
-
-    const [productListCanteen, setProductListCanteen] = useState([product]);
+    const [productListCanteen, setProductListCanteen] = useState<productInterface[]>([]);
 
     useEffect(() => {
         async function getProductsCanteen() {

@@ -17,18 +17,10 @@ interface productInterface {
 
 export function Home() {
 
-    const product = {
-        id: "",
-        name: "",
-        value: "",
-        description: "",
-        image: "data:image/jpeg;base64,",
-        category: "",
-    }
 
-    const [productListStore, setProductListStore] = useState([])
-    const [productListCanteen, setProductListCanteen] = useState([])
-    const [productListLibrary, setProductListLibrary] = useState([])
+    const [productListStore, setProductListStore] = useState<productInterface[]>([])
+    const [productListCanteen, setProductListCanteen] = useState<productInterface[]>([])
+    const [productListLibrary, setProductListLibrary] = useState<productInterface[]>([])
 
     useEffect(() => {
 
