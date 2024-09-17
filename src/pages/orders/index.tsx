@@ -103,7 +103,7 @@ export function Orders() {
         .then((json) => {
             const data = json.data;
             if (data != ""){
-                const products = (data.map((item: productInterface) => ({
+                setOrderProductList(data.map((item: productInterface) => ({
                     orderId: item.id,
                     id: item.product.id,
                     name: item.product.name,
@@ -115,7 +115,7 @@ export function Orders() {
                     status: item.status
                 })))
             }  
-            setOrderProductList(products);
+            
         })
     };
 
