@@ -53,10 +53,7 @@ export function Favorites() {
 
 
                 <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
-
-                { productListFavorite.length > 0 ? (
-
-                    productListFavorite.map((product) => (
+                    {productListFavorite.map((product) => (
                                 <div key={product.id}>
                                     <SingleProduct
                                         title={product.name}
@@ -68,13 +65,7 @@ export function Favorites() {
                                         id={product.id}
                                     />
                                 </div>
-                    ))
-                ) : (
-                    <div></div>
-                )
-                
-                }
-                
+                    ))}
                 </section>
 
             </main>

@@ -25,7 +25,7 @@ export function Canteen() {
         category: "",
     }
 
-    const [productListCanteen, setProductListCanteen] = useState([product]);
+    const [productListCanteen, setProductListCanteen] = useState([]);
 
     useEffect(() => {
         async function getProductsCanteen() {

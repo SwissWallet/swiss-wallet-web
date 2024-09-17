@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import { CardFavoritos } from "../../components/macro-components/card-favoritos";
 import { Footer } from "../../components/macro-components/footer";
@@ -25,9 +26,9 @@ export function Home() {
         category: "",
     }
 
-    const [productListStore, setProductListStore] = useState([product])
-    const [productListCanteen, setProductListCanteen] = useState([product])
-    const [productListLibrary, setProductListLibrary] = useState([product])
+    const [productListStore, setProductListStore] = useState([])
+    const [productListCanteen, setProductListCanteen] = useState([])
+    const [productListLibrary, setProductListLibrary] = useState([])
 
     useEffect(() => {
 

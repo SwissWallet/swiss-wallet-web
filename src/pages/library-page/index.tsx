@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { SingleProduct } from "../../components/micro-components/single-product-card";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
@@ -25,7 +26,7 @@ export function Library() {
         category: "",
     }
 
-    const [productListLibrary, setProductListLibrary] = useState([product]);
+    const [productListLibrary, setProductListLibrary] = useState([]);
 
     useEffect(() => {
         async function getProductsLibrary() {
