@@ -24,14 +24,16 @@ export function Library() {
             await api.get(`/v3/products/category?category=LIBRARY`)
                 .then((json) => {
                     const data = json.data;
-                    setProductListLibrary(data.map((item: productInterface) => ({
-                        id: item.id,
-                        name: item.name,
-                        value: item.value,
-                        description: item.description,
-                        image: `data:image/jpeg;base64,${item.image}`,
-                        category: item.category,
-                    })))
+                    if (data != ""){
+                        setProductListLibrary(data.map((item: productInterface) => ({
+                            id: item.id,
+                            name: item.name,
+                            value: item.value,
+                            description: item.description,
+                            image: `data:image/jpeg;base64,${item.image}`,
+                            category: item.category,
+                        })))
+                    }  
                 })
         }
 

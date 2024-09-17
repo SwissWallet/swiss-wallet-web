@@ -29,14 +29,16 @@ export function Favorites() {
             })
             .then((json) => {
                 const data = json.data;
-                setProductListFavorite(data.map((item: productInterface) => ({
-                    id: item.product.id,
-                    name: item.product.name,
-                    value: item.product.value,
-                    description: item.product.description,
-                    image: `data:image/jpeg;base64,${item.product.image}`,
-                    category: item.product.category,
-                })))
+                if (data != ""){
+                    setProductListFavorite(data.map((item: productInterface) => ({
+                        id: item.product.id,
+                        name: item.product.name,
+                        value: item.product.value,
+                        description: item.product.description,
+                        image: `data:image/jpeg;base64,${item.product.image}`,
+                        category: item.product.category,
+                    })))
+                }  
             }
         )}
         getProductsFavorites()

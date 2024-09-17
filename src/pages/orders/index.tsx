@@ -80,16 +80,18 @@ export function Orders() {
         await api.get(`/v3/orders/current`)
         .then((json) => {
             const data = json.data;
-            setOrderProductList(data.map((item: productInterface) => ({
-                    orderId: item.id,
-                    id: item.product.id,
-                    name: item.product.name,
-                    value: item.product.value,
-                    description: item.product.description,
-                    image: `data:image/jpeg;base64,${item.product.image}`,
-                    category: item.product.category,
-                    status: item.status
-            })));
+            if (data != ""){
+                setOrderProductList(data.map((item: productInterface) => ({
+                        orderId: item.id,
+                        id: item.product.id,
+                        name: item.product.name,
+                        value: item.product.value,
+                        description: item.product.description,
+                        image: `data:image/jpeg;base64,${item.product.image}`,
+                        category: item.product.category,
+                        status: item.status
+                })));
+            }  
         })
         .catch(() => {
             console.log("error")
@@ -100,18 +102,20 @@ export function Orders() {
         await api.get(`/v3/orders`)
         .then((json) => {
             const data = json.data;
-            const products = (data.map((item: productInterface) => ({
-                orderId: item.id,
-                id: item.product.id,
-                name: item.product.name,
-                value: item.product.value,
-                description: item.product.description,
-                image: `data:image/jpeg;base64,${item.product.image}`,
-                category: item.product.category,
-                username: item.user.name,
-                status: item.status
-            })))
-            setOrderProductList(products);
+            if (data != ""){
+                setOrderProductList(data.map((item: productInterface) => ({
+                    orderId: item.id,
+                    id: item.product.id,
+                    name: item.product.name,
+                    value: item.product.value,
+                    description: item.product.description,
+                    image: `data:image/jpeg;base64,${item.product.image}`,
+                    category: item.product.category,
+                    username: item.user.name,
+                    status: item.status
+                })))
+            }  
+            
         })
     };
 

@@ -38,14 +38,16 @@ export default function ListProduct() {
             await api.get(`/v3/products`)
                 .then((json) => {
                     const data = json.data;
-                    setProductList(data.map((item: productInterface) => ({
-                        id: item.id,
-                        name: item.name,
-                        value: item.value,
-                        description: item.description,
-                        image: `data:image/jpeg;base64,${item.image}`,
-                        category: item.category
-                    })))
+                    if (data != ""){
+                        setProductList(data.map((item: productInterface) => ({
+                            id: item.id,
+                            name: item.name,
+                            value: item.value,
+                            description: item.description,
+                            image: `data:image/jpeg;base64,${item.image}`,
+                            category: item.category
+                        })))
+                    }
                 })
         }
         getProducts();
