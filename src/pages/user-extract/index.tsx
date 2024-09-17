@@ -16,15 +16,9 @@ interface extractContent {
 
 export function UserExtract() {
 
-    const extract = {
-        id: "",
-        description: "",
-        value: "",
-        type: "",
-        date: "",
-    };
+    
 
-    const [extractList, setExtractList] = useState([extract]);
+    const [extractList, setExtractList] = useState<extractContent[]>([]);
 
     useEffect(() => {
         async function getExtracts() {
@@ -37,14 +31,15 @@ export function UserExtract() {
             })
                 .then((json) => {
                     const data = json.data;
-
-                    setExtractList(data.map((item: extractContent) => ({
-                        id: item.id,
-                        description: item.description,
-                        value: item.value,
-                        type: item.type,
-                        date: item.date
-                    })))
+                    if (data != ""){
+                        setExtractList(data.map((item: extractContent) => ({
+                            id: item.id,
+                            description: item.description,
+                            value: item.value,
+                            type: item.type,
+                            date: item.date
+                        })))
+                    }  
                 })
         }
         getExtracts()
