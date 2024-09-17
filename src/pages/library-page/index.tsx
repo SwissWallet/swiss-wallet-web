@@ -17,16 +17,7 @@ interface productInterface {
 
 export function Library() {
 
-    const product = {
-        id: "",
-        name: "",
-        value: "",
-        description: "",
-        image: "data:image/jpeg;base64,",
-        category: "",
-    }
-
-    const [productListLibrary, setProductListLibrary] = useState([product]);
+    const [productListLibrary, setProductListLibrary] = useState<productInterface[]>([]);
 
     useEffect(() => {
         async function getProductsLibrary() {

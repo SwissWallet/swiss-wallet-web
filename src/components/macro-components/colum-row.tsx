@@ -3,7 +3,7 @@ import { MainButton } from "../micro-components/main-button";
 interface RowTableProps {
     image: string,
     title: string,
-    value: string,
+    value: number,
     id: string,
     openCardProduct: (id: string) => void
 }

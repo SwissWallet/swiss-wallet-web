@@ -23,15 +23,7 @@ export default function ListProduct() {
         navigate('/add-product')
     }
 
-    const product = {
-        id: "",
-        name: "",
-        value: "",
-        description: "",
-        image: "data:image/jpeg;base64,",
-        category: "",
-    }
-    const [productList, setProductList] = useState([product]);
+    const [productList, setProductList] = useState<productInterface[]>([]);
     const [openCardId, setOpenCardId] = useState<string | null>(null);
 
     function openCardProduct(id: string) {
