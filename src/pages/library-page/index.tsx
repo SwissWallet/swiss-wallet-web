@@ -1,10 +1,10 @@
-//@ts-nocheck
 import { SingleProduct } from "../../components/micro-components/single-product-card";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
 import { Footer } from "../../components/macro-components/footer";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
+import { NoProducts } from "../../components/micro-components/no-products";
 
 interface productInterface {
     id: string,
@@ -26,7 +26,7 @@ export function Library() {
         category: "",
     }
 
-    const [productListLibrary, setProductListLibrary] = useState([]);
+    const [productListLibrary, setProductListLibrary] = useState([product]);
 
     useEffect(() => {
         async function getProductsLibrary() {
@@ -41,8 +41,7 @@ export function Library() {
                         image: `data:image/jpeg;base64,${item.image}`,
                         category: item.category,
                     })))
-                }
-                )
+                })
         }
 
         getProductsLibrary();
@@ -58,23 +57,29 @@ export function Library() {
                     description="Confira os livros disponíveis na biblioteca"
                 />
 
-                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                
 
-                    {productListLibrary.map((product) => (
-                        <div key={product.id}>
-                            <SingleProduct
-                                title={product.name}
-                                description={product.description}
-                                value={Number(product.value)}
-                                image={product.image}
-                                textOnButton={'ver mais'}
-                                category={product.category}
-                                id={product.id}
-                            />
-                        </div>
-                    ))}
+                    {productListLibrary.length > 0 ? (
+                        productListLibrary.map((product) => (
+                            <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                                <div key={product.id}>
+                                    <SingleProduct
+                                        title={product.name}
+                                        description={product.description}
+                                        value={Number(product.value)}
+                                        image={product.image}
+                                        textOnButton={'ver mais'}
+                                        category={product.category}
+                                        id={product.id}
+                                    />
+                                </div>
+                            </section>
+                        ))) : (
+                            <NoProducts />
+                        )
+                    }
 
-                </section>
+                
             </main>
             <Footer />
         </div>
