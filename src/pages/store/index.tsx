@@ -24,14 +24,16 @@ export function Store() {
             await api.get(`/v3/products/category?category=STORE`)
                 .then((json) => {
                     const data = json.data;
-                    setProductListStore(data.map((item: productInterface) => ({
-                        id: item.id,
-                        name: item.name,
-                        value: item.value,
-                        description: item.description,
-                        image: `data:image/jpeg;base64,${item.image}`,
-                        category: item.category,
-                    })))
+                    if (data != ""){
+                        setProductListStore(data.map((item: productInterface) => ({
+                            id: item.id,
+                            name: item.name,
+                            value: item.value,
+                            description: item.description,
+                            image: `data:image/jpeg;base64,${item.image}`,
+                            category: item.category,
+                        })))
+                    }  
                 }
                 )
         }

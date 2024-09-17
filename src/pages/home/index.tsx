@@ -36,7 +36,7 @@ export function Home() {
                 .then((json) => {
                     const data = json.data;
                     if (data != ""){
-                        setProductListLibrary(data.map((item: productInterface) => ({
+                        setProductListStore(data.map((item: productInterface) => ({
                             id: item.id,
                             name: item.name,
                             value: item.value,
@@ -59,7 +59,7 @@ export function Home() {
                 .then((json) => {
                     const data = json.data;
                     if (data != ""){
-                        setProductListLibrary(data.map((item: productInterface) => ({
+                        setProductListCanteen(data.map((item: productInterface) => ({
                             id: item.id,
                             name: item.name,
                             value: item.value,
