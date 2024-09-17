@@ -5,6 +5,7 @@ import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
 import { api } from "../../lib/axios";
 import { SingleProduct } from "../../components/micro-components/single-product-card";
+import { da } from "date-fns/locale";
 
 interface productInterface {
     id: string,
@@ -34,14 +35,16 @@ export function Home() {
             })
                 .then((json) => {
                     const data = json.data;
-                    setProductListStore(data.map((item: productInterface) => ({
-                        id: item.id,
-                        name: item.name,
-                        value: item.value,
-                        description: item.description,
-                        image: `data:image/jpeg;base64,${item.image}`,
-                        category: item.category,
-                    })))
+                    if (data != ""){
+                        setProductListLibrary(data.map((item: productInterface) => ({
+                            id: item.id,
+                            name: item.name,
+                            value: item.value,
+                            description: item.description,
+                            image: `data:image/jpeg;base64,${item.image}`,
+                            category: item.category,
+                        })))
+                    }  
                 }
                 )
         }
@@ -55,14 +58,16 @@ export function Home() {
             })
                 .then((json) => {
                     const data = json.data;
-                    setProductListCanteen(data.map((item: productInterface) => ({
-                        id: item.id,
-                        name: item.name,
-                        value: item.value,
-                        description: item.description,
-                        image: `data:image/jpeg;base64,${item.image}`,
-                        category: item.category,
-                    })))
+                    if (data != ""){
+                        setProductListLibrary(data.map((item: productInterface) => ({
+                            id: item.id,
+                            name: item.name,
+                            value: item.value,
+                            description: item.description,
+                            image: `data:image/jpeg;base64,${item.image}`,
+                            category: item.category,
+                        })))
+                    }  
                 }
                 )
         }
@@ -76,14 +81,17 @@ export function Home() {
             })
                 .then((json) => {
                     const data = json.data;
-                    setProductListLibrary(data.map((item: productInterface) => ({
-                        id: item.id,
-                        name: item.name,
-                        value: item.value,
-                        description: item.description,
-                        image: `data:image/jpeg;base64,${item.image}`,
-                        category: item.category,
-                    })))
+                    console.log("Data: '" + data + "'")
+                    if (data != ""){
+                        setProductListLibrary(data.map((item: productInterface) => ({
+                            id: item.id,
+                            name: item.name,
+                            value: item.value,
+                            description: item.description,
+                            image: `data:image/jpeg;base64,${item.image}`,
+                            category: item.category,
+                        })))
+                    }  
                 }
                 )
         }
