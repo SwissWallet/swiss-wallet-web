@@ -4,6 +4,7 @@ import { SingleProduct } from "../../components/micro-components/single-product-
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
+import { NoProducts } from "../../components/micro-components/no-products";
 
 interface productInterface {
     id: string,
@@ -25,7 +26,7 @@ export function Canteen() {
         category: "",
     }
 
-    const [productListCanteen, setProductListCanteen] = useState([]);
+    const [productListCanteen, setProductListCanteen] = useState([product]);
 
     useEffect(() => {
         async function getProductsCanteen() {
@@ -57,23 +58,28 @@ export function Canteen() {
                     description="Confira os lanches disponíveis"
                 />
 
-                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                    {productListCanteen.length > 0 ? (
+                            productListCanteen.map((product) => (
+                                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                                    <div key={product.id}>
+                                        <SingleProduct
+                                            title={product.name}
+                                            description={product.description}
+                                            value={Number(product.value)}
+                                            image={product.image}
+                                            textOnButton={'ver mais'}
+                                            category={product.category}
+                                            id={product.id}
+                                        />
+                                    </div>
+                                </section>
+                            ))
+                        ) : (
+                            <NoProducts />
+                        )
+                    }
 
-                    {productListCanteen.map((product) => (
-                        <div key={product.id}>
-                            <SingleProduct
-                                title={product.name}
-                                description={product.description}
-                                value={Number(product.value)}
-                                image={product.image}
-                                textOnButton={'ver mais'}
-                                category={product.category}
-                                id={product.id}
-                            />
-                        </div>
-                    ))}
-
-                </section>
+                
             </main>
             <Footer />
         </div>
