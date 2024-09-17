@@ -81,7 +81,6 @@ export function Home() {
             })
                 .then((json) => {
                     const data = json.data;
-                    console.log("Data: '" + data + "'")
                     if (data != ""){
                         setProductListLibrary(data.map((item: productInterface) => ({
                             id: item.id,
