@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
@@ -11,6 +11,7 @@ import { UnavailableStatus } from "./status-components/unavailable-status";
 import { CompletedStatus } from "./status-components/completed-status";
 import { WithdrawStatus } from "./status-components/withdraw-status";
 import { ProgressStatus } from "./status-components/progress-status";
+import { NoProducts } from "../../components/micro-components/no-products";
 
 interface productInterface {
     orderId: string
@@ -208,11 +209,9 @@ const ProductsOrder = ({
 
     const filter = filterByStatus !== "";
 
-    console.log(orderProductList)
-
     return(
         <>
-        {
+        {orderProductList.length > 0 ? (
             filter ? (
                 <div className="grid grid-cols-3 grid-rows-1 gap-20 mb-20">
                     {orderProductList
@@ -258,9 +257,9 @@ const ProductsOrder = ({
                     ))}
                 </div>
             )
-        }
-        
-        
+        ) : (
+            <NoProducts />
+        )}
         </>
     )
 };
