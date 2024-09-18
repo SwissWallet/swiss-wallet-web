@@ -133,7 +133,7 @@ const HasImage = ({ file, removeFile }: HasImageProps) => {
                 <img
                     src={previewUrl}
                     alt="Prévia da Imagem"
-                    className="max-w-full max-h-full object-cover rounded flex-1"
+                    className="max-w-full max-h-full object-contain rounded flex-1"
                 />
             )}
         </div>
