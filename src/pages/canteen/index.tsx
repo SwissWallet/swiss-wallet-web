@@ -51,9 +51,9 @@ export function Canteen() {
                     description="Confira os lanches disponíveis"
                 />
 
+            <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
                     {productListCanteen.length > 0 ? (
                             productListCanteen.map((product) => (
-                                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
                                     <div key={product.id}>
                                         <SingleProduct
                                             title={product.name}
@@ -65,12 +65,12 @@ export function Canteen() {
                                             id={product.id}
                                         />
                                     </div>
-                                </section>
                             ))
                         ) : (
                             <NoProducts />
                         )
                     }
+            </section>
 
                 
             </main>

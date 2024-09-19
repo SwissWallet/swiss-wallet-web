@@ -52,9 +52,9 @@ export function Library() {
 
                 
 
+            <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
                     {productListLibrary.length > 0 ? (
                         productListLibrary.map((product) => (
-                            <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
                                 <div key={product.id}>
                                     <SingleProduct
                                         title={product.name}
@@ -66,11 +66,11 @@ export function Library() {
                                         id={product.id}
                                     />
                                 </div>
-                            </section>
                         ))) : (
                             <NoProducts />
                         )
                     }
+            </section>
 
                 
             </main>

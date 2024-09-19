@@ -5,6 +5,7 @@ import { HeaderOnPages } from './header-on-the-pages'
 import { useCallback, useState } from 'react'
 import { DropzoneState, useDropzone } from 'react-dropzone'
 import { api } from '../../lib/axios'
+import { UserSelect } from '../micro-components/category-input'
 
 interface InputImageProps {
     dropzone: DropzoneState;
@@ -99,7 +100,7 @@ export function AddNewProduct() {
                 <form className='flex flex-col gap-5 w-2/4 justify-between p-12'>
                     <UserInput type='text' placeholder='Ex: Camiseta Branca' value={name} onChange={(e) => setName(e.target.value)} >Titulo</UserInput>
                     <UserInput type='number' placeholder='Ex: 40,00' value={value} onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
-                    <UserInput type='text' placeholder='Ex: STORE' value={category} onChange={(e) => setCategory(e.target.value)} >Categoria</UserInput>
+                    <UserSelect onChange={(e) => setCategory(e.target.value)} isVisibleSvgIcon={true}>Categoria</UserSelect>
                     <UserInput type='text' placeholder='Camiseta Branca Básica' value={description} onChange={(e) => setDescription(e.target.value)} >Descrição</UserInput>
                 </form>
             </main>
