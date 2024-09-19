@@ -48,9 +48,9 @@ export function Store() {
                     title="Loja"
                     description="Confira nossas melhores opções de camisetas"
                 />
+                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
                     {productListStore.length > 0 ? (
                         productListStore.map((product) => (
-                            <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
                                 <div key={product.id}>
                                     <SingleProduct
                                         title={product.name}
@@ -62,12 +62,12 @@ export function Store() {
                                         textOnButton={'ver mais'}
                                     />
                                 </div>
-                            </section>
                         ))
-                    ) : (
-                        <NoProducts />
-                    )
+                        ) : (
+                            <NoProducts />
+                        )
                     }
+                </section>
             </main>
             <Footer />
         </div>
