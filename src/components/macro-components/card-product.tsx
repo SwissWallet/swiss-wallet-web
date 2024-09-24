@@ -68,7 +68,7 @@ export function CardProduct({
             setCValue(n);
         }
     }, [cValue]);
-    
+
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-red-gradient rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
@@ -85,7 +85,7 @@ export function CardProduct({
                             <h3 className="text-zinc-300 mt-2">{description}</h3>
                         </div>
                         <div className="text-white flex flex-col items-center justify-center">
-                            <form className="w-full flex justify-center">
+                            
                                 <input type="number" value={cValue} 
                                     disabled={!openChanged} 
                                     min={1} max={99} required 
@@ -93,7 +93,7 @@ export function CardProduct({
                                     className={`w-1/2 text-center font-medium text-4xl rounded-md py-2 px-3 focus:outline-0
                                     ${openChanged ? "bg-red-600" : "bg-transparent "}`} 
                                 />
-                            </form>
+                            
                             <span>pontos</span>
                         </div>
                         {isCLient ? (
@@ -102,9 +102,13 @@ export function CardProduct({
                                 <MainButton width="min" onClick={favoriteProduct}>Favoritar</MainButton>
                             </div>
                         ) : (
-                            <div className="space-y-2">
-                                <MainButton onClick={() => setOpenChanged(!openChanged)}>Alterar</MainButton>
-                                <MainButton onClick={deleteProduct} >Excluir</MainButton>
+                            <div className="flex flex-col justify-center space-y-2">
+                                {openChanged ? (
+                                    <MainButton width="min" onClick={() => setOpenChanged(false)}>Salvar</MainButton>
+                                ) : (
+                                    <MainButton width="min" onClick={() => setOpenChanged(true)}>Alterar</MainButton>
+                                )}
+                                <MainButton width="min" onClick={deleteProduct} >Excluir</MainButton>
                             </div>
                         )}
                     </article>
