@@ -28,7 +28,8 @@ export function UserPasswordModal({
     textAlert,
 }: UserPasswordModalProps) {
 
-    const [isVisiblePassword, setIsVisiblePassword] = useState(false)
+    const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+    const routeCurrent = localStorage.getItem('routeCurrent');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -41,16 +42,17 @@ export function UserPasswordModal({
                 'Authorization': `Bearer ${token}`
             }
         })
-            .then(async (json) => {
-                dispatch(setUser(json.data));
-                dispatch(setLogin(true));
+        .then((json) => {
+            api.defaults.headers['Authorization'] = `Bearer ${token}`;
+            dispatch(setUser(json.data));
+            dispatch(setLogin(true));
+            navigate(`${routeCurrent}`);
 
-                navigate('/home')
-            })
-            .catch(async (err) => {
-                await localStorage.clear();
-                console.log(err)
-            })
+        })
+        .catch((err) => {
+            dispatch(setLogin(false));
+            console.log(err);
+        });
     }
 
     async function authLogin() {

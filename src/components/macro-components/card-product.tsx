@@ -38,6 +38,18 @@ export function CardProduct({
         })
     };
 
+    async function putValueProduct(){
+        const token = localStorage.getItem("token");
+        
+        await api.put(`/v3/products/value?id=${id}&newValue=${cValue}`,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(() => {
+            setOpenChanged(false);
+        })
+    };
 
     async function orderProduct(){
         const token = localStorage.getItem("token");
@@ -104,7 +116,7 @@ export function CardProduct({
                         ) : (
                             <div className="flex flex-col justify-center space-y-2">
                                 {openChanged ? (
-                                    <MainButton width="min" onClick={() => setOpenChanged(false)}>Salvar</MainButton>
+                                    <MainButton width="min" onClick={putValueProduct}>Salvar</MainButton>
                                 ) : (
                                     <MainButton width="min" onClick={() => setOpenChanged(true)}>Alterar</MainButton>
                                 )}
