@@ -3,6 +3,7 @@ import { MainButton } from "../micro-components/main-button";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
+import { useState } from "react";
 interface CardProductProps {
     id: string,
     title: string,
@@ -26,6 +27,9 @@ export function CardProduct({
     const role = user.user.role;
 
     const isCLient = role === "ROLE_CLIENT";
+
+    const [ openChanged, setOpenChanged ] = useState(false);
+    const [ cValue, setCValue ] = useState(value);
 
     async function favoriteProduct(){
         await api.post(`/v3/favorites?idProduct=${id}`)
@@ -74,7 +78,7 @@ export function CardProduct({
                             <h3 className="text-zinc-300 mt-2">{description}</h3>
                         </div>
                         <div className="text-white flex justify-center">
-                            <h1 className="text-3xl font-extrabold">{value}  <span className="text-xl font-semibold">   pontos</span></h1>
+                            <input type="text" value={cValue} disabled={!openChanged} />
                         </div>
                         {isCLient ? (
                             <div className={`space-y-2 flex flex-col justify-center`}>
@@ -83,7 +87,7 @@ export function CardProduct({
                             </div>
                         ) : (
                             <div className="space-y-2">
-                                <MainButton>Alterar</MainButton>
+                                <MainButton onClick={() => setOpenChanged(true)}>Alterar</MainButton>
                                 <MainButton onClick={deleteProduct} >Excluir</MainButton>
                             </div>
                         )}
