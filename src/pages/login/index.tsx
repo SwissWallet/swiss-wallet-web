@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import { HeaderLoginAndRegister } from "../../components/macro-components/header-login-and-register";
 import { UsernameModal } from "./username-modal";

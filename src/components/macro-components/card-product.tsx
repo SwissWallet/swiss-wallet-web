@@ -3,6 +3,7 @@ import { MainButton } from "../micro-components/main-button";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { api } from "../../lib/axios";
+import { useEffect, useState } from "react";
 interface CardProductProps {
     id: string,
     title: string,
@@ -27,6 +28,9 @@ export function CardProduct({
 
     const isCLient = role === "ROLE_CLIENT";
 
+    const [ openChanged, setOpenChanged ] = useState(false);
+    const [ cValue, setCValue ] = useState<number>(value);
+
     async function favoriteProduct(){
         await api.post(`/v3/favorites?idProduct=${id}`)
         .then(() => {
@@ -34,6 +38,18 @@ export function CardProduct({
         })
     };
 
+    async function putValueProduct(){
+        const token = localStorage.getItem("token");
+        
+        await api.put(`/v3/products/value?id=${id}&newValue=${cValue}`,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(() => {
+            setOpenChanged(false);
+        })
+    };
 
     async function orderProduct(){
         const token = localStorage.getItem("token");
@@ -58,6 +74,13 @@ export function CardProduct({
             })
     };
 
+    useEffect(() => {
+        if(cValue.toString().length > 2){
+            const n = Number(cValue.toString().slice(0, 2));
+            setCValue(n);
+        }
+    }, [cValue]);
+
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-red-gradient rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
@@ -73,8 +96,17 @@ export function CardProduct({
                             <h1 className="text-white font-bold text-4xl">{title}</h1>
                             <h3 className="text-zinc-300 mt-2">{description}</h3>
                         </div>
-                        <div className="text-white flex justify-center">
-                            <h1 className="text-3xl font-extrabold">{value}  <span className="text-xl font-semibold">   pontos</span></h1>
+                        <div className="text-white flex flex-col items-center justify-center">
+                            
+                                <input type="number" value={cValue} 
+                                    disabled={!openChanged} 
+                                    min={1} max={99} required 
+                                    onChange={(e) => setCValue(Number(e.target.value))}
+                                    className={`w-1/2 text-center font-medium text-4xl rounded-md py-2 px-3 focus:outline-0
+                                    ${openChanged ? "bg-red-600" : "bg-transparent "}`} 
+                                />
+                            
+                            <span>pontos</span>
                         </div>
                         {isCLient ? (
                             <div className={`space-y-2 flex flex-col justify-center`}>
@@ -82,9 +114,13 @@ export function CardProduct({
                                 <MainButton width="min" onClick={favoriteProduct}>Favoritar</MainButton>
                             </div>
                         ) : (
-                            <div className="space-y-2">
-                                <MainButton>Alterar</MainButton>
-                                <MainButton onClick={deleteProduct} >Excluir</MainButton>
+                            <div className="flex flex-col justify-center space-y-2">
+                                {openChanged ? (
+                                    <MainButton width="min" onClick={putValueProduct}>Salvar</MainButton>
+                                ) : (
+                                    <MainButton width="min" onClick={() => setOpenChanged(true)}>Alterar</MainButton>
+                                )}
+                                <MainButton width="min" onClick={deleteProduct} >Excluir</MainButton>
                             </div>
                         )}
                     </article>
