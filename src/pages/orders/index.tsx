@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
