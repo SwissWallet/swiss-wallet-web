@@ -12,6 +12,8 @@ import { CompletedStatus } from "./status-components/completed-status";
 import { WithdrawStatus } from "./status-components/withdraw-status";
 import { ProgressStatus } from "./status-components/progress-status";
 import { NoProducts } from "../../components/micro-components/no-products";
+import { Search } from "lucide-react";
+import { UserInput } from "../../components/micro-components/user-input";
 
 interface productInterface {
     orderId: string
@@ -130,10 +132,6 @@ export function Orders() {
         
     }, [isClient])
 
-    orderProductList.forEach((item) => {
-        console.log(item.status);
-    });
-
     return (
         <div className="bg-default-gray ">
             <Navbar />
@@ -146,6 +144,17 @@ export function Orders() {
                         notFilterAndOrder={true}
                     />
 
+                    <div className={`flex flex-col space-y-6`}>
+                        <div>
+                            <UserInput 
+                                isVisibleSvgIcon={true}
+                                svgIcon={
+                                    <button>
+                                        <Search className="text-zinc-400 hover:text-red-700" />
+                                    </button>
+                                }
+                            />
+                        </div>
                     <select className={`bg-transparent focus:outline-none ${isClient ? "hidden" : "block"}`} value={filterByStatus} onChange={(e) => setFilterByStatus(e.target.value)} >
                         <option value="">Todos</option>
                         <option value="ANALYSIS">Análise</option>
@@ -153,6 +162,8 @@ export function Orders() {
                         <option value="COMPLETED">Completo</option>
                         <option value="UNAVAILABLE">Indisponível</option>
                     </select>
+                    </div>
+
                 </div>
 
                 {isClient ? (
