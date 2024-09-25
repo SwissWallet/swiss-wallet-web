@@ -158,8 +158,8 @@ export function Orders() {
                     <select className={`bg-transparent focus:outline-none ${isClient ? "hidden" : "block"}`} value={filterByStatus} onChange={(e) => setFilterByStatus(e.target.value)} >
                         <option value="">Todos</option>
                         <option value="ANALYSIS">Análise</option>
-                        <option value="SEPARATED">Retirar</option>
                         <option value="COMPLETED">Completo</option>
+                        <option value="SEPARATED">Disponível</option>
                         <option value="UNAVAILABLE">Indisponível</option>
                     </select>
                     </div>
