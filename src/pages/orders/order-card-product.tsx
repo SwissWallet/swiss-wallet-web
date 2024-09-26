@@ -1,12 +1,13 @@
+import { ShoppingCart } from "lucide-react";
 import { ReactNode, useState } from "react";
-import { MainButton } from "../../components/micro-components/main-button";
-import { ChangedStatusModal } from "./changed-status-modal";
+import { useSelector } from "react-redux";
 import { StatusKey } from ".";
 import { BackButton } from "../../components/micro-components/back-button";
-import { RootState } from "../../store";
-import { useSelector } from "react-redux";
+import { MainButton } from "../../components/micro-components/main-button";
 import { api } from "../../lib/axios";
-import { Plus, ShoppingCart } from "lucide-react";
+import { RootState } from "../../store";
+import { ChangedStatusModal } from "./changed-status-modal";
+import { DrawerBuy } from "../../components/macro-components/drawer-buy";
 
 interface OrderCardProductProps{
     title: string,
@@ -38,6 +39,7 @@ export function OrderCardProduct({
 
     const [ openStatusModal, setOpenStatusModal ] = useState(false);
     const [ openCancelOrderModal, setOpenCancelOrderModal ] = useState(false);
+    const [ openDrawerBuy, setOpenDrawerBuy ] = useState(false);
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
@@ -66,7 +68,7 @@ export function OrderCardProduct({
                         ) : (
                             <div className="flex flex-col justify-center gap-2">
                                 <MainButton width="min" onClick={() => setOpenStatusModal(true)}>Status</MainButton>
-                                <MainButton width="min" onClick={() => setOpenStatusModal(true)}>
+                                <MainButton width="min" onClick={() => setOpenDrawerBuy(true)}>
                                     <div className="flex justify-between box-content px-2">
                                         <ShoppingCart /> Comprar
                                     </div>
@@ -94,6 +96,12 @@ export function OrderCardProduct({
                     orderId={orderId}
                     setOpenOrderCard={setOpenOrderCard}
                     setOpenCancelOrderModal={setOpenCancelOrderModal}
+                />
+            )}
+
+            {openDrawerBuy && (
+                <DrawerBuy 
+                    openDrawerBuy={openDrawerBuy}
                 />
             )}
             
