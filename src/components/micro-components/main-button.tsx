@@ -2,7 +2,7 @@ import { ComponentProps, ReactNode } from "react"
 import { tv, VariantProps } from "tailwind-variants"
 
 const MainButtonVariants = tv({
-    base: 'bg-default-red py-2 rounded-md hover:bg-red-700',
+    base: 'bg-default-red py-2 rounded-md hover:bg-red-700 ',
 
     variants: {
 

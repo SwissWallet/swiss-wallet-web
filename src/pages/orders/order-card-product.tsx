@@ -6,6 +6,7 @@ import { BackButton } from "../../components/micro-components/back-button";
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { api } from "../../lib/axios";
+import { Plus, ShoppingCart } from "lucide-react";
 
 interface OrderCardProductProps{
     title: string,
@@ -63,8 +64,14 @@ export function OrderCardProduct({
                         {isClient ? (
                             <MainButton width="min" onClick={() => setOpenCancelOrderModal(true)} >Cancelar</MainButton>
                         ) : (
-
-                            <MainButton width="min" onClick={() => setOpenStatusModal(true)}>Status</MainButton>
+                            <div className="flex flex-col justify-center gap-2">
+                                <MainButton width="min" onClick={() => setOpenStatusModal(true)}>Status</MainButton>
+                                <MainButton width="min" onClick={() => setOpenStatusModal(true)}>
+                                    <div className="flex justify-between box-content px-2">
+                                        <ShoppingCart /> Comprar
+                                    </div>
+                                </MainButton>
+                            </div>
                         )}
 
                     
