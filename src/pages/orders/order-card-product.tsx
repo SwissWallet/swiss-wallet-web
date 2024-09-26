@@ -102,6 +102,7 @@ export function OrderCardProduct({
             {openDrawerBuy && (
                 <DrawerBuy 
                     openDrawerBuy={openDrawerBuy}
+                    setOpenDrawerBuy={setOpenDrawerBuy}
                 />
             )}
             
