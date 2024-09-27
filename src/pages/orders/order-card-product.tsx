@@ -64,16 +64,16 @@ export function OrderCardProduct({
                         {statusBars[productStatus]}
 
                         {isClient ? (
-                            <MainButton width="min" onClick={() => setOpenCancelOrderModal(true)} >Cancelar</MainButton>
-                        ) : (
                             <div className="flex flex-col justify-center gap-2">
-                                <MainButton width="min" onClick={() => setOpenStatusModal(true)}>Status</MainButton>
                                 <MainButton width="min" onClick={() => setOpenDrawerBuy(true)}>
                                     <div className="flex justify-between box-content px-2">
                                         <ShoppingCart /> Comprar
                                     </div>
                                 </MainButton>
+                            <MainButton width="min" onClick={() => setOpenCancelOrderModal(true)} >Cancelar</MainButton>
                             </div>
+                        ) : (
+                            <MainButton width="min" onClick={() => setOpenStatusModal(true)}>Status</MainButton>
                         )}
 
                     
