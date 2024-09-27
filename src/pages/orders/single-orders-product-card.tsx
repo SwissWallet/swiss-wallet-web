@@ -47,7 +47,9 @@ export function SingleOrdersProductCard({
     
     return (
         <div className="flex">
-            <Checkbox/>
+            <div className={`${isClient ? "block" : "hidden"}`}>
+                <Checkbox/>
+            </div>
             <div className="flex items-center flex-col box-border gap-10">
                 <span className={`font-medium text-lg ${isClient ? "hidden" : "block"}`}>de: {username}</span>
                 <img src={image} className="w-[309px] h-[407px]" alt="camiseta branca com logo do senai" />
