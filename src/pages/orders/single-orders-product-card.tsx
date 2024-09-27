@@ -5,6 +5,7 @@ import { StatusKey } from ".";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { Checkbox } from "../../components/micro-components/checkbox";
+import { DrawerBuy } from "../../components/macro-components/drawer-purchase";
 
 interface SingleOrdersProductCardProps {
     title: string,
@@ -39,6 +40,7 @@ export function SingleOrdersProductCard({
 }: SingleOrdersProductCardProps) {
 
     const [ openOrderCard, setOpenOrderCard ] = useState(false);
+    const [ openDrawerBuy, setOpenDrawerBuy ] = useState(false);
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
@@ -60,9 +62,7 @@ export function SingleOrdersProductCard({
                     </div>
                     {statusBars[productStatus]}
                     <div className={`flex justify-center`}>
-                        
                         <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
-                        
                     </div>
                 </article>
 
@@ -83,6 +83,13 @@ export function SingleOrdersProductCard({
                         changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
                     />
                 )}
+
+            {openDrawerBuy && (
+                <DrawerBuy 
+                    openDrawerBuy={openDrawerBuy}
+                    setOpenDrawerBuy={setOpenDrawerBuy}
+                />
+            )}
             
             </div>
         </div>

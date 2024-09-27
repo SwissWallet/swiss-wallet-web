@@ -1,4 +1,3 @@
-import { ShoppingCart } from "lucide-react";
 import { ReactNode, useState } from "react";
 import { useSelector } from "react-redux";
 import { StatusKey } from ".";
@@ -7,7 +6,6 @@ import { MainButton } from "../../components/micro-components/main-button";
 import { api } from "../../lib/axios";
 import { RootState } from "../../store";
 import { ChangedStatusModal } from "./changed-status-modal";
-import { DrawerBuy } from "../../components/macro-components/drawer-buy";
 
 interface OrderCardProductProps{
     title: string,
@@ -39,7 +37,6 @@ export function OrderCardProduct({
 
     const [ openStatusModal, setOpenStatusModal ] = useState(false);
     const [ openCancelOrderModal, setOpenCancelOrderModal ] = useState(false);
-    const [ openDrawerBuy, setOpenDrawerBuy ] = useState(false);
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
@@ -64,14 +61,7 @@ export function OrderCardProduct({
                         {statusBars[productStatus]}
 
                         {isClient ? (
-                            <div className="flex flex-col justify-center gap-2">
-                                <MainButton width="min" onClick={() => setOpenDrawerBuy(true)}>
-                                    <div className="flex justify-between box-content px-2">
-                                        <ShoppingCart /> Comprar
-                                    </div>
-                                </MainButton>
                             <MainButton width="min" onClick={() => setOpenCancelOrderModal(true)} >Cancelar</MainButton>
-                            </div>
                         ) : (
                             <MainButton width="min" onClick={() => setOpenStatusModal(true)}>Status</MainButton>
                         )}
@@ -96,13 +86,6 @@ export function OrderCardProduct({
                     orderId={orderId}
                     setOpenOrderCard={setOpenOrderCard}
                     setOpenCancelOrderModal={setOpenCancelOrderModal}
-                />
-            )}
-
-            {openDrawerBuy && (
-                <DrawerBuy 
-                    openDrawerBuy={openDrawerBuy}
-                    setOpenDrawerBuy={setOpenDrawerBuy}
                 />
             )}
             
