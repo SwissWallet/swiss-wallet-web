@@ -60,11 +60,9 @@ export function SingleOrdersProductCard({
                     </div>
                     {statusBars[productStatus]}
                     <div className={`flex justify-center`}>
-                        {isClient ? (
-                            <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
-                        ) : (
-                            <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
-                        )}
+                        
+                        <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                        
                     </div>
                 </article>
 
