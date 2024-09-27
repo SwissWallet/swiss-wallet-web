@@ -1,9 +1,14 @@
 import { X } from "lucide-react";
-// import { useState } from "react";
 import { MainButton } from "../micro-components/main-button";
 
+interface CheckProduts{
+    id: string;
+    title: string;
+    value: number;
+}
 interface DrawerBuyProps{
     openDrawerBuy: boolean;
+    selectedProducts: CheckProduts[];
     setOpenDrawerBuy: (e: boolean) => void;
 };
 
@@ -12,12 +17,11 @@ interface PurchaseOrder{
     value: number;
 }
 
-export function DrawerBuy({
+export function DrawerPurchase({
     openDrawerBuy,
-    setOpenDrawerBuy
+    selectedProducts,
+    setOpenDrawerBuy,
 }: DrawerBuyProps){
-
-    // const [ purchaseOrderList, setPurchaseOrderList ] = useState<PurchaseOrder[]>([]);
 
     return(
         <div className={`rounded-md fixed z-50 p-5 bg-red-gradient h-auto w-[20%] top-0 transition duration-1000  ${openDrawerBuy ? 'right-0' : '-right-60'} `}>
@@ -27,18 +31,16 @@ export function DrawerBuy({
                 </button>
             </div>
             <div className="bg-white w-full h-[1px]" />
-                <ItemPurchaseOrder 
-                    title="camiseta"
-                    value={40}
-                />
-                <ItemPurchaseOrder 
-                    title="livro"
-                    value={40}
-                />
-                <ItemPurchaseOrder 
-                    title="coca cola"
-                    value={40}
-                />
+                {selectedProducts.length > 0 && (
+                    selectedProducts.map((item) => (
+                        <div key={item.id}>
+                            <ItemPurchaseOrder 
+                                title={item.title}
+                                value={item.value}
+                            />
+                        </div>
+                    ))
+                )}
             <div className="bg-white w-full h-[1px]" />
 
                 <div className="my-5 flex justify-between items-center text-white font-bold">

@@ -1,12 +1,23 @@
 import { Check } from "lucide-react";
-import { useState } from "react"
+import { useState } from "react";
 
-export function Checkbox(){
+interface CheckboxProps{
+    handleSelectProduct: (isSelect: boolean) => void;
+};
+
+export function Checkbox({
+    handleSelectProduct,
+}: CheckboxProps){
 
     const [ filled, setFilled ] = useState(false);
 
+    function handleClick(){
+        setFilled(!filled);
+        handleSelectProduct(!filled);
+    };
+
     return(
-        <button onClick={() => setFilled(!filled)} 
+        <button onClick={handleClick} 
             className={`size-5 border border-zinc-400 rounded-md
             ${filled ? ("bg-red-700") : ("bg-transparent")}`}
         >
@@ -17,7 +28,7 @@ export function Checkbox(){
                 type="checkbox" 
                 className="hidden" 
                 checked={filled} 
-                onChange={() => setFilled(!filled)}
+                onChange={handleClick}
             />
         </button>
     )
