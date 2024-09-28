@@ -28,7 +28,7 @@ interface productInterface {
     status: StatusKey,
 };
 
-interface CheckProduts{
+export interface CheckProduts{
     id: string;
     title: string;
     value: number;

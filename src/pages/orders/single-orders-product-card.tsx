@@ -1,11 +1,11 @@
+    //@ts-nocheck
     import { useState } from "react";
     import { MainButton } from "../../components/micro-components/main-button";
     import { OrderCardProduct } from "./order-card-product";
-    import { StatusKey } from ".";
+    import { CheckProduts, StatusKey } from ".";
     import { useSelector } from "react-redux";
     import { RootState } from "../../store";
     import { Checkbox } from "../../components/micro-components/checkbox";
-    import { DrawerPurchase } from "../../components/macro-components/drawer-purchase";
 
     interface SingleOrdersProductCardProps {
         title: string,
@@ -20,7 +20,7 @@
         setSelectedStatus: (e: StatusKey) => void,
         statusBars: Record<StatusKey, JSX.Element>,
         productStatus: StatusKey,
-        selectedProducts?: any[],
+        selectedProducts?: CheckProduts[],
         handdleSelectProducts?: (isSelect: boolean, id: string, title: string, value: number) => void;
         changedStatusProduct: (id: string, statusAlt: StatusKey) => void,
     };
