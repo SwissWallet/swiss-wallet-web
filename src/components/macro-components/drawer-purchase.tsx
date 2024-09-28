@@ -50,7 +50,7 @@ export function DrawerPurchase({
 
             <div className="bg-white w-full h-[1px]" />
             <div className="flex justify-center mt-5">
-                <MainButton>
+                <MainButton width="min">
                     Finalizar
                 </MainButton>
             </div>

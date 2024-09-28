@@ -51,23 +51,20 @@
         const role = user.user.role;
         const isClient = role === "ROLE_CLIENT";
 
-        // Dentro do seu componente:
-const [selectedProducts, setSelectedProducts] = useState<any[]>([]);
+        const [selectedProducts, setSelectedProducts] = useState<CheckProduts[]>([]);
 
-function handdleSelectedProducts(isSelect: boolean) {
-        if (isSelect) {
-            // Atualiza o estado usando a função de atualização do estado
-            setSelectedProducts((prevProducts) => [...prevProducts, { id, title, value }]);
-            console.log(selectedProducts); // Isso pode mostrar o valor antigo, use um useEffect para ver as mudanças
-        } else {
-            setSelectedProducts((prevProducts) => 
-                prevProducts.filter(product => product.id !== id)
-            );
+        function handdleSelectedProducts(isSelect: boolean, id: string, title: string, value: number) {
+            setSelectedProducts((prevProducts) => {
+                if (isSelect) {
+                    return [...prevProducts, { id, title, value }];
+                } else {
+                    return prevProducts.filter((product) => product.id !== id);
+                }
+            });
         }
-    }
-
-
+        
         useEffect(() => {
+            console.log(selectedProducts);
             if (selectedProducts.length > 0) {
               setOpenDrawerBuy(true);
             } else {
@@ -78,9 +75,10 @@ function handdleSelectedProducts(isSelect: boolean) {
         return (
             <div className="flex">
                 <div className={`${isClient ? "block" : "hidden"}`}>
-                    <Checkbox 
-                        handleSelectProduct={handdleSelectedProducts}
-                    />
+                <Checkbox 
+                    handleSelectProduct={(isSelect) => handdleSelectedProducts(isSelect, id, title, value)}
+                />
+
                 </div>
                 <div className="flex items-center flex-col box-border gap-10">
                     <span className={`font-medium text-lg ${isClient ? "hidden" : "block"}`}>de: {username}</span>
