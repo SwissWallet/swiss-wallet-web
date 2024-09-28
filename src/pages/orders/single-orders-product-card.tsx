@@ -26,19 +26,19 @@
     };
     
     export function SingleOrdersProductCard({
-        description,
-        image,
+        id,
         title,
-        username,
+        image,
         value,
-        selectedStatus,
-        setSelectedStatus,
+        orderId,
+        username,
+        description,
         statusBars,
         productStatus,
+        selectedStatus,
+        setSelectedStatus,
         changedStatusProduct,
         handdleSelectProducts,
-        id,
-        orderId,
     }: SingleOrdersProductCardProps) {
 
         const [ openOrderCard, setOpenOrderCard ] = useState(false);

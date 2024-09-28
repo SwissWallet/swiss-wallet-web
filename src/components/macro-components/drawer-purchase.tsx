@@ -1,5 +1,8 @@
+//@ts-nocheck
 import { X } from "lucide-react";
 import { MainButton } from "../micro-components/main-button";
+import { api } from "../../lib/axios";
+import { useEffect } from "react";
 
 interface CheckProduts{
     id: string;
@@ -23,11 +26,30 @@ export function DrawerPurchase({
     setOpenDrawerBuy,
 }: DrawerBuyProps){
 
+    let ids = [];
+
+    async function savePurchase(){
+        const token = localStorage.getItem('token');
+
+        await api.post(`/v3/order/carts`, {
+            headers: {
+                'Authorization' : `Bearer ${token}`
+            },
+            productIds: ids,
+        })
+    };
+
     let finalValue = 0;
 
     selectedProducts.map((item) => (
         finalValue += item.value
     ))
+    
+    useEffect(() => {
+        selectedProducts.map((item) => (
+            ids.push(item.id)
+        ))
+    }, [ids, selectedProducts])
 
     return(
         <div className={`rounded-md fixed z-50 p-5 bg-red-gradient h-auto w-[20%] top-0 transition duration-1000  ${openDrawerBuy ? 'right-0' : '-right-60'} `}>
@@ -56,7 +78,7 @@ export function DrawerPurchase({
 
             <div className="bg-white w-full h-[1px]" />
             <div className="flex justify-center mt-5">
-                <MainButton width="min">
+                <MainButton onClick={savePurchase} width="min">
                     Finalizar
                 </MainButton>
             </div>
