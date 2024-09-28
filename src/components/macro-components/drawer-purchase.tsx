@@ -23,6 +23,12 @@ export function DrawerPurchase({
     setOpenDrawerBuy,
 }: DrawerBuyProps){
 
+    let finalValue = 0;
+
+    selectedProducts.map((item) => (
+        finalValue += item.value
+    ))
+
     return(
         <div className={`rounded-md fixed z-50 p-5 bg-red-gradient h-auto w-[20%] top-0 transition duration-1000  ${openDrawerBuy ? 'right-0' : '-right-60'} `}>
             <div className="flex justify-end pb-3">
@@ -45,7 +51,7 @@ export function DrawerPurchase({
 
                 <div className="my-5 flex justify-between items-center text-white font-bold">
                     <h2 className="text-xl">TOTAL: </h2>
-                    <h1 className="text-2xl">120 pts</h1>
+                    <h1 className="text-2xl">{finalValue} pts</h1>
                 </div>
 
             <div className="bg-white w-full h-[1px]" />
