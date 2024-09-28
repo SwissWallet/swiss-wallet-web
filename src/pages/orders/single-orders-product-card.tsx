@@ -1,4 +1,4 @@
-    import { useEffect, useState } from "react";
+    import { useState } from "react";
     import { MainButton } from "../../components/micro-components/main-button";
     import { OrderCardProduct } from "./order-card-product";
     import { StatusKey } from ".";
@@ -20,14 +20,11 @@
         setSelectedStatus: (e: StatusKey) => void,
         statusBars: Record<StatusKey, JSX.Element>,
         productStatus: StatusKey,
+        selectedProducts?: any[],
+        handdleSelectProducts?: (isSelect: boolean, id: string, title: string, value: number) => void;
         changedStatusProduct: (id: string, statusAlt: StatusKey) => void,
     };
-    interface CheckProduts{
-        id: string;
-        title: string;
-        value: number;
-    };
-
+    
     export function SingleOrdersProductCard({
         description,
         image,
@@ -39,44 +36,23 @@
         statusBars,
         productStatus,
         changedStatusProduct,
+        handdleSelectProducts,
         id,
-        orderId
+        orderId,
     }: SingleOrdersProductCardProps) {
 
         const [ openOrderCard, setOpenOrderCard ] = useState(false);
-        const [ openDrawerBuy, setOpenDrawerBuy ] = useState(false);
 
         const user = useSelector((state: RootState) => state.authUser.value);
 
         const role = user.user.role;
         const isClient = role === "ROLE_CLIENT";
 
-        const [selectedProducts, setSelectedProducts] = useState<CheckProduts[]>([]);
-
-        function handdleSelectedProducts(isSelect: boolean, id: string, title: string, value: number) {
-            setSelectedProducts((prevProducts) => {
-                if (isSelect) {
-                    return [...prevProducts, { id, title, value }];
-                } else {
-                    return prevProducts.filter((product) => product.id !== id);
-                }
-            });
-        }
-        
-        useEffect(() => {
-            console.log(selectedProducts);
-            if (selectedProducts.length > 0) {
-              setOpenDrawerBuy(true);
-            } else {
-              setOpenDrawerBuy(false);
-            }
-          }, [selectedProducts]);
-        
         return (
             <div className="flex">
                 <div className={`${isClient ? "block" : "hidden"}`}>
                 <Checkbox 
-                    handleSelectProduct={(isSelect) => handdleSelectedProducts(isSelect, id, title, value)}
+                    handleSelectProduct={(isSelect) => handdleSelectProducts(isSelect, id, title, value)}
                 />
 
                 </div>
@@ -111,14 +87,6 @@
                             changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
                         />
                     )}
-
-                {openDrawerBuy && (
-                    <DrawerPurchase
-                        openDrawerBuy={openDrawerBuy}
-                        setOpenDrawerBuy={setOpenDrawerBuy}
-                        selectedProducts={selectedProducts}
-                    />
-                )}
 
                 </div>
             </div>
