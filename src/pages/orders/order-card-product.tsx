@@ -1,11 +1,11 @@
+import { api } from "../../lib/axios";
 import { ReactNode, useState } from "react";
-import { MainButton } from "../../components/micro-components/main-button";
-import { ChangedStatusModal } from "./changed-status-modal";
+import { useSelector } from "react-redux";
 import { StatusKey } from ".";
 import { BackButton } from "../../components/micro-components/back-button";
+import { MainButton } from "../../components/micro-components/main-button";
 import { RootState } from "../../store";
-import { useSelector } from "react-redux";
-import { api } from "../../lib/axios";
+import { ChangedStatusModal } from "./changed-status-modal";
 
 interface OrderCardProductProps{
     title: string,
@@ -63,7 +63,6 @@ export function OrderCardProduct({
                         {isClient ? (
                             <MainButton width="min" onClick={() => setOpenCancelOrderModal(true)} >Cancelar</MainButton>
                         ) : (
-
                             <MainButton width="min" onClick={() => setOpenStatusModal(true)}>Status</MainButton>
                         )}
 

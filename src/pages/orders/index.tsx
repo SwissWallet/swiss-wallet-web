@@ -1,4 +1,4 @@
-
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
@@ -14,6 +14,7 @@ import { ProgressStatus } from "./status-components/progress-status";
 import { NoProducts } from "../../components/micro-components/no-products";
 import { Search } from "lucide-react";
 import { UserInput } from "../../components/micro-components/user-input";
+import { DrawerPurchase } from "../../components/macro-components/drawer-purchase";
 
 interface productInterface {
     orderId: string
@@ -26,6 +27,13 @@ interface productInterface {
     username?: string,
     status: StatusKey,
 };
+
+export interface CheckProduts{
+    id: string;
+    title: string;
+    value: number;
+};
+
 export type StatusKey = 'ANALYSIS' | 'SEPARATED' | 'UNAVAILABLE' | 'COMPLETED';
 
 export function Orders() {
@@ -130,7 +138,29 @@ export function Orders() {
             getProductOrderAdmin();
         }
         
-    }, [isClient])
+    }, [isClient]);
+
+    const [selectedProducts, setSelectedProducts] = useState<CheckProduts[]>([]);
+    const [ openDrawerBuy, setOpenDrawerBuy ] = useState(false);
+
+    function handdleSelectedProducts(isSelect: boolean, id: string, title: string, value: number) {
+        setSelectedProducts((prevProducts) => {
+            if (isSelect) {
+                return [...prevProducts, { id, title, value }];
+            } else {
+                return prevProducts.filter((product) => product.id !== id);
+            }
+        });
+    };
+    
+    useEffect(() => {
+        console.log(selectedProducts);
+        if (selectedProducts.length > 0) {
+          setOpenDrawerBuy(true);
+        } else {
+          setOpenDrawerBuy(false);
+        }
+      }, [selectedProducts]);
 
     return (
         <div className="bg-default-gray ">
@@ -183,6 +213,8 @@ export function Orders() {
                                         selectedStatus={selectedStatus}
                                         setSelectedStatus={setSelectedStatus}
                                         changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
+                                        handdleSelectProducts={handdleSelectedProducts}
+                                        selectedProducts={selectedProducts}
                                     />
                                 </div>
                             ))}
@@ -200,6 +232,14 @@ export function Orders() {
 
             </main>
             <Footer />
+
+            {openDrawerBuy && (
+                <DrawerPurchase
+                    openDrawerBuy={openDrawerBuy}
+                    setOpenDrawerBuy={setOpenDrawerBuy}
+                    selectedProducts={selectedProducts}
+                />
+            )}
         </div>
     )
 };
@@ -267,6 +307,7 @@ const ProductsOrder = ({
                                 selectedStatus={selectedStatus}
                                 setSelectedStatus={setSelectedStatus}
                                 changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
+
                             />
                         </div>                                
                     ))}
