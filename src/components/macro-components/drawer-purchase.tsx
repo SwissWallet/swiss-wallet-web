@@ -27,6 +27,7 @@ export function DrawerPurchase({
 }: DrawerBuyProps){
 
     let ids = [];
+    
 
     async function savePurchase(){
         const token = localStorage.getItem('token');
