@@ -44,6 +44,11 @@ export function CardProduct({
         const token = localStorage.getItem("token");
         
         await api.put(`/v3/products/update?id=${id}`,{
+            value: cValue,
+            name: cTitle,
+            description: cDescription
+        },
+        {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
