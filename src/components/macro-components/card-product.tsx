@@ -102,8 +102,14 @@ export function CardProduct({
                                     className={` text-center text-white font-bold text-4xl rounded-md py-2 px-3 focus:outline-0
                                     ${openChanged ? "bg-red-600" : "bg-transparent "}`} 
                                 />
+                                <input type="text" value={cDescription} 
+                                    disabled={!openChanged} 
+                                    minLength={1} maxLength={99} required 
+                                    onChange={(e) => setCDescription(e.target.value)}
+                                    className={`mt-2 text-center text-zinc-300 font-medium text-xl rounded-md py-2 px-3 focus:outline-0
+                                    ${openChanged ? "bg-red-600" : "bg-transparent "}`} 
+                                />
 
-                            <h3 className="text-zinc-300 mt-2">{description}</h3>
                         </div>
                         <div className="text-white flex flex-col items-center justify-center">
                             
