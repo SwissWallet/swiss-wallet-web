@@ -30,6 +30,8 @@ export function CardProduct({
 
     const [ openChanged, setOpenChanged ] = useState(false);
     const [ cValue, setCValue ] = useState<number>(value);
+    const [ cTitle, setCTitle ] = useState(title);
+    const [ cDescription, setCDescription ] = useState(description);
 
     async function favoriteProduct(){
         await api.post(`/v3/favorites?idProduct=${id}`)
@@ -93,7 +95,14 @@ export function CardProduct({
                             <div className="flex justify-end">
                                 <button className="flex justify-end" onClick={closeCardProduct}><X className="size-6 hover:text-zinc-300 text-white" /></button>
                             </div>
-                            <h1 className="text-white font-bold text-4xl">{title}</h1>
+                                <input type="text" value={cTitle} 
+                                    disabled={!openChanged} 
+                                    minLength={1} maxLength={99} required 
+                                    onChange={(e) => setCTitle(e.target.value)}
+                                    className={` text-center text-white font-bold text-4xl rounded-md py-2 px-3 focus:outline-0
+                                    ${openChanged ? "bg-red-600" : "bg-transparent "}`} 
+                                />
+
                             <h3 className="text-zinc-300 mt-2">{description}</h3>
                         </div>
                         <div className="text-white flex flex-col items-center justify-center">
