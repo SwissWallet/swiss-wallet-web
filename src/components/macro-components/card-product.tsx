@@ -41,7 +41,7 @@ export function CardProduct({
     async function putValueProduct(){
         const token = localStorage.getItem("token");
         
-        await api.put(`/v3/products/value?id=${id}&newValue=${cValue}`,{
+        await api.put(`/v3/products/update?id=${id}`,{
             headers: {
                 'Authorization': `Bearer ${token}`
             }
