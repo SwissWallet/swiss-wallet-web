@@ -1,18 +1,20 @@
 import { MainButton } from "../micro-components/main-button";
 
 interface RowTableProps {
+    id: string,
     image: string,
     title: string,
     value: number,
-    id: string,
+    amount: string,
     openCardProduct: (id: string) => void
 }
 
 export default function RowTable({
+    id,
     title,
     image,
     value,
-    id,
+    amount,
     openCardProduct,
 }: RowTableProps) {
 
@@ -21,6 +23,7 @@ export default function RowTable({
             <img src={image} alt="" className="w-1/12" />
             <p className="font-medium w-2/6">{title}</p>
             <p className="font-medium w-10 text-center">{value}</p>
+            <p className="font-medium w-16 text-end">{amount}</p>
             <MainButton width="min" onClick={() => openCardProduct(id)} >Selecionar</MainButton>
         </div>
     )

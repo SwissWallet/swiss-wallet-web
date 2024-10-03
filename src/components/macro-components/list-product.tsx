@@ -13,6 +13,7 @@ interface productInterface {
     description: string,
     image: string,
     category: string,
+    amount: string,
 }
 
 export default function ListProduct() {
@@ -45,7 +46,8 @@ export default function ListProduct() {
                             value: item.value,
                             description: item.description,
                             image: `data:image/jpeg;base64,${item.image}`,
-                            category: item.category
+                            category: item.category,
+                            amount: item.amount
                         })))
                     }
                 })
@@ -68,6 +70,7 @@ export default function ListProduct() {
                     <h4 className='w-1/12'>Imagem</h4>
                     <h4 className="w-2/6">Titulo</h4>
                     <h4 className="w-24">Valor</h4>
+                    <h4 className="w-28">Quantidade</h4>
                     <h4 className="w-36">Selecione</h4>
                 </div>
                 {productList.map((product) => (
@@ -77,6 +80,7 @@ export default function ListProduct() {
                             value={product.value}
                             image={product.image}
                             id={product.id}
+                            amount={product.amount}
                             openCardProduct={(id) => openCardProduct(id)}
                         />
                         {openCardId === product.id && (

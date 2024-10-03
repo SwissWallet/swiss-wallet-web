@@ -23,6 +23,7 @@ export function AddNewProduct() {
     const [value, setValue] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
+    const [ amount, setAmount ] = useState<number>(1);
 
     const [textAlert, setTextAlert] = useState("");
 
@@ -57,7 +58,8 @@ export function AddNewProduct() {
             name,
             value,
             description,
-            category
+            category,
+            amount
         };
 
         const productDatas = new FormData();
@@ -79,6 +81,7 @@ export function AddNewProduct() {
                 setDescription("");
                 setCategory("");
                 setFile(null);
+                setAmount(1);
             })
     };
 
@@ -99,9 +102,10 @@ export function AddNewProduct() {
 
                 <form className='flex flex-col gap-5 w-2/4 justify-between p-12'>
                     <UserInput type='text' placeholder='Ex: Camiseta Branca' value={name} onChange={(e) => setName(e.target.value)} >Titulo</UserInput>
-                    <UserInput type='number' placeholder='Ex: 40,00' value={value} onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
-                    <UserSelect onChange={(e) => setCategory(e.target.value)} isVisibleSvgIcon={true}>Categoria</UserSelect>
                     <UserInput type='text' placeholder='Camiseta Branca Básica' value={description} onChange={(e) => setDescription(e.target.value)} >Descrição</UserInput>
+                    <UserInput type='number' placeholder='Ex: 40,00' value={value} onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
+                    <UserInput type='number' value={amount} onChange={(e) => setAmount(Number(e.target.value))}>Quantidade</UserInput>
+                    <UserSelect onChange={(e) => setCategory(e.target.value)} isVisibleSvgIcon={true}>Categoria</UserSelect>
                 </form>
             </main>
             <section className='flex justify-center mt-10'>
