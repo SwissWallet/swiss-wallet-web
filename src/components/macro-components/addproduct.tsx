@@ -1,4 +1,4 @@
-import { UploadCloudIcon, X } from 'lucide-react'
+import { Minus, Plus, UploadCloudIcon, X } from 'lucide-react'
 import { MainButton } from '../micro-components/main-button'
 import { UserInput } from '../micro-components/user-input'
 import { HeaderOnPages } from './header-on-the-pages'
@@ -23,6 +23,14 @@ export function AddNewProduct() {
     const [value, setValue] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
+    const [ amount, setAmount ] = useState<number>(1);
+
+    function incrementAmount(){
+        setAmount(prevAmount => prevAmount + 1)
+    };
+    function decrementAmount(){
+        setAmount(prevAmount => prevAmount - 1)
+    }
 
     const [textAlert, setTextAlert] = useState("");
 
@@ -79,6 +87,7 @@ export function AddNewProduct() {
                 setDescription("");
                 setCategory("");
                 setFile(null);
+                setAmount(1);
             })
     };
 
@@ -102,6 +111,11 @@ export function AddNewProduct() {
                     <UserInput type='number' placeholder='Ex: 40,00' value={value} onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
                     <UserSelect onChange={(e) => setCategory(e.target.value)} isVisibleSvgIcon={true}>Categoria</UserSelect>
                     <UserInput type='text' placeholder='Camiseta Branca Básica' value={description} onChange={(e) => setDescription(e.target.value)} >Descrição</UserInput>
+                    <UserInput 
+                        type='number'
+                        value={amount}
+                        onChange={(e) => setAmount(Number(e.target.value))}
+                        >Quantidade</UserInput>
                 </form>
             </main>
             <section className='flex justify-center mt-10'>
