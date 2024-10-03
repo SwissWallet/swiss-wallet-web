@@ -131,6 +131,14 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
+                    <Link className={`${isClient ? "hidden" : "block"}`} to={'/payment'}>
+                        <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
+                            <ShoppingBasket className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Pagamentos
+                            </span>
+                        </div>
+                    </Link>
                 </nav>
             </div>
             <div className="bg-white w-full h-[1px]" />
