@@ -1,4 +1,4 @@
-import { Minus, Plus, UploadCloudIcon, X } from 'lucide-react'
+import { UploadCloudIcon, X } from 'lucide-react'
 import { MainButton } from '../micro-components/main-button'
 import { UserInput } from '../micro-components/user-input'
 import { HeaderOnPages } from './header-on-the-pages'
@@ -24,13 +24,6 @@ export function AddNewProduct() {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [ amount, setAmount ] = useState<number>(1);
-
-    function incrementAmount(){
-        setAmount(prevAmount => prevAmount + 1)
-    };
-    function decrementAmount(){
-        setAmount(prevAmount => prevAmount - 1)
-    }
 
     const [textAlert, setTextAlert] = useState("");
 
@@ -65,7 +58,8 @@ export function AddNewProduct() {
             name,
             value,
             description,
-            category
+            category,
+            amount
         };
 
         const productDatas = new FormData();
@@ -108,14 +102,10 @@ export function AddNewProduct() {
 
                 <form className='flex flex-col gap-5 w-2/4 justify-between p-12'>
                     <UserInput type='text' placeholder='Ex: Camiseta Branca' value={name} onChange={(e) => setName(e.target.value)} >Titulo</UserInput>
-                    <UserInput type='number' placeholder='Ex: 40,00' value={value} onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
-                    <UserSelect onChange={(e) => setCategory(e.target.value)} isVisibleSvgIcon={true}>Categoria</UserSelect>
                     <UserInput type='text' placeholder='Camiseta Branca Básica' value={description} onChange={(e) => setDescription(e.target.value)} >Descrição</UserInput>
-                    <UserInput 
-                        type='number'
-                        value={amount}
-                        onChange={(e) => setAmount(Number(e.target.value))}
-                        >Quantidade</UserInput>
+                    <UserInput type='number' placeholder='Ex: 40,00' value={value} onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
+                    <UserInput type='number' value={amount} onChange={(e) => setAmount(Number(e.target.value))}>Quantidade</UserInput>
+                    <UserSelect onChange={(e) => setCategory(e.target.value)} isVisibleSvgIcon={true}>Categoria</UserSelect>
                 </form>
             </main>
             <section className='flex justify-center mt-10'>
