@@ -13,7 +13,13 @@ export function PaymentAdmin(){
                     description="Lista de pedidos e pagamentos dos usuários"
                     notFilterAndOrder={true}
                 />
-                <CardPayment />
+                <div className="w-full flex justify-center items-center">
+                    <section className="w-full max-w-6xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <CardPayment />
+                        <CardPayment />
+                        <CardPayment />
+                    </section>
+                </div>
             </main>
             <Footer />
         </div>
