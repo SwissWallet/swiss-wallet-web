@@ -60,33 +60,39 @@ export function Navbar() {
             </div>
 
             <div className={`flex justify-center -mt-7 ${isClient ? "block" : "hidden"}`}>
-                <div className="bg-white text-black p-10 w-[600px] font-bold rounded-xl shadow-xl">
+                <div className="bg-white text-black p-10 w-[300px] flex flex-col justify-between font-bold rounded-xl shadow-xl lg:flex-row gap-2 lg:w-[600px]">
 
-                    <div className="flex justify-between">
+                    <div className="flex justify-between flex-col gap-5">
                         <h4>Saldo</h4>
-                        <Link to={'/extract'} className="flex hover:scale-110 ease-in-out duration-75">
+                           <div className="flex">
+                                <input
+                                    className="focus:outline-none w-auto text-xl font-bold bg-transparent"
+                                    disabled
+                                    value={value}
+                                    type={isVisibleScore ? 'text' : 'password'}
+                                />
+                                <button onClick={handdleVisibleScore} className="px-3 flex lg:hidden">
+                                    {isVisibleScore ? <Eye className="hover:scale-110 ease-in-out duration-75" /> : <EyeOff className="hover:scale-110 ease-in-out duration-75" />}
+                                </button>
+                           </div>
+                    </div>
+
+                    <div className="flex justify-between pt-2 flex-col">
+                        <div className="flex items-center gap-4">
+                            <Link to={'/extract'} className="flex hover:scale-110 ease-in-out duration-75">
                             <p>ver extrato</p>
                             <ChevronRight className="hover:scale-110 ease-in-out duration-75" />
                         </Link>
-                    </div>
-
-                    <div className="flex justify-between pt-2">
-                        <div className="flex items-center gap-4">
-                            <span className="text-xl font-bold">Pontos</span>
-                            <input
-                                className="focus:outline-none w-auto text-xl font-bold bg-transparent"
-                                disabled
-                                value={value}
-                                type={isVisibleScore ? 'text' : 'password'}
-                            />
 
                         </div>
-                        <button onClick={handdleVisibleScore} className="px-3">
+                        <button onClick={handdleVisibleScore} className="px-3 hidden lg:flex">
                             {isVisibleScore ? <Eye className="hover:scale-110 ease-in-out duration-75" /> : <EyeOff className="hover:scale-110 ease-in-out duration-75" />}
                         </button>
                     </div>
                 </div>
             </div>
+
+            
 
             {openSettingsModal && (
                 <DrawerMenu

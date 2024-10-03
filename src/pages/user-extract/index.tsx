@@ -51,7 +51,7 @@ export function UserExtract() {
         <div className="bg-default-gray">
             <Navbar />
             <main className="ml-20 mr-20 gap-10 flex flex-col mt-20 mb-20">
-                <HeaderOnPages title="Extrato" description="Informações do extrato" />
+                <HeaderOnPages title="Extrato" description="Informações do extrato" notFilterAndOrder={true} />
                 <section className="ml-20 mr-20">
                     <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
 
