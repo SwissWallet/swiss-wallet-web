@@ -51,7 +51,7 @@ export function Canteen() {
                     description="Confira os lanches disponíveis"
                 />
 
-            <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+            <section className="grid grid-rows-1 grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-20 mb-20">
                     {productListCanteen.length > 0 ? (
                             productListCanteen.map((product) => (
                                     <div key={product.id}>
