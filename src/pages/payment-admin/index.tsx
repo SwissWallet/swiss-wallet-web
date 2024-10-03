@@ -11,7 +11,7 @@ interface product{
     name: string;
     value: number;
     status?: string
-    productName: string;
+    productName: string[];
 }
 
 export function PaymentAdmin(){
@@ -28,9 +28,9 @@ export function PaymentAdmin(){
                         id: item.id,
                         date: item.dateTime,
                         name: item.user.name,
-                        status: item.user.role,
-                        productName: item.product[0]?.name || "N/A", // se houver apenas um produto
-                        value: item.product[0]?.value || 0,
+                        status: item.status,
+                        productName: item.product.map((productItem) => productItem.name), // se houver apenas um produto
+                        value: item.value || 0,
 
                     })))
                 };
@@ -57,9 +57,20 @@ export function PaymentAdmin(){
                 />
                 <div className="w-full flex justify-center items-center">
                     <section className="w-full max-w-6xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <CardPayment />
-                        <CardPayment />
-                        <CardPayment />
+                        {listProducts.length > 0 && (
+                            listProducts.map((item) => (
+                                <div key={item.id}>
+                                    <CardPayment 
+                                        dateTime={item.date}
+                                        name={item.name}
+                                        productName={item.productName}
+                                        status={item.status === "PAID" ? ("PAGO") : ("PENDENTE")}
+                                        value={item.value}
+                                        id={item.id}
+                                    />
+                                </div>
+                            ))
+                        )}
                     </section>
                 </div>
             </main>
