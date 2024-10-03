@@ -40,13 +40,13 @@ export function SingleProduct({
     return (
         <>
             <div className="flex items-center flex-col bg-white rounded-xl shadow-xl p-6">
-                <img className="w-[309px] h-[407px]" src={image} alt="Produto não existe" />
-                <article className="bg-black text-white p-4 rounded-lg gap-4 flex flex-col -mt-36">
+                <img className="w:[209px] lg:w-[309px]  h-[350px] lg:h-[457px]" src={image} alt="Produto não existe" />
+                <article className="bg-black text-white p-4 rounded-lg gap-4 flex lg:-mt-36 flex-col lg:flex-col">
                     <div className="flex flex-col gap-1">
                         <h4 className="text-xl font-semibold">{title}</h4>
                         <p className="text-sm font-extralight">{description}</p>
                     </div>
-                    <div className="flex justify-between gap-10 w-full">
+                    <div className="flex justify-between gap-10 w-full flex-col lg:flex-row">
                         <h4 className="font-extrabold text-4xl mt-">{value}<span className="text-sm ml-1">pontos</span></h4>
 
                         {textOnButton === "Remover" ? 
@@ -62,8 +62,7 @@ export function SingleProduct({
                             )
 
                         }
-                    
-                        
+
                     </div>
                 </article>
             </div>
