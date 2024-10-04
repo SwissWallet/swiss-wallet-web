@@ -59,6 +59,7 @@ export function ShoppingPage(){
                                     dateTime={item.date}
                                     productName={item.productName}
                                     status={item.status === "PAID" ? ("PAGO") : ("PENDENTE")}
+                                    value={item.value}
                                 />
                             </div>
                         ))
