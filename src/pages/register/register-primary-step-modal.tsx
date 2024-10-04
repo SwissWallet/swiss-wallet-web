@@ -67,7 +67,7 @@ export function RegisterPrimaryStep({
 
     return (
 
-        <div className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
+        <div className="bg-white rounded-lg lg:w-[600px] w-3/4 h-auto p-8 flex gap-8 flex-col">
             <Link to={'/'}>
                 <BackButton />
             </Link>
