@@ -10,6 +10,7 @@ interface ShoppingCardProps{
 }
 
 export function ShoppingCard({
+    id,
     dateTime,
     productName,
     status,
@@ -20,7 +21,10 @@ export function ShoppingCard({
 
     return(
                 <div className="w-full h-auto flex flex-col px-8 justify-between rounded-lg font-medium text-2xl py-10 bg-gray-200 hover:cursor-pointer">
-                    <h4 className="text-end">{dateTime}</h4>
+                    <div className="flex justify-between">
+                        <h1>Carrinho: {id}</h1>
+                        <h4>{dateTime}</h4>
+                    </div>
 
                     <div className="mt-8">
                     <ol>

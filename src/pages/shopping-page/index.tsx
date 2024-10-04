@@ -46,7 +46,7 @@ export function ShoppingPage(){
             <Navbar />
             <main className="flex flex-col ml-20 mr-20 mb-20 mt-20 gap-20">
                 <HeaderOnPages
-                    title="Compras"
+                    title="Minhas Compras"
                     description="Lista de compras"
                     notFilterAndOrder={true}
                 />
@@ -56,6 +56,7 @@ export function ShoppingPage(){
                         listProduct.map((item) => (
                             <div className="flex flex-col gap-6" key={item.id}>
                                 <ShoppingCard
+                                    id={item.id}
                                     dateTime={item.date}
                                     productName={item.productName}
                                     status={item.status === "PAID" ? ("PAGO") : ("PENDENTE")}
