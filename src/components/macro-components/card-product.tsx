@@ -90,10 +90,10 @@ export function CardProduct({
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="bg-red-gradient rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
-                <div className="flex">
-                    <div className="bg-white rounded-xl shadow-xl p-5">
-                        <img className="w-[309px] h-[407px]" src={image} alt="produto" />
+            <div className="bg-red-gradient rounded-lg w-[400px] lg:w-[600px] h-auto p-5 flex gap-8 flex-col ">
+                <div className="flex flex-row items-center justify-center">
+                    <div className="bg-white rounded-xl shadow-xl p-5 h-fit w-fit ">
+                        <img className="lg:w-[309px] w-[109px] lg:h-[407px] h-[207px]" src={image} alt="produto" />
                     </div>
                     <article className="flex flex-col w-1/2 justify-between p-5">
                         <div className="flex flex-col gap-1">
@@ -104,19 +104,19 @@ export function CardProduct({
                                     disabled={!openChanged} 
                                     minLength={1} maxLength={99} required 
                                     onChange={(e) => setCTitle(e.target.value)}
-                                    className={` text-center text-white font-bold text-4xl rounded-md py-2 px-3 focus:outline-0
+                                    className={` text-center text-white font-bold lg:text-4xl text-xl rounded-md py-2 px-3 focus:outline-0
                                     ${openChanged ? "bg-red-600" : "bg-transparent "}`} 
                                 />
                                 <input type="text" value={cDescription} 
                                     disabled={!openChanged} 
                                     minLength={1} maxLength={99} required 
                                     onChange={(e) => setCDescription(e.target.value)}
-                                    className={`mt-2 text-center text-zinc-300 font-medium text-xl rounded-md py-2 px-3 focus:outline-0
+                                    className={`flex lg:block hidden mt-2 text-center text-zinc-300 font-medium text-xl rounded-md py-2 px-3 focus:outline-0
                                     ${openChanged ? "bg-red-600" : "bg-transparent "}`} 
                                 />
 
                         </div>
-                        <div className="text-white flex flex-col items-center justify-center">
+                        <div className="text-white flex lg:flex-col flex-row items-center justify-center">
                             
                                 <input type="number" value={cValue} 
                                     disabled={!openChanged} 
@@ -130,8 +130,8 @@ export function CardProduct({
                         </div>
                         {isCLient ? (
                             <div className={`space-y-2 flex flex-col justify-center`}>
-                                {category != 'STORE' ? '' : <MainButton width="min" onClick={orderProduct}>Pedir</MainButton>}
-                                <MainButton width="min" onClick={favoriteProduct}>Favoritar</MainButton>
+                                {category != 'STORE' ? '' : <MainButton width="max" onClick={orderProduct}>Pedir</MainButton>}
+                                <MainButton width="max" onClick={favoriteProduct}>Favoritar</MainButton>
                             </div>
                         ) : (
                             <div className="flex flex-col justify-center space-y-2">
