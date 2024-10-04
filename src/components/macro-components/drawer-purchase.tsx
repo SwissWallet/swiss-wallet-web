@@ -38,6 +38,9 @@ export function DrawerPurchase({
             },
             productIds: ids,
         })
+        .then(() => {
+            setOpenDrawerBuy(false);
+        })
     };
 
     let finalValue = 0;
