@@ -47,6 +47,7 @@ export function Store() {
                 <HeaderOnPages
                     title="Loja"
                     description="Confira nossas melhores opções de camisetas"
+                    notFilterAndOrder={true}
                 />
                 <section className="grid grid-rows-1 grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-20 mb-20">
                     {productListStore.length > 0 ? (

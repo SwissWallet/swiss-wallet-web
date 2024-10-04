@@ -48,6 +48,7 @@ export function Library() {
                 <HeaderOnPages
                     title="Biblioteca"
                     description="Confira os livros disponíveis na biblioteca"
+                    notFilterAndOrder={true}
                 />
 
                 
