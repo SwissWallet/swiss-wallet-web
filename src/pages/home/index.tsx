@@ -5,7 +5,7 @@ import { Footer } from "../../components/macro-components/footer";
 import { Navbar } from "../../components/macro-components/navbar";
 import { api } from "../../lib/axios";
 import { SingleProduct } from "../../components/micro-components/single-product-card";
-import { da } from "date-fns/locale";
+
 
 interface productInterface {
     id: string,
