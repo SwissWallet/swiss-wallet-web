@@ -14,6 +14,8 @@ import { PrivateRoute } from './private-route';
 import AddProduct from '../pages/list-product';
 import AddProductPage from '../pages/app-product';
 import BuyPage from '../pages/buy-product';
+import { PaymentAdmin } from '../pages/payment-admin';
+import { ShoppingPage } from '../pages/shopping-page';
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +72,18 @@ export const router = createBrowserRouter([
     path: '/account',
     element: (
       <PrivateRoute element={<UserAccount />} />
+    ),
+  },
+  {
+    path: '/payment',
+    element: (
+      <PrivateRoute element={<PaymentAdmin />} />
+    ),
+  },
+  {
+    path: '/shopping',
+    element: (
+      <PrivateRoute element={<ShoppingPage />} />
     ),
   },
   {

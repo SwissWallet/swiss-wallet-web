@@ -1,4 +1,4 @@
-import { Book, Coffee, Gift, Heart, House, Landmark, ShoppingBag, ShoppingBasket, ShoppingCart, User, X } from "lucide-react";
+import { Barcode, Book, Coffee, DollarSign, Gift, Heart, House, Landmark, ShoppingBag, ShoppingBasket, ShoppingCart, User, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setLogin } from "../../features/login-slice";
@@ -128,6 +128,22 @@ export function DrawerMenu({
                             <ShoppingBasket className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
                                 Produtos
+                            </span>
+                        </div>
+                    </Link>
+                    <Link className={`${isClient ? "block" : "hidden"}`} to={'/shopping'}>
+                        <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
+                            <Barcode className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Compras
+                            </span>
+                        </div>
+                    </Link>
+                    <Link className={`${isClient ? "hidden" : "block"}`} to={'/payment'}>
+                        <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
+                            <DollarSign className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Pagamentos
                             </span>
                         </div>
                     </Link>
