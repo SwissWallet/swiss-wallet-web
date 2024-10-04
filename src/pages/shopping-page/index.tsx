@@ -58,7 +58,7 @@ export function ShoppingPage(){
                                 <ShoppingCard
                                     dateTime={item.date}
                                     productName={item.productName}
-                                    status={item.status || ""}
+                                    status={item.status === "PAID" ? ("PAGO") : ("PENDENTE")}
                                 />
                             </div>
                         ))
