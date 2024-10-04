@@ -144,7 +144,7 @@ export function ForgotPassword({
     }, [emailSent, username, setTextAlert, foundUser])
 
     return (
-        <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
+        <form onSubmit={handdleSubmit} className="bg-white rounded-lg lg:w-[600px] w-3/4 h-auto p-8 flex gap-8 flex-col">
             <p className="font-medium text-center text-base italic text-zinc-500">
                 Um e-mail será enviado para <span className="text-zinc-700 not-italic font-semibold">{username}</span>,
                 prosseguindo com os seguintes procedimentos para a recuperação de senha.</p>
