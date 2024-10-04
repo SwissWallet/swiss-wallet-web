@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { ConfirmPaidModal } from "./confirm-paid-modal";
+
 interface ShoppingCardProps{
     id?: string;
     dateTime: string;
@@ -12,6 +15,9 @@ export function ShoppingCard({
     status,
     value
 }: ShoppingCardProps){
+
+    const [ openConfirmPaidModal, setOpenConfirmPaidModal ] = useState(false);
+
     return(
                 <div className="w-full h-auto flex flex-col px-8 justify-between rounded-lg font-medium text-2xl py-10 bg-gray-200 hover:cursor-pointer">
                     <h4 className="text-end">{dateTime}</h4>
@@ -31,11 +37,18 @@ export function ShoppingCard({
                             <h1 className="text-zinc-700">pagamento: <span className="text-3xl text-red-600">{status}</span></h1>
                         
                         <button
+                            onClick={() => setOpenConfirmPaidModal(true)}
                             className="bg-red-600 hover:bg-red-700 px-10 py-2 rounded-md text-white-90 font-medium"
                         >
                             REALIZAR PAGAMENTO
                         </button>
                     </div>
+
+                    {openConfirmPaidModal && (
+                        <ConfirmPaidModal 
+                            setOpenConfirmPaidModal={setOpenConfirmPaidModal}
+                        />
+                    )}
                     
                 </div>
 

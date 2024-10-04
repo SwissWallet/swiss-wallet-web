@@ -3,7 +3,7 @@ import { Footer } from "../../components/macro-components/footer";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
 import { api } from "../../lib/axios";
-import { ShoppingCard } from "./shooping-card";
+import { ShoppingCard } from "./shopping-card";
 
 interface product{
     id: string;
