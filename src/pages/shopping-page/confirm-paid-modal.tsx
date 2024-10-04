@@ -1,5 +1,6 @@
 import { BackButton } from "../../components/micro-components/back-button";
 import { MainButton } from "../../components/micro-components/main-button";
+import { api } from "../../lib/axios";
 
 interface ConfirmPaidModalProps{
     id: string;
@@ -12,6 +13,15 @@ export function ConfirmPaidModal({
     value,
     setOpenConfirmPaidModal,
 }: ConfirmPaidModalProps){
+
+    
+    async function ConfirmPaid(){
+        api.post(`/v3/order/carts/paid/${id}`)
+        .then(() => setOpenConfirmPaidModal(false))
+        .catch((err) => console.log(err))
+    };
+    
+
     return(
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white rounded-lg w-3/4 lg:w-[600px] h-auto p-5 flex gap-8 flex-col">
@@ -25,7 +35,7 @@ export function ConfirmPaidModal({
                     <h1>Valor: {value} pts</h1>
                 </main>
                 <footer className="flex justify-center">
-                    <MainButton width="min">Confirmar</MainButton>
+                    <MainButton onClick={ConfirmPaid} width="min">Confirmar</MainButton>
                 </footer>
             </div>
         </div>
