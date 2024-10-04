@@ -2,11 +2,11 @@ import { useState } from "react";
 import { ConfirmPaidModal } from "./confirm-paid-modal";
 
 interface ShoppingCardProps{
-    id?: string;
+    id: string;
     dateTime: string;
     productName: string[];
     status: string;
-    value?: number;
+    value: number;
 }
 
 export function ShoppingCard({
@@ -22,7 +22,7 @@ export function ShoppingCard({
     return(
                 <div className="w-full h-auto flex flex-col px-8 justify-between rounded-lg font-medium text-2xl py-10 bg-gray-200 hover:cursor-pointer">
                     <div className="flex justify-between">
-                        <h1>Carrinho: {id}</h1>
+                        <span className="text-3xl">Carrinho: {id}</span>
                         <h4>{dateTime}</h4>
                     </div>
 
@@ -50,6 +50,8 @@ export function ShoppingCard({
 
                     {openConfirmPaidModal && (
                         <ConfirmPaidModal 
+                            id={id}
+                            value={value}
                             setOpenConfirmPaidModal={setOpenConfirmPaidModal}
                         />
                     )}
