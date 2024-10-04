@@ -41,7 +41,7 @@ export function SingleProduct({
         <>
             <div className="flex items-center flex-col bg-white rounded-xl shadow-xl p-6">
                 <img className="w:[209px] lg:w-[309px]  h-[350px] lg:h-[457px]" src={image} alt="Produto não existe" />
-                <article className="bg-black text-white p-4 rounded-lg gap-4 flex lg:-mt-36 flex-col lg:flex-col">
+                <article className="bg-black text-white p-4 rounded-lg gap-4 flex lg:-mt-36 flex-col ">
                     <div className="flex flex-col gap-1">
                         <h4 className="text-xl font-semibold">{title}</h4>
                         <p className="text-sm font-extralight">{description}</p>

@@ -59,14 +59,14 @@
                 <div className="flex items-center flex-col box-border gap-10">
                     <span className={`font-medium text-lg ${isClient ? "hidden" : "block"}`}>de: {username}</span>
                     <img src={image} className="w-[309px] h-[407px]" alt="camiseta branca com logo do senai" />
-                    <article className="bg-black text-white p-4 rounded-lg gap-4 flex flex-col md:w-[320px] -mt-36 px-10">
+                    <article className="bg-black text-white p-4 rounded-lg gap-4 flex flex-col lg:w-[320px] w-[200px] -mt-36 px-10">
                         <div className="flex flex-col gap-1 text-center ">
                             <h4 className="text-xl font-semibold whitespace-nowrap text-ellipsis overflow-hidden">{title}</h4>
                             <p className="text-sm font-extralight whitespace-nowrap overflow-hidden text-ellipsis">{description}</p>
                         </div>
                         {statusBars[productStatus]}
                         <div className={`flex justify-center`}>
-                            <MainButton onClick={() => setOpenOrderCard(true)} width="min">Selecionar</MainButton>
+                            <MainButton onClick={() => setOpenOrderCard(true)} width={`${""}`}>Selecionar</MainButton>
                         </div>
                     </article>
 
