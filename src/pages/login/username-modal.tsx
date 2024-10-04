@@ -35,7 +35,7 @@ export function UsernameModal({
     }
 
     return (
-        <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-8 flex gap-8 flex-col">
+        <form onSubmit={handdleSubmit} className="bg-white rounded-lg lg:w-[600px] w-3/4 h-auto p-8 flex gap-8 flex-col">
             <div className="flex flex-col gap-3">
                 <h1 className="text-4xl font-medium">Login</h1>
                 <p className="font-medium text-sm text-zinc-800 ml-4">Bem-vindo(a) ao portal SwissWallet.</p>
