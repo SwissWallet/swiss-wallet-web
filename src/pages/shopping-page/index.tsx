@@ -52,19 +52,16 @@ export function ShoppingPage(){
 
                 <>
                     {listProduct.length > 0 && (
-                        listProduct.map((item, index) => (
+                        listProduct.map((item) => (
                             <div className="flex flex-col gap-6" key={item.id}>
-                                {item.status !== "PAID" && (
                                     <ShoppingCard
                                         id={item.id}
-                                        index={index}
                                         dateTime={item.date}
                                         productName={item.productName}
                                         status={item.status === "PENDING" && ("PENDENTE")}
                                         value={item.value}
                                         getShoppingCart={getShoppingCart}
                                     />
-                                )}
                             </div>
                         ))
                     )}
