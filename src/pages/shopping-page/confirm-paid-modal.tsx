@@ -5,19 +5,24 @@ import { api } from "../../lib/axios";
 interface ConfirmPaidModalProps{
     id: string;
     value: number;
+    getShoppingCart: () => void;
     setOpenConfirmPaidModal: (e: boolean) => void;
 }
 
 export function ConfirmPaidModal({
     id,
     value,
+    getShoppingCart,
     setOpenConfirmPaidModal,
 }: ConfirmPaidModalProps){
 
     
     async function ConfirmPaid(){
         api.post(`/v3/order/carts/paid/${id}`)
-        .then(() => setOpenConfirmPaidModal(false))
+        .then(() => {
+            setOpenConfirmPaidModal(false);
+            getShoppingCart();
+        })
         .catch((err) => console.log(err))
     };
     
