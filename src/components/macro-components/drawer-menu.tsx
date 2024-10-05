@@ -151,7 +151,7 @@ export function DrawerMenu({
             </div>
             <div className="bg-white w-full h-[1px]" />
             <div className="flex items-center mt-5 flex-col justify-center gap-5">
-                <div className="bg-gradient-to-t from-slate-700 to-black flex justify-center items-center rounded-full w-14 h-14 ">
+                <div className={`bg-gradient-to-t from-slate-700 to-black flex justify-center items-center rounded-full w-14 h-14 ${isClient ? "block" : "hidden"}`}>
                     <User className="size-10 text-white" />
                 </div>
                 <div className="flex flex-col justify-centeritems-center">
