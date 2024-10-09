@@ -1,4 +1,3 @@
-import { CircleHelp } from "lucide-react";
 import { MainButton } from "../../components/micro-components/main-button";
 
 interface BenefitsCardProps {
@@ -21,10 +20,6 @@ export function BenefitsCard({
                 </div>
                 <div className="flex justify-end">
                     <div className="flex gap-10 items-center">
-                        <button className="flex gap-3 text-zinc-700 hover:text-zinc-800">
-                            <p>Dúvidas frequentes</p>
-                            <CircleHelp />
-                        </button>
                         <MainButton width="min" >Solicitar beneficio</MainButton>
                     </div>
                 </div>
