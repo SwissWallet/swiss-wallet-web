@@ -3,6 +3,8 @@ import { BackButton } from "../micro-components/back-button";
 import { MainButton } from "../micro-components/main-button";
 import { UserInput } from "../micro-components/user-input";
 import { api } from "../../lib/axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 interface DepositModalProps {
     closeDepositModal: () => void,
 }
@@ -42,7 +44,12 @@ export function DepositModal({
 
         registerDeposit();
         closeDepositModal();
-    }
+    };
+
+    const user = useSelector((state: RootState) => state.authUser.value);
+
+    const role = user.user.role;
+    const isClient = role === "ROLE_CLIENT";
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
