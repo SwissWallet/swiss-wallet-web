@@ -1,10 +1,10 @@
-import { InfoExtract } from "./line-info-extract";
-import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
+import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
-import { api } from "../../lib/axios"
-import { useEffect, useState } from "react"
+import { api } from "../../lib/axios";
+import { InfoExtract } from "./line-info-extract";
 
 interface extractContent {
     id: string,
