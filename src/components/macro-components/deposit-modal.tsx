@@ -91,6 +91,11 @@ export function DepositModal({
                             handleOptionChange={handleOptionChange} 
                             options={["débito", "crédito", "pix"]}
                         />
+                        {selectedOption === "pix" ? (
+                            <MainButton width="min">Gerar Código</MainButton>
+                        ) : (
+                            <MainButton width="min">Pagar</MainButton>
+                        )}
                     </div>
                 ) : (
                     <>
