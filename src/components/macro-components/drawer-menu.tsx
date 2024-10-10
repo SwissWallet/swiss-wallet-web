@@ -107,12 +107,14 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
-                    <button className={`${isClient ? "hidden" : "block"}`} onClick={openDepositModal}>
+                    <button onClick={openDepositModal}>
                         <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
                             <Landmark className="text-white size-5 font-bold" />
-                            <span className="text-white font-medium">
-                                Deposito
-                            </span>
+                            {isClient ? (
+                                <span className="text-white font-medium">Pontos</span>
+                            ) : (
+                                <span className="text-white font-medium">Deposito</span>
+                            )}
                         </div>
                     </button>
                     <Link to={'/orders'}>
