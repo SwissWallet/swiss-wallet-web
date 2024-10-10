@@ -1,15 +1,18 @@
-import { useState } from 'react';
+interface RadioButtoProps{
+    options: string[]
+    selectedOption: string;
+    handleOptionChange: (option: string) => void;
+}
 
-export function RadioButton(){
-  const [selectedOption, setSelectedOption] = useState('');
-
-  const handleOptionChange = (option: string) => {
-    setSelectedOption(option);
-  };
-
+export function RadioButton({
+    options,
+    selectedOption,
+    handleOptionChange,
+}: RadioButtoProps){
+  
   return (
     <div className="flex justify-center items-center gap-10">
-      {['debito', 'credito', 'pix'].map((option) => (
+      {options.map((option) => (
         <div  className={`
             flex items-center rounded-md py-3 px-5 transition-all duration-300 cursor-pointer
             ${selectedOption === option ? 'scale-110 bg-red-gradient' : 'border-4 border-gray-500'

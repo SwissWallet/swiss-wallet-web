@@ -18,10 +18,10 @@ export function DepositModal({
     const [deposit, setDeposit] = useState("");
 
     const [ amountPoints, setAmountPoints ] = useState("");
-    const [ selectedOption, setSelectedOption ] = useState("");
+    const [ selectedOption, setSelectedOption ] = useState('');
 
-    const handleOptionChange = (event: React.FormEvent) => {
-      setSelectedOption(event.target.value);
+    const handleOptionChange = (option: string) => {
+        setSelectedOption(option);
     };
 
     const [textAlert, setTextAlert] = useState("");
@@ -79,14 +79,18 @@ export function DepositModal({
                     </div>
                 )}
                 {isClient ? (
-                    <div>
+                    <div className="flex flex-col gap-5">
                         <UserInput
                             position="center"
                             placeholder="ex: 150"
                             onChange={(e) => setAmountPoints(e.target.value)}
                         >Quantidade de pontos
                         </UserInput>
-                        <RadioButton />
+                        <RadioButton
+                            selectedOption={selectedOption}
+                            handleOptionChange={handleOptionChange} 
+                            options={["débito", "crédito", "pix"]}
+                        />
                     </div>
                 ) : (
                     <>
