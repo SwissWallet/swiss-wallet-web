@@ -27,7 +27,7 @@ export function RadioButton({
               onChange={() => handleOptionChange(option)}
               className="sr-only peer"
             />
-            <span className={`ml-2 capitalize text-xl ${selectedOption === option ? 'text-white font-bold' : "text-gray-500"}`}>{option}</span>
+            <span className={`capitalize text-xl text-center ${selectedOption === option ? 'text-white font-bold' : "text-gray-500"}`}>{option}</span>
           </label>
         </div>
       ))}
