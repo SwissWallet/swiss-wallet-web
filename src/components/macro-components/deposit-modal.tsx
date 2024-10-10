@@ -30,6 +30,7 @@ export function DepositModal({
     const [ selectedOption, setSelectedOption ] = useState("");
 
     const [ selectedFormPayment, setSelectedFormPayment ] = useState<FormPayment | null>(null);
+    const [ openEnterPoints, setOpenEnterPoints ] = useState<boolean>(false);
 
     const [ openDetailsCard, setOpenDetailsCard ] = useState<boolean>(false);
 
@@ -75,6 +76,14 @@ export function DepositModal({
 
     const role = user.user.role;
     const isClient = role === "ROLE_CLIENT";
+
+    useEffect(() => {
+        if (selectedFormPayment?.others_value) {
+            setOpenEnterPoints(true);
+        } else {
+            setOpenEnterPoints(false);
+        }
+    }, [selectedFormPayment]);
 
     useEffect(() => {console.log(selectedFormPayment)}, [selectedFormPayment])
 
@@ -122,12 +131,14 @@ export function DepositModal({
                             selectedFormPayment={selectedFormPayment}
                             handleOptionPaymentChange={handleOptionPaymentChange}
                         />
-                        <UserInput
-                            position="center"
-                            placeholder="ex: 150"
-                            onChange={(e) => setAmountPoints(e.target.value)}
-                        >Quantidade de pontos
-                        </UserInput>
+                        {openEnterPoints && (
+                            <UserInput
+                                position="center"
+                                placeholder="ex: 150"
+                                onChange={(e) => setAmountPoints(e.target.value)}
+                            >Quantidade de pontos
+                            </UserInput>
+                        )}
                         <RadioButton
                             selectedOption={selectedOption}
                             handleOptionChange={handleOptionChange} 
