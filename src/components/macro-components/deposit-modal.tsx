@@ -56,7 +56,11 @@ export function DepositModal({
             <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
                 <BackButton type="button" onClick={closeDepositModal} />
                 <div className="flex flex-col gap-3">
-                    <h1 className="text-4xl font-medium">Deposite</h1>
+                    {isClient ? (
+                        <h1 className="text-4xl font-medium">Compre pontos</h1>
+                    ) : (
+                        <h1 className="text-4xl font-medium">Deposite</h1>
+                    )}
                     <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>
                 </div>
                 <div className="flex items-center w-full relative h-auto">
