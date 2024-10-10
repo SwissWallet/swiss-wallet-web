@@ -134,7 +134,7 @@ export function DepositModal({
 
             {openDetailsCard && (
                 <CardBankDetails 
-                
+                    setOpenDetailsCard={setOpenDetailsCard}
                 />
             )}
         </div>
