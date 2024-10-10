@@ -8,8 +8,15 @@ import { RootState } from "../../store";
 import { RadioButton } from "../micro-components/radio-button";
 import { Plus } from "lucide-react";
 import { CardBankDetails } from "./card-bank-details";
+import { RadioButtonPayment } from "../micro-components/radio-button-payment";
 interface DepositModalProps {
     closeDepositModal: () => void,
+}
+
+export interface FormPayment{
+    points?: number;
+    value?: number;
+    others_value?: string;
 }
 
 export function DepositModal({
@@ -20,12 +27,22 @@ export function DepositModal({
     const [deposit, setDeposit] = useState("");
 
     const [ amountPoints, setAmountPoints ] = useState("");
-    const [ selectedOption, setSelectedOption ] = useState('');
+    const [ selectedOption, setSelectedOption ] = useState("");
+
+    const [ selectedFormPayment, setSelectedFormPayment ] = useState<FormPayment | null>(null);
 
     const [ openDetailsCard, setOpenDetailsCard ] = useState<boolean>(false);
 
     const handleOptionChange = (option: string) => {
         setSelectedOption(option);
+    };
+
+    const handleOptionPaymentChange = (option: FormPayment | null) => {
+        if(!option) {
+            setSelectedFormPayment(null);
+        };
+
+        setSelectedFormPayment(option)
     };
 
     const [textAlert, setTextAlert] = useState("");
@@ -95,6 +112,18 @@ export function DepositModal({
                 )}
                 {isClient ? (
                     <div className="flex flex-col gap-5">
+                        <RadioButtonPayment 
+                            options={[
+                                {"points": 10, "value": 5},
+                                {"points": 20, "value": 10},
+                                {"points": 50, "value": 25},
+                                {"points": 100, "value": 40},
+                                {"points": 200, "value": 80},
+                                {"others_value": "outros valores..."},
+                            ]}
+                            selectedFormPayment={selectedFormPayment}
+                            handleOptionPaymentChange={handleOptionPaymentChange}
+                        />
                         <UserInput
                             position="center"
                             placeholder="ex: 150"
