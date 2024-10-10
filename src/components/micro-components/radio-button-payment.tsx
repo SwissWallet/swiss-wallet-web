@@ -14,8 +14,15 @@ export function RadioButtonPayment({
   
   return (
     <div className="grid grid-cols-3 gap-2 justify-center items-center">
-      {options.map((option) => (
-        <div 
+      {options.map((option) => {
+
+        const isSelected =
+        selectedFormPayment?.points === option.points ||
+        selectedFormPayment?.others_value === option.others_value;
+        
+        return(
+        
+            <div 
             onClick={() => handleOptionPaymentChange(option)}
             key={option.points}
             className={`flex flex-col items-center justify-center gap-2 transition-all duration-300 cursor-pointer`}
@@ -36,11 +43,12 @@ export function RadioButtonPayment({
               className="sr-only peer"
               />
             <div className="flex flex-col w-auto">
-                <span className={`whitespace-nowrap ml-2 capitalize text-xl ${selectedFormPayment === option ? 'text-white font-bold' : "text-gray-500"}`}>R$ {option.value}</span>
+                <span className={`whitespace-nowrap ml-2 capitalize text-xl ${isSelected ? 'text-gray-500' : "text-white font-bold"}`}>R$ {option.value}</span>
             </div>
           </label>
         </div>
-      ))}
+        
+      )})}
     </div>
   );
 }

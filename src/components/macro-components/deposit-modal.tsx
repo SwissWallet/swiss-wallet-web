@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BackButton } from "../micro-components/back-button";
 import { MainButton } from "../micro-components/main-button";
 import { UserInput } from "../micro-components/user-input";
@@ -79,6 +79,8 @@ export function DepositModal({
 
     const role = user.user.role;
     const isClient = role === "ROLE_CLIENT";
+
+    useEffect(() => {console.log(selectedFormPayment)}, [selectedFormPayment])
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50">
