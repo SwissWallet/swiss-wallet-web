@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { RadioButton } from "../micro-components/radio-button";
 import { Plus } from "lucide-react";
+import { CardBankDetails } from "./card-bank-details";
 interface DepositModalProps {
     closeDepositModal: () => void,
 }
@@ -20,6 +21,8 @@ export function DepositModal({
 
     const [ amountPoints, setAmountPoints ] = useState("");
     const [ selectedOption, setSelectedOption ] = useState('');
+
+    const [ openDetailsCard, setOpenDetailsCard ] = useState<boolean>(false);
 
     const handleOptionChange = (option: string) => {
         setSelectedOption(option);
@@ -61,7 +64,7 @@ export function DepositModal({
     const isClient = role === "ROLE_CLIENT";
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50">
             <form onSubmit={handdleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
                 <BackButton type="button" onClick={closeDepositModal} />
                 <div className="flex flex-col gap-3">
@@ -69,7 +72,8 @@ export function DepositModal({
                         <div className="flex justify-between">
                             <h1 className="text-4xl font-medium">Compre pontos</h1>
                             <button
-                                className="bg-red-gradient px-2 rounded-full"
+                                onClick={() => setOpenDetailsCard(true)}
+                                className="bg-red-gradient px-3 rounded-full"
                             >
                                 <div className=" text-white w-full flex items-center font-medium">
                                     <Plus className="size-6"/>
@@ -127,6 +131,12 @@ export function DepositModal({
                     </>
                 )}
             </form>
+
+            {openDetailsCard && (
+                <CardBankDetails 
+                
+                />
+            )}
         </div>
     )
 }
