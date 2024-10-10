@@ -1,4 +1,17 @@
-import { Barcode, Book, Coffee, DollarSign, Gift, Heart, House, Landmark, ShoppingBag, ShoppingBasket, ShoppingCart, User, X } from "lucide-react";
+import { 
+    Barcode, 
+    Book, 
+    Coffee, 
+    DollarSign, 
+    Gift, 
+    Heart, 
+    House, 
+    Landmark, 
+    ShoppingBag, 
+    ShoppingBasket, 
+    ShoppingCart, 
+    User, 
+    X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setLogin } from "../../features/login-slice";
@@ -153,9 +166,6 @@ export function DrawerMenu({
             </div>
             <div className="bg-white w-full h-[1px]" />
             <div className="flex items-center mt-5 flex-col justify-center gap-5">
-                <div className={`bg-gradient-to-t from-slate-700 to-black flex justify-center items-center rounded-full w-14 h-14 ${isClient ? "block" : "hidden"}`}>
-                    <User className="size-10 text-white" />
-                </div>
                 <div className="flex flex-col justify-centeritems-center">
                     <div className="flex flex-col justify-center items-center">
                         <h1 className="text-white font-medium text-base">{user.user.name}</h1>
