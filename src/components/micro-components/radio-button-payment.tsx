@@ -17,8 +17,8 @@ export function RadioButtonPayment({
       {options.map((option) => {
 
         const isSelected =
-        selectedFormPayment?.points === option.points ||
-        selectedFormPayment?.others_value === option.others_value;
+        (selectedFormPayment?.points && selectedFormPayment?.points === option.points) ||
+        (selectedFormPayment?.others_value && selectedFormPayment?.others_value === option.others_value);
         
         return(
         
@@ -29,8 +29,8 @@ export function RadioButtonPayment({
         >
 
         <div 
-            className={`w-full w-min-[150px] px-3 py-2 rounded-md text-center
-            ${selectedFormPayment === option ? 'scale-110 bg-red-gradient' : 'border-2 border-gray-500'}`} 
+            className={`w-full w-min-[150px] px-3 py-2 rounded-md text-center text-lg
+            ${isSelected ? ' bg-red-gradient text-white font-bold' : 'border-2 border-gray-500'}`} 
         >
             <span>{option.points || option.others_value}</span>
         </div>
@@ -42,8 +42,13 @@ export function RadioButtonPayment({
               onChange={() => handleOptionPaymentChange(option)}
               className="sr-only peer"
               />
-            <div className="flex flex-col w-auto">
-                <span className={`whitespace-nowrap ml-2 capitalize text-xl ${isSelected ? 'text-gray-500' : "text-white font-bold"}`}>R$ {option.value}</span>
+                <div className="flex flex-col w-auto">
+            {option.points ? (
+
+                <span className={`whitespace-nowrap ml-2 capitalize text-xl ${isSelected ? ' transition-all text-gray-900 scale-110 font-bold' : "text-gray-500"}`}>R$ {option.value}</span>
+            ) : (
+                <span className={`whitespace-nowrap ml-2 capitalize text-xl ${isSelected ? ' transition-all text-gray-900 scale-110 font-bold' : "text-gray-500"}`}>R$ ...</span>
+            )}
             </div>
           </label>
         </div>

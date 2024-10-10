@@ -37,11 +37,7 @@ export function DepositModal({
         setSelectedOption(option);
     };
 
-    const handleOptionPaymentChange = (option: FormPayment | null) => {
-        if(!option) {
-            setSelectedFormPayment(null);
-        };
-
+    const handleOptionPaymentChange = (option: FormPayment) => {
         setSelectedFormPayment(option)
     };
 
