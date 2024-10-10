@@ -63,25 +63,35 @@ export function DepositModal({
                     )}
                     <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>
                 </div>
-                <div className="flex items-center w-full relative h-auto">
-                    <p className="absolute  text-red-700 text-center w-full font-medium text-lg">
-                        {textAlert}
-                    </p>
-                </div>
-                <UserInput
-                    position="center"
-                    placeholder="ex: jose@senaisp.com"
-                    onChange={(e) => setUsername(e.target.value)}
-                >E-mail do usuário
-                </UserInput>
-                <UserInput
-                    position="center"
-                    placeholder="ex: 250"
-                    onChange={(e) => setDeposit(e.target.value)}
-                >Depósito
-                </UserInput>
-
-                <MainButton type="submit">Depositar</MainButton>
+                {!isClient && (
+                    <div className="flex items-center w-full relative h-auto">
+                        <p className="absolute  text-red-700 text-center w-full font-medium text-lg">
+                            {textAlert}
+                        </p>
+                    </div>
+                )}
+                {isClient ? (
+                    <div>
+                        <h1>hello world</h1>
+                    </div>
+                ) : (
+                    <>
+                        <UserInput
+                            position="center"
+                            placeholder="ex: jose@senaisp.com"
+                            onChange={(e) => setUsername(e.target.value)}
+                        >E-mail do usuário
+                        </UserInput>
+                        <UserInput
+                            position="center"
+                            placeholder="ex: 250"
+                            onChange={(e) => setDeposit(e.target.value)}
+                        >Depósito
+                        </UserInput>
+        
+                        <MainButton type="submit">Depositar</MainButton>
+                    </>
+                )}
             </form>
         </div>
     )
