@@ -5,6 +5,7 @@ import { UserInput } from "../micro-components/user-input";
 import { api } from "../../lib/axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { RadioButton } from "../micro-components/radio-button";
 interface DepositModalProps {
     closeDepositModal: () => void,
 }
@@ -15,6 +16,13 @@ export function DepositModal({
 
     const [username, setUsername] = useState("");
     const [deposit, setDeposit] = useState("");
+
+    const [ amountPoints, setAmountPoints ] = useState("");
+    const [ selectedOption, setSelectedOption ] = useState("");
+
+    const handleOptionChange = (event: React.FormEvent) => {
+      setSelectedOption(event.target.value);
+    };
 
     const [textAlert, setTextAlert] = useState("");
 
@@ -72,7 +80,13 @@ export function DepositModal({
                 )}
                 {isClient ? (
                     <div>
-                        <h1>hello world</h1>
+                        <UserInput
+                            position="center"
+                            placeholder="ex: 150"
+                            onChange={(e) => setAmountPoints(e.target.value)}
+                        >Quantidade de pontos
+                        </UserInput>
+                        <RadioButton />
                     </div>
                 ) : (
                     <>
