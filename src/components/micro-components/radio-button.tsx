@@ -1,4 +1,4 @@
-interface RadioButtoProps{
+interface RadioButtonProps{
     options: string[]
     selectedOption: string;
     handleOptionChange: (option: string) => void;
@@ -8,7 +8,7 @@ export function RadioButton({
     options,
     selectedOption,
     handleOptionChange,
-}: RadioButtoProps){
+}: RadioButtonProps){
   
   return (
     <div className="flex justify-center items-center gap-10">
