@@ -6,6 +6,7 @@ import { api } from "../../lib/axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { RadioButton } from "../micro-components/radio-button";
+import { Plus } from "lucide-react";
 interface DepositModalProps {
     closeDepositModal: () => void,
 }
@@ -65,7 +66,17 @@ export function DepositModal({
                 <BackButton type="button" onClick={closeDepositModal} />
                 <div className="flex flex-col gap-3">
                     {isClient ? (
-                        <h1 className="text-4xl font-medium">Compre pontos</h1>
+                        <div className="flex justify-between">
+                            <h1 className="text-4xl font-medium">Compre pontos</h1>
+                            <button
+                                className="bg-red-gradient px-2 rounded-full"
+                            >
+                                <div className=" text-white w-full flex items-center font-medium">
+                                    <Plus className="size-6"/>
+                                    <p className="">Cartão</p>
+                                </div>
+                            </button>
+                        </div>
                     ) : (
                         <h1 className="text-4xl font-medium">Deposite</h1>
                     )}
@@ -92,9 +103,9 @@ export function DepositModal({
                             options={["débito", "crédito", "pix"]}
                         />
                         {selectedOption === "pix" ? (
-                            <MainButton width="min">Gerar Código</MainButton>
+                            <MainButton>Gerar Código</MainButton>
                         ) : (
-                            <MainButton width="min">Pagar</MainButton>
+                            <MainButton>Pagar</MainButton>
                         )}
                     </div>
                 ) : (
