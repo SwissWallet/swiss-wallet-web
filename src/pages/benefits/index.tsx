@@ -1,35 +1,88 @@
+import { useSelector } from "react-redux";
 import { Footer } from "../../components/macro-components/footer";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
+import { MainButton } from "../../components/micro-components/main-button";
+import { RootState } from "../../store";
 import { BenefitsCard } from "./benefits-card";
+import { useEffect, useState } from "react";
+import { NewBenefitModal } from "./new-benefit-modal";
+import { api } from "../../lib/axios";
+
+interface benefit{
+    id: string;
+    title: string;
+    description: string;
+}
 
 
 export function Benefits() {
+
+    const [ openNewBenefit, setOpenNewBenefit ] = useState<boolean>(false);
+    const [ benefits, setBenefits ] = useState<benefit[]>([]);
+
+    const user = useSelector((state: RootState) => state.authUser.value);
+
+    const role = user.user.role;
+    const isClient = role === "ROLE_CLIENT";
+
+    async function getBenefitExistent(){
+        api.get(`/v3/benefit/actives`)
+        .then((json) => {
+            const data = json.data;
+            setBenefits(data.map((benefit: benefit) => ({
+                id: benefit.id,
+                title: benefit.title,
+                description: benefit.description
+            })))
+        })
+    };
+
+    useEffect(() => {
+        getBenefitExistent();
+    }, [])
+
     return (
         <div className="bg-default-gray">
             <Navbar />
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
 
-                <HeaderOnPages
-                    title="Beneficíos"
-                    description="Confira a lista de beneficios de assinantes da AAPM"
-                />
-
-                <BenefitsCard
-                    benefitsName="Beneficio VT"
-                    benefitsDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa."
-                />
-                <BenefitsCard
-                    benefitsName="outro beneficio"
-                    benefitsDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa."
-                />
-                <BenefitsCard
-                    benefitsName="outro beneficio"
-                    benefitsDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa."
-                />
+                <div className="flex justify-between">
+                    <HeaderOnPages
+                        title="Beneficíos"
+                        description="Confira a lista de beneficios de assinantes da AAPM"
+                        notFilterAndOrder={true}
+                    />
+                    <div className={`flex gap-10 items-center ${isClient ? "hidden" : "block"}`}>
+                        <MainButton 
+                            onClick={() => setOpenNewBenefit(true)}
+                            width="min"
+                        >
+                            Novo Benefício
+                        </MainButton>
+                    </div>
+                </div>
+                
+                {benefits.length > 0 && (
+                    benefits.map((item) => (
+                        <div key={item.id}>
+                            <BenefitsCard
+                                id={item.id} 
+                                title={item.title}
+                                description={item.description}
+                            />
+                        </div>
+                    ))
+                )}
 
             </main>
             <Footer />
+
+            {openNewBenefit && (
+                <NewBenefitModal 
+                    setOpenNewBenefit={setOpenNewBenefit}
+                />
+            )}
         </div>
     )
 }
