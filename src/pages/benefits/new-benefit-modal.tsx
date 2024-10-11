@@ -1,4 +1,5 @@
 import { BackButton } from "../../components/micro-components/back-button";
+import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
 
 interface NewBenefitModalProps{
@@ -26,6 +27,12 @@ export function NewBenefitModal({
                         className="w-full outline-none rounded-md p-2 border-2 border-zinc-300  font-medium placeholder-slate-400
                         focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic"
                     />
+                </div>
+                <div className={`flex gap-10 justify-center items-center`}>
+                <MainButton
+                    width="min"
+                >Novo Benefício
+                </MainButton>
                 </div>
             </form>
         </div>
