@@ -5,9 +5,13 @@ import { Navbar } from "../../components/macro-components/navbar";
 import { MainButton } from "../../components/micro-components/main-button";
 import { RootState } from "../../store";
 import { BenefitsCard } from "./benefits-card";
+import { useState } from "react";
+import { NewBenefitModal } from "./new-benefit-modal";
 
 
 export function Benefits() {
+
+    const [ openNewBenefit, setOpenNewBenefit ] = useState<boolean>(false);
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
@@ -26,7 +30,12 @@ export function Benefits() {
                         notFilterAndOrder={true}
                     />
                     <div className={`flex gap-10 items-center ${isClient ? "hidden" : "block"}`}>
-                        <MainButton width="min">Novo Benefício</MainButton>
+                        <MainButton 
+                            onClick={() => setOpenNewBenefit(true)}
+                            width="min"
+                        >
+                            Novo Benefício
+                        </MainButton>
                     </div>
                 </div>
 
@@ -45,6 +54,12 @@ export function Benefits() {
 
             </main>
             <Footer />
+
+            {openNewBenefit && (
+                <NewBenefitModal 
+                    setOpenNewBenefit={setOpenNewBenefit}
+                />
+            )}
         </div>
     )
 }
