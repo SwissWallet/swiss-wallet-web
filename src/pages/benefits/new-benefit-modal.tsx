@@ -18,10 +18,15 @@ export function NewBenefitModal({
                     <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>
                 </div>
 
-                <UserInput position="center">Título</UserInput>
-                <label className="text-lg font-medium text-center">Descrição</label>
-                <textarea className="w-full outline-none rounded-md p-2 border-2 border-zinc-300  font-medium placeholder-slate-400
-                    focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic"/>
+                <UserInput position="center" placeholder="ex: Vale Transporte">Título</UserInput>
+                <div className="w-full text-center gap-3 flex flex-col">
+                    <label className="text-lg font-medium">Descrição</label>
+                    <textarea 
+                        placeholder="Ex: Este benefício auxilia alunos com seu transporte à unidade de estudo"
+                        className="w-full outline-none rounded-md p-2 border-2 border-zinc-300  font-medium placeholder-slate-400
+                        focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic"
+                    />
+                </div>
             </form>
         </div>
     )
