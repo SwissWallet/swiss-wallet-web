@@ -14,7 +14,7 @@ export function NewBenefitModal({
 
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
-    const [textAlert, setTextAlert] = useState("");
+    const [ textAlert, setTextAlert ] = useState("");
 
     async function RegisterBenefit(){
         api.post(`/v3/benefit/actives`, {

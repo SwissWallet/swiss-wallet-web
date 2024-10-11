@@ -1,21 +1,22 @@
 import { MainButton } from "../../components/micro-components/main-button";
 
 interface BenefitsCardProps {
-    benefitsName: string,
-    benefitsDescription: string,
+    id?: string;
+    title: string;
+    description: string;
 }
 
 export function BenefitsCard({
-    benefitsName,
-    benefitsDescription,
+    title,
+    description,
 }: BenefitsCardProps) {
     return (
         <section className="ml-20 mr-20">
             <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md gap-6">
                 <div className="flex flex-col justify-start px-10 gap-3">
-                    <h1 className="text-2xl font-semibold">{benefitsName}</h1>
+                    <h1 className="text-2xl font-semibold">{title}</h1>
                     <p className="w-full overflow-hidden italic font-medium ">
-                        {benefitsDescription}
+                        {description}
                     </p>
                 </div>
                 <div className="flex justify-end">
