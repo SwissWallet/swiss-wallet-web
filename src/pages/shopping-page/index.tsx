@@ -58,7 +58,7 @@ export function ShoppingPage(){
                                         id={item.id}
                                         dateTime={item.date}
                                         productName={item.productName}
-                                        status={item.status === "PENDING" && ("PENDENTE")}
+                                        status={item.status === "PENDING" ? ("PENDENTE") : ("PAGO")}
                                         value={item.value}
                                         getShoppingCart={getShoppingCart}
                                     />
