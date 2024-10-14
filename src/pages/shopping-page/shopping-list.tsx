@@ -17,6 +17,7 @@ export function ShoppingList({
         listProduct.length > 0 && (
             filter ? (
                 listProduct
+                .reverse()
                 .filter((product) => product.status === filter)
                 .map((item) => (
                     <div className="flex flex-col gap-6" key={item.id}>
@@ -32,6 +33,7 @@ export function ShoppingList({
                 ))
             ) : (
                 listProduct
+                .reverse()
                 .map((item) => (
                     <div className="flex flex-col gap-6" key={item.id}>
                         <ShoppingCard
