@@ -12,9 +12,8 @@ import { CompletedStatus } from "./status-components/completed-status";
 import { WithdrawStatus } from "./status-components/withdraw-status";
 import { ProgressStatus } from "./status-components/progress-status";
 import { NoProducts } from "../../components/micro-components/no-products";
-import { Search } from "lucide-react";
-import { UserInput } from "../../components/micro-components/user-input";
 import { DrawerPurchase } from "../../components/macro-components/drawer-purchase";
+import { UserSelect } from "../../components/micro-components/category-input";
 
 interface productInterface {
     orderId: string
@@ -43,16 +42,6 @@ export function Orders() {
     const [ orderProductList, setOrderProductList ] = useState<productInterface[]>([]);
     const [ selectedStatus, setSelectedStatus ] = useState<StatusKey>('ANALYSIS');
     const [ filterByStatus, setFilterByStatus ] = useState("");
-
-    // async function filterProductByStatus(){
-    //     await api.get(`/v3/orders/status?status=${filterByStatus}`)
-    //     .then(() => {console.log("sucessfull")})
-    //     .catch((err) => {console.log(err)})
-    // };
-
-    // useEffect(() => {
-    //     filterProductByStatus();
-    // }, [filterByStatus]);
 
     function changedStatusProduct(productId: string, statusAlt: StatusKey) {
         const product = orderProductList.find((product) => product.id === productId);
@@ -173,26 +162,19 @@ export function Orders() {
                         description="Confira todos pedidos"
                         notFilterAndOrder={true}
                     />
-
-                    <div className={`flex flex-col space-y-6`}>
-                        <div>
-                            <UserInput 
-                                isVisibleSvgIcon={true}
-                                svgIcon={
-                                    <button>
-                                        <Search className="text-zinc-400 hover:text-red-700" />
-                                    </button>
-                                }
-                            />
-                        </div>
-                    <select className={`bg-transparent focus:outline-none ${isClient ? "hidden" : "block"}`} value={filterByStatus} onChange={(e) => setFilterByStatus(e.target.value)} >
-                        <option value="">Todos</option>
-                        <option value="ANALYSIS">Análise</option>
-                        <option value="COMPLETED">Completo</option>
-                        <option value="SEPARATED">Disponível</option>
-                        <option value="UNAVAILABLE">Indisponível</option>
-                    </select>
+                    
+                    <div className={`w-1/4 ${isClient ? ("hidden") : ("block")}`}>
+                        <UserSelect 
+                            firstMessage="Filtre por status"
+                            options={[
+                                {key: "ANALYSIS", value: "ANÁLISE"},
+                                {key: "COMPLETED", value: "COMPLETO"},
+                                {key: "SEPARATED", value: "DISPONÍVEL"},
+                                {key: "UNAVAILABLE", value: "INDISPONÍVEL"}
+                            ]}
+                        />
                     </div>
+
 
                 </div>
 
