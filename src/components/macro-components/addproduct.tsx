@@ -2,7 +2,7 @@ import { UploadCloudIcon, X } from 'lucide-react'
 import { MainButton } from '../micro-components/main-button'
 import { UserInput } from '../micro-components/user-input'
 import { HeaderOnPages } from './header-on-the-pages'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { DropzoneState, useDropzone } from 'react-dropzone'
 import { api } from '../../lib/axios'
 import { UserSelect } from '../micro-components/category-input'
@@ -24,6 +24,8 @@ export function AddNewProduct() {
     const [ description, setDescription ] = useState("");
     const [ category, setCategory ] = useState("");
     const [ amount, setAmount ] = useState<number>(1);
+
+    useEffect(() => console.log(category), [category])
 
     const [textAlert, setTextAlert] = useState("");
 
@@ -85,6 +87,12 @@ export function AddNewProduct() {
             })
     };
 
+    const optionsList = [
+        {key: "STORE", value: "LOJA"},
+        {key: "LIBRARY", value: "BIBLIOTECA"},
+        {key: "CANTEEN", value: "CANTINA"},
+    ]
+
     return (
         <div className='m-12'>
             <HeaderOnPages
@@ -105,7 +113,13 @@ export function AddNewProduct() {
                     <UserInput type='text' placeholder='Camiseta Branca Básica' value={description} onChange={(e) => setDescription(e.target.value)} >Descrição</UserInput>
                     <UserInput type='number' placeholder='Ex: 40,00' value={value} onChange={(e) => setValue(e.target.value)} >Valor</UserInput>
                     <UserInput type='number' value={amount} onChange={(e) => setAmount(Number(e.target.value))}>Quantidade</UserInput>
-                    <UserSelect onChange={(e) => setCategory(e.target.value)} firstMessage="Selecione uma categoria">Categoria</UserSelect>
+                    <UserSelect 
+                        onChange={(e) => setCategory(e.target.value)} 
+                        firstMessage="Selecione uma categoria"
+                        options={optionsList}
+                    >
+                        Categoria
+                    </UserSelect>
                 </form>
             </main>
             <section className='flex justify-center mt-10'>
