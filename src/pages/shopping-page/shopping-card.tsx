@@ -39,15 +39,23 @@ export function ShoppingCard({
                     <div className="w-full h-[1px] mt-8 bg-gray-800"/>
                     
                     <div className="flex mt-8 justify-between">
-                            <h1 className="text-zinc-700">Valor Total: <span className="text-4xl text-red-600">{value} pts</span></h1>
-                            <h1 className="text-zinc-700">pagamento: <span className="text-3xl text-red-600">{status}</span></h1>
-                        
+                        <h1 className="text-zinc-700">Valor Total: <span className={`text-4xl ${status === "PAGO" ? ("text-gray-700") : ("text-red-600")}`}>{value} pts</span></h1>
+                        <h1 className="text-zinc-700">pagamento: <span className={`text-4xl ${status === "PAGO" ? ("text-gray-700") : ("text-red-600")}`}>{status}</span></h1>
+                        {status === "PAGO" ? (
                         <button
-                            onClick={() => setOpenConfirmPaidModal(true)}
-                            className={`bg-red-600 hover:bg-red-700 px-10 py-2 rounded-md text-white-90 font-medium`}
+                            disabled
+                            className={`bg-gray-600 px-10 py-2 rounded-md text-white-90 font-medium`}
                         >
-                            REALIZAR PAGAMENTO
+                            FINALIZADO
                         </button>
+                        ) : (
+                            <button
+                                onClick={() => setOpenConfirmPaidModal(true)}
+                                className={`bg-red-600 hover:bg-red-700 px-10 py-2 rounded-md text-white-90 font-medium`}
+                            >
+                                REALIZAR PAGAMENTO
+                            </button>
+                        )}
                     </div>
 
                     {openConfirmPaidModal && (
