@@ -49,13 +49,25 @@ export function Benefits() {
     async function getBenefitActiveClient(){
         api.get(`/v3/benefit/requests/current`)
         .then((json) => {
-            const data = json.data.activeResponseDtos;
+            const data = json.data;
             console.log(data);
-            setBenefits(data.map((benefit: benefit) => ({
+            setBenefits(data.activeResponseDtos.map((benefit: benefit) => ({
                 id: benefit.id,
                 title: benefit.title,
                 description: benefit.description
             })))
+            setBenefitRequest(data.reqResponseDtos.map((benefit: reqBenefit) => ({
+                id: benefit.id,
+                status: benefit.status,
+                dateTime: benefit.dateTime,
+                benefitActive: {
+                    id: benefit.benefitActive.id,
+                    title: benefit.benefitActive.title,
+                    description: benefit.benefitActive.description
+                }
+            })))
+            console.log(benefits)
+            console.log(benefitRequest)
         })
     };
 
@@ -87,18 +99,46 @@ export function Benefits() {
                         </MainButton>
                     </div>
                 </div>
-                
-                {benefits.length > 0 && (
-                    benefits.map((item) => (
-                        <div key={item.id}>
-                            <BenefitsCard
-                                id={item.id} 
+
+                {isClient ? (
+                    <>
+                        {benefits.length > 0 && 
+                            benefits.map((item) => (
+                                <div key={item.id}>
+                                <BenefitsCard
+                                    id={item.id}
+                                    title={item.title}
+                                    description={item.description}
+                                />
+                                </div>
+                            ))
+                        }
+
+                        {benefitRequest.length > 0 && 
+                            benefitRequest.map((item) => (
+                                <div key={item.id}>
+                                <BenefitsCard
+                                    id={item.benefitActive.id}
+                                    title={item.benefitActive.title}
+                                    description={item.benefitActive.description}
+                                />
+                                </div>
+                            ))
+                        }
+                    </>
+                    ) : (
+                    benefits.length > 0 && 
+                        benefits.map((item) => (
+                            <div key={item.id}>
+                                <BenefitsCard
+                                id={item.id}
                                 title={item.title}
                                 description={item.description}
-                            />
-                        </div>
-                    ))
-                )}
+                                />
+                            </div>
+                        ))
+                    )}
+
 
             </main>
             <Footer />
