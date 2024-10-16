@@ -13,6 +13,13 @@ interface benefit{
     id: string;
     title: string;
     description: string;
+};
+
+interface reqBenefit{
+    id: string;
+    status: string;
+    dateTime: string;
+    benefitActive: benefit
 }
 
 
@@ -20,6 +27,7 @@ export function Benefits() {
 
     const [ openNewBenefit, setOpenNewBenefit ] = useState<boolean>(false);
     const [ benefits, setBenefits ] = useState<benefit[]>([]);
+    const [ benefitRequest, setBenefitRequest ] = useState<reqBenefit[]>([]);
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
