@@ -57,7 +57,7 @@ export function Benefits() {
         }else{
             getBenefitExistent();
         }
-    }, [])
+    }, [isClient])
 
     return (
         <div className="bg-default-gray">
