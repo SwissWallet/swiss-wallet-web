@@ -38,8 +38,25 @@ export function Benefits() {
         })
     };
 
+    async function getBenefitActiveClient(){
+        api.get(`/v3/benefit/requests/current`)
+        .then((json) => {
+            const data = json.data.activeResponseDtos;
+            console.log(data);
+            setBenefits(data.map((benefit: benefit) => ({
+                id: benefit.id,
+                title: benefit.title,
+                description: benefit.description
+            })))
+        })
+    };
+
     useEffect(() => {
-        getBenefitExistent();
+        if(isClient){
+            getBenefitActiveClient();
+        }else{
+            getBenefitExistent();
+        }
     }, [])
 
     return (
