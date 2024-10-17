@@ -1,13 +1,13 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Footer } from "../../components/macro-components/footer";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
 import { MainButton } from "../../components/micro-components/main-button";
+import { api } from "../../lib/axios";
 import { RootState } from "../../store";
 import { BenefitsCard } from "./benefits-card";
-import { useEffect, useState } from "react";
 import { NewBenefitModal } from "./new-benefit-modal";
-import { api } from "../../lib/axios";
 
 interface benefit{
     id: string;
@@ -101,7 +101,7 @@ export function Benefits() {
                 {isClient ? (
                     <>
                         {benefits.length > 0 && 
-                            benefits.map((item) => (
+                            benefits.reverse().map((item) => (
                                 <div key={item.id}>
                                 <BenefitsCard
                                     id={item.id}
@@ -113,8 +113,8 @@ export function Benefits() {
                             ))
                         }
 
-                        {benefitRequest.length > 0 && 
-                            benefitRequest.map((item) => (
+                        {benefitRequest.length > 0 &&
+                            benefitRequest.reverse().map((item) => (
                                 <div key={item.id}>
                                 <BenefitsCard
                                     id={item.benefitActive.id}
@@ -131,12 +131,12 @@ export function Benefits() {
                     </>
                     ) : (
                     benefits.length > 0 && 
-                        benefits.map((item) => (
+                        benefits.reverse().map((item) => (
                             <div key={item.id}>
                                 <BenefitsCard
-                                id={item.id}
-                                title={item.title}
-                                description={item.description}
+                                    id={item.id}
+                                    title={item.title}
+                                    description={item.description}
                                 />
                             </div>
                         ))
