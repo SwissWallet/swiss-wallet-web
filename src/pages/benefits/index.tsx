@@ -66,8 +66,6 @@ export function Benefits() {
                     description: benefit.benefitActive.description
                 }
             })))
-            console.log(benefits)
-            console.log(benefitRequest)
         })
     };
 
@@ -121,6 +119,10 @@ export function Benefits() {
                                     id={item.benefitActive.id}
                                     title={item.benefitActive.title}
                                     description={item.benefitActive.description}
+                                    dateTime={item.dateTime}
+                                    idRequest={item.id}
+                                    req={true}
+                                    status={item.status}
                                 />
                                 </div>
                             ))
