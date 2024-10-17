@@ -1,4 +1,5 @@
 import { MainButton } from "../../components/micro-components/main-button";
+import { api } from "../../lib/axios";
 
 interface BenefitsCardProps {
     id: string;
@@ -11,12 +12,22 @@ interface BenefitsCardProps {
 }
 
 export function BenefitsCard({
+    id,
     title,
     description,
     status,
     dateTime,
     req,
 }: BenefitsCardProps) {
+
+    async function addRequest(id: string){
+        api.post(`/v3/benefit/requests`, {
+            idBenefit: id
+        })
+        .then(() => console.log("add"))
+        .catch((err) => console.log(err))
+    }
+
     return (
         <section className="ml-20 mr-20">
             <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md gap-6">
@@ -36,7 +47,11 @@ export function BenefitsCard({
                         <h1 className="text-2xl font-medium px-10">{status}</h1>
                     ) : (
                         <div className="flex gap-10 items-center">
-                            <MainButton width="min" >Solicitar beneficio</MainButton>
+                            <MainButton 
+                                onClick={() => addRequest(id)}
+                                width="min"
+                                >Solicitar beneficio
+                            </MainButton>
                         </div>
                     )}
                 </div>
