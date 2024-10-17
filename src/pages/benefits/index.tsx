@@ -102,13 +102,22 @@ export function Benefits() {
                             />
                         </div>
                     ) : (
-                        <div className={`flex gap-10 items-center`}>
-                            <MainButton 
-                                onClick={() => setOpenNewBenefit(true)}
-                                width="min"
-                            >
-                                Novo Benefício
-                            </MainButton>
+                        <div className="flex gap-4">
+                            <div className={`flex gap-10 items-center`}>
+                                <MainButton 
+                                    onClick={() => setOpenNewBenefit(true)}
+                                    width="min"
+                                >
+                                    Novo Benefício
+                                </MainButton>
+                            </div>
+                            <div className={`flex gap-10 items-center`}>
+                                <MainButton
+                                    width="min"
+                                >
+                                    Solicitações
+                                </MainButton>
+                            </div>
                         </div>
                     )}
                 </div>
@@ -124,6 +133,7 @@ export function Benefits() {
                                     title={item.title}
                                     description={item.description}
                                     getBenefitActiveClient={getBenefitActiveClient}
+                                    isClient={isClient}
                                 />
                                 </div>
                             ))}
@@ -138,6 +148,7 @@ export function Benefits() {
                                     idRequest={item.id}
                                     req={true}
                                     status={item.status}
+                                    isClient={isClient}
                                 />
                                 </div>
                             ))}
@@ -154,6 +165,7 @@ export function Benefits() {
                                             title={item.title}
                                             description={item.description}
                                             getBenefitActiveClient={getBenefitActiveClient}
+                                            isClient={isClient}
                                         />
                                         </div>
                                     ))
@@ -172,6 +184,7 @@ export function Benefits() {
                                             idRequest={item.id}
                                             req={true}
                                             status={item.status}
+                                            isClient={isClient}
                                         />
                                         </div>
                                     ))
@@ -185,6 +198,7 @@ export function Benefits() {
                                     id={item.id}
                                     title={item.title}
                                     description={item.description}
+                                    isClient={isClient}
                                 />
                             </div>
                         ))

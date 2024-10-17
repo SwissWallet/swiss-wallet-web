@@ -1,4 +1,5 @@
 //@ts-nocheck
+import { Trash2 } from "lucide-react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { api } from "../../lib/axios";
 
@@ -11,6 +12,7 @@ interface BenefitsCardProps {
     status?: string;
     idRequest?: string;
     req?: boolean;
+    isClient: boolean;
 }
 
 export function BenefitsCard({
@@ -21,6 +23,7 @@ export function BenefitsCard({
     dateTime,
     req,
     getBenefitActiveClient,
+    isClient,
 }: BenefitsCardProps) {
 
     async function addRequest(id: string){
@@ -50,11 +53,17 @@ export function BenefitsCard({
                         <h1 className="text-2xl text-red-600 font-bold px-10">{status}</h1>
                     ) : (
                         <div className="flex gap-10 items-center">
-                            <MainButton 
-                                onClick={() => addRequest(id)}
-                                width="min"
-                                >Solicitar beneficio
-                            </MainButton>
+                            {isClient ? (
+                                <MainButton 
+                                    onClick={() => addRequest(id)}
+                                    width="min"
+                                    >Solicitar beneficio
+                                </MainButton>
+                            ) : (
+                                <button>
+                                    <Trash2 className="size-10 text-red-600 hover:scale-110 transition-all hover:text-red-700" />
+                                </button>
+                            )}
                         </div>
                     )}
                 </div>
