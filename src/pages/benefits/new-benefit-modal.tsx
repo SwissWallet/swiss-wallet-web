@@ -5,11 +5,11 @@ import { UserInput } from "../../components/micro-components/user-input";
 import { api } from "../../lib/axios";
 
 interface NewBenefitModalProps{
-    setOpenNewBenefit: (e: boolean) => void;
+    closeModal: () => void;
 }
 
 export function NewBenefitModal({
-    setOpenNewBenefit,
+    closeModal,
 }: NewBenefitModalProps){
 
     const [ title, setTitle ] = useState("");
@@ -21,7 +21,7 @@ export function NewBenefitModal({
             title, 
             description
         })
-        .then(() => setOpenNewBenefit(false))
+        .then(() => closeModal())
         .catch((err) => console.log(err))
     };
 
@@ -39,7 +39,7 @@ export function NewBenefitModal({
     return(
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <form onSubmit={onSubmit} className="bg-white rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
-                <BackButton type="button" onClick={() => setOpenNewBenefit(false)} />
+                <BackButton type="button" onClick={closeModal} />
                 <div className="flex flex-col gap-3">
                     <h1 className="text-4xl font-medium">Cadastre novo beneficio</h1>
                     <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>

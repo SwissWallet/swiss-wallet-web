@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { Trash2 } from "lucide-react";
 import { MainButton } from "../../components/micro-components/main-button";
 import { api } from "../../lib/axios";
@@ -13,6 +12,7 @@ interface BenefitsCardProps {
     idRequest?: string;
     req?: boolean;
     isClient: boolean;
+    name?: string;
 }
 
 export function BenefitsCard({
@@ -24,6 +24,7 @@ export function BenefitsCard({
     req,
     getBenefitActiveClient,
     isClient,
+    name,
 }: BenefitsCardProps) {
 
     async function addRequest(id: string){
@@ -33,11 +34,14 @@ export function BenefitsCard({
         .then(() => getBenefitActiveClient())
         .catch((err) => console.log(err))
     }
-
+    
     return (
         <section className="ml-20 mr-20">
             <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md gap-6">
                 <div className="flex flex-col justify-start gap-3">
+                    {!isClient && (
+                        <h1 className="text-2xl font-bold px-5 underline text-gray-800">{name}</h1>
+                    )}
                     <div className="flex justify-between px-5">
                         <h1 className="text-2xl font-semibold">{title}</h1>
                         {req && ( 
@@ -53,17 +57,17 @@ export function BenefitsCard({
                         <h1 className="text-2xl text-red-600 font-bold px-10">{status}</h1>
                     ) : (
                         <div className="flex gap-10 items-center">
+                            
                             {isClient ? (
                                 <MainButton onClick={() => addRequest(id)} width="min">
-                                Solicitar benefício
+                                    Solicitar benefício
                                 </MainButton>
-                            ) : req ? (
-                                <MainButton width="min">Alterar status</MainButton>
                             ) : (
                                 <button>
-                                <Trash2 className="size-10 text-red-600 hover:scale-110 transition-all hover:text-red-700" />
+                                    <Trash2 className="size-10 text-red-600 hover:scale-110 transition-all hover:text-red-700" />
                                 </button>
                             )}
+                            
                         </div>
                     )}
                 </div>

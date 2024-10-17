@@ -20,7 +20,10 @@ interface reqBenefit{
     id: string;
     status: string;
     dateTime: string;
-    benefitActive: benefit
+    benefitActive: benefit;
+    user?: {
+        name: string;
+    }
 }
 
 
@@ -92,8 +95,11 @@ export function Benefits() {
                     id: benefit.benefitActive.id,
                     title: benefit.benefitActive.title,
                     description: benefit.benefitActive.description
+                },
+                user: {
+                    name: benefit.user.name, 
                 }
-            })))
+            }))) 
         })
     };
 
@@ -102,6 +108,11 @@ export function Benefits() {
             getRequests();
         }   
     }, [openRequests])
+
+    function closeModal(){
+        setOpenNewBenefit(false);
+        getBenefitExistent();
+    };
 
     return (
         <div className="bg-default-gray">
@@ -169,6 +180,7 @@ export function Benefits() {
                                 req={true}
                                 status={item.status}
                                 isClient={isClient}
+                                name={item.user?.name}
                             />
                         </div>
                     )) 
@@ -200,6 +212,7 @@ export function Benefits() {
                                         req={true}
                                         status={item.status}
                                         isClient={isClient}
+                                        name={item.user?.name}
                                     />
                                     </div>
                                 ))}
@@ -236,6 +249,7 @@ export function Benefits() {
                                                 req={true}
                                                 status={item.status}
                                                 isClient={isClient}
+                                                name={item.user?.name}
                                             />
                                             </div>
                                         ))
@@ -262,7 +276,7 @@ export function Benefits() {
 
             {openNewBenefit && (
                 <NewBenefitModal 
-                    setOpenNewBenefit={setOpenNewBenefit}
+                    closeModal={closeModal}
                 />
             )}
         </div>
