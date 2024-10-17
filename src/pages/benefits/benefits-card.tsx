@@ -54,14 +54,14 @@ export function BenefitsCard({
                     ) : (
                         <div className="flex gap-10 items-center">
                             {isClient ? (
-                                <MainButton 
-                                    onClick={() => addRequest(id)}
-                                    width="min"
-                                    >Solicitar beneficio
+                                <MainButton onClick={() => addRequest(id)} width="min">
+                                Solicitar benefício
                                 </MainButton>
+                            ) : req ? (
+                                <MainButton width="min">Alterar status</MainButton>
                             ) : (
                                 <button>
-                                    <Trash2 className="size-10 text-red-600 hover:scale-110 transition-all hover:text-red-700" />
+                                <Trash2 className="size-10 text-red-600 hover:scale-110 transition-all hover:text-red-700" />
                                 </button>
                             )}
                         </div>

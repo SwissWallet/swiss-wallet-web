@@ -30,6 +30,7 @@ export function Benefits() {
     const [ benefits, setBenefits ] = useState<benefit[]>([]);
     const [ benefitRequest, setBenefitRequest ] = useState<reqBenefit[]>([]);
     const [ filter, setFilter ] = useState("");
+    const [ openRequests, setOpenRequests ] = useState<boolean>(false);
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
@@ -79,6 +80,29 @@ export function Benefits() {
         }
     }, [isClient])
 
+    async function getRequests(){
+        api.get(`/v3/benefit/requests`)
+        .then((json) => {
+            const data = json.data;
+            setBenefitRequest(data.map((benefit: reqBenefit) => ({
+                id: benefit.id,
+                status: benefit.status,
+                dateTime: benefit.dateTime,
+                benefitActive: {
+                    id: benefit.benefitActive.id,
+                    title: benefit.benefitActive.title,
+                    description: benefit.benefitActive.description
+                }
+            })))
+        })
+    };
+
+    useEffect(() => {
+        if(openRequests){
+            getRequests();
+        }   
+    }, [openRequests])
+
     return (
         <div className="bg-default-gray">
             <Navbar />
@@ -112,97 +136,112 @@ export function Benefits() {
                                 </MainButton>
                             </div>
                             <div className={`flex gap-10 items-center`}>
-                                <MainButton
-                                    width="min"
-                                >
-                                    Solicitações
-                                </MainButton>
+                                {openRequests ? (
+                                    <MainButton
+                                        onClick={() => setOpenRequests(!openRequests)}
+                                        width="min"
+                                    >
+                                        Fechar solicitações
+                                    </MainButton>
+                                ) : (
+                                    <MainButton
+                                        onClick={() => setOpenRequests(!openRequests)}
+                                        width="min"
+                                    >
+                                        Solicitações
+                                    </MainButton>
+
+                                )}
                             </div>
                         </div>
                     )}
                 </div>
 
-                {isClient ? (
-                    <>
-                        {filter === "" && (
-                            <>
-                            {benefits.reverse().map((item) => (
+                {openRequests ? (
+                    <h1>Olá mundo</h1>
+                ) : (
+                    isClient ? (
+                        <>
+                            {filter === "" && (
+                                <>
+                                {benefits.reverse().map((item) => (
+                                    <div key={item.id}>
+                                    <BenefitsCard
+                                        id={item.id}
+                                        title={item.title}
+                                        description={item.description}
+                                        getBenefitActiveClient={getBenefitActiveClient}
+                                        isClient={isClient}
+                                    />
+                                    </div>
+                                ))}
+    
+                                {benefitRequest.reverse().map((item) => (
+                                    <div key={item.id}>
+                                    <BenefitsCard
+                                        id={item.benefitActive.id}
+                                        title={item.benefitActive.title}
+                                        description={item.benefitActive.description}
+                                        dateTime={item.dateTime}
+                                        idRequest={item.id}
+                                        req={true}
+                                        status={item.status}
+                                        isClient={isClient}
+                                    />
+                                    </div>
+                                ))}
+                                </>
+                            )}
+    
+                            {
+                                filter === "ACTIVE" &&
+                                    benefits.length > 0 && 
+                                        benefits.reverse().map((item) => (
+                                            <div key={item.id}>
+                                            <BenefitsCard
+                                                id={item.id}
+                                                title={item.title}
+                                                description={item.description}
+                                                getBenefitActiveClient={getBenefitActiveClient}
+                                                isClient={isClient}
+                                            />
+                                            </div>
+                                        ))
+                            }
+    
+                            {
+                                filter === "REQUEST" &&
+                                    benefitRequest.length > 0 &&
+                                        benefitRequest.reverse().map((item) => (
+                                            <div key={item.id}>
+                                            <BenefitsCard
+                                                id={item.benefitActive.id}
+                                                title={item.benefitActive.title}
+                                                description={item.benefitActive.description}
+                                                dateTime={item.dateTime}
+                                                idRequest={item.id}
+                                                req={true}
+                                                status={item.status}
+                                                isClient={isClient}
+                                            />
+                                            </div>
+                                        ))
+                            }
+                        </>
+                        ) : (
+                        benefits.length > 0 && 
+                            benefits.reverse().map((item) => (
                                 <div key={item.id}>
-                                <BenefitsCard
-                                    id={item.id}
-                                    title={item.title}
-                                    description={item.description}
-                                    getBenefitActiveClient={getBenefitActiveClient}
-                                    isClient={isClient}
-                                />
+                                    <BenefitsCard
+                                        id={item.id}
+                                        title={item.title}
+                                        description={item.description}
+                                        isClient={isClient}
+                                    />
                                 </div>
-                            ))}
-
-                            {benefitRequest.reverse().map((item) => (
-                                <div key={item.id}>
-                                <BenefitsCard
-                                    id={item.benefitActive.id}
-                                    title={item.benefitActive.title}
-                                    description={item.benefitActive.description}
-                                    dateTime={item.dateTime}
-                                    idRequest={item.id}
-                                    req={true}
-                                    status={item.status}
-                                    isClient={isClient}
-                                />
-                                </div>
-                            ))}
-                            </>
-                        )}
-
-                        {
-                            filter === "ACTIVE" &&
-                                benefits.length > 0 && 
-                                    benefits.reverse().map((item) => (
-                                        <div key={item.id}>
-                                        <BenefitsCard
-                                            id={item.id}
-                                            title={item.title}
-                                            description={item.description}
-                                            getBenefitActiveClient={getBenefitActiveClient}
-                                            isClient={isClient}
-                                        />
-                                        </div>
-                                    ))
-                        }
-
-                        {
-                            filter === "REQUEST" &&
-                                benefitRequest.length > 0 &&
-                                    benefitRequest.reverse().map((item) => (
-                                        <div key={item.id}>
-                                        <BenefitsCard
-                                            id={item.benefitActive.id}
-                                            title={item.benefitActive.title}
-                                            description={item.benefitActive.description}
-                                            dateTime={item.dateTime}
-                                            idRequest={item.id}
-                                            req={true}
-                                            status={item.status}
-                                            isClient={isClient}
-                                        />
-                                        </div>
-                                    ))
-                        }
-                    </>
-                    ) : (
-                    benefits.length > 0 && 
-                        benefits.reverse().map((item) => (
-                            <div key={item.id}>
-                                <BenefitsCard
-                                    id={item.id}
-                                    title={item.title}
-                                    description={item.description}
-                                    isClient={isClient}
-                                />
-                            </div>
-                        ))
-                    )}
+                            ))
+                        )
+                )}
 
 
             </main>
