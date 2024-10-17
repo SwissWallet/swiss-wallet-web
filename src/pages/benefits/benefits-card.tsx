@@ -28,13 +28,19 @@ export function BenefitsCard({
 }: BenefitsCardProps) {
 
     async function addRequest(id: string){
-        api.post(`/v3/benefit/requests`, {
+        await api.post(`/v3/benefit/requests`, {
             idBenefit: id
         })
         .then(() => getBenefitActiveClient())
         .catch((err) => console.log(err))
-    }
-    
+    };
+
+    async function deleteBenefit(id: string){
+        await api.delete(`/v3/benefit/actives/${id}`)
+        .then(() => console.log("remove"))
+        .catch((err) => console.log(err))
+    };
+
     return (
         <section className="ml-20 mr-20">
             <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md gap-6">
@@ -63,7 +69,7 @@ export function BenefitsCard({
                                     Solicitar benefício
                                 </MainButton>
                             ) : (
-                                <button>
+                                <button onClick={() => deleteBenefit(id)}>
                                     <Trash2 className="size-10 text-red-600 hover:scale-110 transition-all hover:text-red-700" />
                                 </button>
                             )}
