@@ -158,7 +158,20 @@ export function Benefits() {
                 </div>
 
                 {openRequests ? (
-                    <h1>Olá mundo</h1>
+                    benefitRequest.reverse().map((item) => (
+                        <div key={item.id}>
+                            <BenefitsCard
+                                id={item.benefitActive.id}
+                                title={item.benefitActive.title}
+                                description={item.benefitActive.description}
+                                dateTime={item.dateTime}
+                                idRequest={item.id}
+                                req={true}
+                                status={item.status}
+                                isClient={isClient}
+                            />
+                        </div>
+                    )) 
                 ) : (
                     isClient ? (
                         <>
