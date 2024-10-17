@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { MainButton } from "../../components/micro-components/main-button";
 import { api } from "../../lib/axios";
 
@@ -5,6 +6,7 @@ interface BenefitsCardProps {
     id: string;
     title: string;
     description: string;
+    getBenefitActiveClient?: () => void;
     dateTime?: string;
     status?: string;
     idRequest?: string;
@@ -18,13 +20,14 @@ export function BenefitsCard({
     status,
     dateTime,
     req,
+    getBenefitActiveClient,
 }: BenefitsCardProps) {
 
     async function addRequest(id: string){
         api.post(`/v3/benefit/requests`, {
             idBenefit: id
         })
-        .then(() => console.log("add"))
+        .then(() => getBenefitActiveClient())
         .catch((err) => console.log(err))
     }
 

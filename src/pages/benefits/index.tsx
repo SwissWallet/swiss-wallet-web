@@ -107,6 +107,7 @@ export function Benefits() {
                                     id={item.id}
                                     title={item.title}
                                     description={item.description}
+                                    getBenefitActiveClient={getBenefitActiveClient}
                                 />
                                 </div>
                             ))
