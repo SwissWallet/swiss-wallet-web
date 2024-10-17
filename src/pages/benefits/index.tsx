@@ -8,6 +8,7 @@ import { api } from "../../lib/axios";
 import { RootState } from "../../store";
 import { BenefitsCard } from "./benefits-card";
 import { NewBenefitModal } from "./new-benefit-modal";
+import { UserSelect } from "../../components/micro-components/category-input";
 
 interface benefit{
     id: string;
@@ -28,6 +29,7 @@ export function Benefits() {
     const [ openNewBenefit, setOpenNewBenefit ] = useState<boolean>(false);
     const [ benefits, setBenefits ] = useState<benefit[]>([]);
     const [ benefitRequest, setBenefitRequest ] = useState<reqBenefit[]>([]);
+    const [ filter, setFilter ] = useState("");
 
     const user = useSelector((state: RootState) => state.authUser.value);
 
@@ -88,20 +90,32 @@ export function Benefits() {
                         description="Confira a lista de beneficios de assinantes da AAPM"
                         notFilterAndOrder={true}
                     />
-                    <div className={`flex gap-10 items-center ${isClient ? "hidden" : "block"}`}>
-                        <MainButton 
-                            onClick={() => setOpenNewBenefit(true)}
-                            width="min"
-                        >
-                            Novo Benefício
-                        </MainButton>
-                    </div>
+                    {isClient ? (
+                        <UserSelect 
+                            firstMessage="Filtre por status"
+                            options={[
+                                {key: "ACTIVE", value: "DISPONIVEL"},
+                                {key: "REQUEST", value: "ENVIADO"},
+                            ]}
+                            onChange={(e) => setFilter(e.target.value)}
+                        />
+                    ) : (
+                        <div className={`flex gap-10 items-center`}>
+                            <MainButton 
+                                onClick={() => setOpenNewBenefit(true)}
+                                width="min"
+                            >
+                                Novo Benefício
+                            </MainButton>
+                        </div>
+                    )}
                 </div>
 
                 {isClient ? (
                     <>
-                        {benefits.length > 0 && 
-                            benefits.reverse().map((item) => (
+                        {filter === "" && (
+                            <>
+                            {benefits.reverse().map((item) => (
                                 <div key={item.id}>
                                 <BenefitsCard
                                     id={item.id}
@@ -110,11 +124,9 @@ export function Benefits() {
                                     getBenefitActiveClient={getBenefitActiveClient}
                                 />
                                 </div>
-                            ))
-                        }
+                            ))}
 
-                        {benefitRequest.length > 0 &&
-                            benefitRequest.reverse().map((item) => (
+                            {benefitRequest.reverse().map((item) => (
                                 <div key={item.id}>
                                 <BenefitsCard
                                     id={item.benefitActive.id}
@@ -126,7 +138,41 @@ export function Benefits() {
                                     status={item.status}
                                 />
                                 </div>
-                            ))
+                            ))}
+                            </>
+                        )}
+
+                        {
+                            filter === "ACTIVE" &&
+                                benefits.length > 0 && 
+                                    benefits.reverse().map((item) => (
+                                        <div key={item.id}>
+                                        <BenefitsCard
+                                            id={item.id}
+                                            title={item.title}
+                                            description={item.description}
+                                            getBenefitActiveClient={getBenefitActiveClient}
+                                        />
+                                        </div>
+                                    ))
+                        }
+
+                        {
+                            filter === "REQUEST" &&
+                                benefitRequest.length > 0 &&
+                                    benefitRequest.reverse().map((item) => (
+                                        <div key={item.id}>
+                                        <BenefitsCard
+                                            id={item.benefitActive.id}
+                                            title={item.benefitActive.title}
+                                            description={item.benefitActive.description}
+                                            dateTime={item.dateTime}
+                                            idRequest={item.id}
+                                            req={true}
+                                            status={item.status}
+                                        />
+                                        </div>
+                                    ))
                         }
                     </>
                     ) : (
