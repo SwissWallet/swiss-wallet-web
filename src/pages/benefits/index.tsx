@@ -91,14 +91,16 @@ export function Benefits() {
                         notFilterAndOrder={true}
                     />
                     {isClient ? (
-                        <UserSelect 
-                            firstMessage="Filtre por status"
-                            options={[
-                                {key: "ACTIVE", value: "DISPONIVEL"},
-                                {key: "REQUEST", value: "ENVIADO"},
-                            ]}
-                            onChange={(e) => setFilter(e.target.value)}
-                        />
+                        <div className="w-1/6">
+                            <UserSelect 
+                                firstMessage="Filtre por status"
+                                options={[
+                                    {key: "ACTIVE", value: "DISPONIVEL"},
+                                    {key: "REQUEST", value: "ENVIADO"},
+                                ]}
+                                onChange={(e) => setFilter(e.target.value)}
+                            />
+                        </div>
                     ) : (
                         <div className={`flex gap-10 items-center`}>
                             <MainButton 

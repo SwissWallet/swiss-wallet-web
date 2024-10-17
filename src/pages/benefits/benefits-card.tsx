@@ -47,7 +47,7 @@ export function BenefitsCard({
                 </div>
                 <div className="flex justify-end">
                     {req ? (
-                        <h1 className="text-2xl font-medium px-10">{status}</h1>
+                        <h1 className="text-2xl text-red-600 font-bold px-10">{status}</h1>
                     ) : (
                         <div className="flex gap-10 items-center">
                             <MainButton 
