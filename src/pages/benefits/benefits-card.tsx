@@ -31,15 +31,19 @@ export function BenefitsCard({
         await api.post(`/v3/benefit/requests`, {
             idBenefit: id
         })
-        .then(() => getBenefitActiveClient())
+        .then(() => getBenefitActiveClient ? getBenefitActiveClient() : console.log("error"))
         .catch((err) => console.log(err))
     };
 
     async function deleteBenefit(id: string){
         await api.delete(`/v3/benefit/actives/${id}`)
-        .then(() => console.log("remove"))
+        .then(() =>{ 
+            console.log("passou")
+        })
         .catch((err) => console.log(err))
     };
+
+    
 
     return (
         <section className="ml-20 mr-20">

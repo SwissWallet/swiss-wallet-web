@@ -112,7 +112,7 @@ export function Benefits() {
     function closeModal(){
         setOpenNewBenefit(false);
         getBenefitExistent();
-    };
+    };  
 
     return (
         <div className="bg-default-gray">
