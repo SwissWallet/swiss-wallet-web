@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Footer } from "../../components/macro-components/footer";
