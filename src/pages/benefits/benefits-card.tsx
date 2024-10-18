@@ -43,6 +43,7 @@ export function BenefitsCard({
         .catch((err) => console.log(err))
     };
 
+    console.log("req: -> " + req)
     
 
     return (

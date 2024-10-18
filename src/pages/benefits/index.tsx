@@ -9,6 +9,7 @@ import { RootState } from "../../store";
 import { BenefitsCard } from "./benefits-card";
 import { NewBenefitModal } from "./new-benefit-modal";
 import { UserSelect } from "../../components/micro-components/category-input";
+import { BenefitsCardRequests } from "./benefit-card-requests";
 
 interface benefit{
     id: string;
@@ -171,15 +172,13 @@ export function Benefits() {
                 {openRequests ? (
                     benefitRequest.reverse().map((item) => (
                         <div key={item.id}>
-                            <BenefitsCard
+                            <BenefitsCardRequests
                                 id={item.benefitActive.id}
                                 title={item.benefitActive.title}
                                 description={item.benefitActive.description}
                                 dateTime={item.dateTime}
                                 idRequest={item.id}
-                                req={true}
                                 status={item.status}
-                                isClient={isClient}
                                 name={item.user?.name}
                             />
                         </div>
@@ -197,6 +196,7 @@ export function Benefits() {
                                         description={item.description}
                                         getBenefitActiveClient={getBenefitActiveClient}
                                         isClient={isClient}
+                                        req={false}
                                     />
                                     </div>
                                 ))}
@@ -230,6 +230,7 @@ export function Benefits() {
                                                 description={item.description}
                                                 getBenefitActiveClient={getBenefitActiveClient}
                                                 isClient={isClient}
+                                                req={false}
                                             />
                                             </div>
                                         ))
