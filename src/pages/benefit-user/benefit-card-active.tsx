@@ -1,7 +1,7 @@
 import { MainButton } from "../../components/micro-components/main-button";
 import { api } from "../../lib/axios";
 
-interface BenefitCardProps{
+interface BenefitCardActiveProps{
     id: string;
     title: string;
     description: string;
@@ -15,11 +15,12 @@ async function addRequest(id: string){
     .catch((err) => console.log(err))
 };
 
-export function BenefitCard({
+export function BenefitCardActive({
     id,
     title,
     description,
-}: BenefitCardProps){
+
+}: BenefitCardActiveProps){
 
     return(
         <section className="ml-20 mr-20">

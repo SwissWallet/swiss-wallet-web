@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
-import { UserSelect } from "../../components/micro-components/category-input";
 import { api } from "../../lib/axios";
+import { NoProducts } from "../../components/micro-components/no-products";
+import { BenefitCardActive } from "./benefit-card-active";
+import { BenefitCardRequest } from "./benefit-card-request";
+import { RadioButton } from "../../components/micro-components/radio-button";
 
 interface benefit{
     id: string;
@@ -19,21 +22,26 @@ interface benefit{
 };
 
 export function BenefitUser(){
+    const [ benefitsActive, setBenefitsActive ] = useState<benefit[]>([]);
+    const [ benefitsRequest, setBenefitsRequest ] = useState<benefit[]>([]);
+    const [ selectedOption, setSelectedOption ] = useState("");
 
-    const [ filter, setFilter ] = useState<"ACTIVE" | "REQUEST" | "">("");
-    const [ benefits, setBenefits ] = useState<benefit>();
+    const handleOptionChange = (option: string) => {
+        setSelectedOption(option)
+    };
+
     
-    async function getBenefitActiveClient(){
+    async function getBenefit(){
         api.get(`/v3/benefit/requests/current`)
         .then((json) => {
             const data = json.data;
             console.log(data);
-            setBenefits(data.activeResponseDtos.map((benefit: benefit) => ({
+            setBenefitsActive(data.activeResponseDtos.map((benefit: benefit) => ({
                 id: benefit.id,
                 title: benefit.title,
                 description: benefit.description
             })))
-            setBenefits(data.reqResponseDtos.map((benefit: benefit) => ({
+            setBenefitsRequest(data.reqResponseDtos.map((benefit: benefit) => ({
                 id: benefit.id,
                 status: benefit.status,
                 dateTime: benefit.dateTime,
@@ -46,32 +54,28 @@ export function BenefitUser(){
         })
     };
 
-
+    useEffect(() => {
+        getBenefit();
+    }, []);
 
     return(
         <div className="bg-default-gray">
             <Navbar />
             <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
 
-                <div className="flex justify-between">
-                    <HeaderOnPages
-                        title="Beneficíos"
-                        description="Confira a lista de beneficios de assinantes da AAPM"
-                        notFilterAndOrder={true}
-                    />
+                <HeaderOnPages
+                    title="Beneficíos"
+                    description="Confira a lista de beneficios de assinantes da AAPM"
+                    notFilterAndOrder={true}
+                />
 
-                    <div className="w-1/6">
-                        <UserSelect
-                            firstMessage="Filtre por status"
-                            options={[
-                                {key: "ACTIVE", value: "DISPONIVEL"},
-                                {key: "REQUEST", value: "ENVIADO"},
-                            ]}
-                            onChange={(e) => setFilter(e.target.value)}
-                        />
-                    </div>
-                </div>
-
+                <RadioButton 
+                    selectedOption={selectedOption}
+                    handleOptionChange={handleOptionChange} 
+                    options={["ATIVOS", "SOLICITADOS"]}
+                />
+                
+                
                 
 
             </main>
