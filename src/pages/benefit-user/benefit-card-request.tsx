@@ -27,8 +27,10 @@ export function BenefitCardRequest({
                     <p className="w-full overflow-hidden italic font-medium px-10">{benefitDescription}</p>
                 </div>
                 <div className="flex justify-end">
-                    <h1> Status: </h1>
-                    <h1 className="text-2xl font-semibold text-red-600">{status}</h1>
+                    <h1 className="text-2xl font-semibold ">
+                        Status: 
+                        <span className="text-red-600">  {status}</span>
+                    </h1>
                 </div>
             </div>
         </section>
