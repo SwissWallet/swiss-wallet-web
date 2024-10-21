@@ -24,7 +24,7 @@ interface benefit{
 export function BenefitUser(){
     const [ benefitsActive, setBenefitsActive ] = useState<benefit[]>([]);
     const [ benefitsRequest, setBenefitsRequest ] = useState<benefit[]>([]);
-    const [ selectedOption, setSelectedOption ] = useState("");
+    const [ selectedOption, setSelectedOption ] = useState("ATIVOS");
 
     const handleOptionChange = (option: string) => {
         setSelectedOption(option)
@@ -74,6 +74,33 @@ export function BenefitUser(){
                     handleOptionChange={handleOptionChange} 
                     options={["ATIVOS", "SOLICITADOS"]}
                 />
+
+                {selectedOption === "ATIVOS" ? (
+                    benefitsActive.length === 0 ? ( <NoProducts />) : (
+                        benefitsActive.map((benefit: benefit) => (
+                            <BenefitCardActive
+                                key={benefit.id}
+                                id={benefit.id}
+                                title={benefit.title}
+                                description={benefit.description}
+                            />
+                        ))
+                    )
+                ) : (
+                    benefitsRequest.length === 0 ? ( <NoProducts />) : (
+                        benefitsRequest.map((benefit: benefit) => (
+                            <BenefitCardRequest
+                                key={benefit.id}
+                                id={benefit.id}
+                                status={benefit.status || ""}                          
+                                dateTime={benefit.dateTime || ""}
+                                benefitId={benefit.benefitActive?.id || ""}
+                                benefitTitle={benefit.benefitActive?.title || ""}
+                                benefitDescription={benefit.benefitActive?.description || ""}
+                            />
+                        ))
+                    )
+                )}
                 
                 
                 
