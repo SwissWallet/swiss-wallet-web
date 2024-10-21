@@ -92,7 +92,8 @@ export function BenefitUser(){
                             <BenefitCardRequest
                                 key={benefit.id}
                                 id={benefit.id}
-                                status={benefit.status || ""}                          
+                                status={benefit.status === "SENT" ? "ENVIADO" : 
+                                    benefit.status === "NOT_APPROVED" ? "NÃO APROVADO" : "APROVADO"}                          
                                 dateTime={benefit.dateTime || ""}
                                 benefitId={benefit.benefitActive?.id || ""}
                                 benefitTitle={benefit.benefitActive?.title || ""}
