@@ -21,7 +21,7 @@ export function RegisterBenefitModal({
             title, 
             description
         })
-        .then(() => () => setIsOpenRegisterModal(false))
+        .then(() => setIsOpenRegisterModal(false))
         .catch((err) => console.log(err))
     };
 
