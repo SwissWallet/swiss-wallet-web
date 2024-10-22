@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 
 interface BenefitCardActiveProps{
     id: string;
@@ -22,7 +23,12 @@ export function BenefitCardRequest({
                 <div className="flex flex-col justify-start gap-3">
                     <div className="flex justify-between">
                         <h1 className="text-2xl font-semibold">{benefitTitle}</h1>
-                        <h1 className="text-2xl font-semibold">{dateTime}</h1>
+                        <div className="flex gap-3">
+                            <h1 className="text-2xl font-semibold">{dateTime}</h1>
+                            <button className="bg-red-600 rounded-full p-1">
+                                <X className="text-white"/>
+                            </button>
+                        </div>
                     </div>
                     <p className="w-full overflow-hidden italic font-medium px-10">{benefitDescription}</p>
                 </div>
