@@ -98,8 +98,11 @@ export function BenefitAdmin(){
                 benefitsRequests.length < 0 ? (<NoProducts />) : (
                     benefitsRequests.map((benefit : benefit) => (
                         <BenefitCardRequests 
-                            description={benefit.description}
-                            title={benefit.title}
+                            description={benefit.benefitActive.description}
+                            title={benefit.benefitActive.title}
+                            dateTime={benefit.dateTime}
+                            name={benefit.user?.name}
+                            status={benefit.status}
                         />
                     ))
                 )
