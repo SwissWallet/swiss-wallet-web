@@ -54,7 +54,13 @@ export function BenefitUser() {
         }))
       );
     });
-  }
+  };
+
+  async function deleteRequest(id: string){
+    api.delete(`/v3/benefit/requests/${id}`)
+    .then(() => getBenefit())
+    .catch((err) => console.log(err))
+  };
 
   useEffect(() => {
     getBenefit();
@@ -103,6 +109,7 @@ export function BenefitUser() {
                   ? "NÃO APROVADO"
                   : "APROVADO"
               }
+              deleteRequest={deleteRequest}
               dateTime={benefit.dateTime || ""}
               benefitId={benefit.benefitActive?.id || ""}
               benefitTitle={benefit.benefitActive?.title || ""}
