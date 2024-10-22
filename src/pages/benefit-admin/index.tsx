@@ -7,6 +7,7 @@ import { RegisterBenefitModal } from "./register-benefit-modal";
 import { api } from "../../lib/axios";
 import { NoProducts } from "../../components/micro-components/no-products";
 import { BenefitCardActive } from "../../components/macro-components/benefit-card-active";
+import { BenefitCardRequests } from "./benefit-card-requests";
 
 interface benefit {
     id: string;
@@ -19,12 +20,17 @@ interface benefit {
       title: string;
       description: string;
     };
+    user?: {
+        name: string;
+    }
   }
 
 export function BenefitAdmin(){
 
     const [ benefits, setBenefits ] = useState<benefit[]>([]);
+    const [ benefitsRequests, setBenefitsRequests ] = useState<benefit[]>([]);
     const [ isOpenRegisterModal, setIsOpenRegisterModal ] = useState<boolean>(false);
+    const [ isOpenRequests, setIsOpenRequests ] = useState<boolean>(false);
 
     async function getBenefits(){
         api.get(`/v3/benefit/actives`)
@@ -38,8 +44,29 @@ export function BenefitAdmin(){
         })
     };
 
+    async function getRequests(){
+        api.get(`/v3/benefit/requests`)
+        .then((json) => {
+            const data = json.data;
+            setBenefitsRequests(data.map((benefit: benefit) => ({
+                id: benefit.id,
+                status: benefit.status,
+                dateTime: benefit.dateTime,
+                benefitActive: {
+                    id: benefit.benefitActive.id,
+                    title: benefit.benefitActive.title,
+                    description: benefit.benefitActive.description
+                },
+                user: {
+                    name: benefit.user.name, 
+                }
+            }))) 
+        })
+    };
+
     useEffect(() => {
         getBenefits();
+        getRequests();
     }, []);
 
     
@@ -59,20 +86,37 @@ export function BenefitAdmin(){
                 />
                 <div className="flex gap-2">
                     <MainButton onClick={() => setIsOpenRegisterModal(true)} >Novo Produto</MainButton>
-                    <MainButton>Solicitações</MainButton>
+                    {isOpenRequests ? (
+                        <MainButton onClick={() => setIsOpenRequests(false)}>Fechar Solicitações</MainButton>
+                    ) : (
+                        <MainButton onClick={() => setIsOpenRequests(true)}>Solicitações</MainButton>
+                    )}
                 </div>
             </div>
 
-            {benefits.length < 0 ? ( <NoProducts />) : (
-                benefits.map((benefit: benefit) => (
-                    <BenefitCardActive 
-                        key={benefit.id}
-                        id={benefit.id}
-                        title={benefit.title}
-                        description={benefit.description}
-                    />
-                ))
+            {isOpenRequests ? (
+                benefitsRequests.length < 0 ? (<NoProducts />) : (
+                    benefitsRequests.map((benefit : benefit) => (
+                        <BenefitCardRequests 
+                            description={benefit.description}
+                            title={benefit.title}
+                        />
+                    ))
+                )
+            ) : (
+
+                benefits.length < 0 ? ( <NoProducts />) : (
+                    benefits.map((benefit: benefit) => (
+                        <BenefitCardActive 
+                            key={benefit.id}
+                            id={benefit.id}
+                            title={benefit.title}
+                            description={benefit.description}
+                        />
+                    ))
+                )
             )}
+
 
 
 
