@@ -1,33 +1,31 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { BackButton } from "../../components/micro-components/back-button";
+import { api } from "../../lib/axios";
 import { MainButton } from "../../components/micro-components/main-button";
 import { UserInput } from "../../components/micro-components/user-input";
-import { api } from "../../lib/axios";
 
-interface NewBenefitModalProps{
-    closeModal: () => void;
+interface RegisterBenefitModalProps{
+    setIsOpenRegisterModal: (e: boolean) => void;
 }
 
-export function NewBenefitModal({
-    closeModal,
-}: NewBenefitModalProps){
+export function RegisterBenefitModal({
+    setIsOpenRegisterModal,
+}: RegisterBenefitModalProps){
 
-    const [ title, setTitle ] = useState("");
-    const [ description, setDescription ] = useState("");
-    const [ textAlert, setTextAlert ] = useState("");
+    const [ title, setTitle ] = useState<string>("");
+    const [ description, setDescription ] = useState<string>("");
+    const [ textAlert, setTextAlert ] = useState<string>("");
 
     async function RegisterBenefit(){
         api.post(`/v3/benefit/actives`, {
             title, 
             description
         })
-        .then(() => closeModal())
+        .then(() => setIsOpenRegisterModal(false))
         .catch((err) => console.log(err))
     };
 
-
-
-    function onSubmit(e: React.FormEvent){
+    function handleSubmit(e: React.FormEvent){
         e.preventDefault();
         if(!title || !description) {
             setTextAlert("Os campos devem ser preenchidos!")    
@@ -38,12 +36,14 @@ export function NewBenefitModal({
 
     return(
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <form onSubmit={onSubmit} className="bg-white rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
-                <BackButton type="button" onClick={closeModal} />
+            <form onSubmit={handleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
+                <BackButton type="button" onClick={() => setIsOpenRegisterModal(false)}/>
+
                 <div className="flex flex-col gap-3">
                     <h1 className="text-4xl font-medium">Cadastre novo beneficio</h1>
                     <p className="font-medium text-sm text-zinc-600 ml-4">Todos os campos são obrigatórios</p>
                 </div>
+
                 <div className="flex items-center w-full">
                     <p className="text-red-700 text-center w-full font-medium text-xl">{textAlert}</p>
                 </div>
@@ -64,13 +64,14 @@ export function NewBenefitModal({
                         focus:not-italic focus:border-red-600 placeholder:font-light placeholder:italic"
                     />
                 </div>
-                <div className={`flex gap-10 justify-center items-center`}>
-                <MainButton
-                    type="submit"
-                    width="min"
-                >Cadastrar
-                </MainButton>
+                <div className="flex gap-10 justify-center items-center">
+                    <MainButton
+                        type="submit"
+                        width="min"
+                    >Cadastrar
+                    </MainButton>
                 </div>
+
             </form>
         </div>
     )
