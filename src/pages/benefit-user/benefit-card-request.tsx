@@ -23,7 +23,7 @@ export function BenefitCardRequest({
                 <div className="flex flex-col justify-start gap-3">
                     <div className="flex justify-between">
                         <h1 className="text-2xl font-semibold">{benefitTitle}</h1>
-                        <div className="flex gap-3">
+                        <div className="flex align items gap-3">
                             <h1 className="text-2xl font-semibold">{dateTime}</h1>
                             <button className="bg-red-600 hover:bg-red-700 hover:scale-110 transition-all rounded-full p-1">
                                 <X className="text-white"/>

@@ -112,7 +112,7 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
-                    <Link className={`${isClient ? "block" : "hidden"}`} to={'/benefit-user'}>
+                    <Link className={`${isClient ? "block" : "hidden"}`} to={'/benefits-user'}>
                         <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
                             <Gift className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
@@ -120,7 +120,7 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
-                    <Link className={`${isClient ? "hidden" : "block"}`} to={'/benefit-admin'}>
+                    <Link className={`${isClient ? "hidden" : "block"}`} to={'/benefits-admin'}>
                         <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
                             <Gift className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
