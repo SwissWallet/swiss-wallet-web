@@ -25,7 +25,7 @@ export function BenefitCardRequest({
                         <h1 className="text-2xl font-semibold">{benefitTitle}</h1>
                         <div className="flex gap-3">
                             <h1 className="text-2xl font-semibold">{dateTime}</h1>
-                            <button className="bg-red-600 rounded-full p-1">
+                            <button className="bg-red-600 hover:bg-red-700 hover:scale-110 transition-all rounded-full p-1">
                                 <X className="text-white"/>
                             </button>
                         </div>
