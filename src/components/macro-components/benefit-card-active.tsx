@@ -1,5 +1,8 @@
 import { MainButton } from "../micro-components/main-button";
 import { api } from "../../lib/axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { Trash2 } from "lucide-react";
 
 interface BenefitCardActiveProps {
   id: string;
@@ -21,22 +24,39 @@ export function BenefitCardActive({
   title,
   description,
 }: BenefitCardActiveProps) {
+
+    const user = useSelector((state: RootState) => state.authUser.value);
+    const role = user.user.role;
+    const isClient = role === "ROLE_CLIENT";
+
+
   return (
     <section className="ml-20 mr-20">
       <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md gap-6">
         <div className="flex flex-col justify-start gap-3">
-          <h1 className="text-2xl font-semibold">{title}</h1>
+          {isClient ? (
+            <h1 className="text-2xl font-semibold">{title}</h1>
+          ) : (
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-semibold">{title}</h1>
+              <button>
+                <Trash2 className="size-10 text-red-600 hover:scale-110 hover:text-red-700 transition-all"/>
+              </button>
+            </div>
+          )}
           <p className="w-full overflow-hidden italic font-medium px-10">
             {description}
           </p>
         </div>
-        <div className="flex justify-end">
-          <div className="flex gap-10 items-center">
-            <MainButton onClick={() => addRequest(id)} width="min">
-              Solicitar benefício
-            </MainButton>
+        {isClient && (
+          <div className="flex justify-end">
+            <div className="flex gap-10 items-center">
+              <MainButton onClick={() => addRequest(id)} width="min">
+                Solicitar benefício
+              </MainButton>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
