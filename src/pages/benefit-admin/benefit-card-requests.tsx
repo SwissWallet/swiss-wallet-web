@@ -26,7 +26,7 @@ export function BenefitCardRequests({
             <p className="w-full overflow-hidden italic px-10">
               {description}
             </p>
-            <h1 className="text-end text-xl">status: <span className="text-red-600 font-medium">{status}</span></h1>
+            <h1 className="text-end text-xl font-medium">status: <span className="text-red-600 ">{status}</span></h1>
         </div>
         
       </div>

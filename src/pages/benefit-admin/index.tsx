@@ -102,7 +102,8 @@ export function BenefitAdmin(){
                             title={benefit.benefitActive.title}
                             dateTime={benefit.dateTime}
                             name={benefit.user?.name}
-                            status={benefit.status}
+                            status={benefit.status === "SENT" ? "ENVIADO" : 
+                                benefit.status === "NOT_APPROVED" ? "NÃO APROVADO" : "APROVADO"}
                         />
                     ))
                 )
