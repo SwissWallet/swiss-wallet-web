@@ -120,6 +120,14 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
+                    <Link className={`${isClient ? "hidden" : "block"}`} to={'/benefit-admin'}>
+                        <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
+                            <Gift className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Beneficios
+                            </span>
+                        </div>
+                    </Link>
                     <button onClick={openDepositModal}>
                         <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
                             <Landmark className="text-white size-5 font-bold" />

@@ -17,6 +17,7 @@ import BuyPage from '../pages/buy-product';
 import { PaymentAdmin } from '../pages/payment-admin';
 import { ShoppingPage } from '../pages/shopping-page';
 import { BenefitUser } from '../pages/benefit-user';
+import { BenefitAdmin } from '../pages/benefit-admin';
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,12 @@ export const router = createBrowserRouter([
     path: "/benefits-user",
     element: (
       <PrivateRoute element={<BenefitUser />} />
+    ),
+  },
+  {
+    path: "/benefits-admin",
+    element: (
+      <PrivateRoute element={<BenefitAdmin />} />
     ),
   },
   {
