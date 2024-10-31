@@ -72,6 +72,20 @@ export function DepositModal({
         closeDepositModal();
     };
 
+    async function generatePix(){
+        const { points, value } = selectedFormPayment!;
+        await api.post(`http://localhost:8080/api/v3/accounts/purchase/points/pix`, {
+            points,
+            value,
+            typePayment: "PIX"
+        })
+        .then((json) => {
+            const data = json.data;
+            console.log(data);
+        })
+        .catch((err) => console.log(err))
+    };
+
     const user = useSelector((state: RootState) => state.authUser.value);
 
     const role = user.user.role;
@@ -132,12 +146,26 @@ export function DepositModal({
                             handleOptionPaymentChange={handleOptionPaymentChange}
                         />
                         {openEnterPoints && (
-                            <UserInput
-                                position="center"
-                                placeholder="ex: 150"
-                                onChange={(e) => setAmountPoints(e.target.value)}
-                            >Quantidade de pontos
-                            </UserInput>
+                            <>
+                                <UserInput
+                                    position="center"
+                                    placeholder="ex: 150"
+                                    onChange={(e) => setAmountPoints(e.target.value)}
+                                >Quantidade de pontos
+                                </UserInput>
+
+                                <div className="flex gap-5 items-center justify-center w-full">
+                                    <h1 className="text-xl font-medium ">Total: </h1>
+                                    {amountPoints && (
+                                        <input
+                                            className="text-2xl font-medium w-16"
+                                            disabled
+                                            type="text" 
+                                            value={(Number(amountPoints))/2} 
+                                        />
+                                    )}
+                                </div>
+                            </>
                         )}
                         <RadioButton
                             selectedOption={selectedOption}
@@ -145,7 +173,7 @@ export function DepositModal({
                             options={["débito", "crédito", "pix"]}
                         />
                         {selectedOption === "pix" ? (
-                            <MainButton>Gerar Código</MainButton>
+                            <MainButton onClick={generatePix} >Gerar Código</MainButton>
                         ) : (
                             <MainButton>Pagar</MainButton>
                         )}
