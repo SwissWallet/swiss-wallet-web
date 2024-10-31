@@ -72,6 +72,22 @@ export function DepositModal({
         closeDepositModal();
     };
 
+    const [ pixCode, setPixCode ] = useState("");
+
+    async function generatePix(){
+        const { points, value } = selectedFormPayment!;
+        await api.post(`/v3/accounts/purchase/points/pix`, {
+            points,
+            value,
+            typePayment: "PIX"
+        })
+        .then((json) => {
+            const data = json.data;
+            setPixCode(data);
+        })
+        .catch((err) => console.log("error: \n", err))
+    };
+
     const user = useSelector((state: RootState) => state.authUser.value);
 
     const role = user.user.role;
@@ -85,7 +101,21 @@ export function DepositModal({
         }
     }, [selectedFormPayment]);
 
-    useEffect(() => {console.log(selectedFormPayment)}, [selectedFormPayment])
+    async function paymentCard(typePayment: string){
+        const { points, value } = selectedFormPayment!;
+        if(typePayment === "crédito" ? (
+            typePayment = "CREDIT"
+        ) : (
+            typePayment = "DEBIT"
+        ));
+        await api.post(`/v3/accounts/purchase/points`, {
+            points,
+            value,
+            typePayment,
+        })
+        .then(() => console.log("passou"))
+        .catch((err) => console.log("error: \n", err))
+    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50">
@@ -132,12 +162,26 @@ export function DepositModal({
                             handleOptionPaymentChange={handleOptionPaymentChange}
                         />
                         {openEnterPoints && (
-                            <UserInput
-                                position="center"
-                                placeholder="ex: 150"
-                                onChange={(e) => setAmountPoints(e.target.value)}
-                            >Quantidade de pontos
-                            </UserInput>
+                            <>
+                                <UserInput
+                                    position="center"
+                                    placeholder="ex: 150"
+                                    onChange={(e) => setAmountPoints(e.target.value)}
+                                >Quantidade de pontos
+                                </UserInput>
+
+                                <div className="flex gap-5 items-center justify-center w-full">
+                                    <h1 className="text-xl font-medium ">Total: </h1>
+                                    {amountPoints && (
+                                        <input
+                                            className="text-2xl font-medium w-16"
+                                            disabled
+                                            type="text" 
+                                            value={(Number(amountPoints))/2} 
+                                        />
+                                    )}
+                                </div>
+                            </>
                         )}
                         <RadioButton
                             selectedOption={selectedOption}
@@ -145,9 +189,15 @@ export function DepositModal({
                             options={["débito", "crédito", "pix"]}
                         />
                         {selectedOption === "pix" ? (
-                            <MainButton>Gerar Código</MainButton>
+                            <>
+                            <UserInput 
+                                    disabled
+                                    value={pixCode ? (pixCode) : ("...")}
+                                />
+                            <MainButton onClick={generatePix} >Gerar Código</MainButton>
+                            </>
                         ) : (
-                            <MainButton>Pagar</MainButton>
+                            <MainButton onClick={() => paymentCard(selectedOption)}>Pagar</MainButton>
                         )}
                     </div>
                 ) : (
