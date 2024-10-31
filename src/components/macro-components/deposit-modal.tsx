@@ -72,18 +72,20 @@ export function DepositModal({
         closeDepositModal();
     };
 
+    const [ pixCode, setPixCode ] = useState("");
+
     async function generatePix(){
         const { points, value } = selectedFormPayment!;
-        await api.post(`http://localhost:8080/api/v3/accounts/purchase/points/pix`, {
+        await api.post(`/v3/accounts/purchase/points/pix`, {
             points,
             value,
             typePayment: "PIX"
         })
         .then((json) => {
             const data = json.data;
-            console.log(data);
+            setPixCode(data);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log("error: \n", err))
     };
 
     const user = useSelector((state: RootState) => state.authUser.value);
@@ -173,7 +175,13 @@ export function DepositModal({
                             options={["débito", "crédito", "pix"]}
                         />
                         {selectedOption === "pix" ? (
+                            <>
+                            <UserInput 
+                                    disabled
+                                    value={pixCode ? (pixCode) : ("...")}
+                                />
                             <MainButton onClick={generatePix} >Gerar Código</MainButton>
+                            </>
                         ) : (
                             <MainButton>Pagar</MainButton>
                         )}
