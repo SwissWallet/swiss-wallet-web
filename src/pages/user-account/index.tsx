@@ -55,15 +55,6 @@ export function UserAccount() {
 
                 <section className="w-full flex flex-col items-center">
                     <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
-                        <InfoUser label="Nome" value={user.user.name} />
-                        <InfoUser label="Data de nascimento" value={user.user.birthDate} />
-                        <InfoUser label="CPF" value={user.user.cpf} />
-                        <InfoUser label="Telefone" value={user.user.phone} />
-                    </div>
-                </section>
-
-                <section className="w-full flex flex-col items-center">
-                    <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end mb-4">
                             <UpdateButton onClick={openChangeAddressModal} />
                         </div>
@@ -74,6 +65,17 @@ export function UserAccount() {
                         <InfoUser label="Número" value={String(address.number)} />
                     </div>
                 </section>
+
+                <section className="w-full flex flex-col items-center">
+                    <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
+                        <InfoUser label="Nome" value={user.user.name} />
+                        <InfoUser label="Data de nascimento" value={user.user.birthDate} />
+                        <InfoUser label="CPF" value={user.user.cpf} />
+                        <InfoUser label="Telefone" value={user.user.phone} />
+                    </div>
+                </section>
+
+                
 
                 <section className="w-full flex flex-col items-center">
                     <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
