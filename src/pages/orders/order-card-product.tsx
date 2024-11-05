@@ -30,7 +30,7 @@ export function OrderCardProduct({
             <div className="flex">
                     <div className="bg-white rounded-xl shadow-xl p-5 gap-2 flex flex-col">
                         <BackButton type="button" onClick={() => setOpenOrderCard(false)}/>
-                        <img className="w-[309px] h-[407px]" src={image} alt="produto" />
+                        <img className="w-[309px] h-[407px]" src={image} alt={title} />
                     </div>
                     <article className="flex flex-col w-1/2 justify-between p-5">
                     <div className="flex flex-col gap-20">

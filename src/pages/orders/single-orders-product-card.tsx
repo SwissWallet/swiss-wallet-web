@@ -38,7 +38,7 @@
                 />
 
                 <div className="flex items-center flex-col box-border gap-10">
-                    <img src={image} className="w-[309px] h-[407px]" alt="camiseta branca com logo do senai" />
+                    <img src={image} className="w-[309px] h-[407px]" alt={title} />
                     <article className="bg-black text-white p-4 rounded-lg gap-4 flex flex-col lg:w-[320px] w-[200px] -mt-36 px-10">
                         <div className="flex flex-col gap-1 text-center ">
                             <h4 className="text-xl font-semibold whitespace-nowrap text-ellipsis overflow-hidden">{title}</h4>

@@ -28,7 +28,7 @@ export function MainButton({
 }: MainButtonProps) {
     return (
         <button {...props} className={MainButtonVariants({ width })}>
-            <span className="font-medium text-white text-lg p-3 lg:p-3" >{children}</span>
+            <span className="font-medium text-white text-lg p-3 lg:p-3 text-center text-wrap" >{children}</span>
         </button>
 
     )
