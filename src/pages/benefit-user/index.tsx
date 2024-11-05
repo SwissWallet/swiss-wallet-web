@@ -33,7 +33,6 @@ export function BenefitUser() {
   async function getBenefit() {
     api.get(`/v3/benefit/requests/current`).then((json) => {
       const data = json.data;
-      console.log(data);
       setBenefitsActive(
         data.activeResponseDtos.map((benefit: benefit) => ({
           id: benefit.id,
@@ -67,56 +66,60 @@ export function BenefitUser() {
   }, []);
 
   return (
-    <div className="bg-default-gray">
+    <div className="bg-default-gray min-h-screen">
       <Navbar />
-      <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
+      <main className="px-4 md:px-10 lg:px-20 flex flex-col gap-10 mt-10 md:mt-20 mb-10 md:mb-20">
         <HeaderOnPages
-          title="Beneficíos"
-          description="Confira a lista de beneficios de assinantes da AAPM"
+          title="Benefícios"
+          description="Confira a lista de benefícios de assinantes da AAPM"
           notFilterAndOrder={true}
         />
 
-        <RadioButton
-          selectedOption={selectedOption}
-          handleOptionChange={handleOptionChange}
-          options={["ATIVOS", "SOLICITADOS"]}
-        />
+        <div className="flex justify-center">
+          <RadioButton
+            selectedOption={selectedOption}
+            handleOptionChange={handleOptionChange}
+            options={["ATIVOS", "SOLICITADOS"]}
+          />
+        </div>
 
-        {selectedOption === "ATIVOS" ? (
-          benefitsActive.length === 0 ? (
+        <div className="flex flex-col items-center">
+          {selectedOption === "ATIVOS" ? (
+            benefitsActive.length === 0 ? (
+              <NoProducts />
+            ) : (
+              benefitsActive.map((benefit) => (
+                <BenefitCardActive
+                  key={benefit.id}
+                  id={benefit.id}
+                  title={benefit.title}
+                  description={benefit.description}
+                />
+              ))
+            )
+          ) : benefitsRequest.length === 0 ? (
             <NoProducts />
           ) : (
-            benefitsActive.map((benefit: benefit) => (
-              <BenefitCardActive
+            benefitsRequest.map((benefit) => (
+              <BenefitCardRequest
                 key={benefit.id}
                 id={benefit.id}
-                title={benefit.title}
-                description={benefit.description}
+                status={
+                  benefit.status === "SENT"
+                    ? "ENVIADO"
+                    : benefit.status === "NOT_APPROVED"
+                    ? "NÃO APROVADO"
+                    : "APROVADO"
+                }
+                deleteRequest={deleteRequest}
+                dateTime={benefit.dateTime || ""}
+                benefitId={benefit.benefitActive?.id || ""}
+                benefitTitle={benefit.benefitActive?.title || ""}
+                benefitDescription={benefit.benefitActive?.description || ""}
               />
             ))
-          )
-        ) : benefitsRequest.length === 0 ? (
-          <NoProducts />
-        ) : (
-          benefitsRequest.map((benefit: benefit) => (
-            <BenefitCardRequest
-              key={benefit.id}
-              id={benefit.id}
-              status={
-                benefit.status === "SENT"
-                  ? "ENVIADO"
-                  : benefit.status === "NOT_APPROVED"
-                  ? "NÃO APROVADO"
-                  : "APROVADO"
-              }
-              deleteRequest={deleteRequest}
-              dateTime={benefit.dateTime || ""}
-              benefitId={benefit.benefitActive?.id || ""}
-              benefitTitle={benefit.benefitActive?.title || ""}
-              benefitDescription={benefit.benefitActive?.description || ""}
-            />
-          ))
-        )}
+          )}
+        </div>
       </main>
       <Footer />
     </div>
