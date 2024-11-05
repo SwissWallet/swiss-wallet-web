@@ -5,6 +5,7 @@ import { api } from "../../lib/axios";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { SingleOrdersProductCard } from "./single-orders-product-card";
 import { DrawerPurchase } from "../../components/macro-components/drawer-purchase";
+import { NoProducts } from "../../components/micro-components/no-products";
 
 interface productInterface {
     orderId: string
@@ -85,25 +86,29 @@ export function Orders() {
                     description="Confira todos pedidos"
                     notFilterAndOrder={true}
                 />
-
-                    <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
-                            {orderProductList.map((product) => (
-                                <div key={product.id}>
-                                    <SingleOrdersProductCard
-                                        orderId={product.orderId}
-                                        title={product.name}
-                                        description={product.description}
-                                        value={Number(product.value)}
-                                        image={product.image}
-                                        category={product.category}
-                                        id={product.id}
-                                        handdleSelectProducts={handdleSelectedProducts}
-                                        selectedProducts={selectedProducts}
-                                    />
-                                </div>
-                            ))}
-                    </div>
-
+                        {orderProductList.length > 0 ? (
+                            <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                                {orderProductList.map((product) => (
+                                    <div key={product.id}>
+                                        <SingleOrdersProductCard
+                                            orderId={product.orderId}
+                                            title={product.name}
+                                            description={product.description}
+                                            value={Number(product.value)}
+                                            image={product.image}
+                                            category={product.category}
+                                            id={product.id}
+                                            handdleSelectProducts={handdleSelectedProducts}
+                                            selectedProducts={selectedProducts}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex justify-center items-center">
+                                <NoProducts />
+                            </div>
+                        )}
             </main>
             <Footer />
 
