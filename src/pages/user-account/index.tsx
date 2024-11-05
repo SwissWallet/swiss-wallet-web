@@ -53,6 +53,17 @@ export function UserAccount() {
                     <p className="italic font-medium text-base md:text-lg">Informações do usuário</p>
                 </div>
 
+                
+
+                <section className="w-full flex flex-col items-center">
+                    <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
+                        <InfoUser label="Nome" value={user.user.name} />
+                        <InfoUser label="Data de nascimento" value={user.user.birthDate} />
+                        <InfoUser label="CPF" value={user.user.cpf} />
+                        <InfoUser label="Telefone" value={user.user.phone} />
+                    </div>
+                </section>
+
                 <section className="w-full flex flex-col items-center">
                     <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
                         <div className="flex justify-end mb-4">
@@ -63,15 +74,6 @@ export function UserAccount() {
                         <InfoUser label="Rua" value={address.street} />
                         <InfoUser label="UF" value={address.uf} />
                         <InfoUser label="Número" value={String(address.number)} />
-                    </div>
-                </section>
-
-                <section className="w-full flex flex-col items-center">
-                    <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
-                        <InfoUser label="Nome" value={user.user.name} />
-                        <InfoUser label="Data de nascimento" value={user.user.birthDate} />
-                        <InfoUser label="CPF" value={user.user.cpf} />
-                        <InfoUser label="Telefone" value={user.user.phone} />
                     </div>
                 </section>
 
