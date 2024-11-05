@@ -45,8 +45,8 @@ export function Orders() {
                 })));
             }  
         })
-        .catch(() => {
-            console.log("error")
+        .catch((err) => {
+            console.log("error: \n", err)
         })
     };
     
@@ -68,7 +68,6 @@ export function Orders() {
     };
     
     useEffect(() => {
-        console.log(selectedProducts);
         if (selectedProducts.length > 0) {
           setOpenDrawerBuy(true);
         } else {
