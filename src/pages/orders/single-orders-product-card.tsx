@@ -1,8 +1,8 @@
-    //@ts-nocheck
+
     import { useState } from "react";
     import { MainButton } from "../../components/micro-components/main-button";
     import { OrderCardProduct } from "./order-card-product";
-    import { CheckProduts, StatusKey } from ".";
+    import { CheckProduts } from ".";
     import { useSelector } from "react-redux";
     import { RootState } from "../../store";
     import { Checkbox } from "../../components/micro-components/checkbox";
@@ -16,13 +16,8 @@
         orderId?: string,
         category: string,
         username?: string | undefined,
-        selectedStatus: StatusKey,
-        setSelectedStatus: (e: StatusKey) => void,
-        statusBars: Record<StatusKey, JSX.Element>,
-        productStatus: StatusKey,
         selectedProducts?: CheckProduts[],
         handdleSelectProducts?: (isSelect: boolean, id: string, title: string, value: number) => void;
-        changedStatusProduct: (id: string, statusAlt: StatusKey) => void,
     };
     
     export function SingleOrdersProductCard({
@@ -33,11 +28,6 @@
         orderId,
         username,
         description,
-        statusBars,
-        productStatus,
-        selectedStatus,
-        setSelectedStatus,
-        changedStatusProduct,
         handdleSelectProducts,
     }: SingleOrdersProductCardProps) {
 
@@ -64,7 +54,6 @@
                             <h4 className="text-xl font-semibold whitespace-nowrap text-ellipsis overflow-hidden">{title}</h4>
                             <p className="text-sm font-extralight whitespace-nowrap overflow-hidden text-ellipsis">{description}</p>
                         </div>
-                        {statusBars[productStatus]}
                         <div className={`flex justify-center`}>
                             <MainButton onClick={() => setOpenOrderCard(true)} width={`${""}`}>Selecionar</MainButton>
                         </div>
@@ -73,18 +62,13 @@
 
 
                     {openOrderCard && (
-                        <OrderCardProduct  
-                            status={statusBars[selectedStatus]}
+                        <OrderCardProduct 
                             title={title}
                             value={value}
                             image={image}
-                            statusBars={statusBars}
-                            productStatus={productStatus}
                             setOpenOrderCard={setOpenOrderCard}
-                            setSelectedStatus={setSelectedStatus}
                             id={id}
                             orderId={orderId}
-                            changedStatusProduct={(id, selectedStatus) => changedStatusProduct(id, selectedStatus)}
                         />
                     )}
 
