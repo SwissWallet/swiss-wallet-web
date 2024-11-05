@@ -87,7 +87,7 @@ export function Orders() {
                     notFilterAndOrder={true}
                 />
                         {orderProductList.length > 0 ? (
-                            <div className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                            <div className="grid grid-rows-1 lg:grid-cols-3 grid-cols-1 gap-10 md:gap-20 mb-20">
                                 {orderProductList.map((product) => (
                                     <div key={product.id}>
                                         <SingleOrdersProductCard
