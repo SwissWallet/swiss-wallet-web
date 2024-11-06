@@ -7,12 +7,14 @@ interface InfoExtractProps {
 export function InfoExtract({ icon, value, date }: InfoExtractProps) {
     return (
         <div className="flex flex-col p-3 gap-2">
-            <div className="flex justify-between items-center flex-col md:flex-row ">
-                <h1 className="text-2xl font-medium italic hidden md:flex">{icon}{value} pontos</h1>
-                <h1 className="text-2xl font-medium italic flex md:hidden">{icon}{value}</h1>
-                <p className="font-bold italic text-black text-opacity-75 text-center">{date}</p>
+            <div className="flex flex-col md:flex-row md:justify-between items-center text-center md:text-left gap-2">
+                <div className="flex items-center gap-2 text-xl md:text-2xl font-medium italic">
+                    {icon}
+                    <span>{value} pontos</span>
+                </div>
+                <p className="font-bold italic text-black text-opacity-75 text-sm md:text-base">{date}</p>
             </div> 
-            <div className="w-full h-[1px] bg-slate-400 " />
+            <div className="w-full h-[1px] bg-slate-400" />
         </div>
     )
 }

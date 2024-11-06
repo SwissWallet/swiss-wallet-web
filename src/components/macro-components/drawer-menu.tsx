@@ -54,9 +54,8 @@ export function DrawerMenu({
     const isClient = role === "ROLE_CLIENT"
 
     return (
-        <div className={`fixed z-50 p-5 bg-red-gradient h-full w-[20%] top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
+        <div className={`fixed z-50 p-5 bg-red-gradient h-full lg:w-[20%] top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
             <div className="flex justify-end pb-3">
-                {/* <img className="w-60" src={logo} alt="logotipo SwissWallet" /> */}
                 <button onClick={closeSettings}>
                     <X className="size-5 text-white font-medium hover:scale-150 ease-in-out duration-300" />
                 </button>
@@ -138,7 +137,7 @@ export function DrawerMenu({
                             )}
                         </div>
                     </button>
-                    <Link to={'/orders'}>
+                    <Link className={`${isClient ? ("block") : ("hidden")}`} to={'/orders'}>
                         <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
                             <ShoppingCart className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">

@@ -56,7 +56,7 @@ export function DrawerPurchase({
     }, [ids, selectedProducts])
 
     return(
-        <div className={`rounded-md fixed z-50 p-5 bg-red-gradient h-auto w-[20%] top-0 transition duration-1000  ${openDrawerBuy ? 'right-0' : '-right-60'} `}>
+        <div className={`rounded-md fixed z-50 p-5 bg-red-gradient h-auto w-auto lg:w-[20%] top-0 transition duration-1000  ${openDrawerBuy ? 'right-0' : '-right-60'} `}>
             <div className="flex justify-end pb-3">
                 <button onClick={() => setOpenDrawerBuy(false)}>
                     <X className="size-5 text-white font-medium hover:scale-150 ease-in-out duration-300" />

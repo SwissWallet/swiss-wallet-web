@@ -5,6 +5,7 @@ import { HeaderOnPages } from "../../components/macro-components/header-on-the-p
 import { SingleProduct } from "../../components/micro-components/single-product-card";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
+import { NoProducts } from "../../components/micro-components/no-products";
 
 interface productInterface{
     id: string,
@@ -51,24 +52,30 @@ export function Favorites() {
                 <HeaderOnPages
                     title="Favoritos"
                     description="Confira sua lista de favoritos"
+                    notFilterAndOrder={true}
                 />
 
-
-                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
-                    {productListFavorite.map((product) => (
-                                <div key={product.id}>
-                                    <SingleProduct
-                                        title={product.name}
-                                        description={product.description}
-                                        value={Number(product.value)}
-                                        image={product.image}
-                                        textOnButton={"Remover"}
-                                        category={product.category}
-                                        id={product.id}
-                                    />
-                                </div>
-                    ))}
-                </section>
+                {productListFavorite.length > 0 ? (
+                    <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                        {productListFavorite.map((product) => (
+                                    <div key={product.id}>
+                                        <SingleProduct
+                                            title={product.name}
+                                            description={product.description}
+                                            value={Number(product.value)}
+                                            image={product.image}
+                                            textOnButton={"Remover"}
+                                            category={product.category}
+                                            id={product.id}
+                                        />
+                                    </div>
+                        ))}
+                    </section>
+                ) : (
+                    <div>
+                        <NoProducts />
+                    </div>
+                )}
 
             </main>
             <Footer />

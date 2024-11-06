@@ -23,20 +23,19 @@ interface benefit {
     user?: {
         name: string;
     }
-  }
+}
 
-export function BenefitAdmin(){
+export function BenefitAdmin() {
+    const [benefits, setBenefits] = useState<benefit[]>([]);
+    const [benefitsRequests, setBenefitsRequests] = useState<benefit[]>([]);
+    const [isOpenRegisterModal, setIsOpenRegisterModal] = useState<boolean>(false);
+    const [isOpenRequests, setIsOpenRequests] = useState<boolean>(false);
 
-    const [ benefits, setBenefits ] = useState<benefit[]>([]);
-    const [ benefitsRequests, setBenefitsRequests ] = useState<benefit[]>([]);
-    const [ isOpenRegisterModal, setIsOpenRegisterModal ] = useState<boolean>(false);
-    const [ isOpenRequests, setIsOpenRequests ] = useState<boolean>(false);
-
-    async function getBenefits(){
+    async function getBenefits() {
         api.get(`/v3/benefit/actives`)
         .then((json) => {
             const data = json.data;
-            setBenefits(data.map((benefit: benefit) =>  ({
+            setBenefits(data.map((benefit: benefit) => ({
                 id: benefit.id,
                 title: benefit.title,
                 description: benefit.description,
@@ -44,7 +43,7 @@ export function BenefitAdmin(){
         })
     };
 
-    async function getRequests(){
+    async function getRequests() {
         api.get(`/v3/benefit/requests`)
         .then((json) => {
             const data = json.data;
@@ -69,69 +68,72 @@ export function BenefitAdmin(){
         getRequests();
     }, []);
 
-    
-
-
-
-    return(
+    return (
         <div className="bg-default-gray">
-        <Navbar />
-        <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
-
-            <div className="flex justify-between items-center">
-                <HeaderOnPages
-                    title="Beneficíos"
-                    description="Confira a lista de beneficios de assinantes da AAPM"
-                    notFilterAndOrder={true}
-                />
-                <div className="flex gap-2">
-                    <MainButton onClick={() => setIsOpenRegisterModal(true)} >Novo Produto</MainButton>
-                    {isOpenRequests ? (
-                        <MainButton onClick={() => setIsOpenRequests(false)}>Fechar Solicitações</MainButton>
-                    ) : (
-                        <MainButton onClick={() => setIsOpenRequests(true)}>Solicitações</MainButton>
-                    )}
+            <Navbar />
+            <main className="mx-4 sm:mx-6 lg:mx-20 gap-10 sm:gap-16 lg:gap-20 flex flex-col mt-10 lg:mt-20 mb-10 lg:mb-20">
+                <div className="flex flex-col sm:flex-row gap-3 justify-between items-center">
+                    <HeaderOnPages
+                        title="Benefícios"
+                        description="Confira a lista de benefícios de assinantes da AAPM"
+                        notFilterAndOrder={true}
+                    />
+                    <div className="flex gap-2 flex-wrap justify-center sm:justify-end">
+                        <MainButton onClick={() => setIsOpenRegisterModal(true)}>Novo Benefício</MainButton>
+                        {isOpenRequests ? (
+                            <MainButton onClick={() => setIsOpenRequests(false)}>Fechar Solicitações</MainButton>
+                        ) : (
+                            <MainButton onClick={() => setIsOpenRequests(true)}>Solicitações</MainButton>
+                        )}
+                    </div>
                 </div>
-            </div>
 
-            {isOpenRequests ? (
-                benefitsRequests.length < 0 ? (<NoProducts />) : (
-                    benefitsRequests.map((benefit : benefit) => (
-                        <BenefitCardRequests 
-                            description={benefit.benefitActive.description}
-                            title={benefit.benefitActive.title}
-                            dateTime={benefit.dateTime}
-                            name={benefit.user?.name}
-                            status={benefit.status === "SENT" ? "ENVIADO" : 
-                                benefit.status === "NOT_APPROVED" ? "NÃO APROVADO" : "APROVADO"}
-                        />
-                    ))
-                )
-            ) : (
+                {isOpenRequests ? (
+                    benefitsRequests.length < 1 ? (
+                        <NoProducts />
+                    ) : (
+                        <div className="flex flex-col gap-6">
+                            {benefitsRequests.map((benefit: benefit) => (
+                                <BenefitCardRequests
+                                    key={benefit.id}
+                                    description={benefit.benefitActive.description}
+                                    title={benefit.benefitActive.title}
+                                    dateTime={benefit.dateTime}
+                                    name={benefit.user?.name}
+                                    status={
+                                        benefit.status === "SENT" ? "ENVIADO" :
+                                        benefit.status === "NOT_APPROVED" ? "NÃO APROVADO" : "APROVADO"
+                                    }
+                                />
+                            ))}
+                        </div>
+                    )
+                ) : (
+                    benefits.length < 1 ? (
+                        <NoProducts />
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {benefits.map((benefit: benefit) => (
+                                <BenefitCardActive
+                                    key={benefit.id}
+                                    id={benefit.id}
+                                    title={benefit.title}
+                                    description={benefit.description}
+                                    getBenefits={getBenefits}
+                                />
+                            ))}
+                        </div>
+                    )
+                )}
+            </main>
+            <Footer />
 
-                benefits.length < 0 ? ( <NoProducts />) : (
-                    benefits.map((benefit: benefit) => (
-                        <BenefitCardActive 
-                            key={benefit.id}
-                            id={benefit.id}
-                            title={benefit.title}
-                            description={benefit.description}
-                        />
-                    ))
-                )
+            {isOpenRegisterModal && (
+                <RegisterBenefitModal 
+                    getBenefits={getBenefits}
+                    setIsOpenRegisterModal={setIsOpenRegisterModal} 
+                />
             )}
-
-
-
-
-        </main>
-        <Footer />
-
-        {isOpenRegisterModal && (
-            <RegisterBenefitModal 
-                setIsOpenRegisterModal={setIsOpenRegisterModal}
-            />
-        )}
-    </div>
-    )
-};
+        </div>
+    );
+}

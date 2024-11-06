@@ -29,7 +29,6 @@ export function UserPasswordModal({
 }: UserPasswordModalProps) {
 
     const [isVisiblePassword, setIsVisiblePassword] = useState(false);
-    const routeCurrent = localStorage.getItem('routeCurrent');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -46,7 +45,7 @@ export function UserPasswordModal({
             api.defaults.headers['Authorization'] = `Bearer ${token}`;
             dispatch(setUser(json.data));
             dispatch(setLogin(true));
-            navigate(`${routeCurrent}`);
+            navigate(`/home`);
 
         })
         .catch((err) => {

@@ -68,7 +68,7 @@ export function ChangePassworModal({ closeChangePasswordModal }: ChangePassworMo
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <form onSubmit={handleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-5 flex gap-8 flex-col">
+            <form onSubmit={handleSubmit} className="bg-white rounded-lg w-[600px] h-auto p-5 flex gap-2 lg:gap-8 flex-col">
                 <BackButton type="button" onClick={closeChangePasswordModal} />
 
                 <div className="flex flex-col gap-3">

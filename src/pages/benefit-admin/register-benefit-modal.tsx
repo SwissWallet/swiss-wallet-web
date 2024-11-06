@@ -6,22 +6,29 @@ import { UserInput } from "../../components/micro-components/user-input";
 
 interface RegisterBenefitModalProps{
     setIsOpenRegisterModal: (e: boolean) => void;
+    getBenefits: () => void;
 }
 
 export function RegisterBenefitModal({
     setIsOpenRegisterModal,
+    getBenefits,
 }: RegisterBenefitModalProps){
 
     const [ title, setTitle ] = useState<string>("");
     const [ description, setDescription ] = useState<string>("");
     const [ textAlert, setTextAlert ] = useState<string>("");
 
+    const handdleRegister = () => {
+        getBenefits();
+        setIsOpenRegisterModal(false)
+    };
+
     async function RegisterBenefit(){
         api.post(`/v3/benefit/actives`, {
             title, 
             description
         })
-        .then(() => setIsOpenRegisterModal(false))
+        .then(() => handdleRegister())
         .catch((err) => console.log(err))
     };
 
