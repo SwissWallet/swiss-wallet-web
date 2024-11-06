@@ -79,7 +79,7 @@ export function BenefitAdmin() {
                         notFilterAndOrder={true}
                     />
                     <div className="flex gap-2 flex-wrap justify-center sm:justify-end">
-                        <MainButton onClick={() => setIsOpenRegisterModal(true)}>Novo Produto</MainButton>
+                        <MainButton onClick={() => setIsOpenRegisterModal(true)}>Novo Benefício</MainButton>
                         {isOpenRequests ? (
                             <MainButton onClick={() => setIsOpenRequests(false)}>Fechar Solicitações</MainButton>
                         ) : (
@@ -119,6 +119,7 @@ export function BenefitAdmin() {
                                     id={benefit.id}
                                     title={benefit.title}
                                     description={benefit.description}
+                                    getBenefits={getBenefits}
                                 />
                             ))}
                         </div>
@@ -128,7 +129,10 @@ export function BenefitAdmin() {
             <Footer />
 
             {isOpenRegisterModal && (
-                <RegisterBenefitModal setIsOpenRegisterModal={setIsOpenRegisterModal} />
+                <RegisterBenefitModal 
+                    getBenefits={getBenefits}
+                    setIsOpenRegisterModal={setIsOpenRegisterModal} 
+                />
             )}
         </div>
     );
