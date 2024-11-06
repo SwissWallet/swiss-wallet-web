@@ -90,6 +90,7 @@ export function BenefitUser() {
             ) : (
               benefitsActive.map((benefit) => (
                 <BenefitCardActive
+                  getBenefit={getBenefit}
                   key={benefit.id}
                   id={benefit.id}
                   title={benefit.title}

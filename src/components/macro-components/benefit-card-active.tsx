@@ -8,22 +8,15 @@ interface BenefitCardActiveProps {
   id: string;
   title: string;
   description: string;
-  getBenefits: () => void;
-}
-
-async function addRequest(id: string) {
-  await api
-    .post(`/v3/benefit/requests`, {
-      idBenefit: id,
-    })
-    .then(() => console.log("passou"))
-    .catch((err) => console.log(err));
+  getBenefit?: () => void;
+  getBenefits?: () => void;
 }
 
 export function BenefitCardActive({
   id,
   title,
   description,
+  getBenefit,
   getBenefits,
 }: BenefitCardActiveProps) {
   
@@ -37,6 +30,15 @@ export function BenefitCardActive({
       .then(() => getBenefits())
       .catch((err) => console.log("error \n", err))
   };
+
+  async function addRequest(id: string) {
+    await api
+      .post(`/v3/benefit/requests`, {
+        idBenefit: id,
+      })
+      .then(() => getBenefit())
+      .catch((err) => console.log(err));
+  }
 
   return (
     <section className="mx-4 sm:mx-6 lg:mx-20">
