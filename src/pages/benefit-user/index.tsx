@@ -83,7 +83,7 @@ export function BenefitUser() {
           />
         </div>
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-4">
           {selectedOption === "ATIVOS" ? (
             benefitsActive.length === 0 ? (
               <NoProducts />
