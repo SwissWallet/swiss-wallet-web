@@ -31,7 +31,7 @@ const validationPasswordSlice = createSlice({
                 state.isEqual = state.newPassword === action.payload && action.payload !== '';
             }
         },
-        resetPassword(){
+        resetPassword() {
             return initialState
         }
     },

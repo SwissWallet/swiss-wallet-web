@@ -4,8 +4,9 @@ import { SingleProduct } from "../../components/micro-components/single-product-
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
+import { NoProducts } from "../../components/micro-components/no-products";
 
-interface productInterface{
+interface productInterface {
     id: string,
     name: string,
     value: number,
@@ -14,36 +15,28 @@ interface productInterface{
     category: string,
 }
 
-
 export function Store() {
 
-    const product = {
-        id: "",
-        name: "",
-        value: "",
-        description: "",
-        image: "data:image/jpeg;base64,",
-        category: "",
-    }
-
-    const [ productListStore, setProductListStore ] = useState([product])
+    const [productListStore, setProductListStore] = useState<productInterface[]>([])
 
     useEffect(() => {
-        async function getProductsStore(){
+        async function getProductsStore() {
             await api.get(`/v3/products/category?category=STORE`)
-            .then((json) => {
-                const data = json.data;
-                setProductListStore(data.map((item: productInterface) => ({
-                    id: item.id,
-                    name: item.name,
-                    value: item.value,
-                    description: item.description,
-                    image: `data:image/jpeg;base64,${item.image}`,
-                    category: item.category,
-                })))
-            }
-        )}
-
+                .then((json) => {
+                    const data = json.data;
+                    if (data != ""){
+                        setProductListStore(data.map((item: productInterface) => ({
+                            id: item.id,
+                            name: item.name,
+                            value: item.value,
+                            description: item.description,
+                            image: `data:image/jpeg;base64,${item.image}`,
+                            category: item.category,
+                        })))
+                    }  
+                }
+                )
+        }
         getProductsStore()
     }, [])
 
@@ -54,23 +47,27 @@ export function Store() {
                 <HeaderOnPages
                     title="Loja"
                     description="Confira nossas melhores opções de camisetas"
+                    notFilterAndOrder={true}
                 />
-                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
-
-                        {productListStore.map((product) => (
-                            <div key={product.id}>
-                                <SingleProduct
-                                    title={product.name}
-                                    description={product.description}
-                                    value={Number(product.value)}
-                                    image={product.image}
-                                    category={product.category}
-                                    id={product.id}
-                                    textOnButton={'ver mais'}
-                                />
-                            </div>
-                        ))}
-                    
+                <section className="grid grid-rows-1 grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-20 mb-20">
+                    {productListStore.length > 0 ? (
+                        productListStore.map((product) => (
+                                <div key={product.id}>
+                                    <SingleProduct
+                                        title={product.name}
+                                        description={product.description}
+                                        value={Number(product.value)}
+                                        image={product.image}
+                                        category={product.category}
+                                        id={product.id}
+                                        textOnButton={'ver mais'}
+                                    />
+                                </div>
+                        ))
+                        ) : (
+                            <NoProducts />
+                        )
+                    }
                 </section>
             </main>
             <Footer />

@@ -17,7 +17,6 @@ const UserInputChildrenVariants = tv({
     }
 })
 
-
 interface UserInputProps
     extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof UserInputChildrenVariants> {
@@ -41,7 +40,9 @@ export function UserInput({
             <div className="flex justify-end items-center text-zinc-700">
                 {isVisibleSvgIcon && (
                     <div className="absolute p-3">
-                        {svgIcon}
+                        <div className="flex">
+                            {svgIcon}
+                        </div>
                     </div>
                 )}
                 <input {...props}

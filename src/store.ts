@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from './features/register-data-user' 
+import userReducer from './features/register-data-user'
 import validationPasswordReducer from './features/register-user-password'
 import userAddressReducer from './features/register-user-address';
 import authUserReducer from './features/user-slice';
 import loginReducer from './features/login-slice';
 
 export const store = configureStore({
-    reducer:{
+    reducer: {
         user: userReducer,
         address: userAddressReducer,
         validationPassword: validationPasswordReducer,

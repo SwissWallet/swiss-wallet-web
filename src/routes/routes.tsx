@@ -13,6 +13,11 @@ import { Register } from '../pages/register';
 import { PrivateRoute } from './private-route';
 import AddProduct from '../pages/list-product';
 import AddProductPage from '../pages/app-product';
+import BuyPage from '../pages/buy-product';
+import { PaymentAdmin } from '../pages/payment-admin';
+import { ShoppingPage } from '../pages/shopping-page';
+import { BenefitUser } from '../pages/benefit-user';
+import { BenefitAdmin } from '../pages/benefit-admin';
 
 export const router = createBrowserRouter([
   {
@@ -30,9 +35,15 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/benefits",
+    path: "/benefits-user",
     element: (
-      <PrivateRoute element={<Benefits />} />
+      <PrivateRoute element={<BenefitUser />} />
+    ),
+  },
+  {
+    path: "/benefits-admin",
+    element: (
+      <PrivateRoute element={<BenefitAdmin />} />
     ),
   },
   {
@@ -72,6 +83,18 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/payment',
+    element: (
+      <PrivateRoute element={<PaymentAdmin />} />
+    ),
+  },
+  {
+    path: '/shopping',
+    element: (
+      <PrivateRoute element={<ShoppingPage />} />
+    ),
+  },
+  {
     path: '/extract',
     element: (
       <PrivateRoute element={<UserExtract />} />
@@ -87,6 +110,12 @@ export const router = createBrowserRouter([
     path: '/list-product',
     element: (
       <PrivateRoute element={<AddProduct />} />
+    ),
+  },
+  {
+    path: '/buy-product',
+    element: (
+      <PrivateRoute element={<BuyPage />} />
     ),
   },
 ]);

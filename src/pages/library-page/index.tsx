@@ -4,8 +4,9 @@ import { Navbar } from "../../components/macro-components/navbar";
 import { Footer } from "../../components/macro-components/footer";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
+import { NoProducts } from "../../components/micro-components/no-products";
 
-interface productInterface{
+interface productInterface {
     id: string,
     name: string,
     value: number,
@@ -16,32 +17,25 @@ interface productInterface{
 
 export function Library() {
 
-    const product = {
-        id: "",
-        name: "",
-        value: "",
-        description: "",
-        image: "data:image/jpeg;base64,",
-        category: "",
-    }
-
-    const [ productListLibrary, setProductListLibrary ] = useState([product]);
+    const [productListLibrary, setProductListLibrary] = useState<productInterface[]>([]);
 
     useEffect(() => {
-        async function getProductsLibrary(){
+        async function getProductsLibrary() {
             await api.get(`/v3/products/category?category=LIBRARY`)
-            .then((json) => {
-                const data = json.data;
-                setProductListLibrary(data.map((item: productInterface) => ({
-                    id: item.id,
-                    name: item.name,
-                    value: item.value,
-                    description: item.description,
-                    image: `data:image/jpeg;base64,${item.image}`,
-                    category: item.category,
-                })))
-            }
-        )}
+                .then((json) => {
+                    const data = json.data;
+                    if (data != ""){
+                        setProductListLibrary(data.map((item: productInterface) => ({
+                            id: item.id,
+                            name: item.name,
+                            value: item.value,
+                            description: item.description,
+                            image: `data:image/jpeg;base64,${item.image}`,
+                            category: item.category,
+                        })))
+                    }  
+                })
+        }
 
         getProductsLibrary();
     }, [])
@@ -54,25 +48,32 @@ export function Library() {
                 <HeaderOnPages
                     title="Biblioteca"
                     description="Confira os livros disponíveis na biblioteca"
+                    notFilterAndOrder={true}
                 />
 
-                <section className="grid grid-rows-1 grid-cols-3 gap-20 mb-20">
+                
 
-                        {productListLibrary.map((product) => (
-                            <div key={product.id}>
-                                <SingleProduct
-                                    title={product.name}
-                                    description={product.description}
-                                    value={Number(product.value)}
-                                    image={product.image}
-                                    textOnButton={'ver mais'}
-                                    category={product.category}
-                                    id={product.id}
-                                />
-                            </div>
-                        ))}
+            <section className="grid grid-rows-1 grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-20 mb-20">
+                    {productListLibrary.length > 0 ? (
+                        productListLibrary.map((product) => (
+                                <div key={product.id}>
+                                    <SingleProduct
+                                        title={product.name}
+                                        description={product.description}
+                                        value={Number(product.value)}
+                                        image={product.image}
+                                        textOnButton={'ver mais'}
+                                        category={product.category}
+                                        id={product.id}
+                                    />
+                                </div>
+                        ))) : (
+                            <NoProducts />
+                        )
+                    }
+            </section>
 
-                </section>
+                
             </main>
             <Footer />
         </div>

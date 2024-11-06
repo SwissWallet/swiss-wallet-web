@@ -2,7 +2,7 @@ import { ComponentProps, ReactNode } from "react"
 import { tv, VariantProps } from "tailwind-variants"
 
 const MainButtonVariants = tv({
-    base: 'bg-default-red py-2 rounded-md hover:bg-red-700',
+    base: 'bg-default-red py-2 rounded-md hover:bg-red-700 ',
 
     variants: {
 
@@ -28,7 +28,7 @@ export function MainButton({
 }: MainButtonProps) {
     return (
         <button {...props} className={MainButtonVariants({ width })}>
-            <span className="font-medium text-white text-lg">{children}</span>
+            <span className="font-medium text-white text-lg p-3 lg:p-3 text-center text-wrap" >{children}</span>
         </button>
 
     )

@@ -12,14 +12,14 @@ import { DeleteAccountModal } from "./delete-account-modal";
 
 export function UserAccount() {
 
-    const [ isModalPasswordOpen, setIsModalPasswordOpen ] = useState(false);
-    const [ isModalAddressOpen, setIsModalAddressOpen ] = useState(false);
-    const [ isModalDeleteAccountOpen, setIsModalDeleteAccountOpen ] = useState(false);
+    const [isModalPasswordOpen, setIsModalPasswordOpen] = useState(false);
+    const [isModalAddressOpen, setIsModalAddressOpen] = useState(false);
+    const [isModalDeleteAccountOpen, setIsModalDeleteAccountOpen] = useState(false);
 
     const openChangePasswordModal = () => {
         setIsModalPasswordOpen(true);
     }
-    
+
     const closeChangePasswordModal = () => {
         setIsModalPasswordOpen(false);
     }
@@ -39,48 +39,49 @@ export function UserAccount() {
     const closeDeleteAccountModal = () => {
         setIsModalDeleteAccountOpen(false);
     }
-    
-    const user = useSelector((state:RootState) => state.authUser.value);
+
+    const user = useSelector((state: RootState) => state.authUser.value);
     const address = user.address;
 
     return (
         <div className="bg-default-gray">
             <Navbar />
-
-            <main className="ml-20 mr-20 gap-20 flex flex-col mt-20 mb-20">
-
-                <div className="flex flex-col justify-start">
-                    <h1 className="font-bold text-4xl">Dados pessoais</h1>
-                    <p className="italic font-medium">Informações do usuário</p>
+            <main className="px-5 md:px-10 lg:px-20 flex flex-col gap-8 mt-10 mb-10">
+                
+                <div className="text-center md:text-left">
+                    <h1 className="font-bold text-2xl md:text-4xl">Dados pessoais</h1>
+                    <p className="italic font-medium text-base md:text-lg">Informações do usuário</p>
                 </div>
 
-                <section className="ml-20 mr-20">
-                    <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
+                
+
+                <section className="w-full flex flex-col items-center">
+                    <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
                         <InfoUser label="Nome" value={user.user.name} />
                         <InfoUser label="Data de nascimento" value={user.user.birthDate} />
                         <InfoUser label="CPF" value={user.user.cpf} />
                         <InfoUser label="Telefone" value={user.user.phone} />
                     </div>
                 </section>
-                
-                <section className="ml-20 mr-20">
-                    <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
-                        <div className="flex justify-end" >
+
+                <section className="w-full flex flex-col items-center">
+                    <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
+                        <div className="flex justify-end mb-4">
                             <UpdateButton onClick={openChangeAddressModal} />
                         </div>
-                        
                         <InfoUser label="CEP" value={address.zipCode} />
-                        <InfoUser label="Cidade" value={address.city}/>
+                        <InfoUser label="Cidade" value={address.city} />
                         <InfoUser label="Rua" value={address.street} />
                         <InfoUser label="UF" value={address.uf} />
-                        <InfoUser label="Number" value={'' + address.number} />
-                        
-
+                        <InfoUser label="Número" value={String(address.number)} />
                     </div>
                 </section>
-                <section className="ml-20 mr-20">
-                    <div className="flex flex-col bg-white p-5 drop-shadow-custom rounded-md">
-                        <div className="flex justify-end" >
+
+                
+
+                <section className="w-full flex flex-col items-center">
+                    <div className="flex flex-col w-full max-w-2xl bg-white p-5 drop-shadow-custom rounded-md">
+                        <div className="flex justify-end mb-4">
                             <UpdateButton onClick={openChangePasswordModal} />
                         </div>
                         <InfoUser label="E-mail" value={user.user.username} />
@@ -89,17 +90,15 @@ export function UserAccount() {
                 </section>
 
                 <section className="w-full flex justify-center">
-                    <MainButton onClick={openDeleteAccountModal}>Excluir Conta</MainButton>
+                    <MainButton onClick={openDeleteAccountModal} className="w-full max-w-xs">Excluir Conta</MainButton>
                 </section>
-
             </main>
 
             <Footer />
 
             {isModalPasswordOpen && <ChangePassworModal closeChangePasswordModal={closeChangePasswordModal} />}
             {isModalAddressOpen && <ChangeAddressModal closeChangeAddressModal={closeChangeAddressModal} />}
-            {isModalDeleteAccountOpen && <DeleteAccountModal closeDeleteAccountModal={closeDeleteAccountModal}/>}
-
+            {isModalDeleteAccountOpen && <DeleteAccountModal closeDeleteAccountModal={closeDeleteAccountModal} />}
         </div>
     )
 }

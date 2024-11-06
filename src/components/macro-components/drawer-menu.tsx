@@ -1,4 +1,17 @@
-import { Book, Coffee, Gift, Heart, House, Landmark, ShoppingBag, ShoppingBasket, ShoppingCart, User, X } from "lucide-react";
+import { 
+    Barcode, 
+    Book, 
+    Coffee, 
+    DollarSign, 
+    Gift, 
+    Heart, 
+    House, 
+    Landmark, 
+    ShoppingBag, 
+    ShoppingBasket, 
+    ShoppingCart, 
+    User, 
+    X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setLogin } from "../../features/login-slice";
@@ -41,9 +54,8 @@ export function DrawerMenu({
     const isClient = role === "ROLE_CLIENT"
 
     return (
-        <div className={`fixed z-50 p-5 bg-red-gradient h-full w-[20%] top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
+        <div className={`fixed z-50 p-5 bg-red-gradient h-full lg:w-[20%] top-0 transition duration-1000 ${isOpen ? 'right-0' : '-right-60'}`}>
             <div className="flex justify-end pb-3">
-                {/* <img className="w-60" src={logo} alt="logotipo SwissWallet" /> */}
                 <button onClick={closeSettings}>
                     <X className="size-5 text-white font-medium hover:scale-150 ease-in-out duration-300" />
                 </button>
@@ -99,7 +111,7 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
-                    <Link to={'/benefits'}>
+                    <Link className={`${isClient ? "block" : "hidden"}`} to={'/benefits-user'}>
                         <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
                             <Gift className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
@@ -107,15 +119,25 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
-                    <button className={`${isClient ? "hidden" : "block"}`} onClick={openDepositModal}>
+                    <Link className={`${isClient ? "hidden" : "block"}`} to={'/benefits-admin'}>
                         <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
-                            <Landmark className="text-white size-5 font-bold" />
+                            <Gift className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
-                                Deposito
+                                Beneficios
                             </span>
                         </div>
+                    </Link>
+                    <button onClick={openDepositModal}>
+                        <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
+                            <Landmark className="text-white size-5 font-bold" />
+                            {isClient ? (
+                                <span className="text-white font-medium">Pontos</span>
+                            ) : (
+                                <span className="text-white font-medium">Deposito</span>
+                            )}
+                        </div>
                     </button>
-                    <Link className={`${isClient ? "block" : "hidden"}`} to={'/orders'}>
+                    <Link className={`${isClient ? ("block") : ("hidden")}`} to={'/orders'}>
                         <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
                             <ShoppingCart className="text-white size-5 font-bold" />
                             <span className="text-white font-medium">
@@ -131,22 +153,30 @@ export function DrawerMenu({
                             </span>
                         </div>
                     </Link>
+                    <Link className={`${isClient ? "block" : "hidden"}`} to={'/shopping'}>
+                        <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
+                            <Barcode className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Compras
+                            </span>
+                        </div>
+                    </Link>
+                    <Link className={`${isClient ? "hidden" : "block"}`} to={'/payment'}>
+                        <div className="flex justify-center items-center space-x-2 p-3 hover:scale-110 ease-in-out duration-100">
+                            <DollarSign className="text-white size-5 font-bold" />
+                            <span className="text-white font-medium">
+                                Pagamentos
+                            </span>
+                        </div>
+                    </Link>
                 </nav>
             </div>
-
             <div className="bg-white w-full h-[1px]" />
-
             <div className="flex items-center mt-5 flex-col justify-center gap-5">
-
-                <div className="bg-gradient-to-t from-slate-700 to-black flex justify-center items-center rounded-full w-14 h-14 ">
-                    <User className="size-10 text-white" />
-                </div>
-
                 <div className="flex flex-col justify-centeritems-center">
                     <div className="flex flex-col justify-center items-center">
                         <h1 className="text-white font-medium text-base">{user.user.name}</h1>
                         <p className="text-zinc-400 font-light">{user.user.username}</p>
-
                     </div>
                     <button onClick={logoutUser}>
                         <div>
@@ -154,11 +184,8 @@ export function DrawerMenu({
                         </div>
                     </button>
                 </div>
-
             </div>
-
             {isOpenDepositModal && <DepositModal closeDepositModal={closeDepositModal} />}
-
         </div>
     )
 }
