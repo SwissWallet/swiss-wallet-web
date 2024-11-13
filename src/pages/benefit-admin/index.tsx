@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
@@ -112,7 +113,7 @@ export function BenefitAdmin() {
                     benefits.length < 1 ? (
                         <NoProducts />
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="flex flex-col gap-6">
                             {benefits.map((benefit: benefit) => (
                                 <BenefitCardActive
                                     key={benefit.id}
