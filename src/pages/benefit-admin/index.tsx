@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
@@ -53,12 +52,12 @@ export function BenefitAdmin() {
                 status: benefit.status,
                 dateTime: benefit.dateTime,
                 benefitActive: {
-                    id: benefit.benefitActive.id,
-                    title: benefit.benefitActive.title,
-                    description: benefit.benefitActive.description
+                    id: benefit.benefitActive!.id,
+                    title: benefit.benefitActive!.title,
+                    description: benefit.benefitActive!.description
                 },
                 user: {
-                    name: benefit.user.name, 
+                    name: benefit.user!.name, 
                 }
             }))) 
         })
@@ -98,10 +97,11 @@ export function BenefitAdmin() {
                                 <BenefitCardRequests
                                     key={benefit.id}
                                     id={benefit.id}
-                                    description={benefit.benefitActive.description}
-                                    title={benefit.benefitActive.title}
-                                    dateTime={benefit.dateTime}
-                                    name={benefit.user?.name}
+                                    description={benefit.benefitActive!.description}
+                                    title={benefit.benefitActive!.title}
+                                    dateTime={benefit.dateTime || ""}
+                                    name={benefit.user?.name || ""}
+                                    getRequests={getRequests}
                                     status={
                                         benefit.status === "SENT" ? "ENVIADO" :
                                         benefit.status === "NOT_APPROVED" ? "NÃO APROVADO" : "APROVADO"

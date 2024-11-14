@@ -5,11 +5,12 @@ import { ChangedStatusModal } from "./changed-status-modal";
 
 interface BenefitCardRequestsProps {
   id: string;
+  name: string;
   title: string;
-  description: string;
   status: string;
   dateTime: string;
-  name: string;
+  description: string;
+  getRequests: () => void;
 }
 
 export function BenefitCardRequests({
@@ -18,6 +19,7 @@ export function BenefitCardRequests({
   title,
   status,
   dateTime,
+  getRequests,
   description,
 }: BenefitCardRequestsProps) {
 
@@ -29,12 +31,13 @@ export function BenefitCardRequests({
       idBenefit: id,
       status: cStatus
     })
-    .then(() => setIsOpenChangedStatus(false))
     .catch((err) => console.log("error: \n", err))
   };
 
   useEffect(() => {
     changedStatusBenefit();
+    getRequests();
+    setIsOpenChangedStatus(false);
   }, [cStatus]);
 
   return (
