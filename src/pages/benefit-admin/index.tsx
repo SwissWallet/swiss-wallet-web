@@ -97,6 +97,7 @@ export function BenefitAdmin() {
                             {benefitsRequests.map((benefit: benefit) => (
                                 <BenefitCardRequests
                                     key={benefit.id}
+                                    id={benefit.id}
                                     description={benefit.benefitActive.description}
                                     title={benefit.benefitActive.title}
                                     dateTime={benefit.dateTime}
