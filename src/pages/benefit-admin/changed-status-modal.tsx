@@ -1,26 +1,22 @@
 import { useState } from "react";
 import { BackButton } from "../../components/micro-components/back-button";
-import { api } from "../../lib/axios";
 import { ApprovedModal } from "./approved-modal";
 
 interface ModalProps{
     setCStatus: (status: string) => void;
     setIsOpenChangedStatus: (e: boolean) => void;
+    idBenefit: string;
+    userId: string;
 }
 
 export function ChangedStatusModal({
     setCStatus,
     setIsOpenChangedStatus,
+    idBenefit,
+    userId,
 }: ModalProps){
 
     const [ isOpenApproveddModal, setIsOpenApprovedModal ] = useState<boolean>(false);
-
-    const handdleClickApproved = () => {
-        setIsOpenApprovedModal(true);
-    };
-
-
-
 
     return(
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -28,7 +24,7 @@ export function ChangedStatusModal({
                 <BackButton type="button" onClick={() => setIsOpenChangedStatus(false)}/>
                 <h1 className="text-2xl font-medium">Altere o status</h1>
                 
-                <button onClick={handdleClickApproved}>
+                <button onClick={() => setIsOpenApprovedModal(true)}>
                     <h2>APROVADO</h2> 
                 </button>
                 <button onClick={() => setCStatus("NOT_APPROVED")}>
@@ -38,7 +34,12 @@ export function ChangedStatusModal({
             </div>
 
             {isOpenApproveddModal && (
-                <ApprovedModal />
+                <ApprovedModal 
+                    idBenefit={idBenefit}
+                    setCStatus={setCStatus}
+                    setIsOpenApprovedModal={setIsOpenApprovedModal}
+                    userId={Number(userId)}
+                />
             )}
         </div>
     )

@@ -21,6 +21,7 @@ interface benefit {
       description: string;
     };
     user?: {
+        id: string;
         name: string;
     }
 }
@@ -57,6 +58,7 @@ export function BenefitAdmin() {
                     description: benefit.benefitActive!.description
                 },
                 user: {
+                    id: benefit.user!.id,
                     name: benefit.user!.name, 
                 }
             }))) 
@@ -96,7 +98,9 @@ export function BenefitAdmin() {
                             {benefitsRequests.map((benefit: benefit) => (
                                 <BenefitCardRequests
                                     key={benefit.id}
-                                    id={benefit.id}
+                                    userId={benefit.user!.id}
+                                    id={benefit.benefitActive!.id}
+                                    idReq={benefit.id}
                                     description={benefit.benefitActive!.description}
                                     title={benefit.benefitActive!.title}
                                     dateTime={benefit.dateTime || ""}
