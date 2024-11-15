@@ -5,6 +5,8 @@ import { ChangedStatusModal } from "./changed-status-modal";
 
 interface BenefitCardRequestsProps {
   id: string;
+  idReq: string;
+  userId: string;
   name: string;
   title: string;
   status: string;
@@ -15,12 +17,14 @@ interface BenefitCardRequestsProps {
 
 export function BenefitCardRequests({
   id,
+  idReq,
   name,
   title,
   status,
   dateTime,
   getRequests,
   description,
+  userId,
 }: BenefitCardRequestsProps) {
 
   const [ cStatus, setCStatus ] = useState(status);
@@ -28,7 +32,7 @@ export function BenefitCardRequests({
 
   async function changedStatusBenefit() {
     await api.put(`/v3/benefit/requests`, {
-      idBenefit: id,
+      idBenefit: idReq,
       status: cStatus
     })
     .catch((err) => console.log("error: \n", err))
@@ -65,6 +69,8 @@ export function BenefitCardRequests({
         <ChangedStatusModal 
           setCStatus={setCStatus}
           setIsOpenChangedStatus={setIsOpenChangedStatus}
+          idBenefit={id}
+          userId={userId}
         />
       )}
     </section>
