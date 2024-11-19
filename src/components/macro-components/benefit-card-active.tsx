@@ -27,7 +27,7 @@ export function BenefitCardActive({
   async function delBenefit(id: string) {
     await api
       .delete(`/v3/benefit/actives/${id}`)
-      .then(() => getBenefits())
+      .then(() => getBenefits!())
       .catch((err) => console.log("error \n", err))
   };
 
@@ -36,7 +36,7 @@ export function BenefitCardActive({
       .post(`/v3/benefit/requests`, {
         idBenefit: id,
       })
-      .then(() => getBenefit())
+      .then(() => getBenefit!())
       .catch((err) => console.log(err));
   }
 

@@ -24,7 +24,7 @@ interface benefit {
         id: string;
         name: string;
     }
-}
+};
 
 export function BenefitAdmin() {
     const [benefits, setBenefits] = useState<benefit[]>([]);
