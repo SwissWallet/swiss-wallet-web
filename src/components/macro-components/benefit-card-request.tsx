@@ -6,7 +6,7 @@ interface BenefitCardActiveProps{
     dateTime: string;
     benefitId: string;
     benefitTitle: string;
-    deleteRequest: (id: string) => [];
+    deleteRequest: (id: string) => void;
     benefitDescription: string;
 }
 

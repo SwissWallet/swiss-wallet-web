@@ -26,25 +26,9 @@ interface benefit {
     }
 };
 
-interface ActivesProperties {
-    id: string;
-    user: {
-        id: string;
-        name: string;
-    },
-    value: number;
-    expireDate: string;
-    benefitActive: {
-        id: string;
-        title: string;
-        description: string;
-    },
-};
-
 export function BenefitAdmin() {
     const [benefits, setBenefits] = useState<benefit[]>([]);
     const [benefitsRequests, setBenefitsRequests] = useState<benefit[]>([]);
-    const [actives, setActives] = useState<ActivesProperties[]>([]);
     const [isOpenRegisterModal, setIsOpenRegisterModal] = useState<boolean>(false);
     const [isOpenRequests, setIsOpenRequests] = useState<boolean>(false);
 
@@ -81,31 +65,9 @@ export function BenefitAdmin() {
         })
     };
 
-    async function getActives(){
-        api.get(`/v3/benefits/current`)
-        .then((json) => {
-            const data = json.data;
-            setActives(data.map((benefit: ActivesProperties) => ({
-                id: benefit.id,
-                user: {
-                    id: benefit.user.id,
-                    name: benefit.user.name
-                },
-                value: benefit.value,
-                expireDate: benefit.expireDate,
-                benefitActive: {
-                    id: benefit.benefitActive.id,
-                    title: benefit.benefitActive.title,
-                    description: benefit.benefitActive.description
-                }
-            })))
-        })
-    };
-
     useEffect(() => {
         getBenefits();
         getRequests();
-        getActives();
     }, []);
 
     return (
