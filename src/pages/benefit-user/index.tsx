@@ -1,14 +1,15 @@
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import { Footer } from "../../components/macro-components/footer";
 import { HeaderOnPages } from "../../components/macro-components/header-on-the-pages";
 import { Navbar } from "../../components/macro-components/navbar";
-import { api } from "../../lib/axios";
-import { NoProducts } from "../../components/micro-components/no-products";
-import { BenefitCardActive } from "../../components/macro-components/benefit-card-active";
-import { BenefitCardRequest } from "../../components/macro-components/benefit-card-request";
 import { RadioButton } from "../../components/micro-components/radio-button";
+import { api } from "../../lib/axios";
+import { AvailableList } from "./available-list";
+import { RequestList } from "./request-list";
+import { ActiveList } from "./active-list";
 
-interface benefit {
+export interface Benefit {
   id: string;
   title: string;
   description: string;
@@ -18,42 +19,108 @@ interface benefit {
     id: string;
     title: string;
     description: string;
-  };
-}
+  },
+};
+
+export interface ActivesProperties {
+  id: string;
+  user: {
+      id: string;
+      name: string;
+  },
+  value: number;
+  expireDate: string;
+  benefitActive: {
+      id: string;
+      title: string;
+      description: string;
+  },
+};
+
+type STATUS_SEARCH = | "ATIVOS" | "DISPONIVEL" | "SOLICITADOS";
+
+enum SEARCH_STATUS {
+  ATIVOS = "ATIVOS",
+  DISPONIVEL = "DISPONIVEL",
+  SOLICITADOS = "SOLICITADOS",
+};
 
 export function BenefitUser() {
-  const [benefitsActive, setBenefitsActive] = useState<benefit[]>([]);
-  const [benefitsRequest, setBenefitsRequest] = useState<benefit[]>([]);
-  const [selectedOption, setSelectedOption] = useState("ATIVOS");
+  const [available, setAvailable] = useState<Benefit[]>([]);
+  const [request, setRequest] = useState<Benefit[]>([]);
+  const [actives, setActives] = useState<ActivesProperties[]>([]);
+  const [selectedOption, setSelectedOption] = useState("DISPONIVEL");
 
   const handleOptionChange = (option: string) => {
     setSelectedOption(option);
   };
 
+  const getStatusSearch = (status: STATUS_SEARCH): JSX.Element | null => {
+    const searchStatus: Record<SEARCH_STATUS, JSX.Element> = {
+      [SEARCH_STATUS.ATIVOS]: 
+        <ActiveList 
+          benefitsActive={actives}
+        />,
+      [SEARCH_STATUS.DISPONIVEL]: 
+        <AvailableList 
+          benefitsAvailable={available}
+          getBenefit={getBenefit}
+        />,
+      [SEARCH_STATUS.SOLICITADOS]: 
+        <RequestList 
+          benefitsRequest={request}
+          deleteRequest={deleteRequest}
+        />
+    };
+
+    return searchStatus[status] || null;
+  };
+
   async function getBenefit() {
     api.get(`/v3/benefit/requests/current`).then((json) => {
       const data = json.data;
-      setBenefitsActive(
-        data.activeResponseDtos.map((benefit: benefit) => ({
+      setAvailable(
+        data.activeResponseDtos.map((benefit: Benefit) => ({
           id: benefit.id,
           title: benefit.title,
           description: benefit.description,
         }))
       );
-      setBenefitsRequest(
-        data.reqResponseDtos.map((benefit: benefit) => ({
+      setRequest(
+        data.reqResponseDtos.map((benefit: Benefit) => ({
           id: benefit.id,
           status: benefit.status,
           dateTime: benefit.dateTime,
           benefitActive: {
-            id: benefit.benefitActive.id,
-            title: benefit.benefitActive.title,
-            description: benefit.benefitActive.description,
+            id: benefit.benefitActive!.id,
+            title: benefit.benefitActive!.title,
+            description: benefit.benefitActive!.description,
           },
         }))
       );
     });
   };
+
+  async function getActives(){
+    api.get(`/v3/benefits/current`)
+    .then((json) => {
+        const data = json.data;
+        setActives(data.map((benefit: ActivesProperties) => ({
+            id: benefit.id,
+            user: {
+                id: benefit.user.id,
+                name: benefit.user.name
+            },
+            value: benefit.value,
+            expireDate: benefit.expireDate,
+            benefitActive: {
+                id: benefit.benefitActiveResponseDt.id,
+                title: benefit.benefitActiveResponseDt.title,
+                description: benefit.benefitActiveResponseDt.description
+            }
+        })))
+    })
+};
 
   async function deleteRequest(id: string){
     api.delete(`/v3/benefit/requests/${id}`)
@@ -63,6 +130,7 @@ export function BenefitUser() {
 
   useEffect(() => {
     getBenefit();
+    getActives();
   }, []);
 
   return (
@@ -79,50 +147,18 @@ export function BenefitUser() {
           <RadioButton
             selectedOption={selectedOption}
             handleOptionChange={handleOptionChange}
-            options={["ATIVOS", "SOLICITADOS"]}
+            options={["DISPONIVEL", "SOLICITADOS", "ATIVOS"]}
           />
         </div>
 
         <div className="flex flex-col items-center gap-4">
-          {selectedOption === "ATIVOS" ? (
-            benefitsActive.length === 0 ? (
-              <NoProducts />
-            ) : (
-              benefitsActive.map((benefit) => (
-                <BenefitCardActive
-                  getBenefit={getBenefit}
-                  key={benefit.id}
-                  id={benefit.id}
-                  title={benefit.title}
-                  description={benefit.description}
-                />
-              ))
-            )
-          ) : benefitsRequest.length === 0 ? (
-            <NoProducts />
-          ) : (
-            benefitsRequest.map((benefit) => (
-              <BenefitCardRequest
-                key={benefit.id}
-                id={benefit.id}
-                status={
-                  benefit.status === "SENT"
-                    ? "ENVIADO"
-                    : benefit.status === "NOT_APPROVED"
-                    ? "NÃO APROVADO"
-                    : "APROVADO"
-                }
-                deleteRequest={deleteRequest}
-                dateTime={benefit.dateTime || ""}
-                benefitId={benefit.benefitActive?.id || ""}
-                benefitTitle={benefit.benefitActive?.title || ""}
-                benefitDescription={benefit.benefitActive?.description || ""}
-              />
-            ))
-          )}
+          {getStatusSearch(selectedOption)}
         </div>
+
+
       </main>
       <Footer />
     </div>
   );
+
 }

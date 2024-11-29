@@ -43,18 +43,19 @@ export function SingleProduct({
                 <img src={image} className="w-[309px] h-[407px]" alt={title} />
                 <article className="bg-black text-white p-4 rounded-lg gap-4 flex flex-col lg:w-[320px] w-full -mt-16 md:-mt-36 px-10">
                     <div className="flex flex-col gap-1">
-                        <h4 className="text-xl font-semibold">{title}</h4>
-                        <p className="text-sm font-extralight">{description}</p>
+                        <h4 className="text-xl font-semibold whitespace-nowrap overflow-hidden text-ellipsis">{title}</h4>
+                        <p className="text-sm font-extralight whitespace-nowrap overflow-hidden text-ellipsis">{description}</p>
                     </div>
-                    <div className="flex justify-between gap-10 w-full flex-col lg:flex-row">
+                    <div className="flex justify-between items-center gap-10 w-full flex-col lg:flex-row">
                         <h4 className="font-extrabold text-4xl mt-">{value}<span className="text-sm ml-1">pontos</span></h4>
 
                         {textOnButton === "Remover" ? 
                             
-                            (
+                            (   
                                 <MainButton onClick={() => setRemoveFavoritesModal(true)} width="min" >
                                     {textOnButton}
                                 </MainButton>
+                                
                             ) : (
                                 <MainButton onClick={openCardProduct} width="min" >
                                     {textOnButton}

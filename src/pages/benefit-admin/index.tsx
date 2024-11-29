@@ -21,9 +21,10 @@ interface benefit {
       description: string;
     };
     user?: {
+        id: string;
         name: string;
     }
-}
+};
 
 export function BenefitAdmin() {
     const [benefits, setBenefits] = useState<benefit[]>([]);
@@ -52,12 +53,13 @@ export function BenefitAdmin() {
                 status: benefit.status,
                 dateTime: benefit.dateTime,
                 benefitActive: {
-                    id: benefit.benefitActive.id,
-                    title: benefit.benefitActive.title,
-                    description: benefit.benefitActive.description
+                    id: benefit.benefitActive!.id,
+                    title: benefit.benefitActive!.title,
+                    description: benefit.benefitActive!.description
                 },
                 user: {
-                    name: benefit.user.name, 
+                    id: benefit.user!.id,
+                    name: benefit.user!.name, 
                 }
             }))) 
         })
@@ -96,10 +98,14 @@ export function BenefitAdmin() {
                             {benefitsRequests.map((benefit: benefit) => (
                                 <BenefitCardRequests
                                     key={benefit.id}
-                                    description={benefit.benefitActive.description}
-                                    title={benefit.benefitActive.title}
-                                    dateTime={benefit.dateTime}
-                                    name={benefit.user?.name}
+                                    userId={benefit.user!.id}
+                                    id={benefit.benefitActive!.id}
+                                    idReq={benefit.id}
+                                    description={benefit.benefitActive!.description}
+                                    title={benefit.benefitActive!.title}
+                                    dateTime={benefit.dateTime || ""}
+                                    name={benefit.user?.name || ""}
+                                    getRequests={getRequests}
                                     status={
                                         benefit.status === "SENT" ? "ENVIADO" :
                                         benefit.status === "NOT_APPROVED" ? "NÃO APROVADO" : "APROVADO"
@@ -112,7 +118,7 @@ export function BenefitAdmin() {
                     benefits.length < 1 ? (
                         <NoProducts />
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="flex flex-col gap-6">
                             {benefits.map((benefit: benefit) => (
                                 <BenefitCardActive
                                     key={benefit.id}
